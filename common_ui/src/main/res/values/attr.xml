@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AutoTextView">
+        <attr name="autoTextColor" format="color" />
+        <attr name="autoTextSize" format="integer" />
+    </declare-styleable>
+</resources>

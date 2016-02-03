@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2007-2008 Esmertec AG.
+ * Copyright (C) 2007-2008 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+
+    <color name="sh_main">#e2e2e3</color>
+
+    <drawable name="sh_main">#e2e2e3</drawable>
+    <drawable name="white">#FFFFFF</drawable>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_90_transparent">#E5FFFFFF</color>
+    <color name="white_80_transparent">#CCFFFFFF</color>
+    <color name="white_75_transparent">#C0FFFFFF</color>
+    <color name="white_60_transparent">#A0FFFFFF</color>
+    <color name="white_50_transparent">#80FFFFFF</color>
+    <color name="white_40_transparent">#60FFFFFF</color>
+    <color name="white_30_transparent">#40FFFFFF</color>
+    <color name="white_20_transparent">#30FFFFFF</color>
+    <color name="black_90_transparent">#E6000000</color>
+    <color name="black_80_transparent">#CC000000</color>
+    <color name="black_75_transparent">#C0000000</color>
+    <color name="black_50_transparent">#80000000</color>
+    <color name="black_60_transparent">#A0000000</color>
+    <color name="black_30_transparent">#60000000</color>
+    <color name="black_20_transparent">#30000000</color>
+    <color name="black_10_transparent">#1A000000</color>
+    <color name="black_40_transparent">#66000000</color>
+    <color name="black_00_transparent">#00000000</color>
+    <color name="black_03_transparent">#08000000</color>
+    <color name="black">#000000</color>
+    <color name="class_A">#FFFFFF</color>
+    <color name="class_B">#000000</color>
+    <color name="class_C">#4D4D4D</color>
+    <color name="class_D">#999999</color>
+    <color name="class_E">#BFBFBF</color>
+    <color name="class_F">#F3F3F3</color>
+    <color name="class_G">#7d7d7d</color>
+    <color name="class_J">#FC4949</color>
+    <color name="class_K">#16A7FA</color>
+    <color name="class_L">#5ead2f</color>
+    <color name="class_H">#3e85dc</color>
+    <color name="class_M">#CCCCCC</color>
+    <color name="class_N">#3eb4cf</color>
+    <color name="class_O">#eaeaea</color>
+    <color name="class_P">#606060</color>
+    <color name="class_Q">#008AE5</color>
+    <color name="class_R">#d7d7d7</color>
+    <color name="class_S">#3fb57d</color>
+    <color name="class_T">#f8f8f8</color>
+    <color name="class_U">#dfdfdf</color>
+    <color name="class_V">#333333</color>
+    <color name="class_W">#969696</color>
+    <color name="class_X">#737373</color>
+    <color name="class_text_1">#1a1a1a</color>
+    <color name="class_text_2">#555555</color>
+    <color name="class_text_3">#999999</color>
+    <color name="class_text_4">#bfbfbf</color>
+    <color name="class_text_5">#22d2e9</color>
+    <color name="class_text_6">#ffffff</color>
+    <color name="class_text_7">#ff7700</color>
+    <color name="class_text_8">#404040</color>
+    <color name="class_text_9">#155ba0</color>
+    <color name="class_text_10">#323232</color>
+    <color name="class_text_11">#adadad</color>
+    <color name="class_text_12">#606060</color>
+    <color name="class_text_13">#9c9c9c</color>
+    <color name="class_text_14">#5ead2f</color>
+    <color name="class_text_15">#858585</color>
+    <color name="class_text_16">#aeaeae</color>
+    <color name="class_text_17">#1dc58a</color>
+    <color name="class_text_18">#5f5f5f</color>
+    <color name="class_text_19">#7c7c7c</color>
+    <color name="class_text_20">#232323</color>
+    <color name="class_text_21">#4a4a4a</color>
+    <color name="class_text_22">#c7c7c7</color>
+    <color name="class_text_23">#9e9e9e</color>
+    <color name="class_text_24">#0095f3</color>
+    <color name="class_text_trans_80">#ccffffff</color>
+    <color name="class_text_trans_40">#66ffffff</color>
+    <color name="class_A_80_trans">#80ffffff</color>
+    <color name="class_A_75_trans">#C0ffffff</color>
+    <color name="class_A_60_trans">#AAffffff</color>
+    <color name="class_A_50_trans">#7fffffff</color>
+    <color name="class_A_30_trans">#4bffffff</color>
+    <color name="class_A_20_trans">#32ffffff</color>
+    <color name="class_A_10_trans">#19ffffff</color>
+    <color name="class_B_75_trans">#C0333333</color>
+    <color name="class_B_15_trans">#27333333</color>
+    <color name="class_O_75_trans">#C0000000</color>
+    <color name="class_O_90_trans">#E6000000</color>
+    <color name="class_D_50_trans">#7f999999</color>
+    <color name="class_E_50_trans">#7faaaaaa</color>
+    <color name="class_L_30_trans">#4B2288DD</color>
+    <color name="class_P_50_trans">#7f606060</color>
+
+    <drawable name="transparent">#00ffffff</drawable>
+
+    <color name="transparent">#00000000</color>
+    <color name="title_bar_text_color">#cc000000</color>
+    <color name="title_bar_text_color_white">#FFFFFFFF</color>
+    <color name="title_bar_text_color_black">#FF000000</color>
+    <color name="sub_title_bar_text_color">#80000000</color>
+    <color name="sub_title_bar_text_color_white">#80FFFFFF</color>
+
+    <drawable name="common_list_item_pressed">#ff3fb57d</drawable>
+
+    <color name="list_bg_line">#ffc0c0c1</color>
+    <color name="list_bg_color">#ffefeff0</color>
+    <color name="common_white_list_bg_pressed_color">#efeff0</color>
+    <color name="divider_line_color">#e0e0e0</color>
+    <!-- setting color start -->
+    <color name="setting_item_title_text_color">#c1c1c1</color>
+    <color name="setting_item_detail_text_color">#333333</color>
+    
+     <!-- dialog -->
+    <color name="dialog_bg">#fff8f8f8</color>
+    <color name="dialog_title_txt_color">#cc000000</color>
+    <color name="dialog_sub_title_txt_color">#80000000</color>
+    
+    <color name="dialog_muenu_bg">#f5ffffff</color>
+
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/alertdialog_item_height"
+    android:background="@drawable/common_menu_list_bg"
+    android:checkMark="@drawable/common_check_icon"
+    android:ellipsize="marquee"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/listitem_2_padding_left"
+    android:paddingRight="@dimen/listitem_2_padding_right"
+    android:textColor="@color/class_b_to_white_color"
+    android:textSize="@dimen/font_size_4" />

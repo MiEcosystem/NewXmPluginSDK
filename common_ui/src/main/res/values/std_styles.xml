@@ -1,0 +1,59 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- std_word -->
+     <style name="std_word_001">
+        <item name="android:textSize">@dimen/std_word_001</item>
+        <item name="android:textColor">@color/std_word_001</item>
+    </style>
+
+    <style name="std_word_001_white">
+        <item name="android:textSize">@dimen/std_word_001</item>
+        <item name="android:textColor">@color/std_word_001_white</item>
+    </style>
+
+    <style name="std_word_002">
+        <item name="android:textSize">@dimen/std_word_002</item>
+        <item name="android:textColor">@color/std_word_002</item>
+    </style>
+
+    <style name="std_word_003">
+        <item name="android:textSize">@dimen/std_word_003</item>
+        <item name="android:textColor">@color/std_word_003</item>
+    </style>
+
+    <style name="std_word_004">
+        <item name="android:textSize">@dimen/std_word_004</item>
+        <item name="android:textColor">@color/std_word_004</item>
+    </style>
+
+    <style name="std_word_005">
+        <item name="android:textSize">@dimen/std_word_005</item>
+        <item name="android:textColor">@color/std_word_005</item>
+    </style>
+
+    <style name="std_word_006">
+        <item name="android:textSize">@dimen/std_word_006</item>
+        <item name="android:textColor">@color/std_word_006</item>
+    </style>
+
+    <style name="std_word_007">
+        <item name="android:textSize">@dimen/std_word_007</item>
+        <item name="android:textColor">@color/std_word_007</item>
+    </style>
+
+    <style name="std_word_008">
+        <item name="android:textSize">@dimen/std_word_008</item>
+        <item name="android:textColor">@color/std_word_008</item>
+    </style>
+
+    <style name="std_word_009">
+        <item name="android:textSize">@dimen/std_word_009</item>
+        <item name="android:textColor">@color/std_word_009</item>
+    </style>
+
+    <style name="std_word_010">
+        <item name="android:textSize">@dimen/std_word_010</item>
+        <item name="android:textColor">@color/std_word_010</item>
+    </style>
+
+</resources>

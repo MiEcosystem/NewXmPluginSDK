@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dialog_bg"
+        android:minHeight="76dip"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="13dp"
+            android:layout_marginTop="@dimen/alertdialog_top_indent"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/progress_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dialog_sub_title_txt_color"
+                android:textSize="@dimen/font_size_5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/dialog_sub_title_txt_color"
+                android:text="@string/progress_dialog_already"
+                android:textSize="@dimen/font_size_5" />
+            
+            <TextView
+                android:id="@+id/progress_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ff3fb57d"
+                android:textSize="@dimen/font_size_5" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/alertdialog_top_indent"
+            android:layout_marginLeft="@dimen/alertdialog_button_panel_padding_horizontal"
+            android:layout_marginRight="@dimen/alertdialog_button_panel_padding_horizontal"
+            android:progressDrawable="@drawable/common_progress_dialog_progressbar_bg" />
+
+        <!-- <LinearLayout -->
+        <!-- android:layout_width="wrap_content" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:orientation="horizontal" -->
+        <!-- android:layout_marginTop="7dp" -->
+        <!-- android:layout_marginBottom="@dimen/alertdialog_top_indent"> -->
+
+
+        <!-- <View -->
+        <!-- android:layout_width="0dp" -->
+        <!-- android:layout_height="1dp" -->
+        <!-- android:layout_weight="1" /> -->
+
+
+        <!-- <TextView -->
+        <!-- android:id="@+id/progress_number" -->
+        <!-- android:layout_width="wrap_content" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:layout_marginRight="30dp" -->
+        <!-- android:textColor="#969696" -->
+        <!-- android:textSize="@dimen/font_size_6" -->
+        <!-- android:visibility="invisible" /> -->
+        <!-- </LinearLayout> -->
+    </LinearLayout>
+
+</LinearLayout>

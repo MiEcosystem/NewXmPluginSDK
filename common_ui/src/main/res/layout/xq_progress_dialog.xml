@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="67dip"
+        android:background="@color/dialog_bg"
+        android:orientation="horizontal">
+        <FrameLayout android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="@dimen/alertdialog_button_panel_padding_horizontal">
+            <ProgressBar
+                android:id="@+id/indeterminate_progress"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_gravity="center_vertical"
+                style="@style/circle_progressbar_large" />
+            <com.xiaomi.smarthome.common.ui.widget.CustomCircleProgressBar
+                android:id="@+id/determinate_progress"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/common_processing_circle" />
+        </FrameLayout>
+        <TextView
+            android:id="@+id/progress_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dialog_title_txt_color"
+            android:layout_marginLeft="13dip"
+            android:textSize="@dimen/font_size_4"
+            android:layout_gravity="center_vertical" />
+        <TextView
+            android:id="@+id/progress_percent"
+            android:layout_width="0dip"
+            android:layout_height="40dip"
+            android:layout_weight="1"
+            android:textColor="@color/class_B"
+            android:textSize="@dimen/font_size_5"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dip"
+            android:layout_gravity="center_vertical" />
+        <TextView
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/alertdialog_button_panel_padding_horizontal"
+            android:paddingLeft="13dip"
+            android:paddingRight="13dip"
+            android:layout_gravity="center_vertical|right"
+            android:gravity="center"
+            android:background="@drawable/common_list_btn"
+            android:text="@string/cancel"
+            android:textColor="@color/common_button"
+            android:textSize="@dimen/font_size_5"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

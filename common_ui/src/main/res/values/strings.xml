@@ -1,0 +1,24 @@
+<resources>
+
+    <string name="app_name">com.xiaomi.common</string>
+    
+   <string name="pull_down_refresh">下拉刷新</string>
+    <string name="release_to_refresh">松开刷新</string>
+    <string name="refreshing">载入中…</string>
+    <string name="refreshing_no_point">载入中</string>
+    <string name="refreshing_retry">加载失败，重试？</string>
+    <string name="ok_button">确定</string>
+    <string name="know_button">我知道了</string>
+    <string name="ignore">忽略</string>
+    <string name="cancel">取消</string>
+    <string name="setting_title">设置</string>
+    <!-- time/date picker -->
+    <string name="picker_hour">时</string>
+    <string name="picker_minite">分</string>
+    <string name="picker_year">年</string>
+    <string name="picker_month">月</string>
+    <string name="picker_day">日</string>
+    
+     <string name="progress_dialog_already">已完成</string>
+    
+</resources>

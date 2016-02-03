@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+     <!-- std font size -->
+     <dimen name="std_word_001">15sp</dimen>
+     <dimen name="std_word_002">14sp</dimen>
+     <dimen name="std_word_003">13sp</dimen>
+     <dimen name="std_word_004">13sp</dimen>
+     <dimen name="std_word_005">13sp</dimen>
+     <dimen name="std_word_006">12sp</dimen>
+     <dimen name="std_word_007">12sp</dimen>
+     <dimen name="std_word_008">13sp</dimen>
+     <dimen name="std_word_009">14sp</dimen>
+     <dimen name="std_word_010">10sp</dimen>
+</resources>

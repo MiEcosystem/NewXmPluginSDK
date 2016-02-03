@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentPanel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@color/dialog_bg"
+    android:layoutAnimation="@anim/v5_dialog_layout_anim"
+    android:orientation="vertical" >
+
+      <View
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/alertdialog_top_indent" />
+      
+    <LinearLayout
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/alertdialog_top_panel_margin_bottom"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/alertdialog_top_panel_padding"
+        android:paddingRight="@dimen/alertdialog_top_panel_padding" >
+
+        <LinearLayout
+            android:id="@+id/title_template"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dip"
+                android:src="@null"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/alertTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/dialog_title_txt_color"
+                android:textSize="@dimen/font_size_4" />
+        </LinearLayout>
+        <!-- If the client uses a customTitle, it will be added here. -->
+    </LinearLayout>
+
+    <View
+        android:id="@+id/title_divider_line"
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:background="@android:drawable/divider_horizontal_bright" />
+
+    <LinearLayout
+        android:id="@+id/contentPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/alertdialog_content_panel_margin_bottom"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false" >
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="@dimen/alertdialog_content_panel_message_padding"
+                android:paddingRight="@dimen/alertdialog_content_panel_message_padding"
+                android:textColor="@color/dialog_sub_title_txt_color"
+                android:textSize="@dimen/alertdialog_message_text_size" />
+        </ScrollView>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/customPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <FrameLayout
+            android:id="@+id/custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+      <View
+        android:id="@+id/title_divider_line_bottom"
+        android:layout_marginBottom="@dimen/alertdialog_content_panel_margin_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@drawable/std_dialog_line" />
+      
+    <LinearLayout
+        android:id="@+id/buttonPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/alertdialog_button_panel_padding_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/alertdialog_button_panel_padding_horizontal"
+        android:paddingRight="@dimen/alertdialog_button_panel_padding_horizontal" >
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dip"
+            android:layout_height="40.33dp"
+            android:layout_weight="1"
+            android:background="@drawable/common_btn_left"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/common_button"
+            android:textSize="@dimen/font_size_13sp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dip"
+            android:layout_height="40.33dp"
+            android:layout_weight="1"
+            android:background="@drawable/common_button"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/common_button"
+            android:textSize="@dimen/font_size_13sp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dip"
+            android:layout_height="40.33dp"
+            android:layout_weight="1"
+            android:background="@drawable/common_btn_right"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/common_button"
+            android:textSize="@dimen/font_size_13sp" />
+    </LinearLayout>
+
+</LinearLayout>

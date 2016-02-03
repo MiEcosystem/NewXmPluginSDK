@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/titlebar_height" >
+
+    <ImageView
+        android:id="@+id/title_bar_return"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|center_vertical"
+        android:paddingLeft="@dimen/std_titlebar_margin_left_right"
+        android:paddingRight="@dimen/std_titlebar_margin_left_right"
+        android:scaleType="center"
+        android:src="@drawable/std_tittlebar_main_device_back_white" />
+
+    <TextView
+        android:id="@+id/title_bar_title"
+        style="@style/std_word_001"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/titlebar_return_area_size"
+        android:layout_marginRight="@dimen/titlebar_return_area_size"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/sub_title_bar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/std_titlebar_sub_title_margin_bottom"
+        android:layout_marginLeft="@dimen/titlebar_return_area_size"
+        android:layout_marginRight="@dimen/titlebar_return_area_size"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/sub_title_bar_text_color_white"
+        android:textSize="@dimen/sub_title_bar_text_size" />
+
+    <ImageView
+        android:id="@+id/title_bar_more"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right|center_vertical"
+        android:paddingLeft="@dimen/std_titlebar_margin_left_right"
+        android:paddingRight="@dimen/std_titlebar_margin_left_right"
+        android:scaleType="center"
+        android:src="@drawable/std_tittlebar_main_device_more_white" />
+
+    <ImageView
+        android:id="@+id/title_bar_redpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="@dimen/std_titlebar_redpoint_margin_right"
+        android:layout_marginTop="@dimen/std_titlebar_redpoint_margin_top"
+        android:scaleType="center"
+        android:src="@drawable/std_tittlebar_main_device_massage_point"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/title_bar_share"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="56dp"
+        android:paddingLeft="@dimen/std_titlebar_margin_left_right"
+        android:scaleType="center"
+        android:src="@drawable/std_tittlebar_main_device_share_white" />
+
+</FrameLayout>

@@ -1,0 +1,21 @@
+<resources>
+
+    <string name="app_name">com.xiaomi.common</string>
+    <string name="pull_down_refresh">pull down to refresh</string>
+    <string name="release_to_refresh">release to refresh</string>
+    <string name="refreshing">refreshing...</string>
+    <string name="refreshing_no_point">loading...</string>
+    <string name="refreshing_retry">load fail, retry?</string>
+    <string name="ok_button">ok</string>
+    <string name="know_button">get it</string>
+    <string name="ignore">ignore</string>
+    <string name="cancel">cancel</string>
+
+    <!-- time/date picker -->
+    <string name="picker_hour">hour</string>
+    <string name="picker_minite">minute</string>
+    <string name="picker_year">year</string>
+    <string name="picker_month">month</string>
+    <string name="picker_day">day</string>
+
+</resources>

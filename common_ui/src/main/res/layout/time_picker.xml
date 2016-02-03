@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2013, Xiaomi Inc. All rights reserved.
+ */
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/timePickerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center_horizontal">
+
+    <!-- hour -->
+    <com.xiaomi.smarthome.common.ui.widget.NumberPicker
+        android:id="@+id/hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/picker_hour"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:background="@drawable/number_picker_bg_first"/>
+
+    <!-- minute -->
+    <com.xiaomi.smarthome.common.ui.widget.NumberPicker
+        android:id="@+id/minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/picker_minite"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:background="@drawable/number_picker_bg_middle"/>
+
+    <!-- AM / PM -->
+    <com.xiaomi.smarthome.common.ui.widget.NumberPicker
+        android:id="@+id/amPm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:background="@drawable/number_picker_bg_last"/>
+
+</LinearLayout>

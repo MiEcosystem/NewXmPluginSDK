@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+    <LinearLayout 	    
+        android:layout_width="280dp"
+	    android:layout_height="45dp"
+	    android:background="#fbfbfb"
+	    android:paddingLeft="12dp"
+	    android:paddingRight="12dp"
+	    android:layout_gravity="center_horizontal">
+	<TextView android:id="@+id/title"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:textColor="@color/class_text_14"
+	    android:textSize="@dimen/font_size_3"
+	    android:background="@drawable/ml_center_title"
+	    android:paddingLeft="3dp"
+	    android:gravity="center_vertical"
+		/>
+	</LinearLayout>
+    <view
+        android:id="@+id/select_dialog_listview"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:background="#fbfbfb"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_gravity="center_horizontal"
+        class="com.xiaomi.smarthome.common.ui.dialog.MLAlertController$RecycleListView"
+        android:cacheColorHint="@null"
+        android:divider="@android:drawable/divider_horizontal_bright"
+        android:layoutAnimation="@null"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

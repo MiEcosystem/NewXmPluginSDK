@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/titlebar_height"
+    android:background="@drawable/common_title_bar_bg" >
+
+    <ImageView
+        android:id="@+id/title_bar_return"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|center_vertical"
+        android:paddingLeft="@dimen/std_titlebar_margin_left_right"
+        android:paddingRight="@dimen/std_titlebar_margin_left_right"
+        android:scaleType="center"
+        android:src="@drawable/std_tittlebar_main_device_back" />
+
+    <TextView
+        android:id="@+id/title_bar_title"
+        style="@style/std_word_001"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+    <ImageView
+        android:id="@+id/title_bar_more"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right|center_vertical"
+        android:paddingLeft="@dimen/std_titlebar_margin_left_right"
+        android:paddingRight="@dimen/std_titlebar_margin_left_right"
+        android:scaleType="center"
+        android:src="@drawable/std_tittlebar_main_device_more"
+        android:visibility="gone" />
+
+</FrameLayout>
