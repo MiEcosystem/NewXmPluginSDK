@@ -38,7 +38,18 @@ project.afterEvaluate {
             }
             def installTask = project.tasks.findByName(insatallTaskName)
             installTask.dependsOn assembleTaskName
+
+
+            if(variant.name.capitalize().equals("Release")){
+                insatallTaskName = "install"
+                project.task(insatallTaskName, overwrite: true) << {
+                    installPlugin(project, variant);
+                }
+                installTask = project.tasks.findByName(insatallTaskName)
+                installTask.dependsOn assembleTaskName
+            }
         }
+
     }
 }
 
