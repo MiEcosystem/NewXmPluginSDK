@@ -1,0 +1,105 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+def pluglibPath = "${project.rootProject.projectDir}/NewXmPluginSDK/libs_ex"
+dependencies {
+    compile project(':NewXmPluginSDK:common_ui')
+    provided fileTree(dir: 'libs_ex', include: ['*.jar'])
+    provided fileTree(dir: pluglibPath, include: ['*.jar'])
+}
+
+project.evaluationDependsOn(":NewXmPluginSDK:pluglib")
+project.afterEvaluate {
+//    def pluglibPath = "${project.projectDir}/libs_ex/"
+    def beforePrapareTaskName = "preBuild"
+    def beforePrapareTask = project.tasks.findByName(beforePrapareTaskName)
+    def compliePluglibTaskName = "makeJar"
+    def compliePluglibTask = project.rootProject.project(":NewXmPluginSDK:pluglib").tasks.findByName(compliePluglibTaskName)
+    if (compliePluglibTask != null) {
+        compliePluglibTask.doLast({
+            copy {
+                from "${project.rootProject.projectDir}/pluglib/build/libs/"
+                into pluglibPath
+                include('plug_lib.jar')
+            }
+        })
+        beforePrapareTask.dependsOn compliePluglibTask
+    } else {
+        println "not found task:" + compliePluglibTaskName
+    }
+
+    //////
+    project.android.applicationVariants.each { variant ->
+        def assembleTaskName = "assemble${variant.name.capitalize()}"
+        def assembleTask = project.tasks.findByName(assembleTaskName)
+        if (assembleTask != null) {
+            def insatallTaskName = "install${variant.name.capitalize()}"
+            project.task(insatallTaskName, overwrite: true) << {
+                installPlugin(project, variant);
+            }
+            def installTask = project.tasks.findByName(insatallTaskName)
+            installTask.dependsOn assembleTaskName
+        }
+    }
+}
+
+
+void installPlugin(def project, def variant) {
+    variant.outputs.each { output ->
+        def defaultOutputFile = output.outputFile
+        if (defaultOutputFile != null && defaultOutputFile.name.endsWith('.apk')) {
+            println("install plug:" + defaultOutputFile)
+
+            Properties properties = new Properties()
+            File localProps = project.rootProject.file("local.properties")
+            def sdkDir
+            if (localProps.exists()) {
+                properties.load(localProps.newDataInputStream())
+                sdkDir = properties.getProperty("sdk.dir")
+            } else {
+                sdkDir = System.getenv("ANDROID_HOME")
+            }
+            if (sdkDir) {
+                def cmdExt = Os.isFamily(Os.FAMILY_WINDOWS) ? '.bat' : ''
+                def stdout = new ByteArrayOutputStream()
+                project.exec {
+                    commandLine "${sdkDir}/platform-tools/adb${cmdExt}",
+                            "push",
+                            defaultOutputFile,
+                            "/sdcard/SmartHome/plugin/debug/1.mpk"
+                    standardOutput = stdout
+                }
+                def error = stdout.toString().trim()
+                if (error) {
+                    println "install error1:" + error
+                }
+
+                project.exec {
+                    commandLine "${sdkDir}/platform-tools/adb${cmdExt}",
+                            "shell",
+                            "am start com.xiaomi.smarthome/.StartupActivity"
+                    standardOutput = stdout
+                }
+                error = stdout.toString().trim()
+                if (error) {
+                    println "install error2:" + error
+                }
+
+                project.exec {
+                    commandLine "${sdkDir}/platform-tools/adb${cmdExt}",
+                            "shell",
+                            "am broadcast -a com.xiaomi.smarthome.action.OPEN_API --es type plugin_debug --es sub_type debug_package"
+                    standardOutput = stdout
+                }
+                error = stdout.toString().trim()
+                if (error) {
+                    println "install error2:" + error
+                }
+
+            } else {
+                println "not found android sdk dir"
+            }
+
+        }
+    }
+}
+
