@@ -1,13 +1,13 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
-def pluglibPath = "${project.rootProject.projectDir}/NewXmPluginSDK/libs_ex"
+def pluglibPath = "${project.rootProject.projectDir}/libs_ex"
 dependencies {
-    compile project(':NewXmPluginSDK:common_ui')
+    compile project(':common_ui')
     provided fileTree(dir: 'libs_ex', include: ['*.jar'])
     provided fileTree(dir: pluglibPath, include: ['*.jar'])
 }
 
-project.evaluationDependsOn(":NewXmPluginSDK:pluglib")
+project.evaluationDependsOn(":pluglib")
 
 project.android.applicationVariants.all { variant ->
     variant.outputs.each { output ->
@@ -21,11 +21,10 @@ project.android.applicationVariants.all { variant ->
 
 
 project.afterEvaluate {
-//    def pluglibPath = "${project.projectDir}/libs_ex/"
     def beforePrapareTaskName = "preBuild"
     def beforePrapareTask = project.tasks.findByName(beforePrapareTaskName)
     def compliePluglibTaskName = "makeJar"
-    def compliePluglibTask = project.rootProject.project(":NewXmPluginSDK:pluglib").tasks.findByName(compliePluglibTaskName)
+    def compliePluglibTask = project.rootProject.project(":pluglib").tasks.findByName(compliePluglibTaskName)
     if (compliePluglibTask != null) {
         compliePluglibTask.doLast({
             copy {
