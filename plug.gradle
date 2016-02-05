@@ -82,13 +82,14 @@ void installPlugin(def project, def variant) {
                 sdkDir = System.getenv("ANDROID_HOME")
             }
             if (sdkDir) {
+                int plugid = (int)(java.lang.Math.random()*10)
                 def cmdExt = Os.isFamily(Os.FAMILY_WINDOWS) ? '.bat' : ''
                 def stdout = new ByteArrayOutputStream()
                 project.exec {
                     commandLine "${sdkDir}/platform-tools/adb${cmdExt}",
                             "push",
                             defaultOutputFile,
-                            "/sdcard/SmartHome/plugin/debug/1.mpk"
+                            "/sdcard/SmartHome/plugin/debug/${plugid}.mpk"
                     standardOutput = stdout
                 }
                 def error = stdout.toString().trim()

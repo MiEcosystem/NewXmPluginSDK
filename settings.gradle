@@ -1,1 +1,1 @@
-include ':pluglib',':common_ui',':plugProject:NewPluginDemo'
+include ':pluglib', ':common_ui', ':plugProject:NewPluginDemo', ':plugProject:Demo'
