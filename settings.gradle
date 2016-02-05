@@ -1,1 +1,17 @@
-include ':pluglib', ':common_ui', ':plugProject:NewPluginDemo', ':plugProject:Demo'
+include ':pluglib', ':common_ui'
+
+def plugProject = new File("plugProject")
+File[] plugPojectFile = plugProject.listFiles(new FileFilter() {
+    @Override
+    boolean accept(File pathname) {
+        return pathname.isDirectory()
+    }
+})
+
+
+if(plugProject!=null&&plugPojectFile.size()>0){
+    for(File file:plugPojectFile){
+        println(file.name)
+        settings.include(":plugProject:${file.name}")
+    }
+}
