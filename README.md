@@ -3,6 +3,8 @@
 
 ## 最新修改
 - 新版插件sdk使用Android studio开发
+- 自动生成插件工程脚本gen_plug.py
+- 执行gradle install自动安装插件并启动app
 
 ----
 
