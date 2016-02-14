@@ -4,7 +4,7 @@
 **最新修改**
 - 新版插件sdk使用Android studio开发
 
-## 插件开发
+----
 
 ## 插件开发
 
@@ -98,30 +98,19 @@ gradle :plugProject:NewPluginDemo:installDebug 安装运行debug配置插件
 上线审核前，会专门针对这两项测试。
 
 
-------
 
-
-```
-免安装插件框架实现了一套在Android上面加载apk技术，跳过系统安装程序，只需要把apk上传到后台服务器，app端自动更新插件，具有H5实时更新特性，又具有native app灵活高效率特性。
-```
-
+## 其他链接
 
 - [框架描述](框架描述.md)
 - [服务器部署](服务器部署.md)
 - [插件开发](插件开发.md)
 - [开发接口描述](开发接口描述.md)
 - [蓝牙规范](智能家庭蓝牙规范.md)
-
 - [插件实例工程](https://github.com/MiEcosystem/NewPluginDemo)
 - [智能家庭开放平台](https://open.home.mi.com)
 
 
+------
+
 开发联系方式
 qq:276111321
-
-
-
-
-
-
-<!-- create time: 2015-04-17 10:53:01  -->
