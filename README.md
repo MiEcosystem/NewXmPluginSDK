@@ -103,9 +103,9 @@ gradle installDebug 安装运行debug配置插件
 
 如果有多个插件工程，上面指令会安装所有插件，指定安装某个插件工程
 
-gradle :plugProject:NewPluginDemo:install 安装运行release配置插件
-gradle :plugProject:NewPluginDemo:installRelease 安装运行release配置插件
-gradle :plugProject:NewPluginDemo:installDebug 安装运行debug配置插件
+gradle installNewPluginDemo 安装运行release配置插件
+gradle installNewPluginDemoRelease 安装运行release配置插件
+gradle installNewPluginDemoDebug 安装运行debug配置插件
 ```
 
 ### 调试插件

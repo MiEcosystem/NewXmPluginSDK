@@ -40,6 +40,7 @@ project.afterEvaluate {
 
     //////
     project.android.applicationVariants.each { variant ->
+        println variant.name
         def assembleTaskName = "assemble${variant.name.capitalize()}"
         def assembleTask = project.tasks.findByName(assembleTaskName)
         if (assembleTask != null) {
@@ -59,6 +60,24 @@ project.afterEvaluate {
                 installTask = project.tasks.findByName(insatallTaskName)
                 installTask.dependsOn assembleTaskName
             }
+
+            ///
+            insatallTaskName = "install${project.name.capitalize()}${variant.name.capitalize()}"
+            project.task(insatallTaskName, overwrite: true) << {
+                installPlugin(project, variant);
+            }
+            installTask = project.tasks.findByName(insatallTaskName)
+            installTask.dependsOn assembleTaskName
+
+            if(variant.name.capitalize().equals("Release")){
+                insatallTaskName = "install"+project.name.capitalize()
+                project.task(insatallTaskName, overwrite: true) << {
+                    installPlugin(project, variant);
+                }
+                installTask = project.tasks.findByName(insatallTaskName)
+                installTask.dependsOn assembleTaskName
+            }
+
         }
     }
 }
