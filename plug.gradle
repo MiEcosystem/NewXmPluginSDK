@@ -13,7 +13,7 @@ project.android.applicationVariants.all { variant ->
     variant.outputs.each { output ->
         def defaultOutputFile = output.outputFile
         if (defaultOutputFile != null && defaultOutputFile.name.endsWith('.apk')) {
-            def newFileName  = project.rootProject.name  + "-" + android.defaultConfig.versionCode + "-" + android.defaultConfig.versionName + "-" + variant.buildType.name + ".apk";
+            def newFileName  = project.name  + "-" + android.defaultConfig.versionCode + "-" + android.defaultConfig.versionName + "-" + variant.buildType.name + ".apk";
             output.outputFile = new File(defaultOutputFile.parent, newFileName)
         }
     }

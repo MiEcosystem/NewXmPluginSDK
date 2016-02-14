@@ -1,12 +1,25 @@
 # 新版小米智能家庭Android app免安装插件开发手册
 
 
-**最新修改**
+## 最新修改
 - 新版插件sdk使用Android studio开发
 
 ----
 
 ## 插件开发
+
+### 开发前准备工作
+- 登陆[智能家庭开放平台](https://open.home.mi.com)
+- 申请开发者账号userid
+- 登记新产品,记录设备model
+- 创建签名证书
+- 创建插件信息，提交证书md5信息
+
+```
+签名文件的md5信息获取，需要去掉:号
+
+keytool -list -v -keystore  keyFilePath -storepass keypassword  -keypass  keypassword
+```
 
 ### 安装开发版智能家庭app
 
@@ -25,6 +38,13 @@ git clone https://github.com/MiEcosystem/NewPluginDemo.git
 ```
 
 ![](./md_images/gradle_project.png)
+
+### 创建新插件工程
+- 执行SDK目录下python脚本gen_plug.py
+
+```
+python gen_plug.py model userid
+```
 
 ### 配置插件签名文件
 所有插件在智能家庭app上运行时需要进行签名验证
@@ -107,7 +127,7 @@ gradle :plugProject:NewPluginDemo:installDebug 安装运行debug配置插件
 - [开发接口描述](开发接口描述.md)
 - [蓝牙规范](智能家庭蓝牙规范.md)
 - [插件实例工程](https://github.com/MiEcosystem/NewPluginDemo)
-- [智能家庭开放平台](https://open.home.mi.com)
+
 
 
 ------
