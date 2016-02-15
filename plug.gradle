@@ -1,13 +1,41 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
-project.android.sourceSets {
-    main {
-        jniLibs.srcDirs = ['libs']
+
+// add dependencies project
+if (project.ext.has("complieProject")) {
+    def complieProjects = project.ext.get("complieProject")
+    if (complieProjects != null) {
+        for (String compileProjectName : complieProjects) {
+            def projectPath = project.projectDir.absolutePath
+            projectPath = projectPath.substring(projectPath.indexOf("plugProject"))
+            def projectPathArray = projectPath.split("/")
+            if (projectPathArray.length >= 2) {
+                projectPath = ":" + projectPathArray[0] + ":" + projectPathArray[1] + compileProjectName
+                println("compileProject "+projectPath)
+                project.dependencies {
+                    compile project(projectPath)
+                }
+            }
+        }
     }
 }
 
+project.android {
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        disable 'InvalidPackage'
+        abortOnError false
+    }
+}
+
+
 def pluglibPath = "${project.rootProject.projectDir}/libs_ex"
-dependencies {
+project.dependencies {
     compile project(':common_ui')
     provided fileTree(dir: 'libs_ex', include: ['*.jar'])
     provided fileTree(dir: pluglibPath, include: ['*.jar'])
@@ -19,7 +47,7 @@ project.android.applicationVariants.all { variant ->
     variant.outputs.each { output ->
         def defaultOutputFile = output.outputFile
         if (defaultOutputFile != null && defaultOutputFile.name.endsWith('.apk')) {
-            def newFileName  = project.name  + "-" + android.defaultConfig.versionCode + "-" + android.defaultConfig.versionName + "-" + variant.buildType.name + ".apk";
+            def newFileName = project.name + "-" + android.defaultConfig.versionCode + "-" + android.defaultConfig.versionName + "-" + variant.buildType.name + ".apk";
             output.outputFile = new File(defaultOutputFile.parent, newFileName)
         }
     }
@@ -46,7 +74,6 @@ project.afterEvaluate {
 
     //////
     project.android.applicationVariants.each { variant ->
-        println variant.name
         def assembleTaskName = "assemble${variant.name.capitalize()}"
         def assembleTask = project.tasks.findByName(assembleTaskName)
         if (assembleTask != null) {
@@ -63,7 +90,7 @@ project.afterEvaluate {
             installTask.dependsOn assembleTaskName
 
 
-            if(variant.name.capitalize().equals("Release")){
+            if (variant.name.capitalize().equals("Release")) {
                 insatallTaskName = "install"
                 project.task(insatallTaskName, overwrite: true) << {
 //                    installPlugin(project, variant);
@@ -80,8 +107,8 @@ project.afterEvaluate {
             installTask = project.tasks.findByName(insatallTaskName)
             installTask.dependsOn assembleTaskName
 
-            if(variant.name.capitalize().equals("Release")){
-                insatallTaskName = "install"+project.name.capitalize()
+            if (variant.name.capitalize().equals("Release")) {
+                insatallTaskName = "install" + project.name.capitalize()
                 project.task(insatallTaskName, overwrite: true) << {
 //                    installPlugin(project, variant);
                 }
@@ -92,8 +119,6 @@ project.afterEvaluate {
         }
     }
 }
-
-
 
 
 void installPlugin(def project, def variant) {
@@ -112,7 +137,7 @@ void installPlugin(def project, def variant) {
                 sdkDir = System.getenv("ANDROID_HOME")
             }
             if (sdkDir) {
-                int plugid = (int)(java.lang.Math.random()*10)
+                int plugid = (int) (java.lang.Math.random() * 10)
                 def cmdExt = Os.isFamily(Os.FAMILY_WINDOWS) ? '.bat' : ''
                 def stdout = new ByteArrayOutputStream()
                 project.exec {

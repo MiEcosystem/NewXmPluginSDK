@@ -31,7 +31,7 @@ boolean isPlugBuildFile(File file) {
         reader = new BufferedReader(new FileReader(file));
         String lineStr = null;
         while ((lineStr = reader.readLine()) != null) {
-            if(lineStr.contains("plug.gradle")){
+            if (lineStr.contains("plug.gradle") || lineStr.contains("com.android.library")) {
                 return true;
             }
         }
@@ -44,7 +44,6 @@ boolean isPlugBuildFile(File file) {
             }
         }
     }
-
     return false;
 }
 

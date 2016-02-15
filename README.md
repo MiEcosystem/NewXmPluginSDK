@@ -86,6 +86,14 @@ apply from: "${project.rootDir.absolutePath}/plug.gradle"
 
 ```
 
+### 添加插件依赖项目
+如果插件有其他的项目依赖，添加到complieProject属性中，如下
+
+```
+project.ext.set("complieProject",[":demolib"])
+```
+依赖jar库和native so放置于libs目录下
+
 ### 插件编译运行
 
 - 通过Android studio编译运行

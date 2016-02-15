@@ -15,5 +15,5 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
--dontwarn com.xiaomi.**
--keep class com.xiaomi.** { *; }
+-dontwarn **
+-keep class ** { *; }
