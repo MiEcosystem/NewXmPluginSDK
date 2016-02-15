@@ -41,4 +41,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-apply from: '../../plug.gradle'
+apply from: "${project.rootDir.absolutePath}/plug.gradle"

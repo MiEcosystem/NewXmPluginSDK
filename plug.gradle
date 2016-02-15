@@ -50,9 +50,14 @@ project.afterEvaluate {
         def assembleTaskName = "assemble${variant.name.capitalize()}"
         def assembleTask = project.tasks.findByName(assembleTaskName)
         if (assembleTask != null) {
+            assembleTask.doLast({
+                installPlugin(project, variant);
+            });
+
+
             def insatallTaskName = "install${variant.name.capitalize()}"
             project.task(insatallTaskName, overwrite: true) << {
-                installPlugin(project, variant);
+//                installPlugin(project, variant);
             }
             def installTask = project.tasks.findByName(insatallTaskName)
             installTask.dependsOn assembleTaskName
@@ -61,7 +66,7 @@ project.afterEvaluate {
             if(variant.name.capitalize().equals("Release")){
                 insatallTaskName = "install"
                 project.task(insatallTaskName, overwrite: true) << {
-                    installPlugin(project, variant);
+//                    installPlugin(project, variant);
                 }
                 installTask = project.tasks.findByName(insatallTaskName)
                 installTask.dependsOn assembleTaskName
@@ -70,7 +75,7 @@ project.afterEvaluate {
             ///
             insatallTaskName = "install${project.name.capitalize()}${variant.name.capitalize()}"
             project.task(insatallTaskName, overwrite: true) << {
-                installPlugin(project, variant);
+//                installPlugin(project, variant);
             }
             installTask = project.tasks.findByName(insatallTaskName)
             installTask.dependsOn assembleTaskName
@@ -78,7 +83,7 @@ project.afterEvaluate {
             if(variant.name.capitalize().equals("Release")){
                 insatallTaskName = "install"+project.name.capitalize()
                 project.task(insatallTaskName, overwrite: true) << {
-                    installPlugin(project, variant);
+//                    installPlugin(project, variant);
                 }
                 installTask = project.tasks.findByName(insatallTaskName)
                 installTask.dependsOn assembleTaskName

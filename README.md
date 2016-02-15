@@ -82,17 +82,25 @@ python gen_plug.py model userid
 - 修改插件工程build.gradle，末尾添加
 
 ```
-apply from: '../../plug.gradle'
+apply from: "${project.rootDir.absolutePath}/plug.gradle"
 
 ```
 
 ### 插件编译运行
 
--在插件sdk目录下执行
+- 通过Android studio编译运行
+
+在工具栏选中运行的插件项目，点击Run按钮，如下图所示
+
+![](./md_images/gradle_debug2.png)
+
+
+- 通过gradle指令编译运行，在插件sdk目录下执行
+
 ```
 gradle tasks
 ```
-可以看到安装插件task，如下
+可以看到安装插件task，如下图所示
 
 ![](./md_images/gradle_tasks.png)
 
@@ -101,11 +109,11 @@ gradle install 安装运行release配置插件
 gradle installRelease 安装运行release配置插件
 gradle installDebug 安装运行debug配置插件
 
-如果有多个插件工程，上面指令会安装所有插件，指定安装某个插件工程
+如果有多个插件工程，上面指令会安装所有插件，指定安装某个插件工程,比如插件Xiaomi_demo
 
-gradle installNewPluginDemo 安装运行release配置插件
-gradle installNewPluginDemoRelease 安装运行release配置插件
-gradle installNewPluginDemoDebug 安装运行debug配置插件
+gradle installXiaomi_demo 安装运行release配置插件
+gradle installXiaomi_demoRelease 安装运行release配置插件
+gradle installXiaomi_demoDebug 安装运行debug配置插件
 ```
 
 ### 调试插件
