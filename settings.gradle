@@ -1,17 +1,53 @@
 include ':pluglib', ':common_ui'
 
-def plugProject = new File("plugProject")
-File[] plugPojectFile = plugProject.listFiles(new FileFilter() {
-    @Override
-    boolean accept(File pathname) {
-        return pathname.isDirectory()
+void scanProject(def settings, File dir) {
+    if (dir == null || !dir.isDirectory() || dir.isHidden() || dir.size() == 0)
+        return;
+    File[] files = dir.listFiles();
+    for (File file : files) {
+        if (file.isFile() && "build.gradle".equals(file.name)) {
+            if (isPlugBuildFile(file)) {
+                String projectPath = file.absolutePath.substring(file.absolutePath.indexOf("/plugProject"));
+                projectPath = projectPath.substring(0, projectPath.indexOf("/build.gradle"))
+                projectPath = projectPath.replace("/", ":")
+                println(projectPath)
+                settings.include(projectPath)
+            }
+            return;
+        }
     }
-})
 
-
-if(plugProject!=null&&plugPojectFile.size()>0){
-    for(File file:plugPojectFile){
-        println(file.name)
-        settings.include(":plugProject:${file.name}")
+    for (File file : files) {
+        if (file.isDirectory()) {
+            scanProject(settings, file);
+        }
     }
+
 }
+
+boolean isPlugBuildFile(File file) {
+    BufferedReader reader = null;
+    try {
+        reader = new BufferedReader(new FileReader(file));
+        String lineStr = null;
+        while ((lineStr = reader.readLine()) != null) {
+            if(lineStr.contains("plug.gradle")){
+                return true;
+            }
+        }
+    } catch (IOException e) {
+    } finally {
+        if (reader != null) {
+            try {
+                reader.close();
+            } catch (IOException e1) {
+            }
+        }
+    }
+
+    return false;
+}
+
+def plugProject = new File("plugProject")
+scanProject(settings, plugProject);
+

@@ -1,5 +1,11 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
+project.android.sourceSets {
+    main {
+        jniLibs.srcDirs = ['libs']
+    }
+}
+
 def pluglibPath = "${project.rootProject.projectDir}/libs_ex"
 dependencies {
     compile project(':common_ui')
