@@ -138,10 +138,10 @@ void installPlugin(def project, def variant) {
             }
             if (sdkDir) {
                 int plugid = (int) (java.lang.Math.random() * 10)
-                def cmdExt = Os.isFamily(Os.FAMILY_WINDOWS) ? '.bat' : ''
+//                def cmdExt = Os.isFamily(Os.FAMILY_WINDOWS) ? '.bat' : ''
                 def stdout = new ByteArrayOutputStream()
                 project.exec {
-                    commandLine "${sdkDir}/platform-tools/adb${cmdExt}",
+                    commandLine "${sdkDir}/platform-tools/adb",
                             "push",
                             defaultOutputFile,
                             "/sdcard/SmartHome/plugin/debug/${plugid}.mpk"
@@ -153,7 +153,7 @@ void installPlugin(def project, def variant) {
                 }
 
                 project.exec {
-                    commandLine "${sdkDir}/platform-tools/adb${cmdExt}",
+                    commandLine "${sdkDir}/platform-tools/adb",
                             "shell",
                             "am start com.xiaomi.smarthome/.StartupActivity"
                     standardOutput = stdout
@@ -164,7 +164,7 @@ void installPlugin(def project, def variant) {
                 }
 
                 project.exec {
-                    commandLine "${sdkDir}/platform-tools/adb${cmdExt}",
+                    commandLine "${sdkDir}/platform-tools/adb",
                             "shell",
                             "am broadcast -a com.xiaomi.smarthome.action.OPEN_API --es type plugin_debug --es sub_type debug_package"
                     standardOutput = stdout
