@@ -92,6 +92,10 @@ apply from: "${project.rootDir.absolutePath}/plug.gradle"
 ```
 project.ext.set("complieProject",[":demolib"])
 ```
+依赖项目结构如下
+
+![](./md_images/gradle_lib.png)
+
 依赖jar库和native so放置于libs目录下
 
 ### 插件编译运行
