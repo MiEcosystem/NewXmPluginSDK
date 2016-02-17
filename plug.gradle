@@ -8,7 +8,7 @@ if (project.ext.has("complieProject")) {
         for (String compileProjectName : complieProjects) {
             def projectPath = project.projectDir.absolutePath
             projectPath = projectPath.substring(projectPath.indexOf("plugProject"))
-            def projectPathArray = projectPath.split("/")
+            def projectPathArray = projectPath.split(File.separator)
             if (projectPathArray.length >= 2) {
                 projectPath = ":" + projectPathArray[0] + ":" + projectPathArray[1] + compileProjectName
                 println("compileProject "+projectPath)
@@ -34,7 +34,7 @@ project.android {
 }
 
 
-def pluglibPath = "${project.rootProject.projectDir}/libs_ex"
+def pluglibPath = "${project.rootProject.projectDir}${File.separator}libs_ex"
 project.dependencies {
     compile project(':common_ui')
     provided fileTree(dir: 'libs_ex', include: ['*.jar'])
@@ -62,7 +62,7 @@ project.afterEvaluate {
     if (compliePluglibTask != null) {
         compliePluglibTask.doLast({
             copy {
-                from "${project.rootProject.projectDir}/pluglib/build/libs/"
+                from "${project.rootProject.projectDir}${File.separator}pluglib${File.separator}build${File.separator}libs${File.separator}"
                 into pluglibPath
                 include('plug_lib.jar')
             }

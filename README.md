@@ -159,6 +159,11 @@ gradle installXiaomi_demoDebug 安装运行debug配置插件
 - [插件实例工程](https://github.com/MiEcosystem/NewPluginDemo)
 
 
+## 开发遇到问题
+
+- 插件里边尽量避免和common_ui里边同名资源名，否则插件中的资源会替换掉common_ui里边资源
+- androi-support-*.jar库不需要插件引入，已经在公共配置中加入
+- 插件中用到和app相同的库，目前最新开发版app已经解决这个问题，线上app，还是需要保持库版本一致，而且不要混淆
 
 ------
 
