@@ -7,9 +7,9 @@ void scanProject(def settings, File dir) {
     for (File file : files) {
         if (file.isFile() && "build.gradle".equals(file.name)) {
             if (isPlugBuildFile(file)) {
-                String projectPath = file.absolutePath.substring(file.absolutePath.indexOf("/plugProject"));
-                projectPath = projectPath.substring(0, projectPath.indexOf("/build.gradle"))
-                projectPath = projectPath.replace("/", ":")
+                String projectPath = file.absolutePath.substring(file.absolutePath.indexOf("plugProject")-1);
+                projectPath = projectPath.substring(0, projectPath.indexOf("build.gradle")-1)
+                projectPath = projectPath.replace(File.separator, ':')
                 println(projectPath)
                 settings.include(projectPath)
             }

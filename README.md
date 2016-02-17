@@ -41,6 +41,14 @@ git clone https://github.com/MiEcosystem/NewPluginDemo.git
 
 ![](./md_images/gradle_project.png)
 
+### 旧版sdk插件工程迁移到新sdk
+
+执行sdk目录下python脚本move_plug.py如下
+
+```
+python move_plug.py oldPlugPath
+```
+
 ### 创建新插件工程
 - 执行SDK目录下python脚本gen_plug.py
 
