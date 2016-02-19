@@ -9,6 +9,13 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
+def mkdirs(filepath):
+    if os.path.exists(filepath):
+        return;
+    else :
+        os.makedirs(filepath)
+
+
 def replace(fileName, replaceDic):
     keys = replaceDic.keys()
     if len(keys) == 0:
@@ -60,10 +67,15 @@ def moveSrcProject(src, dst):
     for name in names:
         srcname = os.path.join(src, name)
         if os.path.isdir(srcname):
-            if name == "libs":
+            if name.startswith(".") or name=="gen" or name=="bin" or name=="build":
+                continue;
+            # elif name.startswith("armeabi"):
+            #     mkdirs(os.path.join(dst,"libs"))
+            #     shutil.copytree(srcname, os.path.join(dst,"libs", name))
+            elif name == "libs":
                 shutil.copytree(srcname, os.path.join(dst, name))
             elif name=="libs_ex":
-                os.makedirs(os.path.join(dst, "libs_ex"))
+                mkdirs(os.path.join(dst, "libs_ex"))
                 srcfiles = os.listdir(srcname)
                 for srcfile in srcfiles:
                     if not srcfile.startswith("android-support") and not srcfile=="plug_lib.jar":
@@ -92,7 +104,7 @@ def moveSrcProject(src, dst):
        keyfile = keyProperties["key.store"].replace("./", "")
        buildGradleReplaceDic["keystore/key.keystore"] = keyfile
        dstkeyfile = os.path.join(dst, keyfile)
-       os.makedirs(os.path.dirname(dstkeyfile))
+       mkdirs(os.path.dirname(dstkeyfile))
        shutil.copyfile(os.path.join(src, keyfile), dstkeyfile)
        buildGradleReplaceDic["storePassword \'mihome\'"] = "storePassword \'mihome\'".replace("mihome", keyProperties["key.store.password"])
        buildGradleReplaceDic["keyAlias \'mihome-demo-key\'"] = "keyAlias \'mihome-demo-key\'".replace("mihome-demo-key", keyProperties["key.alias"])
@@ -128,7 +140,7 @@ def movePoject(src, dst, base):
     shutil.copy(os.path.join(base, "build.gradle"), dst)
     shutil.copy(os.path.join(base, ".gitignore"), dst)
     shutil.copy(os.path.join(base, "proguard-rules.pro"), dst)
-    os.makedirs(os.path.join(dst, "src", "main"))
+    mkdirs(os.path.join(dst, "src", "main"))
     shutil.copy(os.path.join(base, "src", "main", "AndroidManifest.xml"), os.path.join(dst, "src", "main"))
     moveSrcProject(src, dst)
 
