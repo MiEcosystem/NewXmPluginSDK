@@ -148,6 +148,14 @@ gradle installXiaomi_demoDebug 安装运行debug配置插件
 上线审核前，会专门针对这两项测试。
 
 
+## 插件实例测试
+
+[插件实例工程](https://github.com/MiEcosystem/NewPluginDemo)
+智能家庭app测试账号，安装完插件后，点击小米开发板设备，可以看到实例效果
+```
+用户名:923522198
+密码:123asdzxc
+```
 
 ## 其他链接
 
