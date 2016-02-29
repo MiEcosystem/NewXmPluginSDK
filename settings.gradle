@@ -1,7 +1,7 @@
 include ':pluglib', ':common_ui'
 
 void scanProject(def settings, File dir) {
-    if (dir == null || !dir.isDirectory() || dir.isHidden() || dir.size() == 0)
+    if (dir == null || !dir.isDirectory())
         return;
     File[] files = dir.listFiles();
     for (File file : files) {

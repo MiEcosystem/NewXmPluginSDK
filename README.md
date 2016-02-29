@@ -2,6 +2,7 @@
 
 
 ## 最新修改
+- 插件运行独立进程，退出插件后30s，自动退出插件进程
 - 新版插件sdk使用Android studio开发
 - 自动生成插件工程脚本gen_plug.py
 - 执行gradle install自动安装插件并启动app
@@ -137,7 +138,7 @@ gradle installXiaomi_demoDebug 安装运行debug配置插件
 ```
 
 ### 调试插件
-安装上插件后，会自动启动智能家庭app，点击android studio 调试按钮，一次点击如下图所示按钮，可以在插件代码中打断点调试
+安装上插件后，会自动启动智能家庭app，点击android studio 调试按钮，选择com.xiaomi.smarthome:plugin进程，如下图所示按钮，可以在插件代码中打断点调试
 
 ![](./md_images/gradle_debug.png)
 

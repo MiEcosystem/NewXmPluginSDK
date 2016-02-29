@@ -159,11 +159,4 @@ public abstract class XmBluetoothManager {
      * @param name
      */
     public abstract void deviceRename(String mac, String name);
-
-    /**
-     * ApiLevel: 17
-     * @param mac
-     * @param upgrader
-     */
-    public abstract void setBleUpgrader(String mac, BleUpgrader upgrader);
 }
