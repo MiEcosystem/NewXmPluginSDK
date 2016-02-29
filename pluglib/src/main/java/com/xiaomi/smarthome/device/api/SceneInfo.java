@@ -197,6 +197,10 @@ public class SceneInfo implements Parcelable {
          * ApiLevel:16
          */
         public String mExtra;
+        /**
+         * ApiLevel:18
+         */
+        public int mDelayTime;
 
         public SceneAction() {
 

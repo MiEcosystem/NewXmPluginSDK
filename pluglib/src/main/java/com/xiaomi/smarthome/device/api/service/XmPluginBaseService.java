@@ -9,6 +9,7 @@ import com.xiaomi.plugin.core.XmPluginPackage;
 /**
  * ApiLevel:6
  */
+@Deprecated
 public class XmPluginBaseService extends Service {
 
     IXmPluginHostService mHostService;

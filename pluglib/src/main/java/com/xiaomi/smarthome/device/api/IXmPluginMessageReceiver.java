@@ -113,6 +113,7 @@ public interface IXmPluginMessageReceiver {
      * @param deviceStat
      * @return
      */
+    @Deprecated
     public BaseWidgetView createWidgetView(Context context, LayoutInflater layoutInflater,
                                            XmPluginPackage xmPluginPackage, int type,
                                            Intent intent, DeviceStat deviceStat);

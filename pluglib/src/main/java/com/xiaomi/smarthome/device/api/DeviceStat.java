@@ -13,6 +13,7 @@ import org.json.JSONObject;
  * 设备状态数据
  */
 public class DeviceStat implements Parcelable {
+
     // 设备是否是本地设备
     public static final int UNKNOWN = 0;
     public static final int LOCAL = 1;
@@ -30,48 +31,35 @@ public class DeviceStat implements Parcelable {
     public int authFlag;// 1表示分享设备，0表示未分享设备
 
     public String token;
-
     public String userId = "";
-
     public int location;// 本地设备还是远程设备
-
     public double latitude;
-
     public double longitude;
-
     public String bssid;
-
     public long lastModified;
-
     public int pid;// 设备pid
-
     public int rssi;
-
     public boolean isOnline;// 是否在线
-
     public int resetFlag;
-
     public String ssid;
-
     public String ownerName;// 分享设备的拥有者
-
     public String ownerId;
-
     public JSONObject propInfo;
-
     public String version;
-    
     public Bundle property = new Bundle();
-
-    /**ApiLevel:6*/
+    /**
+     * ApiLevel:6
+     */
     public int showMode;//是否在设备列表显示
-
-    /**ApiLevel:8*/
+    /**
+     * ApiLevel:8
+     */
     public String event;
-    
-    /**ApiLevel:10*/
+    /**
+     * ApiLevel:10
+     */
     public int permitLevel;
-    
+
     public DeviceStat() {
         did = "";
         name = "";
@@ -108,17 +96,34 @@ public class DeviceStat implements Parcelable {
         parentModel = in.readString();
         bindFlag = in.readInt();
         authFlag = in.readInt();
-        property = in.readBundle();
-        String  prop  = in.readString();
-        if(!TextUtils.isEmpty(prop)){
+        token = in.readString();
+        userId = in.readString();
+        location = in.readInt();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        bssid = in.readString();
+        lastModified = in.readLong();
+        pid = in.readInt();
+        rssi = in.readInt();
+        isOnline = in.readInt() != 0;
+        resetFlag = in.readInt();
+        ssid = in.readString();
+        ownerName = in.readString();
+        ownerId = in.readString();
+        String prop = in.readString();
+        propInfo = null;
+        if (!TextUtils.isEmpty(prop)) {
             try {
                 propInfo = new JSONObject(prop);
             } catch (JSONException e) {
             }
         }
+        version = in.readString();
+        property = in.readBundle();
         showMode = in.readInt();
         event = in.readString();
         permitLevel = in.readInt();
+
     }
 
     @Override
@@ -127,27 +132,57 @@ public class DeviceStat implements Parcelable {
         return 0;
     }
 
-    public int hashCode(){
+    public int hashCode() {
         return did.hashCode();
+    }
+
+    void writeString(String str, Parcel dest) {
+        if (str == null) {
+            dest.writeString("");
+        } else {
+            dest.writeString(str);
+        }
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(did);
-        dest.writeString(name);
-        dest.writeString(mac);
-        dest.writeString(model);
-        dest.writeString(extrainfo);
-        dest.writeString(ip);
-        dest.writeString(parentId);
-        dest.writeString(parentModel);
+        writeString(did, dest);
+        writeString(name, dest);
+        writeString(mac, dest);
+        writeString(model, dest);
+        writeString(extrainfo, dest);
+        writeString(ip, dest);
+        writeString(parentId, dest);
+        writeString(parentModel, dest);
         dest.writeInt(bindFlag);
         dest.writeInt(authFlag);
+        writeString(token, dest);
+        writeString(userId, dest);
+        dest.writeInt(location);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        writeString(bssid, dest);
+        dest.writeLong(lastModified);
+        dest.writeInt(pid);
+        dest.writeInt(rssi);
+        dest.writeInt(isOnline ? 1 : 0);
+        dest.writeInt(resetFlag);
+        writeString(ssid, dest);
+        writeString(ownerName, dest);
+        writeString(ownerId, dest);
+        if (propInfo == null) {
+            dest.writeString("");
+        } else {
+            dest.writeString(propInfo.toString());
+        }
+        writeString(version, dest);
+        if (property == null)
+            property = new Bundle();
         dest.writeBundle(property);
-        dest.writeString(propInfo.toString());
         dest.writeInt(showMode);
-        dest.writeString(event);
+        writeString(event, dest);
         dest.writeInt(permitLevel);
+
     }
 
     public static final Creator<DeviceStat> CREATOR = new Creator<DeviceStat>() {

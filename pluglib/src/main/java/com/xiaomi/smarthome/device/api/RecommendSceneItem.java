@@ -51,15 +51,18 @@ public class RecommendSceneItem implements Parcelable {
      */
     public static class Key {
         public String mKey;
+        public String mName;
         public Object mValues;
         public void writeToParcel(Parcel parcel) {
             parcel.writeString(mKey);
             parcel.writeValue(mValues);
+            parcel.writeString(mName);
         }
 
         public void readFromParcel(Parcel in) {
             mKey = in.readString();
             mValues = in.readValue(ClassLoader.getSystemClassLoader());
+            mName = in.readString();
         }
     }
 
@@ -86,6 +89,7 @@ public class RecommendSceneItem implements Parcelable {
         public Boolean mAddAllDevice = false;
 
         public String mSrc;
+
 
         public void writeToParcel(Parcel parcel) {
             parcel.writeStringArray(mDeviceModels);
@@ -141,6 +145,7 @@ public class RecommendSceneItem implements Parcelable {
          * ApiLevel:8
          */
         public Boolean mAddAllDevice;
+
 
         public void writeToParcel(Parcel parcel) {
             parcel.writeStringArray(mDeviceModels);

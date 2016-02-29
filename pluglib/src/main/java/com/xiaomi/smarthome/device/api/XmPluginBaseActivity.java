@@ -505,9 +505,10 @@ public class XmPluginBaseActivity extends FragmentActivity implements IXmPluginA
     }
 
     // 场景加载完成回调
-    public void onSceneLoaded(boolean success) {
-
-    }
+//    @Deprecated
+//    public void onSceneLoaded(boolean success) {
+//
+//    }
 
     // public void startActivityForResult(Intent intent, int requestCode,
     // Bundle options) {

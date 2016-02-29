@@ -125,7 +125,7 @@ public interface IXmPluginHostActivity {
                                            String offMethod, String offParams, String timerName, String timerTitle);
 
     /**
-     * ApiLevel:2 设置白色的状态栏，默认是黑色的
+     * ApiLevel:2 设置白色的状态栏，默认
      */
     public abstract void enableWhiteTranslucentStatus();
 

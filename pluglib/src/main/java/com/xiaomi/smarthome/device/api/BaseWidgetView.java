@@ -12,6 +12,7 @@ import com.xiaomi.plugin.core.XmPluginPackage;
  * ApiLevel:8
  * 获取插件View
  */
+@Deprecated
 public abstract class BaseWidgetView {
     protected Context mContext;
     protected LayoutInflater mLayoutInflater;

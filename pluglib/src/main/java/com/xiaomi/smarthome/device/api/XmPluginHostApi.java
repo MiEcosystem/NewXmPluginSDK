@@ -274,19 +274,23 @@ public abstract class XmPluginHostApi {
     //
     // http://dev.xiaomi.com/doc/p%3D3995/index.html
     // ////////////
+    @Deprecated
     public abstract void recordCountEvent(String category, String key);
 
+    @Deprecated
     public abstract void recordCountEvent(String category, String key,
                                           Map<String, String> params);
 
+    @Deprecated
     public abstract void recordCalculateEvent(String category, String key, long value);
 
+    @Deprecated
     public abstract void recordCalculateEvent(String category, String key, long value,
                                               Map<String, String> params);
-
+    @Deprecated
     public abstract void recordStringPropertyEvent(String category, String key,
                                                    String value);
-
+    @Deprecated
     public abstract void recordNumericPropertyEvent(String category, String key,
                                                     long value);
 
@@ -906,6 +910,7 @@ public abstract class XmPluginHostApi {
      * @param xmPluginPackage
      * @param activityClass
      */
+    @Deprecated
     public abstract void startService(Intent service, XmPluginPackage xmPluginPackage,
                                       Class activityClass);
 
@@ -917,6 +922,7 @@ public abstract class XmPluginHostApi {
      * @param activityClass
      * @return
      */
+    @Deprecated
     public abstract boolean stopService(Intent service, XmPluginPackage xmPluginPackage,
                                         Class activityClass);
 
@@ -930,6 +936,7 @@ public abstract class XmPluginHostApi {
      * @param flags
      * @return
      */
+    @Deprecated
     public abstract boolean bindService(Intent service, XmPluginPackage xmPluginPackage,
                                         Class activityClass, ServiceConnection conn,
                                         int flags);
@@ -964,6 +971,7 @@ public abstract class XmPluginHostApi {
      * @param routerId
      * @param callback
      */
+    @Deprecated
     public abstract void checkLocalRouterInfo(String routerId,
                                               Callback<Void> callback);
 
@@ -972,6 +980,7 @@ public abstract class XmPluginHostApi {
      *
      * @return
      */
+    @Deprecated
     public abstract boolean isLocalMiRouter();
 
     /**
