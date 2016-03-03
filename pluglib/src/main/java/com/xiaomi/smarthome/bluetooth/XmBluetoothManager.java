@@ -166,4 +166,10 @@ public abstract class XmBluetoothManager {
      * @param upgrader
      */
     public abstract void setBleUpgrader(String mac, BleUpgrader upgrader);
+
+    /**
+     * ApiLevel: 19
+     */
+    public static final String ACTION_CHARACTER_WRITE = "com.xiaomi.smarthome.bluetooth.character_write";
+    public static final String KEY_CHARACTER_WRITE_STATUS = "key_character_write_status";
 }
