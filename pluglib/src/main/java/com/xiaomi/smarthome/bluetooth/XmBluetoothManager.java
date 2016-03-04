@@ -143,6 +143,7 @@ public abstract class XmBluetoothManager {
         public static final int CONNECTION_NOT_READY = -6;
         public static final int REQUEST_TIMEDOUT = -7;
         public static final int TOKEN_NOT_MATCHED = -10;
+        public static final int REQUEST_OVERFLOW = -11;
     }
 
     /**
