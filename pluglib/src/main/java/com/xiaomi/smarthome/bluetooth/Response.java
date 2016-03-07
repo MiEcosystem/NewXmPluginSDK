@@ -23,7 +23,7 @@ public class Response {
     }
 
     /**
-     * ApiLevel: 16
+     * ApiLevel: 18
      */
     public interface BleConnectResponse2 extends BleResponse<XmBundle> {
 
@@ -40,13 +40,6 @@ public class Response {
      * ApiLevel: 15
      */
     public interface BleWriteResponse extends BleResponse<Void> {
-
-    }
-
-    /**
-     * ApiLevel: 19
-     */
-    public interface BleWriteResponse2 extends BleWriteResponse {
 
     }
 

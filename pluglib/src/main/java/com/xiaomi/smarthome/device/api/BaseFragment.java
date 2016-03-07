@@ -18,17 +18,17 @@ public class BaseFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        initilXmPlugActivity();
+        initilXmPlugActivity(activity);
     }
 
-    void initilXmPlugActivity() {
+    void initilXmPlugActivity(Activity activity) {
         Field field = null;
         try {
-            field = getActivity().getClass().getDeclaredField("mXmPluginActivity");
+            field = activity.getClass().getDeclaredField("mXmPluginActivity");
         } catch (NoSuchFieldException e) {
         }
         if (field == null) {
-            Class superClass = getActivity().getClass().getSuperclass();
+            Class superClass = activity.getClass().getSuperclass();
             if (superClass != null) {
                 try {
                     field = superClass.getDeclaredField("mXmPluginActivity");
@@ -42,7 +42,7 @@ public class BaseFragment extends Fragment {
         }
         try {
             field.setAccessible(true);
-            mXmPluginBaseActivity = (XmPluginBaseActivity) field.get(getActivity());
+            mXmPluginBaseActivity = (XmPluginBaseActivity) field.get(activity);
         } catch (Exception e) {
             e.printStackTrace();
         }

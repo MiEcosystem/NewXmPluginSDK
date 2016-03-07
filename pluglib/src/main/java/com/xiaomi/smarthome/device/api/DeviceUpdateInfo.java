@@ -5,4 +5,9 @@ public class DeviceUpdateInfo {
 	public String mCurVersion;
 	public String mNewVersion;
 	public String mUpdateDes;
+	/**
+	 * ApiLevel: 19
+	 * 是否强制更新
+	 */
+	public int mForce;
 }

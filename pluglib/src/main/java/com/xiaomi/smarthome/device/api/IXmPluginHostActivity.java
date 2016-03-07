@@ -324,7 +324,7 @@ public interface IXmPluginHostActivity {
     );
 
     /**
-     * ApiLevel: 17 打开分享页面，分享多张图片,添加缩略图
+     * ApiLevel: 18 打开分享页面，分享多张图片,添加缩略图
      *
      * @param shareTitle        分享title
      * @param shareContent      分享文字内容
@@ -506,7 +506,7 @@ public interface IXmPluginHostActivity {
      */
     public abstract void enableBlackTranslucentStatus();
     /**
-     * ApiLevel:1 开始加载场景
+     * ApiLevel:19 开始加载场景
      */
     public abstract void startLoadScene(AsyncCallback callback);
 }

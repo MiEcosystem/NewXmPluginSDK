@@ -3,13 +3,14 @@ package com.xiaomi.smarthome.bluetooth;
 import android.content.Context;
 import android.os.Bundle;
 
-import java.util.UUID;
-import com.xiaomi.smarthome.bluetooth.Response.BleReadRssiResponse;
-import com.xiaomi.smarthome.bluetooth.Response.BleNotifyResponse;
-import com.xiaomi.smarthome.bluetooth.Response.BleReadResponse;
-import com.xiaomi.smarthome.bluetooth.Response.BleWriteResponse;
 import com.xiaomi.smarthome.bluetooth.Response.BleConnectResponse;
 import com.xiaomi.smarthome.bluetooth.Response.BleConnectResponse2;
+import com.xiaomi.smarthome.bluetooth.Response.BleNotifyResponse;
+import com.xiaomi.smarthome.bluetooth.Response.BleReadResponse;
+import com.xiaomi.smarthome.bluetooth.Response.BleReadRssiResponse;
+import com.xiaomi.smarthome.bluetooth.Response.BleWriteResponse;
+
+import java.util.UUID;
 
 /**
  * Created by liwentian on 2015/10/29.
@@ -36,7 +37,7 @@ public abstract class XmBluetoothManager {
 
 
     /**
-     * ApiLevel: 17
+     * ApiLevel: 18
      * 设备连接
      */
     public abstract void connect(String mac, final BleConnectResponse2 response);
@@ -143,11 +144,10 @@ public abstract class XmBluetoothManager {
         public static final int CONNECTION_NOT_READY = -6;
         public static final int REQUEST_TIMEDOUT = -7;
         public static final int TOKEN_NOT_MATCHED = -10;
-        public static final int REQUEST_OVERFLOW = -11;
     }
 
     /**
-     * ApiLevel: 17
+     * ApiLevel: 18
      */
     public static class XmBundle {
         public Bundle bundle;
@@ -155,22 +155,16 @@ public abstract class XmBluetoothManager {
     }
 
     /**
-     * ApiLevel: 17
+     * ApiLevel: 19
      * @param mac
      * @param name
      */
     public abstract void deviceRename(String mac, String name);
 
     /**
-     * ApiLevel: 17
+     * ApiLevel: 19
      * @param mac
      * @param upgrader
      */
     public abstract void setBleUpgrader(String mac, BleUpgrader upgrader);
-
-    /**
-     * ApiLevel: 19
-     */
-    public static final String ACTION_CHARACTER_WRITE = "com.xiaomi.smarthome.bluetooth.character_write";
-    public static final String KEY_CHARACTER_WRITE_STATUS = "key_character_write_status";
 }

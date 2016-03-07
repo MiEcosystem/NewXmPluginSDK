@@ -3,6 +3,9 @@ package com.xiaomi.smarthome.device.api;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,7 @@ public class SceneInfo implements Parcelable {
         dest.writeInt(mRecommId);
         dest.writeString(mName);
         dest.writeInt(mEnable ? 1 : 0);
+        dest.writeValue(mLaunch);
         dest.writeList(mLaunchList);
         dest.writeList(mActions);
     }
@@ -50,8 +54,10 @@ public class SceneInfo implements Parcelable {
 
     void readFromParcel(Parcel in) {
         mSceneId = in.readInt();
+        mRecommId = in.readInt();
         mName = in.readString();
         mEnable = in.readInt() == 1;
+        mLaunch = (SceneLaunch) in.readValue(SceneLaunch.class.getClassLoader());
         mLaunchList = new ArrayList<SceneLaunch>();
         in.readList(mLaunchList, SceneLaunch.class.getClassLoader());
         mActions = new ArrayList<SceneAction>();
@@ -146,7 +152,10 @@ public class SceneInfo implements Parcelable {
             dest.writeString(mLaunchName);
             dest.writeString(mDeviceModel);
             dest.writeString(mEventString);
-            dest.writeValue(mEventValue);
+            if(mEventValue instanceof JSONArray || mEventValue instanceof JSONObject)
+                dest.writeValue(mEventValue.toString());
+            else
+                dest.writeValue(mEventValue);
             dest.writeString(mDid);
             dest.writeString(mExtra);
         }
@@ -214,6 +223,7 @@ public class SceneInfo implements Parcelable {
             mActionValue = in.readValue(ClassLoader.getSystemClassLoader());
             mDid = in.readString();
             mExtra = in.readString();
+            mDelayTime = in.readInt();
         }
 
         @Override
@@ -227,9 +237,13 @@ public class SceneInfo implements Parcelable {
             dest.writeString(mDeviceModel);
             dest.writeString(mActionName);
             dest.writeString(mActionString);
-            dest.writeValue(mActionValue);
+            if(mActionValue instanceof JSONArray || mActionValue instanceof JSONObject)
+                dest.writeValue(mActionValue.toString());
+            else
+                dest.writeValue(mActionValue);
             dest.writeString(mDid);
             dest.writeString(mExtra);
+            dest.writeInt(mDelayTime);
         }
 
         public static final Creator<SceneAction> CREATOR = new Creator<SceneAction>() {

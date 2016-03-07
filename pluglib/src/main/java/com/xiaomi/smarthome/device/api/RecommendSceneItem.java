@@ -184,6 +184,7 @@ public class RecommendSceneItem implements Parcelable {
         if(sizeCondition > 0) {
             mRecommendConditionList = new RemommendSceneCondition[sizeCondition];
             for(int i=0; i<sizeCondition; i++) {
+                mRecommendConditionList[i] = new RemommendSceneCondition();
                 mRecommendConditionList[i].readFromParcel(in);
             }
         }
@@ -192,6 +193,7 @@ public class RecommendSceneItem implements Parcelable {
         if(sizeAction > 0) {
             mRecommendActionList = new RemommendSceneAction[sizeAction];
             for(int i=0; i<sizeAction; i++) {
+                mRecommendActionList[i] = new RemommendSceneAction();
                 mRecommendActionList[i].readFromParcel(in);
             }
         }

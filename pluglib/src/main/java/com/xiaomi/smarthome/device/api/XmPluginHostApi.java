@@ -45,7 +45,7 @@ public abstract class XmPluginHostApi {
     public abstract int getApiLevel();
 
     /**
-     * ApiLevel: 17 主app渠道
+     * ApiLevel: 18 主app渠道
      *
      * @return
      */
@@ -845,6 +845,7 @@ public abstract class XmPluginHostApi {
                         updateInfo.mCurVersion = jsonObj.optString("curr");
                         updateInfo.mNewVersion = jsonObj.optString("latest");
                         updateInfo.mUpdateDes = jsonObj.optString("description");
+                        updateInfo.mForce = jsonObj.optInt("force");
                         return updateInfo;
                     }
                 });
