@@ -22,7 +22,6 @@ void scanProject(def settings, File dir) {
             scanProject(settings, file);
         }
     }
-
 }
 
 boolean isPlugBuildFile(File file) {

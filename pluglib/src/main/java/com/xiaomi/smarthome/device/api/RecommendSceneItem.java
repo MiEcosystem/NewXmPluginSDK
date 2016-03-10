@@ -180,6 +180,10 @@ public class RecommendSceneItem implements Parcelable {
 
     public RecommendSceneItem(Parcel in) {
         mRecommId = in.readInt();
+        mName = in.readString();
+        mIcon = in.readString();
+        mRecommLevel = in.readDouble();
+        mEnablePush = (boolean) in.readValue(ClassLoader.getSystemClassLoader());
         int sizeCondition = in.readInt();
         if(sizeCondition > 0) {
             mRecommendConditionList = new RemommendSceneCondition[sizeCondition];
@@ -211,6 +215,10 @@ public class RecommendSceneItem implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(mRecommId);
+        parcel.writeString(mName);
+        parcel.writeString(mIcon);
+        parcel.writeDouble(mRecommLevel);
+        parcel.writeValue(mEnablePush);
         parcel.writeInt(mRecommendConditionList.length);
         for(int j=0; j<mRecommendConditionList.length; j++) {
             mRecommendConditionList[j].writeToParcel(parcel);
