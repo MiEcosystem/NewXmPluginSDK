@@ -56,4 +56,11 @@ public class Response {
     public interface BleReadRssiResponse extends BleResponse<Integer> {
 
     }
+
+    /**
+     * ApiLevel: 19
+     */
+    public interface BleWriteResponse2 extends BleWriteResponse {
+
+    }
 }
