@@ -2,7 +2,6 @@ package com.xiaomi.smarthome.bluetooth;
 
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.util.Log;
 
 /**
  * Created by liwentian on 2016/3/11.

@@ -1,7 +1,6 @@
 package com.xiaomi.smarthome.bluetooth;
 
 import android.os.Bundle;
-import com.xiaomi.smarthome.bluetooth.XmBluetoothManager.XmBundle;
 
 /**
  * Created by liwentian on 2015/11/10.

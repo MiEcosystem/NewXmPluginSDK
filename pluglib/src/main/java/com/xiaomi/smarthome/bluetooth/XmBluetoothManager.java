@@ -1,7 +1,6 @@
 package com.xiaomi.smarthome.bluetooth;
 
 import android.content.Context;
-import android.os.Bundle;
 
 import com.xiaomi.smarthome.bluetooth.Response.BleConnectResponse;
 import com.xiaomi.smarthome.bluetooth.Response.BleNotifyResponse;
@@ -137,14 +136,6 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_TIMEDOUT = -7;
         public static final int TOKEN_NOT_MATCHED = -10;
         public static final int REQUEST_OVERFLOW = -11;
-    }
-
-    /**
-     * ApiLevel: 18
-     */
-    public static class XmBundle {
-        public Bundle bundle;
-        public Object obj;
     }
 
     /**
