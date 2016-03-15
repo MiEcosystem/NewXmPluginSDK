@@ -1,35 +1,28 @@
 package com.xiaomi.smarthome.bluetooth;
 
 import android.os.Bundle;
-import android.os.Looper;
+import android.os.RemoteException;
+import android.util.Log;
 
 /**
- * Created by liwentian on 2016/2/19.
+ * Created by liwentian on 2016/3/11.
  */
-public abstract class BleUpgrader implements IBleUpgradeCaller {
+public abstract class BleUpgrader extends IBleUpgradeController.Stub {
 
-    private IBleUpgradeCaller mUpgradeCaller;
-
-    public final void attachUpgradeCaller(IBleUpgradeCaller caller) {
-        if (caller != null) {
-            mUpgradeCaller = caller;
-        }
-    }
+    private IBleUpgradeViewer mBleUpgradeViewer;
 
     @Override
-    public final void showPage(int page, Bundle data) {
-        if (Looper.myLooper() != Looper.getMainLooper()) {
-            throw new IllegalStateException("showPage should be called in UI Thread!");
-        }
-
-        if (mUpgradeCaller != null) {
-            mUpgradeCaller.showPage(page, data);
-        }
+    public void attachUpgradeCaller(IBleUpgradeViewer bleUpgradeViewer) {
+        mBleUpgradeViewer = bleUpgradeViewer;
     }
 
-    public abstract String getCurrentVersion();
-    public abstract String getLatestVersion();
-    public abstract String getUpgradeDescription();
-
-    public abstract void startUpgrade();
+    public void showPage(int page, Bundle data) {
+        if (mBleUpgradeViewer != null) {
+            try {
+                mBleUpgradeViewer.showPage(page, data);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

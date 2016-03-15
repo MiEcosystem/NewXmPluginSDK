@@ -14,6 +14,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
+import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.xiaomi.plugin.core.XmPluginPackage;
 
 import org.apache.http.NameValuePair;
@@ -1193,7 +1194,13 @@ public abstract class XmPluginHostApi {
     @Deprecated
     public abstract Cursor queryDownload(boolean onlyVisibleDownloads, long... filterIds);
 
-    
+    /**
+     * ApiLevel:10 notify wifi download manager
+     * @param isConnected
+     */
+    @Deprecated
+
+    public abstract void notifyLocalWifiConnect(boolean isConnected);
     /**
      * ApiLevel:14 更新设备的子设备
      */
@@ -1280,5 +1287,10 @@ public abstract class XmPluginHostApi {
             }
         });
     }
+
+    /**
+     * ApiLevel:20 创建智能家庭app注册的微信接口
+     */
+    public abstract IWXAPI createWXAPI(Context context, boolean bl);
     
 }

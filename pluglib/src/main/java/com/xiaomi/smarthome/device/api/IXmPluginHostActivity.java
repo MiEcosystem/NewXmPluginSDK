@@ -8,6 +8,8 @@ import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
+import com.xiaomi.smarthome.bluetooth.BleUpgrader;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -509,4 +511,9 @@ public interface IXmPluginHostActivity {
      * ApiLevel:19 开始加载场景
      */
     public abstract void startLoadScene(AsyncCallback callback);
+
+    /**
+     * ApiLevel:20 进入蓝牙设备固件更新
+     */
+    public abstract void goBleUpdateActivity(BleUpgrader upgrader, Intent extIntent);
 }

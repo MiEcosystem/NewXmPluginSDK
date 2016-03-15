@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.xiaomi.smarthome.bluetooth.Response.BleConnectResponse;
-import com.xiaomi.smarthome.bluetooth.Response.BleConnectResponse2;
 import com.xiaomi.smarthome.bluetooth.Response.BleNotifyResponse;
 import com.xiaomi.smarthome.bluetooth.Response.BleReadResponse;
 import com.xiaomi.smarthome.bluetooth.Response.BleReadRssiResponse;
@@ -34,13 +33,6 @@ public abstract class XmBluetoothManager {
      * 设备连接
      */
     public abstract void connect(String mac, final BleConnectResponse response);
-
-
-    /**
-     * ApiLevel: 18
-     * 设备连接
-     */
-    public abstract void connect(String mac, final BleConnectResponse2 response);
 
     /**
      * ApiLevel 15
@@ -144,6 +136,7 @@ public abstract class XmBluetoothManager {
         public static final int CONNECTION_NOT_READY = -6;
         public static final int REQUEST_TIMEDOUT = -7;
         public static final int TOKEN_NOT_MATCHED = -10;
+        public static final int REQUEST_OVERFLOW = -11;
     }
 
     /**
@@ -162,9 +155,41 @@ public abstract class XmBluetoothManager {
     public abstract void deviceRename(String mac, String name);
 
     /**
-     * ApiLevel: 19
-     * @param mac
-     * @param upgrader
+     * ApiLevel: 20
      */
-    public abstract void setBleUpgrader(String mac, BleUpgrader upgrader);
+    public static final String ACTION_CHARACTER_WRITE = "com.xiaomi.smarthome.bluetooth.character_write";
+    public static final String KEY_CHARACTER_WRITE_STATUS = "key_character_write_status";
+    public static final String KEY_MISERVICE_CHARACTERS = "key_miservice_characters";
+    public static final String EXTRA_UPGRADE_CONTROLLER = "extra_upgrade_controller";
+    public static final String EXTRA_UPGRADE_PROCESS = "extra_upgrade_progress";
+
+    /**
+     * 正在loading
+     */
+    public static final int PAGE_LOADING = 0;
+
+    /**
+     * 当前固件已是最新页
+     */
+    public static final int PAGE_CURRENT_LATEST = 1;
+
+    /**
+     * 当前固件不是最新
+     */
+    public static final int PAGE_CURRENT_DEPRECATED = 2;
+
+    /**
+     * 固件更新中
+     */
+    public static final int PAGE_UPGRADING = 3;
+
+    /**
+     * 固件更新成功
+     */
+    public static final int PAGE_UPGRADE_SUCCESS = 4;
+
+    /**
+     * 固件更新失败
+     */
+    public static final int PAGE_UPGRADE_FAILED = 5;
 }

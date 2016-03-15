@@ -23,13 +23,6 @@ public class Response {
     }
 
     /**
-     * ApiLevel: 18
-     */
-    public interface BleConnectResponse2 extends BleResponse<XmBundle> {
-
-    }
-
-    /**
      * ApiLevel: 15
      */
     public interface BleReadResponse extends BleResponse<byte[]> {
