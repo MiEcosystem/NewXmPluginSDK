@@ -195,4 +195,10 @@ public abstract class XmBluetoothManager {
      * 取消设备长连接
      */
     public abstract void unBindDevice(String mac);
+
+    /**
+     * ApiLevel: 20
+     */
+    public static final String KEY_FIRMWARE_CLICK = "key_firmware_click";
+    public static final String EXTRA_BLE_UPGRADER = "extra_ble_upgrader";
 }

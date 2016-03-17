@@ -3,12 +3,15 @@ package com.xiaomi.smarthome.device.api;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.xiaomi.smarthome.bluetooth.BleUpgrader;
+import com.xiaomi.smarthome.bluetooth.XmBluetoothManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -513,7 +516,57 @@ public interface IXmPluginHostActivity {
     public abstract void startLoadScene(AsyncCallback callback);
 
     /**
-     * ApiLevel:20 进入蓝牙设备固件更新
+     * ApiLevel:20 蓝牙设备的设置项
      */
-    public abstract void goBleUpdateActivity(BleUpgrader upgrader, Intent extIntent);
+    public static class BleMenuItem extends MenuItemBase {
+
+        public String key;
+        public Intent intent;
+
+        public BleMenuItem() {
+
+        }
+
+        public static BleMenuItem newUpgraderItem(BleUpgrader upgrader) {
+            BleMenuItem item = new BleMenuItem();
+            item.key = XmBluetoothManager.KEY_FIRMWARE_CLICK;
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                bundle.putBinder(XmBluetoothManager.EXTRA_UPGRADE_CONTROLLER, upgrader);
+            }
+
+            intent.putExtras(bundle);
+            item.intent = intent;
+            return item;
+        }
+
+        public BleMenuItem(Parcel in) {
+            key = in.readString();
+            intent = in.readParcelable(Intent.class.getClassLoader());
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(key);
+            dest.writeParcelable(intent, flags);
+        }
+
+        public static final Creator<BleMenuItem> CREATOR = new Creator<BleMenuItem>() {
+            public BleMenuItem createFromParcel(Parcel in) {
+                return new BleMenuItem(in);
+            }
+
+            public BleMenuItem[] newArray(int size) {
+                return new BleMenuItem[size];
+            }
+
+        };
+    }
 }
