@@ -10,7 +10,11 @@ if (project.ext.has("complieProject")) {
             projectPath = projectPath.substring(projectPath.indexOf("plugProject"))
             def projectPathArray = projectPath.split(File.separator)
             if (projectPathArray.length >= 2) {
-                projectPath = ":" + projectPathArray[0] + ":" + projectPathArray[1] + compileProjectName
+                projectPath=""
+                for(int i=0;i<projectPathArray.length-1;i++){
+                    projectPath += ":" + projectPathArray[i]
+                }
+                projectPath +=  compileProjectName
                 println("compileProject "+projectPath)
                 project.dependencies {
                     compile project(projectPath)
