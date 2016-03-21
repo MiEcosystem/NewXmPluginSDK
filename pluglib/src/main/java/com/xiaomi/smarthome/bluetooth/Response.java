@@ -1,7 +1,6 @@
 package com.xiaomi.smarthome.bluetooth;
 
 import android.os.Bundle;
-
 /**
  * Created by liwentian on 2015/11/10.
  */

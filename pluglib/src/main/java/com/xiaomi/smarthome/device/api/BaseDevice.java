@@ -18,6 +18,8 @@ public class BaseDevice {
 
     private static int PERMISSION_SHARE = 0x04;
 
+    private static int PERMISSION_SHARE_READONLY = 0x20;
+
     private static int PERMISSION_NONE = 0xFF10;
 
     private static int PERMISSION_NONE_MASK = 0x1E;
@@ -243,12 +245,12 @@ public class BaseDevice {
     }
 
     /**
-     * ApiLevel:10 是否是分享权限
+     * ApiLevel:10 是否是分享权限,默认是可以控制
      * 
      * @return
      */
     public boolean isShared() {
-        return ((mDeviceStat.permitLevel & PERMISSION_NONE_MASK & PERMISSION_SHARE) != 0)
+        return ((mDeviceStat.permitLevel & PERMISSION_SHARE) != 0)
                 // 电视必须检查ownerName
                 && !TextUtils.isEmpty(mDeviceStat.ownerName);
     }
@@ -262,4 +264,15 @@ public class BaseDevice {
         return (mDeviceStat.permitLevel & PERMISSION_NONE_MASK) != 0;
     }
 
+
+    /**
+     * ApiLevel:20 是否是只读分享权限，如果设备支持微信分享，必须要检查这个选项，在插件中不能让用户控制设备
+     *
+     * @return
+     */
+    public boolean isReadOnlyShared() {
+        return ((mDeviceStat.permitLevel & PERMISSION_SHARE_READONLY) != 0)
+                // 电视必须检查ownerName
+                && !TextUtils.isEmpty(mDeviceStat.ownerName);
+    }
 }

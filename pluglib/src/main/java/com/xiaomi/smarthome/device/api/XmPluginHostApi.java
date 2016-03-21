@@ -16,6 +16,7 @@ import android.text.TextUtils;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.xiaomi.plugin.core.XmPluginPackage;
+import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -1292,5 +1293,11 @@ public abstract class XmPluginHostApi {
      * ApiLevel:20 创建智能家庭app注册的微信接口
      */
     public abstract IWXAPI createWXAPI(Context context, boolean bl);
-    
+
+
+    /**
+     * ApiLevel: 20
+     * 蓝牙数据上报
+     */
+    public abstract void reportBluetoothRecords(String did, String model, List<XmBluetoothRecord> records, final Callback<List<Boolean>> callback);
 }

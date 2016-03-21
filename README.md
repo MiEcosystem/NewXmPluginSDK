@@ -2,12 +2,21 @@
 
 
 ## 最新修改
+- 分享权限控制
+```
+类BaseDevice
+分享的设备
+public boolean isShared()
+只读分享的设备，不能控制，兼容旧版同时isShared()返回true
+public boolean isReadOnlyShared()
+```
 - 插件运行独立进程，退出插件后30s，自动退出插件进程
 - 新版插件sdk使用Android studio开发
 - 自动生成插件工程脚本gen_plug.py
 - 执行gradle install自动安装插件并启动app
 
 ----
+
 
 ## 插件开发
 

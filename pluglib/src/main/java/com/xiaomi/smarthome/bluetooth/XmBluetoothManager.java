@@ -1,6 +1,7 @@
 package com.xiaomi.smarthome.bluetooth;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.xiaomi.smarthome.bluetooth.Response.BleConnectResponse;
 import com.xiaomi.smarthome.bluetooth.Response.BleNotifyResponse;
@@ -184,17 +185,18 @@ public abstract class XmBluetoothManager {
      */
     public static final int PAGE_UPGRADE_FAILED = 5;
 
-    /**
-     * ApiLevel: 20
-     * 设备安全长连接
-     */
-    public abstract void bindDevice(String mac);
-
-    /**
-     * ApiLevel: 20
-     * 取消设备长连接
-     */
-    public abstract void unBindDevice(String mac);
+//    /**
+//     * ApiLevel: 20
+//     * 设备安全长连接
+//     */
+//    public abstract void bindDevice(String mac);
+//
+//    /**
+//     * ApiLevel: 20
+//     * 取消设备长连接
+//     *
+//     */
+//    public abstract void unBindDevice(String mac);
 
     /**
      * ApiLevel: 20

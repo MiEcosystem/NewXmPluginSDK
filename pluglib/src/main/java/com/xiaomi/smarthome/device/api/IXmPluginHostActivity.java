@@ -439,6 +439,9 @@ public interface IXmPluginHostActivity {
      */
     public static class SlideBtnMenuItem extends MenuItemBase {
         public String name;
+        //ApiLevel: 20 支持副标题
+        public String subName;
+        
         public String onMethod;// 开启时rpc调用
         public String onParams;
         public String offMethod;// 关闭rpc调用
@@ -458,6 +461,7 @@ public interface IXmPluginHostActivity {
             dest.writeString(offMethod);
             dest.writeString(offParams);
             dest.writeInt(isOn ? 1 : 0);
+            dest.writeString(subName);
 
         }
 
@@ -479,6 +483,7 @@ public interface IXmPluginHostActivity {
             offMethod = in.readString();
             offParams = in.readString();
             isOn = in.readInt() == 1;
+            subName = in.readString();
         }
 
         public SlideBtnMenuItem() {

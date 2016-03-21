@@ -1,11 +1,11 @@
 
 package com.xiaomi.smarthome.device.api;
 
-import com.xiaomi.plugin.core.XmPluginPackage;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+
+import com.xiaomi.plugin.core.XmPluginPackage;
 
 public interface IXmPluginMessageReceiver {
     /**
@@ -69,6 +69,11 @@ public interface IXmPluginMessageReceiver {
      * ApiLevel:16 获取场景自定义条件中的extra字段
      */
     public static final int MSG_SCENE_GET_CONDITION_EXTRA = 10;
+
+    /**
+     * ApiLevel:20 设备删除
+     */
+    public static final int MSG_DEVICE_DELETED = 11;
 
     /**
      * ApiLevel:6
