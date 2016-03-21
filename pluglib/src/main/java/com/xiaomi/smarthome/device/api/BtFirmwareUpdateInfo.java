@@ -20,4 +20,13 @@ public class BtFirmwareUpdateInfo {
      * 最新固件的changeLog
      */
     public String changeLog;
+
+    @Override
+    public String toString() {
+        return "BtFirmwareUpdateInfo{" +
+                "version='" + version + '\'' +
+                ", url='" + url + '\'' +
+                ", changeLog='" + changeLog + '\'' +
+                '}';
+    }
 }

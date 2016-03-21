@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.xiaomi.plugin.core.XmPluginPackage;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
+import com.xiaomi.smarthome.bluetooth.Response;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -1300,4 +1301,10 @@ public abstract class XmPluginHostApi {
      * 蓝牙数据上报
      */
     public abstract void reportBluetoothRecords(String did, String model, List<XmBluetoothRecord> records, final Callback<List<Boolean>> callback);
+
+    /*
+     * ApiLevel: 20
+     * 下载蓝牙固件
+     */
+    public abstract void downloadBleFirmware(String url, Response.BleUpgradeResponse response);
 }

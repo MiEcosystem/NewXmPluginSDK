@@ -54,4 +54,11 @@ public class Response {
     public interface BleWriteResponse2 extends BleWriteResponse {
 
     }
+
+    /**
+     * ApiLevel: 20
+     */
+    public interface BleUpgradeResponse extends BleResponse<String> {
+        void onProgress(int progress);
+    }
 }
