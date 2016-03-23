@@ -8,6 +8,7 @@ if (project.ext.has("complieProject")) {
         for (String compileProjectName : complieProjects) {
             def projectPath = project.projectDir.absolutePath
             projectPath = projectPath.substring(projectPath.indexOf("plugProject"))
+            println(projectPath)
             def projectPathArray = projectPath.split("/")
             if (projectPathArray.length >= 2) {
                 projectPath=""
@@ -34,6 +35,10 @@ project.android {
         checkReleaseBuilds false
         disable 'InvalidPackage'
         abortOnError false
+    }
+
+    aaptOptions{
+        useNewCruncher = false
     }
 }
 
