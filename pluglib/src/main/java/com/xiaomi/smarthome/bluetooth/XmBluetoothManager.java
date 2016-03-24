@@ -203,4 +203,9 @@ public abstract class XmBluetoothManager {
      */
     public static final String KEY_FIRMWARE_CLICK = "key_firmware_click";
     public static final String EXTRA_BLE_UPGRADER = "extra_ble_upgrader";
+
+    /**
+     * ApiLevel: 20
+     */
+    public abstract void secureConnect(String mac, BleConnectResponse response);
 }
