@@ -152,7 +152,6 @@ public abstract class XmBluetoothManager {
     public static final String ACTION_CHARACTER_WRITE = "com.xiaomi.smarthome.bluetooth.character_write";
     public static final String KEY_CHARACTER_WRITE_STATUS = "key_character_write_status";
     public static final String KEY_MISERVICE_CHARACTERS = "key_miservice_characters";
-    public static final String EXTRA_UPGRADE_CONTROLLER = "extra_upgrade_controller";
     public static final String EXTRA_UPGRADE_PROCESS = "extra_upgrade_progress";
 
     /**
@@ -202,7 +201,6 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 20
      */
     public static final String KEY_FIRMWARE_CLICK = "key_firmware_click";
-    public static final String EXTRA_BLE_UPGRADER = "extra_ble_upgrader";
 
     /**
      * ApiLevel: 20

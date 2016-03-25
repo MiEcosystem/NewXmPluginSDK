@@ -528,23 +528,32 @@ public interface IXmPluginHostActivity {
         public String key;
         public Intent intent;
 
-        public BleMenuItem() {
+        public static final String EXTRA_HAS_NEWER = "extra_has_newer";
+        public static final String EXTRA_UPGRADE_CONTROLLER = "extra_upgrade_controller";
 
+        public BleMenuItem() {
+            Intent intent = new Intent();
         }
 
         public static BleMenuItem newUpgraderItem(BleUpgrader upgrader) {
             BleMenuItem item = new BleMenuItem();
             item.key = XmBluetoothManager.KEY_FIRMWARE_CLICK;
-            Intent intent = new Intent();
+            item.setUpgrader(upgrader);
+            return item;
+        }
+
+        private void setUpgrader(BleUpgrader upgrader) {
             Bundle bundle = new Bundle();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                bundle.putBinder(XmBluetoothManager.EXTRA_UPGRADE_CONTROLLER, upgrader);
+                bundle.putBinder(EXTRA_UPGRADE_CONTROLLER, upgrader);
             }
 
             intent.putExtras(bundle);
-            item.intent = intent;
-            return item;
+        }
+
+        public void setHasNewerVersion(boolean flag) {
+            intent.putExtra(EXTRA_HAS_NEWER, flag);
         }
 
         public BleMenuItem(Parcel in) {
