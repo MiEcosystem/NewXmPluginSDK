@@ -4,7 +4,7 @@
 ## 最新修改
 - 分享权限控制
 ```
-类BaseDevice
+类BaseDevice ApiLevel:20
 分享的设备
 public boolean isShared()
 只读分享的设备，不能控制，兼容旧版同时isShared()返回true

@@ -55,9 +55,6 @@ public class Response {
 
     }
 
-    /**
-     * ApiLevel: 20
-     */
     public interface BleUpgradeResponse extends BleResponse<String> {
         void onProgress(int progress);
     }

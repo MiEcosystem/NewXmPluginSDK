@@ -16,8 +16,8 @@ import android.text.TextUtils;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.xiaomi.plugin.core.XmPluginPackage;
-import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
 import com.xiaomi.smarthome.bluetooth.Response;
+import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -1302,7 +1302,7 @@ public abstract class XmPluginHostApi {
      */
     public abstract void reportBluetoothRecords(String did, String model, List<XmBluetoothRecord> records, final Callback<List<Boolean>> callback);
 
-    /*
+    /**
      * ApiLevel: 20
      * 下载蓝牙固件
      */

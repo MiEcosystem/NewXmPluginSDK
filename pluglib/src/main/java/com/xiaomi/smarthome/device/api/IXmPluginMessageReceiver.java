@@ -76,6 +76,16 @@ public interface IXmPluginMessageReceiver {
     public static final int MSG_DEVICE_DELETED = 11;
 
     /**
+     * ApiLevel:21 UPNP设备已连接
+     */
+    public static final int MSG_UPNP_CONNECT = 12;
+
+    /**
+     * ApiLevel:21 UPNP设备连接断开
+     */
+    public static final int MSG_UPNP_DISCONNECT = 13;
+
+    /**
      * ApiLevel:6
      */
     public static final int MSG_CUSTOM_START = 10000;
@@ -86,15 +96,13 @@ public interface IXmPluginMessageReceiver {
     public static final int DEVICE_LIST_MAIN_VIEW = 1;// 设备列表界面
 
     /**
-     * 所有插件必须实现该接口，并且在type=LAUNCHER时，启动入口页面 比如下MiTVPageActivity为入口activity
-     * switch (type) { case LAUNCHER: {// 启动入口
-     * XmPluginHostApi.instance().startActivity(xmPluginPackage, intent,
-     * deviceStat.did, MiTVPageActivity.class); return true; } default: break; }
-     * 且 必须在AndroidManifest.xml文件中application下指定 <meta-data android:name="model"
-     * android:value="xiaomi.tvbox.v1"/> <meta-data
-     * android:name="message_handler"
-     * android:value="com.xiaomi.plug.mitv.MitvMessageReceiver"/>
-     * 消息处理接口，处理外部传递过来的消息 启动入口必须在这里指定<br/>
+     * 所有插件必须实现该接口，并且在type=LAUNCHER时，启动入口页面 比如下MiTVPageActivity为入口activity switch (type) { case
+     * LAUNCHER: {// 启动入口 XmPluginHostApi.instance().startActivity(xmPluginPackage, intent,
+     * deviceStat.did, MiTVPageActivity.class); return true; } default: break; } 且
+     * 必须在AndroidManifest.xml文件中application下指定
+     * <meta-data android:name="model" android:value="xiaomi.tvbox.v1"/> <meta-data android:name=
+     * "message_handler" android:value="com.xiaomi.plug.mitv.MitvMessageReceiver"/> 消息处理接口，
+     * 处理外部传递过来的消息 启动入口必须在这里指定<br/>
      * <br/>
      * ApiLevel:1
      */
@@ -107,9 +115,9 @@ public interface IXmPluginMessageReceiver {
     public boolean handleMessage(Context context, XmPluginPackage xmPluginPackage, int type,
                                  Intent intent, DeviceStat deviceStat, MessageCallback callback);
 
-
     /**
      * ApiLevel:7 创建View给外边使用，如果需要在设备列表中的卡片模式中显示设备view，需要实现，否则返回null
+     * 
      * @param context
      * @param layoutInflater
      * @param xmPluginPackage
