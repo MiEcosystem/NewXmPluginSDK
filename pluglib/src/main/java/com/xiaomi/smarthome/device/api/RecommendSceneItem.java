@@ -90,7 +90,7 @@ public class RecommendSceneItem implements Parcelable {
 
         public String mSrc;
 
-
+        public int tempId;
         public void writeToParcel(Parcel parcel) {
             parcel.writeStringArray(mDeviceModels);
             parcel.writeString(mConditionName);
@@ -146,7 +146,7 @@ public class RecommendSceneItem implements Parcelable {
          */
         public Boolean mAddAllDevice;
 
-
+        public int tempId;
         public void writeToParcel(Parcel parcel) {
             parcel.writeStringArray(mDeviceModels);
             parcel.writeString(mActionName);

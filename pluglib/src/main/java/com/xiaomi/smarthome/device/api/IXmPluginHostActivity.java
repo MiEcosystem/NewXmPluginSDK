@@ -532,7 +532,7 @@ public interface IXmPluginHostActivity {
         public static final String EXTRA_UPGRADE_CONTROLLER = "extra_upgrade_controller";
 
         public BleMenuItem() {
-            Intent intent = new Intent();
+            intent = new Intent();
         }
 
         public static BleMenuItem newUpgraderItem(BleUpgrader upgrader) {
