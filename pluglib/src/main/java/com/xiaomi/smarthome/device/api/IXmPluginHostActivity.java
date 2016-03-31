@@ -552,8 +552,9 @@ public interface IXmPluginHostActivity {
             intent.putExtras(bundle);
         }
 
+        @Deprecated
         public void setHasNewerVersion(boolean flag) {
-            intent.putExtra(EXTRA_HAS_NEWER, flag);
+//            intent.putExtra(EXTRA_HAS_NEWER, flag);
         }
 
         public BleMenuItem(Parcel in) {
