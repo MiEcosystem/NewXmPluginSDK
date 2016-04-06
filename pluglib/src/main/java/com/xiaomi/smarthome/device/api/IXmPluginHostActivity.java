@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.xiaomi.smarthome.bluetooth.BleUpgrader;
+import com.xiaomi.smarthome.bluetooth.IBleUpgradeController;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothManager;
 
 import java.util.ArrayList;
@@ -550,6 +552,24 @@ public interface IXmPluginHostActivity {
             }
 
             intent.putExtras(bundle);
+        }
+
+        public IBleUpgradeController getBleUpgrader() {
+            IBinder binder = null;
+
+            Bundle bundle = intent.getExtras();
+
+            if (bundle != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    binder = bundle.getBinder(IXmPluginHostActivity.BleMenuItem.EXTRA_UPGRADE_CONTROLLER);
+                }
+            }
+
+            if (binder != null) {
+                return IBleUpgradeController.Stub.asInterface(binder);
+            }
+
+            return null;
         }
 
         @Deprecated
