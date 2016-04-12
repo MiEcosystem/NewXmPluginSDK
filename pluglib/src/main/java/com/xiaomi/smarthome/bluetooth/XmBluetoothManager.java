@@ -144,6 +144,7 @@ public abstract class XmBluetoothManager {
      * @param mac
      * @param name
      */
+    @Deprecated
     public abstract void deviceRename(String mac, String name);
 
     /**

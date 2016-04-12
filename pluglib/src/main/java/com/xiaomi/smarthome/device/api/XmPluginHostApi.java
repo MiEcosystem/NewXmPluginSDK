@@ -1313,4 +1313,10 @@ public abstract class XmPluginHostApi {
      * 设置蓝牙设备副标题
      */
     public abstract void setBleDeviceSubtitle(String mac, String subtitle);
+
+    /**
+     * ApiLevel: 21
+     * 设置蓝牙设备名称
+     */
+    public abstract void deviceRename(String mac, final String name);
 }

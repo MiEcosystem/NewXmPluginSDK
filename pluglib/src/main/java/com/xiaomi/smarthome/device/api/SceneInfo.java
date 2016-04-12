@@ -42,6 +42,8 @@ public class SceneInfo implements Parcelable {
         dest.writeValue(mLaunch);
         dest.writeList(mLaunchList);
         dest.writeList(mActions);
+        dest.writeInt(mType);
+        dest.writeInt(mStatus);
     }
 
     public SceneInfo() {
@@ -62,6 +64,8 @@ public class SceneInfo implements Parcelable {
         in.readList(mLaunchList, SceneLaunch.class.getClassLoader());
         mActions = new ArrayList<SceneAction>();
         in.readList(mActions, SceneAction.class.getClassLoader());
+        mType = in.readInt();
+        mStatus = in.readInt();
     }
 
     /**
@@ -93,6 +97,14 @@ public class SceneInfo implements Parcelable {
      * ApiLevel:8
      */
     public List<SceneAction> mActions;
+    /**
+     * ApiLevel:22
+     */
+    public int mType;
+    /**
+     * ApiLevel:22
+     */
+    public int mStatus;
 
     /**
      * ApiLevel:8
