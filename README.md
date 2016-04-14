@@ -2,6 +2,15 @@
 
 
 ## 最新修改
+- 添加使用帮助接口
+```
+IXmPluginHostActivity
+    /**
+     * ApiLevel:22 跳转到帮助页面
+     */
+    public abstract void openHelpActivity();
+
+```
 - 分享权限控制
 ```
 类BaseDevice ApiLevel:20
