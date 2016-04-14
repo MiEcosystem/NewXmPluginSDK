@@ -604,4 +604,9 @@ public interface IXmPluginHostActivity {
 
         };
     }
+
+    /**
+     * ApiLevel:21 跳转到帮助页面
+     */
+    public abstract void openHelpActivity();
 }
