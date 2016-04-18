@@ -207,4 +207,9 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 20
      */
     public abstract void secureConnect(String mac, BleConnectResponse response);
+
+    /**
+     * ApiLevel: 21
+     */
+    public abstract void call(int code, Bundle args, Response.BleCallResponse response);
 }

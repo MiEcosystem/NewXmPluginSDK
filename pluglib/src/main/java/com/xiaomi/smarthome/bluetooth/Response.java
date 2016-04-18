@@ -58,4 +58,8 @@ public class Response {
     public interface BleUpgradeResponse extends BleResponse<String> {
         void onProgress(int progress);
     }
+
+    public interface BleCallResponse extends BleResponse<Bundle> {
+
+    }
 }
