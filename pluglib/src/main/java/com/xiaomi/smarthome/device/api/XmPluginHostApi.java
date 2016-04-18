@@ -1208,10 +1208,17 @@ public abstract class XmPluginHostApi {
      */
     public abstract void updateSubDevice(XmPluginPackage xmPluginPackage,String[] didList,Callback<List<DeviceStat>> callback);
 
-    /**
-     * ApiLevel:15 异步调用第三方云接口
+    /**ApiLevel:15 异步调用第三方云接口
+     *
+     * @param dids  可选参数，为了安全考虑，如果提供此参数，后台会校验dids中的设备是否属于调用者，全部属于调用者才会继续向第三方云发起调用，否则返回错误。
+     * @param appId 为各第三方分配的id
+     * @param params  {  // 小米云不解析params中的数据，格式和数据内容第三方云可自定义，以下格式为建议
+                        "api_type": "xxx",  //  第三方云自定义，区分不同的行为
+                        "data":  xxxx  // 具体数据
+                        }
+     * @param callback 调用成功后返回数据 // jsonObject类型，格式为{"code":0, "message":"xxx","result": ...... }，code==0表示成功，其他值表示失败
      */
-    public abstract void callRemoteAsync(final String[] dids, final int appId, Object object, Callback<JSONObject> callback);
+    public abstract void callRemoteAsync(final String[] dids, final int appId, Object params, Callback<JSONObject> callback);
 
 
     /**
