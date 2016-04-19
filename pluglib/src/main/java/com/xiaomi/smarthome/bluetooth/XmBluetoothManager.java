@@ -211,5 +211,5 @@ public abstract class XmBluetoothManager {
     /**
      * ApiLevel: 21
      */
-    public abstract void call(int code, Bundle args, Response.BleCallResponse response);
+    public abstract void call(String mac, int code, Bundle args, Response.BleCallResponse response);
 }
