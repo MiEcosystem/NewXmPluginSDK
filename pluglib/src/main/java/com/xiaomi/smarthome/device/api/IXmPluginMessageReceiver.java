@@ -91,6 +91,11 @@ public interface IXmPluginMessageReceiver {
     public static final int MSG_SET_SCENE_LARGE_EXTRA = 14;
 
     /**
+     * ApiLevel:22 接收broadcast消息
+     */
+    public static final int MSG_BROADCAST = 15;
+
+    /**
      * ApiLevel:6
      */
     public static final int MSG_CUSTOM_START = 10000;
@@ -112,13 +117,13 @@ public interface IXmPluginMessageReceiver {
      * ApiLevel:1
      */
     public boolean handleMessage(Context context, XmPluginPackage xmPluginPackage, int type,
-            Intent intent, DeviceStat deviceStat);
+                                 Intent intent, DeviceStat deviceStat);
 
     /**
      * ApiLevel:2 功能同上，异步调用完成后，通过callback 返回结果
      */
     public boolean handleMessage(Context context, XmPluginPackage xmPluginPackage, int type,
-            Intent intent, DeviceStat deviceStat, MessageCallback callback);
+                                 Intent intent, DeviceStat deviceStat, MessageCallback callback);
 
     /**
      * ApiLevel:7 创建View给外边使用，如果需要在设备列表中的卡片模式中显示设备view，需要实现，否则返回null
@@ -131,9 +136,8 @@ public interface IXmPluginMessageReceiver {
      * @param deviceStat
      * @return
      */
-    @Deprecated
     public BaseWidgetView createWidgetView(Context context, LayoutInflater layoutInflater,
-            XmPluginPackage xmPluginPackage, int type,
-            Intent intent, DeviceStat deviceStat);
+                                           XmPluginPackage xmPluginPackage, int type,
+                                           Intent intent, DeviceStat deviceStat);
 
 }

@@ -2,6 +2,28 @@
 
 
 ## 最新修改
+
+- 添加给插件发送broadcast接口
+
+```
+IXmPluginHostActivity
+  /**
+      * ApiLevel: 22
+      * 给设备发送broadcast，会发送给IXmPluginMessageReceiver.handleMessage
+      */
+     public Intent getBroadCastIntent(DeviceStat deviceStat){
+         Intent intent = new Intent("com.xiaomi.smarthome.RECEIVE_MESSAGE");
+         intent.putExtra("device_id", deviceStat.did);
+         return intent;
+     }
+```
+- 插件的build.gradle里边不要使用下面的库，这些库依赖已经在脚本中加入
+```
+    compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.android.support:support-v13:23.1.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+```
 - 添加使用帮助接口
 ```
 IXmPluginHostActivity
@@ -34,7 +56,7 @@ public boolean isReadOnlyShared()
 - 申请开发者账号userid
 - 登记新产品,记录设备model
 - 创建签名证书
-- 创建插件信息，提交证书md5信息
+- 创建插件信息，提交证书md5信息给小米
 
 ```
 签名文件的md5信息获取，需要去掉:号

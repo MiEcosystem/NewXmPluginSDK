@@ -209,7 +209,10 @@ public abstract class XmBluetoothManager {
     public abstract void secureConnect(String mac, BleConnectResponse response);
 
     /**
-     * ApiLevel: 21
+     * ApiLevel: 22
+     * @param mac
+     * @param code
+     * @param args
      */
     public abstract void call(String mac, int code, Bundle args, Response.BleCallResponse response);
 

@@ -10,7 +10,7 @@ void scanProject(def settings, File dir) {
                 String projectPath = file.absolutePath.substring(file.absolutePath.indexOf("plugProject")-1);
                 projectPath = projectPath.substring(0, projectPath.indexOf("build.gradle")-1)
                 projectPath = projectPath.replace(File.separator, ':')
-                println(projectPath)
+                println("include project : " + projectPath)
                 settings.include(projectPath)
             }
             return;

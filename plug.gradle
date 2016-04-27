@@ -40,6 +40,8 @@ project.android {
 
 def pluglibPath = "${project.rootProject.projectDir}${File.separator}libs_ex"
 project.dependencies {
+    provided 'com.squareup.picasso:picasso:2.5.2'
+
     compile project(':common_ui')
     provided fileTree(dir: 'libs_ex', include: ['*.jar'])
     provided fileTree(dir: pluglibPath, include: ['*.jar'])

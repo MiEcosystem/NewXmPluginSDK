@@ -10,4 +10,5 @@ interface IBleUpgradeController {
 
     void onActivityCreated(in Bundle data);
     void attachUpgradeCaller(IBleUpgradeViewer viewer);
+    void detachUpgradeCaller();
 }

@@ -16,11 +16,16 @@ public abstract class BleUpgrader extends IBleUpgradeController.Stub {
         mBleUpgradeViewer = bleUpgradeViewer;
     }
 
+    @Override
+    public void detachUpgradeCaller() throws RemoteException {
+        mBleUpgradeViewer = null;
+    }
+
     public void showPage(int page, Bundle data) {
         if (mBleUpgradeViewer != null) {
             try {
                 mBleUpgradeViewer.showPage(page, data);
-            } catch (RemoteException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
