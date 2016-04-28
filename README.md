@@ -149,13 +149,6 @@ project.ext.set("complieProject",[":demolib"])
 
 ### 插件编译运行
 
-- 通过Android studio编译运行
-
-在工具栏选中运行的插件项目，点击Run按钮，如下图所示
-
-![](./md_images/gradle_debug2.png)
-
-
 - 通过gradle指令编译运行，在插件sdk目录下执行
 
 ```
@@ -176,6 +169,22 @@ gradle installXiaomi_demo 安装运行release配置插件
 gradle installXiaomi_demoRelease 安装运行release配置插件
 gradle installXiaomi_demoDebug 安装运行debug配置插件
 ```
+- 通过Android studio编译运行,如果系统提示出错，请选择使用指令运行
+
+在工具栏选中运行的插件项目，点击Run按钮，如下图所示
+
+![](./md_images/gradle_debug2.png)
+
+
+### 关联pluglib库源码
+插件开发的时候，发现pluglib中的函数变量名被重命名，没有注释，可以通过下面方法关联pluglib源码看到源码中的注释和变量名
+点击系统反编译源码文件的右上角
+
+![](./md_images/attach_sources_0.png)
+
+然选择libs_ex下的pluglib-sources.jar
+
+![](./md_images/attach_sources_1.png)
 
 ### 调试插件
 安装上插件后，会自动启动智能家庭app，点击android studio 调试按钮，选择com.xiaomi.smarthome:plugin进程，如下图所示按钮，可以在插件代码中打断点调试

@@ -70,7 +70,7 @@ project.afterEvaluate {
             copy {
                 from "${project.rootProject.projectDir}${File.separator}pluglib${File.separator}build${File.separator}libs${File.separator}"
                 into pluglibPath
-                include('plug_lib.jar')
+                include('*.jar')
             }
         })
         beforePrapareTask.dependsOn compliePluglibTask

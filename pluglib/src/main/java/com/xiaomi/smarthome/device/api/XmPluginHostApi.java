@@ -26,8 +26,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 插件宿主提供给插件的接口
@@ -1338,5 +1341,119 @@ public abstract class XmPluginHostApi {
         Intent intent = new Intent("com.xiaomi.smarthome.RECEIVE_MESSAGE");
         intent.putExtra("device_id", deviceStat.did);
         return intent;
+    }
+
+    /**
+     * ApiLevel: 22
+     * 获取设备属性和事件历史记录
+     *
+     * @param model
+     * @param did       设备did
+     * @param type      属性为prop,事件为event
+     * @param key       属性名，不需要prop或者event前缀
+     * @param timeStart 起始时间单位为秒
+     * @param timeEnd   结束事件，单位为秒
+     * @param callback  回调
+     */
+    public void getUserDeviceData(String model, String did, String type, String key, long timeStart, long timeEnd, Callback<JSONArray> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("did", did);
+            dataObj.put("type", type);
+            dataObj.put("key", key);
+            dataObj.put("time_start", timeStart);
+            dataObj.put("time_end", timeEnd);
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+                return;
+            }
+        }
+        callSmartHomeApi(model, "/user/get_user_device_data", dataObj, callback, new Parser<JSONArray>() {
+            @Override
+            public JSONArray parse(String result) throws JSONException {
+                JSONObject response = new JSONObject(result);
+                return response.getJSONArray("result");
+            }
+        });
+    }
+
+
+    /**
+     * ApiLevel: 22
+     * 创建或修改设置app/插件自由存储空间,最大4k
+     *
+     * @param app_id 厂商APP_ID，需要向小米申请
+     * @param key    索引，从0开始
+     * @param data   key，value结构数据
+     */
+
+    public void setUserConfig(String model, String app_id, int key, Map<String, Object> data, Callback<Boolean> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("component_id", app_id);
+            dataObj.put("key", key);
+            JSONObject attris = new JSONObject();
+            Set<Map.Entry<String, Object>> entrys = data.entrySet();
+            for (Map.Entry<String, Object> entry : entrys) {
+                attris.put(entry.getKey(),entry.getValue());
+            }
+            dataObj.put("data",attris);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+                return;
+            }
+        }
+        callSmartHomeApi(model, "/user/setUserConfig", dataObj, callback, new Parser<Boolean>() {
+            @Override
+            public Boolean parse(String result) throws JSONException {
+                JSONObject response = new JSONObject(result);
+                int res = response.optInt("result");
+                return res != 0;
+            }
+        });
+    }
+
+    /** ApiLevel: 22
+     * 拉取设置app/插件自由存储空间
+     * @param model
+     * @param app_id 厂商APP_ID，需要向小米申请
+     * @param keys 索引，从0开始
+     * @param callback  key，value结构数据
+     */
+    public void getUserConfig(String model, String app_id, int[] keys, Callback<Map<String, Object>> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("component_id", app_id);
+            JSONArray keysArray = new JSONArray();
+            for (int i=0;i<keys.length;i++){
+                keysArray.put(keys[i]);
+            }
+            dataObj.put("keys", keysArray);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+                return;
+            }
+        }
+        callSmartHomeApi(model, "/user/getUserConfig", dataObj, callback, new Parser<Map<String, Object>>() {
+            @Override
+            public Map<String, Object> parse(String result) throws JSONException {
+                JSONObject response = new JSONObject(result);
+                Map<String, Object> map = new HashMap<String, Object>();
+                JSONObject resultObj = response.optJSONObject("result");
+                if(resultObj!=null){
+                    Iterator<String> iterator =  resultObj.keys();
+                    while (iterator.hasNext()){
+                        String key = iterator.next();
+                        map.put(key,resultObj.get(key));
+                    }
+                }
+                return map;
+            }
+        });
     }
 }

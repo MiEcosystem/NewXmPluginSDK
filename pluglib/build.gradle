@@ -26,10 +26,12 @@ dependencies {
     provided fileTree(dir: 'lib_ex', include: ['*.jar'])
 }
 
-def jarName = 'plug_lib.jar'
+def jarName = 'pluglib.jar'
+def jarSurcesName = 'pluglib-sources.jar'
 task clearJar(type: Delete) {
     delete "${project.buildDir}/libs/" + jarName
 }
+
 task makeJar(type: Copy) {
     from("${project.buildDir}/intermediates/bundles/release/")
     into("${project.buildDir}/libs/")
@@ -37,5 +39,13 @@ task makeJar(type: Copy) {
     rename('classes.jar', jarName)
 }
 
-makeJar.dependsOn(clearJar, assembleRelease)
+task sourcesJar(type: Jar) {
+    from (android.sourceSets.main.java.srcDirs)
+    into ("${project.buildDir}/libs/")
+    rename ('pluglib-sources.jar', jarSurcesName)
+    classifier = 'sources'
+}
+
+
+makeJar.dependsOn(clearJar, assembleRelease,sourcesJar)
 
