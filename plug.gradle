@@ -35,6 +35,10 @@ project.android {
         disable 'InvalidPackage'
         abortOnError false
     }
+
+    aaptOptions {
+        useNewCruncher false
+    }
 }
 
 
