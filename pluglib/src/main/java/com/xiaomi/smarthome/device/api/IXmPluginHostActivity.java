@@ -609,4 +609,11 @@ public interface IXmPluginHostActivity {
      * ApiLevel:22 跳转到帮助页面
      */
     public abstract void openHelpActivity();
+
+    /**
+     * ApiLevel:23
+     * @param intent
+     * @param upgrader
+     */
+    public abstract void goBleUpdateActivity(Intent intent, BleUpgrader upgrader);
 }
