@@ -168,7 +168,7 @@ void installPlugin(def project, def variant) {
                 project.exec {
                     commandLine adbcmd,
                             "shell",
-                            "am start com.xiaomi.smarthome/.StartupActivity"
+                            "am start com.xiaomi.smarthome/.SmartHomeMainActivity"
                     standardOutput = stdout
                 }
                 error = stdout.toString().trim()
