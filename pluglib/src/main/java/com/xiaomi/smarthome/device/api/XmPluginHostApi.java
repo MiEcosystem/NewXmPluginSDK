@@ -1218,9 +1218,23 @@ public abstract class XmPluginHostApi {
 
     /**
      * ApiLevel:15 异步调用第三方云接口
+     * 需要注意，由于后台返回的数据原因，目前回调接口可能有2种数据。
+     * 目前异步接口通过push通知和超时重试2种方式获取数据。其中超时重试可能会比push获取的数据多封装一层
+     * 如push获取的数据如果如下"{\"bssid\":\"d0:ee:07:23:22:90\"}"，则超时重试则可能会是{"code":0,"message":"ok","result":"{\"bssid\":\"d0:ee:07:23:22:90\"}"}
+     * 有效载荷在result字段中。插件解析可能需要对数据做兼容处理
      */
     public abstract void callRemoteAsync(final String[] dids, final int appId, Object object,
                                          Callback<JSONObject> callback);
+
+    /**
+     * ApiLevel:23 异步调用第三方云接口
+     * finalCallback: 异步请求最终结果回调，其回调表明最终结果（如果成功）或是失败
+     * directCallback: 异步请求中间回调,用于通知后台关于异步请求的配置.目前返回结果如下{"sid": 32323,"interval": 3,"max_retry": 3}，意思是最多重试三次，每次请求间隔３秒
+     * 如果请求提交失败，则直接调用finalCallback的回调，表明callRemoteAsync失败
+     *
+     */
+    public abstract void callRemoteAsync(final String[] dids, final int appId, Object object,
+                                         Callback<JSONObject> finalCallback, Callback<JSONObject> directCallback);
 
     /**
      * ApiLevel:16 获取蓝牙设备固件升级信息

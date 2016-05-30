@@ -96,6 +96,11 @@ public interface IXmPluginMessageReceiver {
     public static final int MSG_BROADCAST = 15;
 
     /**
+     * ApiLevel:23 UPNP设备事件
+     */
+    public static final int MSG_UPNP_EVENT = 16;
+
+    /**
      * ApiLevel:6
      */
     public static final int MSG_CUSTOM_START = 10000;
