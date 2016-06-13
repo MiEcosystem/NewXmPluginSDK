@@ -617,4 +617,13 @@ public interface IXmPluginHostActivity {
      * @param upgrader
      */
     public abstract void goBleUpdateActivity(Intent intent, BleUpgrader upgrader);
+
+
+    /**
+     * ApiLevel:23 跳转水电燃气缴费页面
+     * @param type 0:水电燃气缴费主页面 1:水 2:电 3:燃气
+     * @param latitude 纬度
+     * @param longitude 经度
+     */
+    public abstract void openRechargePage(int type,double latitude,double longitude);
 }

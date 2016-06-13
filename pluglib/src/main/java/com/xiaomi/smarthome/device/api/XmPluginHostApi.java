@@ -1470,4 +1470,15 @@ public abstract class XmPluginHostApi {
         });
     }
 
+    /** ApiLevel: 23
+     *
+     * 查询水电燃气余额
+     *
+     * @param type  1:水 2:电 3:燃气
+     * @param latitude 纬度
+     * @param longitude 经度
+     * @param callback 返回查询余额Json //{"balance":300,"updateTime":1465781516,"rechargeItemName":"郑州市燃气费"}
+     *                 返回null时表示没有绑定机表号
+     */
+    public abstract void getRechargeBalances(int type,double latitude,double longitude,Callback<JSONObject> callback);
 }

@@ -3,6 +3,37 @@
 
 ## 最新修改
 
+- 添加水电煤气缴费接口
+
+IXmPluginHostActivity
+
+```
+/**
+     * ApiLevel:23 跳转水电燃气缴费页面
+     * @param type 0:水电燃气缴费主页面 1:水 2:电 3:燃气
+     * @param latitude 纬度
+     * @param longitude 经度
+     */
+    public abstract void openRechargePage(int type,double latitude,double longitude);
+```
+- 添加水电煤气缴费余额查询接口
+
+XmPluginHostApi
+```
+ /** ApiLevel: 23
+     *
+     * 查询水电燃气余额
+     *
+     * @param type  1:水 2:电 3:燃气
+     * @param latitude 纬度
+     * @param longitude 经度
+     * @param callback 返回查询余额Json //{"balance":300,"updateTime":1465781516,"rechargeItemName":"郑州市燃气费"}
+     *                 返回null时表示没有绑定机表号
+     */
+    public abstract void getRechargeBalances(int type,double latitude,double longitude,Callback<JSONObject> callback);
+
+```
+
 - 添加给插件发送broadcast接口
 
 ```
