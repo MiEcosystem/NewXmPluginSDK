@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -305,7 +306,7 @@ public abstract class XmPluginHostApi {
     // ///////////////
 
     /**
-     * ApiLevel:2 智能家庭后台统计(Deprecated)
+     * ApiLevel:2 米家后台统计(Deprecated)
      *
      * @param appId 第三方插件开放唯一id，定义为厂商名
      * @param value 为Object 可以为int或String或JsonObject
@@ -315,7 +316,7 @@ public abstract class XmPluginHostApi {
     public abstract void addRecord(String appId, String key, Object value, JSONObject extra);
 
     /**
-     * ApiLevel:6 智能家庭后台统计
+     * ApiLevel:6 米家后台统计
      *
      * @param loadedInfo 插件上下文
      * @param key
@@ -895,7 +896,7 @@ public abstract class XmPluginHostApi {
     public abstract void updateDeviceList(Callback<Void> callback);
 
     /**
-     * ApiLevel:4 插件中设备数据属性发生变化，同步数据到智能家庭主app中，比如设备列表中显示某些属性状态
+     * ApiLevel:4 插件中设备数据属性发生变化，同步数据到米家主app中，比如设备列表中显示某些属性状态
      *
      * @param did
      * @param jsonObject
@@ -1314,7 +1315,7 @@ public abstract class XmPluginHostApi {
     }
 
     /**
-     * ApiLevel:20 创建智能家庭app注册的微信接口
+     * ApiLevel:20 创建米家app注册的微信接口
      */
     public abstract IWXAPI createWXAPI(Context context, boolean bl);
 
@@ -1470,7 +1471,7 @@ public abstract class XmPluginHostApi {
         });
     }
 
-    /** ApiLevel: 23
+    /** ApiLevel: 24
      *
      * 查询水电燃气余额
      *
@@ -1481,4 +1482,22 @@ public abstract class XmPluginHostApi {
      *                 返回null时表示没有绑定机表号
      */
     public abstract void getRechargeBalances(int type,double latitude,double longitude,Callback<JSONObject> callback);
+
+    /**
+     * ApiLevel: 25
+     * 编码生成二维码图片
+     * @param barcode 二维码信息
+     * @param width 图片宽度
+     * @param height 图片高度
+     * @return 返回二维码图片,为ARGB_8888格式
+     */
+    public abstract Bitmap encodeBarcode(String barcode,int width,int height);
+
+    /**
+     * ApiLevel: 25
+     * 解码二维码图片
+     * @param bitmap 二维码图片,必须为ARGB_8888格式
+     * @return 返回二维码信息
+     */
+    public abstract String decodeBarcode(Bitmap bitmap);
 }

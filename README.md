@@ -3,6 +3,40 @@
 
 ## 最新修改
 
+- 添加二维码接口
+
+IXmPluginHostActivity
+
+```
+/**
+     * ApiLevel:25 跳转二维码扫描页面
+     * @param bundle 请求参数，可以穿null @see #Activity.startActivityForResult(Intent, requestCode)
+     * @param requestCode @see #Activity.startActivityForResult(Intent, requestCode)
+     */
+    public abstract void openScanBarcodePage(Bundle bundle,int requestCode);
+```
+
+XmPluginHostApi
+```
+  /**
+      * ApiLevel: 25
+      * 编码生成二维码图片
+      * @param barcode 二维码信息
+      * @param width 图片宽度
+      * @param height 图片高度
+      * @return 返回二维码图片,为ARGB_8888格式
+      */
+     public abstract Bitmap encodeBarcode(String barcode,int width,int height);
+ 
+     /**
+      * ApiLevel: 25
+      * 解码二维码图片
+      * @param bitmap 二维码图片,必须为ARGB_8888格式
+      * @return 返回二维码信息
+      */
+     public abstract String decodeBarcode(Bitmap bitmap);
+```
+
 - 添加水电煤气缴费接口
 
 IXmPluginHostActivity

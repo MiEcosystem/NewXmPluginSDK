@@ -268,7 +268,7 @@ public interface IXmPluginHostActivity {
 
     /**@deprecated
      * @see MenuItemBase
-     * 
+     *
      * ApiLevel:8 打开菜单,添加传设备did参数，onActivityResult()返回用户点击结果 String
      * selectMenu = data.getStringExtra("menu");
      *
@@ -342,7 +342,7 @@ public interface IXmPluginHostActivity {
                                        String shareContent,
                                        String shareImagesZipUrl, Bitmap thumb
     );
-    
+
     /**
      * ApiLevel: 15 打开分享dialog，分享本地图片
      *
@@ -443,7 +443,7 @@ public interface IXmPluginHostActivity {
         public String name;
         //ApiLevel: 20 支持副标题
         public String subName;
-        
+
         public String onMethod;// 开启时rpc调用
         public String onParams;
         public String offMethod;// 关闭rpc调用
@@ -507,12 +507,12 @@ public interface IXmPluginHostActivity {
      *
      */
     public abstract void startEditCustomScene();
-    
+
     /**
      * ApiLevel:14 进入某个设备固件更新
      */
     public abstract void goUpdateActivity(String did);
-    
+
     /**
      * ApiLevel:15 设置黑色的状态栏，默认是黑色的
      */
@@ -620,10 +620,29 @@ public interface IXmPluginHostActivity {
 
 
     /**
-     * ApiLevel:23 跳转水电燃气缴费页面
+     * ApiLevel:24 跳转水电燃气缴费页面
      * @param type 0:水电燃气缴费主页面 1:水 2:电 3:燃气
      * @param latitude 纬度
      * @param longitude 经度
      */
     public abstract void openRechargePage(int type,double latitude,double longitude);
+
+    /**
+     * ApiLevel:25 跳转二维码扫描页面
+     * @param bundle 请求参数，可以穿null @see #Activity.startActivityForResult(Intent, requestCode)
+     * @param requestCode @see #Activity.startActivityForResult(Intent, requestCode)
+     *
+     * 结果返回到调用Activity的onActivityResult中，调用如下
+     * <pre class="prettyprint">
+     *    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+     *        super.onActivityResult(requestCode, resultCode, data);
+     *        if(resultCode==RESULT_OK){
+     *            if(requestCode==SCAN_BARCODE){
+     *            String result = data.getStringExtra("scan_result");
+     *             }
+     *         }
+     *    }
+     * </pre>
+     */
+    public abstract void openScanBarcodePage(Bundle bundle,int requestCode);
 }
