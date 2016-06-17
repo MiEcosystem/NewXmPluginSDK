@@ -62,4 +62,11 @@ public class Response {
     public interface BleCallResponse extends BleResponse<Bundle> {
 
     }
+
+    /**
+     * ApiLevel: 25
+     */
+    public interface BleDeviceStatusResponse extends BleResponse<Integer> {
+
+    }
 }

@@ -122,6 +122,8 @@ public abstract class XmBluetoothManager {
     public static final int STATUS_UNKNOWN = 0x5;
     public static final int STATUS_CONNECTED = 0x10;
     public static final int STATUS_DISCONNECTED = 0x20;
+    public static final int STATUS_ONLINE = 0x30;
+    public static final int STATUS_OFFLINE = 0x40;
 
     /**
      * ApiLevel: 15
@@ -223,4 +225,14 @@ public abstract class XmBluetoothManager {
      * @param delayMillis
      */
     public abstract void disconnect(String mac, long delayMillis);
+
+    /**
+     * ApiLevel: 25
+     */
+    public abstract void refreshDeviceStatus(String mac, long durationInMillis, Response.BleDeviceStatusResponse response);
+
+    /**
+     * ApiLevel: 25
+     */
+    public static final int CODE_REFRESH_DEVICE_STATUS = 1;
 }
