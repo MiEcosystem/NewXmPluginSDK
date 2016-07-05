@@ -235,4 +235,33 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 25
      */
     public static final int CODE_REFRESH_DEVICE_STATUS = 1;
+
+    /**
+     * ApiLevel: 25
+     */
+    public abstract void startScan(int durationInMillis, int type, BluetoothSearchResponse response);
+
+    /**
+     * ApiLevel: 25
+     */
+    public abstract void stopScan();
+
+    /**
+     * ApiLevel: 25
+     */
+    public static final int SCAN_CLASSIC = 0;
+    public static final int SCAN_BLE = 1;
+
+    /**
+     * ApiLevel: 25
+     */
+    public interface BluetoothSearchResponse {
+        void onSearchStarted();
+
+        void onDeviceFounded(XmBluetoothDevice device);
+
+        void onSearchStopped();
+
+        void onSearchCanceled();
+    }
 }
