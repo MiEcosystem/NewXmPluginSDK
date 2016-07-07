@@ -19,6 +19,8 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.xiaomi.plugin.core.XmPluginPackage;
 import com.xiaomi.smarthome.bluetooth.Response;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
+import com.xiaomi.smarthome.plugin.devicesubscribe.PluginSubscribeCallback;
+import com.xiaomi.smarthome.plugin.devicesubscribe.PluginUnSubscribeCallback;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -274,6 +276,29 @@ public abstract class XmPluginHostApi {
      */
     public abstract void unsubscribeDevice(String did, int pid, List<String> entryList,
                                            Callback<Void> callback);
+
+    /**
+     * ApiLevel: 25 订阅设备属性变化(跟model无关) 变化后push消息通知 需要在IXmPluginMessageReceiver里面接收消息通知
+     *
+     * @param did
+     * @param pid
+     * @param entryList 属性列表 属性必须加 prop.
+     * @param expire 分钟 必须<=3
+     * @param callback
+     */
+    public abstract void subscribeDeviceV2(String did, int pid, List<String> entryList, int expire,
+            PluginSubscribeCallback callback);
+
+    /**
+     * ApiLevel: 25 取消订阅(跟model无关)
+     *
+     * @param did
+     * @param pid
+     * @param entryList
+     * @param callback
+     */
+    public abstract void unsubscribeDeviceV2(String did, int pid, List<String> entryList, String subId,
+            PluginUnSubscribeCallback callback);
 
     // ApiLevel:1
     // 统计相关接口,参考miui开放平台统计，

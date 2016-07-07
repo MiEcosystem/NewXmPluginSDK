@@ -268,7 +268,7 @@ public interface IXmPluginHostActivity {
 
     /**@deprecated
      * @see MenuItemBase
-     *
+     * 
      * ApiLevel:8 打开菜单,添加传设备did参数，onActivityResult()返回用户点击结果 String
      * selectMenu = data.getStringExtra("menu");
      *
@@ -342,7 +342,7 @@ public interface IXmPluginHostActivity {
                                        String shareContent,
                                        String shareImagesZipUrl, Bitmap thumb
     );
-
+    
     /**
      * ApiLevel: 15 打开分享dialog，分享本地图片
      *
@@ -443,7 +443,7 @@ public interface IXmPluginHostActivity {
         public String name;
         //ApiLevel: 20 支持副标题
         public String subName;
-
+        
         public String onMethod;// 开启时rpc调用
         public String onParams;
         public String offMethod;// 关闭rpc调用
@@ -507,12 +507,12 @@ public interface IXmPluginHostActivity {
      *
      */
     public abstract void startEditCustomScene();
-
+    
     /**
      * ApiLevel:14 进入某个设备固件更新
      */
     public abstract void goUpdateActivity(String did);
-
+    
     /**
      * ApiLevel:15 设置黑色的状态栏，默认是黑色的
      */
@@ -627,7 +627,7 @@ public interface IXmPluginHostActivity {
      */
     public abstract void openRechargePage(int type,double latitude,double longitude);
 
-    public enum BarcodeFormat {
+     public enum BarcodeFormat {
 
         /** Aztec 2D barcode format. */
         AZTEC,
@@ -694,11 +694,21 @@ public interface IXmPluginHostActivity {
      *        super.onActivityResult(requestCode, resultCode, data);
      *        if(resultCode==RESULT_OK){
      *            if(requestCode==SCAN_BARCODE){
-     *            String result = data.getStringExtra(ScanBarcodeActivity.SCAN_RESULT);
+     *            String result = data.getStringExtra("scan_result");
      *             }
      *         }
      *    }
      * </pre>
      */
     public abstract void openScanBarcodePage(Bundle bundle,int requestCode);
+
+    /**
+     * ApiLevel: 25 新打开更多界面接口，params传递插件自定义参数
+     *
+     * @param menus
+     * @param useDefault
+     * @param requestCode
+     */
+    public abstract void openMoreMenu(ArrayList<MenuItemBase> menus,
+                                      boolean useDefault, int requestCode, Intent params);
 }

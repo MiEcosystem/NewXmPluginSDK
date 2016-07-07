@@ -63,9 +63,6 @@ public class Response {
 
     }
 
-    /**
-     * ApiLevel: 25
-     */
     public interface BleDeviceStatusResponse extends BleResponse<Integer> {
 
     }

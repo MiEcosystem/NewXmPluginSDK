@@ -226,6 +226,7 @@ public abstract class XmBluetoothManager {
      */
     public abstract void disconnect(String mac, long delayMillis);
 
+
     /**
      * ApiLevel: 25
      */
