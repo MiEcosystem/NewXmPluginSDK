@@ -38,6 +38,7 @@ project.android {
 
     aaptOptions {
         useNewCruncher false
+        cruncherEnabled false
     }
 }
 
@@ -153,6 +154,19 @@ void installPlugin(def project, def variant) {
                     adbcmd =  "${sdkDir}\\platform-tools\\adb"
                 }
                 def stdout = new ByteArrayOutputStream()
+
+                project.exec {
+                    commandLine adbcmd,
+                            "shell",
+                            "am force-stop com.xiaomi.smarthome"
+                }
+
+                project.exec {
+                    commandLine adbcmd,
+                            "shell",
+                            "am start com.xiaomi.smarthome/.SmartHomeMainActivity"
+                }
+
                 project.exec {
                     commandLine adbcmd,
                             "push",
@@ -162,29 +176,13 @@ void installPlugin(def project, def variant) {
                 }
                 def error = stdout.toString().trim()
                 if (error) {
-                    println "install error1:" + error
-                }
-
-                project.exec {
-                    commandLine adbcmd,
-                            "shell",
-                            "am start com.xiaomi.smarthome/.SmartHomeMainActivity"
-                    standardOutput = stdout
-                }
-                error = stdout.toString().trim()
-                if (error) {
-                    println "install error2:" + error
+                    println "install push error:" + error
                 }
 
                 project.exec {
                     commandLine adbcmd,
                             "shell",
                             "am broadcast -a com.xiaomi.smarthome.action.OPEN_API --es type plugin_debug --es sub_type debug_package"
-                    standardOutput = stdout
-                }
-                error = stdout.toString().trim()
-                if (error) {
-                    println "install error2:" + error
                 }
 
             } else {

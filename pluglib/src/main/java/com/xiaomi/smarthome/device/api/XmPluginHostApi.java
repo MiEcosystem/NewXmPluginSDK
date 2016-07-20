@@ -1340,6 +1340,7 @@ public abstract class XmPluginHostApi {
     }
 
     /**
+     * 在ApiLevel:25后升级了微信sdk，有用到这个接口的必须更新插件sdk适配，发布新版插件并且修改minPluginSdkApiVersion为25
      * ApiLevel:20 创建米家app注册的微信接口
      */
     public abstract IWXAPI createWXAPI(Context context, boolean bl);
@@ -1509,7 +1510,7 @@ public abstract class XmPluginHostApi {
     public abstract void getRechargeBalances(int type,double latitude,double longitude,Callback<JSONObject> callback);
 
     /**
-     * ApiLevel: 25
+     * ApiLevel: 26
      * 编码生成二维码图片
      * @param barcode 二维码信息
      * @param width 图片宽度
@@ -1519,7 +1520,7 @@ public abstract class XmPluginHostApi {
     public abstract Bitmap encodeBarcode(String barcode,int width,int height);
 
     /**
-     * ApiLevel: 25
+     * ApiLevel: 26
      * 解码二维码图片
      * @param bitmap 二维码图片,必须为ARGB_8888格式
      * @return 返回二维码信息

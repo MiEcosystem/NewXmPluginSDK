@@ -1,7 +1,20 @@
 # 新版小米智能家庭Android app免安装插件开发手册
 
+## 重要修改
+
+- 更新了微信sdk库，如果使用下面的接口插件要更新插件，否则会crash
+
+```
+  /**
+     * 在ApiLevel:25后升级了微信sdk，有用到这个接口的必须更新插件sdk适配，发布新版插件并且修改minPluginSdkApiVersion为25
+     * ApiLevel:20 创建米家app注册的微信接口
+     */
+    public abstract IWXAPI createWXAPI(Context context, boolean bl);
+```
 
 ## 最新修改
+
+
 
 - 添加二维码接口
 
