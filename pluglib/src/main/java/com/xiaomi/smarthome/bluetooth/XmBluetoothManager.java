@@ -265,4 +265,14 @@ public abstract class XmBluetoothManager {
 
         void onSearchCanceled();
     }
+
+    /**
+     * ApiLevel: 25
+     */
+    public abstract void registerMediaButtonReceiver(String model);
+
+    /**
+     * ApiLevel: 25
+     */
+    public abstract void unRegisterMediaButtonReceiver(String model);
 }
