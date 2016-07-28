@@ -1380,7 +1380,11 @@ public abstract class XmPluginHostApi {
      */
     public Intent getBroadCastIntent(DeviceStat deviceStat) {
         Intent intent = new Intent("com.xiaomi.smarthome.RECEIVE_MESSAGE");
-        intent.putExtra("device_id", deviceStat.did);
+        if (deviceStat != null) {
+            intent.putExtra("device_id", deviceStat.did);
+            intent.putExtra("device_mac", deviceStat.mac);
+            intent.putExtra("user_model", deviceStat.model);
+        }
         return intent;
     }
 
