@@ -13,6 +13,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -21,6 +22,7 @@ import com.xiaomi.smarthome.bluetooth.Response;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginSubscribeCallback;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginUnSubscribeCallback;
+import com.xiaomi.smarthome.plugin.service.HostService;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -1530,4 +1532,40 @@ public abstract class XmPluginHostApi {
      * @return 返回二维码信息
      */
     public abstract String decodeBarcode(Bitmap bitmap);
+
+    /**
+     * ApiLevel: 27
+     * 从服务器更新设备信息
+     * @param didList
+     * @param callback
+     */
+    public abstract void updateDevice(List<String> didList,Callback<List<DeviceStat>> callback);
+
+    /**
+     * ApiLevel: 27
+     * 
+     * @param context
+     * @param loadedInfo
+     * @param hostService
+     * @param startIntent
+     * @param serviceClass
+     * @param callback
+     */
+    public abstract void startService(Context context, XmPluginPackage loadedInfo,
+            HostService hostService, Intent startIntent, Class serviceClass,
+            Callback<Bundle> callback);
+
+    /**
+     * ApiLevel: 27
+     * 
+     * @param context
+     * @param loadedInfo
+     * @param hostService
+     * @param startIntent
+     * @param serviceClass
+     * @param callback
+     */
+    public abstract void stopService(Context context, XmPluginPackage loadedInfo,
+            HostService hostService, Intent startIntent, Class serviceClass,
+            Callback<Bundle> callback);
 }

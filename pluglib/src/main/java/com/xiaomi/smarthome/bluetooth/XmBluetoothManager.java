@@ -1,6 +1,9 @@
 package com.xiaomi.smarthome.bluetooth;
 
+import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.xiaomi.smarthome.bluetooth.Response.BleConnectResponse;
@@ -275,4 +278,5 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 25
      */
     public abstract void unRegisterMediaButtonReceiver(String model);
+
 }
