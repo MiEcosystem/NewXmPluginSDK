@@ -2,11 +2,20 @@
 package com.xiaomi.smarthome.plugin.service;
 
 import android.app.Notification;
+import android.app.Service;
 
 /**
  * ApiLevel: 27 Created by chenhao on 16/8/1.
  */
 public interface IPluginService {
+
+    /**
+     * ApiLevel: 27
+     * 
+     * @return
+     */
+    Service getHostService();
+
     /**
      * ApiLevel: 27
      */

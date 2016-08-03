@@ -9,11 +9,21 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 /**
- * Created by chenhao on 16/8/1.
+ * ApiLevel: 27 Created by chenhao on 16/8/1.
  */
 public class PluginBaseService extends Service implements IPluginService {
 
     Service mPluginHostService;
+
+    /**
+     * ApiLevel: 27
+     * 
+     * @return
+     */
+    @Override
+    public Service getHostService() {
+        return mPluginHostService;
+    }
 
     @Nullable
     @Override
@@ -26,6 +36,9 @@ public class PluginBaseService extends Service implements IPluginService {
         mPluginHostService = pluginHostService;
     }
 
+    /**
+     * ApiLevel: 27
+     */
     @Override
     public void stopSelfForPlugin() {
         if (mPluginHostService != null) {
@@ -33,6 +46,11 @@ public class PluginBaseService extends Service implements IPluginService {
         }
     }
 
+    /**
+     * ApiLevel: 27
+     * 
+     * @param startId
+     */
     @Override
     public void stopSelfForPlugin(int startId) {
         if (mPluginHostService != null) {
@@ -40,6 +58,12 @@ public class PluginBaseService extends Service implements IPluginService {
         }
     }
 
+    /**
+     * ApiLevel: 27
+     * 
+     * @param startId
+     * @return
+     */
     @Override
     public boolean stopSelfResultForPlugin(int startId) {
         if (mPluginHostService != null) {
@@ -49,6 +73,12 @@ public class PluginBaseService extends Service implements IPluginService {
         return false;
     }
 
+    /**
+     * ApiLevel: 27
+     * 
+     * @param id
+     * @param notification
+     */
     @Override
     public void startForegroundForPlugin(int id, Notification notification) {
         if (mPluginHostService != null) {
@@ -56,6 +86,11 @@ public class PluginBaseService extends Service implements IPluginService {
         }
     }
 
+    /**
+     * ApiLevel: 27
+     * 
+     * @param removeNotification
+     */
     @Override
     public void stopForegroundForPlugin(boolean removeNotification) {
         if (mPluginHostService != null) {
