@@ -8,7 +8,11 @@ if (project.ext.has("complieProject")) {
         for (String compileProjectName : complieProjects) {
             def projectPath = project.projectDir.absolutePath
             projectPath = projectPath.substring(projectPath.indexOf("plugProject"))
-            def projectPathArray = projectPath.split("/")
+            def splitStr = File.separator;
+            if(Os.isFamily(Os.FAMILY_WINDOWS)){
+                splitStr =  "\\\\";
+            }
+            def projectPathArray = projectPath.split(splitStr)
             if (projectPathArray.length >= 2) {
                 projectPath=""
                 for(int i=0;i<projectPathArray.length-1;i++){
