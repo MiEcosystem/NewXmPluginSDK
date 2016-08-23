@@ -1568,4 +1568,6 @@ public abstract class XmPluginHostApi {
     public abstract void stopService(Context context, XmPluginPackage loadedInfo,
             HostService hostService, Intent startIntent, Class serviceClass,
             Callback<Bundle> callback);
+
+    public abstract int getDrawableResIdByName(XmPluginPackage loadedInfo, String resName);
 }

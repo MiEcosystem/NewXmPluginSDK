@@ -101,6 +101,11 @@ public interface IXmPluginMessageReceiver {
     public static final int MSG_UPNP_EVENT = 16;
 
     /**
+     * ApiLevel:27
+     */
+    public static final int MSG_NOTIFICATION_PENDING_INTENT = 17;
+
+    /**
      * ApiLevel:6
      */
     public static final int MSG_CUSTOM_START = 10000;
