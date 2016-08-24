@@ -30,4 +30,14 @@ public abstract class BleUpgrader extends IBleUpgradeController.Stub {
             }
         }
     }
+
+    public void setBtnBackEnabled(boolean enabled) {
+        if (mBleUpgradeViewer != null) {
+            try {
+                mBleUpgradeViewer.setBtnBackEnabled(enabled);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
