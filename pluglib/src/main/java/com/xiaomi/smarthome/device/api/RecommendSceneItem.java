@@ -47,6 +47,11 @@ public class RecommendSceneItem implements Parcelable {
     public String mIcon;
 
     /**
+     * ApiLevel:17
+     */
+    public int mStatus;
+
+    /**
      * ApiLevel:8
      */
     public static class Key {
@@ -201,6 +206,8 @@ public class RecommendSceneItem implements Parcelable {
                 mRecommendActionList[i].readFromParcel(in);
             }
         }
+
+        mStatus = in.readInt();
     }
 
     public RecommendSceneItem() {
@@ -228,6 +235,8 @@ public class RecommendSceneItem implements Parcelable {
         for(int j=0; j<mRecommendActionList.length; j++) {
             mRecommendActionList[j].writeToParcel(parcel);
         }
+
+        parcel.writeInt(mStatus);
     }
 
     public static final Creator<RecommendSceneItem> CREATOR = new Creator<RecommendSceneItem>() {

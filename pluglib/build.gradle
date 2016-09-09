@@ -46,6 +46,5 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
 }
 
-
 makeJar.dependsOn(clearJar, assembleRelease,sourcesJar)
 

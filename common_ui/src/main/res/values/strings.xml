@@ -11,7 +11,7 @@
     <string name="know_button">我知道了</string>
     <string name="ignore">忽略</string>
     <string name="cancel">取消</string>
-    <string name="setting_title">设置</string>
+    <string name="setting_title">通用设置</string>
     <!-- time/date picker -->
     <string name="picker_hour">时</string>
     <string name="picker_minite">分</string>

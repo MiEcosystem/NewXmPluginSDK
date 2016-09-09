@@ -14,21 +14,7 @@
 
 ## 最新修改
 
-
-
-- 添加二维码接口
-
-IXmPluginHostActivity
-
-```
-/**
-     * ApiLevel:25 跳转二维码扫描页面
-     * @param bundle 请求参数，可以穿null @see #Activity.startActivityForResult(Intent, requestCode)
-     * @param requestCode @see #Activity.startActivityForResult(Intent, requestCode)
-     */
-    public abstract void openScanBarcodePage(Bundle bundle,int requestCode);
-```
-
+-  [新更多菜单接口](更多菜单接口.md)
 XmPluginHostApi
 ```
   /**
@@ -50,6 +36,32 @@ XmPluginHostApi
      public abstract String decodeBarcode(Bitmap bitmap);
 ```
 
+- 添加二维码接口
+
+IXmPluginHostActivity
+
+```
+ /**
+     * ApiLevel: 27 更多菜单新标准，从上下拉菜单，默认有
+     * 智能场景 scence_enable
+     * 通用设置 common_setting_enable
+     * 帮助与反馈 help_feedback_enable
+     */
+   public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
+                                            boolean useDefault, int requestCode, Intent params);
+```
+
+IXmPluginHostActivity
+
+```
+/**
+     * ApiLevel:25 跳转二维码扫描页面
+     * @param bundle 请求参数，可以穿null @see #Activity.startActivityForResult(Intent, requestCode)
+     * @param requestCode @see #Activity.startActivityForResult(Intent, requestCode)
+     */
+    public abstract void openScanBarcodePage(Bundle bundle,int requestCode);
+```
+
 - 添加水电煤气缴费接口
 
 IXmPluginHostActivity
@@ -63,6 +75,7 @@ IXmPluginHostActivity
      */
     public abstract void openRechargePage(int type,double latitude,double longitude);
 ```
+
 - 添加水电煤气缴费余额查询接口
 
 XmPluginHostApi

@@ -77,7 +77,7 @@ public abstract class UPnPApi {
             this.value = in.readString();
         }
 
-        public static final Parcelable.Creator<EventData> CREATOR = new Parcelable.Creator<EventData>() {
+        public static final Creator<EventData> CREATOR = new Creator<EventData>() {
             @Override
             public EventData createFromParcel(Parcel source) {
                 return new EventData(source);

@@ -558,7 +558,7 @@ public interface IXmPluginHostActivity {
 
             if (bundle != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    binder = bundle.getBinder(IXmPluginHostActivity.BleMenuItem.EXTRA_UPGRADE_CONTROLLER);
+                    binder = bundle.getBinder(BleMenuItem.EXTRA_UPGRADE_CONTROLLER);
                 }
             }
 
@@ -622,7 +622,7 @@ public interface IXmPluginHostActivity {
      * @param latitude 纬度
      * @param longitude 经度
      */
-    public abstract void openRechargePage(int type,double latitude,double longitude);
+    public abstract void openRechargePage(int type, double latitude, double longitude);
 
      public enum BarcodeFormat {
 
@@ -697,7 +697,7 @@ public interface IXmPluginHostActivity {
      *    }
      * </pre>
      */
-    public abstract void openScanBarcodePage(Bundle bundle,int requestCode);
+    public abstract void openScanBarcodePage(Bundle bundle, int requestCode);
 
     /**
      * ApiLevel: 25 新打开更多界面接口，params传递插件自定义参数
@@ -719,7 +719,7 @@ public interface IXmPluginHostActivity {
      * 通用设置 common_setting_enable
      * 帮助与反馈 help_feedback_enable
      *
-     * ArrayList<IXmPluginHostActivity.MenuItemBase> menus = new
+     ArrayList<IXmPluginHostActivity.MenuItemBase> menus = new
      ArrayList<>();
 
      //插件自定义菜单，可以在public void onActivityResult(int requestCode, int resultCode, Intent data) 中接收用户点击的菜单项，String result = data.getStringExtra("menu");
@@ -761,5 +761,5 @@ public interface IXmPluginHostActivity {
      * @param requestCode
      */
     public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
-                                      boolean useDefault, int requestCode, Intent params);
+                                       boolean useDefault, int requestCode, Intent params);
 }

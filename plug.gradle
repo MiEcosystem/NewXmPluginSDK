@@ -171,6 +171,8 @@ void installPlugin(def project, def variant) {
                             "am start com.xiaomi.smarthome/.SmartHomeMainActivity"
                 }
 
+                sleep(5000);
+
                 project.exec {
                     commandLine adbcmd,
                             "push",
