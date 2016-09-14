@@ -1,0 +1,13 @@
+// IBleSlideBtnHandler.aidl
+package com.xiaomi.smarthome.bluetooth;
+
+// Declare any non-default types here with import statements
+
+import com.xiaomi.smarthome.bluetooth.ISlideBtnViewer;
+
+interface ISlideBtnController {
+    void onCheckedChanged(boolean isChecked);
+
+    void attachSlideBtnViewer(ISlideBtnViewer viewer);
+    void detachSlideBtnViewer();
+}
