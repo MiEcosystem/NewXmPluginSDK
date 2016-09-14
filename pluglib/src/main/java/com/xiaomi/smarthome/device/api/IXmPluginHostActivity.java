@@ -13,6 +13,8 @@ import android.view.View;
 
 import com.xiaomi.smarthome.bluetooth.BleUpgrader;
 import com.xiaomi.smarthome.bluetooth.IBleUpgradeController;
+import com.xiaomi.smarthome.bluetooth.ISlideBtnController;
+import com.xiaomi.smarthome.bluetooth.SlideBtnController;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothManager;
 
 import java.util.ArrayList;
@@ -444,6 +446,8 @@ public interface IXmPluginHostActivity {
         public String offParams;
         public boolean isOn;
 
+        public ISlideBtnController controller;
+
         //内部使用
         public boolean isClicked = false;
 
@@ -461,7 +465,7 @@ public interface IXmPluginHostActivity {
             dest.writeString(offParams);
             dest.writeInt(isOn ? 1 : 0);
             dest.writeString(subName);
-
+            dest.writeStrongBinder(controller.asBinder());
         }
 
         public static final Creator<SlideBtnMenuItem> CREATOR = new Creator<SlideBtnMenuItem>() {
@@ -483,6 +487,7 @@ public interface IXmPluginHostActivity {
             offParams = in.readString();
             isOn = in.readInt() == 1;
             subName = in.readString();
+            controller = ISlideBtnController.Stub.asInterface(in.readStrongBinder());
         }
 
         public SlideBtnMenuItem() {
