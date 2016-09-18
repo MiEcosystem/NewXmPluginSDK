@@ -6,7 +6,7 @@ package com.xiaomi.smarthome.bluetooth;
 import com.xiaomi.smarthome.bluetooth.ISlideBtnViewer;
 
 interface ISlideBtnController {
-    void onCheckedChanged(boolean isChecked);
+    void onCheckedChanged(String name, boolean isChecked);
 
     void attachSlideBtnViewer(ISlideBtnViewer viewer);
     void detachSlideBtnViewer();
