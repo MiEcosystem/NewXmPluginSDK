@@ -160,6 +160,7 @@ public abstract class XmBluetoothManager {
     public static final String KEY_MISERVICE_CHARACTERS = "key_miservice_characters";
     public static final String EXTRA_UPGRADE_PROCESS = "extra_upgrade_progress";
     public static final String EXTRA_SCANRECORD = "extra.scanRecord";
+    public static final String EXTRA_GATT_PROFILE = "key_gatt_profile";
 
     /**
      * 正在loading

@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/settings_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/settings_title_text_color"
+            android:textSize="@dimen/settings_item_title_text_size" />
+
+        <TextView
+            android:id="@+id/settings_item_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/settings_subtitle_text_color"
+            android:textSize="@dimen/settings_item_subtitle_text_size" />
+    </LinearLayout>
+
+    <com.xiaomi.smarthome.common.ui.widget.SwitchButton
+        android:id="@+id/settings_item_switch_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/settings_item_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/settings_subtitle_text_color"
+        android:textSize="@dimen/settings_item_subtitle_text_size"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/settings_item_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/common_list_item_anchor_normal" />
+</LinearLayout>

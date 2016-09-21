@@ -5,4 +5,15 @@
         <attr name="autoTextColor" format="color" />
         <attr name="autoTextSize" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="SettingsItem">
+        <attr name="item_title" format="string"/>
+        <attr name="item_subtitle" format="string"/>
+        <attr name="item_info" format="string"/>
+        <attr name="item_type" format="enum">
+            <enum name="type_none" value="0"/>
+            <enum name="type_arrow" value="1" />
+            <enum name="type_switch" value="2" />
+        </attr>
+    </declare-styleable>
 </resources>

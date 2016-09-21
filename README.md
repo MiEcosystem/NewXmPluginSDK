@@ -183,6 +183,7 @@ python move_plug.py oldPlugPath
 
 ### 创建新插件工程
 - 执行SDK目录下python脚本gen_plug.py
+  注意userid为申请的小米开发者账号,小米账号,不是手机号码
 
 ```
 python gen_plug.py model userid
@@ -250,22 +251,16 @@ gradle tasks
 ![](./md_images/gradle_tasks.png)
 
 ```
-gradle install 安装运行release配置插件
-gradle installRelease 安装运行release配置插件
-gradle installDebug 安装运行debug配置插件
+./gradlew install 安装运行release配置插件
+./gradlew installRelease 安装运行release配置插件
+./gradlew installDebug 安装运行debug配置插件
 
 如果有多个插件工程，上面指令会安装所有插件，指定安装某个插件工程,比如插件Xiaomi_demo
 
-gradle installXiaomi_demo 安装运行release配置插件
-gradle installXiaomi_demoRelease 安装运行release配置插件
-gradle installXiaomi_demoDebug 安装运行debug配置插件
+./gradlew installXiaomi_demo 安装运行release配置插件
+./gradlew installXiaomi_demoRelease 安装运行release配置插件
+./gradlew installXiaomi_demoDebug 安装运行debug配置插件
 ```
-- 通过Android studio编译运行,如果系统提示出错，请选择使用指令运行
-
-在工具栏选中运行的插件项目，点击Run按钮，如下图所示
-
-![](./md_images/gradle_debug2.png)
-
 
 ### 关联pluglib库源码
 插件开发的时候，发现pluglib中的函数变量名被重命名，没有注释，可以通过下面方法关联pluglib源码看到源码中的注释和变量名

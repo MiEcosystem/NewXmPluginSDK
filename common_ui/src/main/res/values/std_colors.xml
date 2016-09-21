@@ -32,4 +32,6 @@
     <color name="std_word_009">#ffff5400</color>
     <color name="std_word_010">#ffff5400</color>
 
+    <color name="settings_title_text_color">#000000</color>
+    <color name="settings_subtitle_text_color">#999999</color>
 </resources>
