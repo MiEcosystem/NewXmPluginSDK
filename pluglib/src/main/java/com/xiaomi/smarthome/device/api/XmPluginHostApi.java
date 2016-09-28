@@ -1359,12 +1359,6 @@ public abstract class XmPluginHostApi {
     public abstract void downloadBleFirmware(String url, Response.BleUpgradeResponse response);
 
     /**
-     * ApiLevel: 28 取消下载蓝牙固件
-     * @param url
-     */
-    public abstract void cancelDownloadBleFirmware(String url);
-
-    /**
      * ApiLevel: 20 设置蓝牙设备副标题
      */
     public abstract void setBleDeviceSubtitle(String mac, String subtitle);

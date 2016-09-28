@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/select_all_title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/titlebar_height"
+    android:background="#ffffff">
+
+    <Button
+        android:id="@+id/select_all_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/std_button_normal_selector"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="6dp"
+        android:text="@string/action_back"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/select_all_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/titlebar_return_area_size"
+        android:layout_marginRight="@dimen/titlebar_return_area_size"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/title_bar_text_color"
+        android:textSize="@dimen/title_bar_text_size" />
+
+    <Button
+        android:id="@+id/select_all_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/std_button_important_selector"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="6dp"
+        android:text="@string/select_all"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+</FrameLayout>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:state_checked="true" android:drawable="@drawable/common_check_icon_selected"/>
-    <item android:drawable="@drawable/common_check_icon_normal"/>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/std_icon_checkbox_check" android:state_checked="true" android:state_enabled="true" />
+    <item android:drawable="@drawable/std_icon_checkbox_uncheck" android:state_checked="false" android:state_enabled="true" />
+    <item android:drawable="@drawable/std_icon_checkbox_check_disable" android:state_checked="true" android:state_enabled="false" />
+    <item android:drawable="@drawable/std_icon_checkbox_uncheck_disable" android:state_checked="false" android:state_enabled="false" />
+    <item android:drawable="@drawable/std_icon_checkbox_uncheck" />
 </selector>
