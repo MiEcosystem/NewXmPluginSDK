@@ -395,7 +395,7 @@ public interface IXmPluginHostActivity {
     }
 
     /**
-     * ApiLevel: 28 只用于信息显示，不会有任何操作
+     * ApiLevel: 29 只用于信息显示，不会有任何操作
      */
     public static class InfoMenuItem extends MenuItemBase {
         public String name;
@@ -807,10 +807,18 @@ public interface IXmPluginHostActivity {
 
      mHostActivity.openMoreMenu2(menus, true, REQUEST_MENU, null);
 
+     params 设置 security_setting_enable true，添加安全设置接口
      * @param menus
      * @param useDefault
      * @param requestCode
      */
     public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
                                       boolean useDefault, int requestCode, Intent params);
+
+    /**
+     *  ApiLevel: 29 需要验证pincode，如果设置pincode，则每次打开页面自动跳到验证pincode页面
+     *  设置里边需要打开安全设置选项，参考openMoreMenu2接口
+     *
+     */
+    public abstract void enableVerifyPincode();
 }

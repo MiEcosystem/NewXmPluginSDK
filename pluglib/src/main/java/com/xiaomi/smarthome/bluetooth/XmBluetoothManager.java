@@ -234,6 +234,7 @@ public abstract class XmBluetoothManager {
     /**
      * ApiLevel: 25
      */
+    @Deprecated
     public abstract void refreshDeviceStatus(String mac, long durationInMillis, Response.BleDeviceStatusResponse response);
 
     /**

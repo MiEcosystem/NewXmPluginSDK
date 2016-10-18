@@ -4,6 +4,7 @@ package com.xiaomi.smarthome.device.api;
 import android.text.TextUtils;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -110,7 +111,21 @@ public class BaseDevice {
      * @param parser
      */
     public <T> void callMethod(String method, JSONArray params,
-            final Callback<T> callback, final Parser<T> parser) {
+                               final Callback<T> callback, final Parser<T> parser) {
+        XmPluginHostApi.instance().callMethod(getDid(), method, params, callback, parser);
+    }
+
+    /**
+     * 设备方法调用
+     * API level: 29
+     *
+     * @param method 方法名
+     * @param params
+     * @param callback 回调结果
+     * @param parser
+     */
+    public <T> void callMethod(String method, JSONObject params,
+                               final Callback<T> callback, final Parser<T> parser) {
         XmPluginHostApi.instance().callMethod(getDid(), method, params, callback, parser);
     }
 

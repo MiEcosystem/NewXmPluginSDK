@@ -151,6 +151,17 @@ public abstract class XmPluginHostApi {
                                         final Callback<T> callback, final Parser<T> parser);
 
     /**
+     * ApiLevel:29 设备方法调用
+     *
+     * @param method   方法名
+     * @param params
+     * @param callback 回调结果
+     * @param parser
+     */
+    public abstract <T> void callMethod(String did, String method, JSONObject params,
+                                        final Callback<T> callback, final Parser<T> parser);
+
+    /**
      * ApiLevel:1 获取设备列表
      *
      * @return
@@ -1359,6 +1370,12 @@ public abstract class XmPluginHostApi {
     public abstract void downloadBleFirmware(String url, Response.BleUpgradeResponse response);
 
     /**
+     * ApiLevel: 28 取消下载蓝牙固件
+     * @param url
+     */
+    public abstract void cancelDownloadBleFirmware(String url);
+
+    /**
      * ApiLevel: 20 设置蓝牙设备副标题
      */
     public abstract void setBleDeviceSubtitle(String mac, String subtitle);
@@ -1570,4 +1587,38 @@ public abstract class XmPluginHostApi {
             Callback<Bundle> callback);
 
     public abstract int getDrawableResIdByName(XmPluginPackage loadedInfo, String resName);
+
+
+    /**
+     * ApiLevel: 29 获取组设备中的设备信息
+     * @param did 组设备id
+     *
+     */
+    public void getVirtualDevicesByDid(String model, String did,
+                                         final Callback<List<DeviceStat>> callback) {
+
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("type", "get");
+            dataObj.put("masterDid", did);
+        } catch (JSONException e) {
+            if (callback != null)
+                callback.onFailure(-1, e.toString());
+            return;
+        }
+        callSmartHomeApi(model, "/home/virtualdevicectr", dataObj, callback, new Parser<List<DeviceStat>>() {
+            @Override
+            public List<DeviceStat> parse(String result) throws JSONException {
+                JSONObject jsonObject = new JSONObject(result);
+                ArrayList<DeviceStat> deviceStatArrayList = new ArrayList<DeviceStat>();
+                JSONArray membersJson = jsonObject.optJSONArray("members");
+                if (membersJson != null && membersJson.length() > 0) {
+                    for (int i = 0; i < membersJson.length(); i++) {
+                        deviceStatArrayList.add(getDeviceByDid(membersJson.optString(i)));
+                    }
+                }
+                return deviceStatArrayList;
+            }
+        });
+    }
 }
