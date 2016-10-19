@@ -169,6 +169,13 @@ public abstract class XmPluginHostApi {
     public abstract List<DeviceStat> getDeviceList();
 
     /**
+     * ApiLevel: 30 获取指定model的设备列表
+     *
+     * @return
+     */
+    public abstract List<DeviceStat> getDeviceListV2(List<String> modelList);
+
+    /**
      * ApiLevel:1 获取子设备
      *
      * @param did 设备did
@@ -1451,32 +1458,36 @@ public abstract class XmPluginHostApi {
      * @param data   key，value结构数据
      */
 
+    @Deprecated
     public void setUserConfig(String model, String app_id, int key, Map<String, Object> data, Callback<Boolean> callback) {
-        JSONObject dataObj = new JSONObject();
-        try {
-            dataObj.put("component_id", app_id);
-            dataObj.put("key", key);
-            JSONObject attris = new JSONObject();
-            Set<Map.Entry<String, Object>> entrys = data.entrySet();
-            for (Map.Entry<String, Object> entry : entrys) {
-                attris.put(entry.getKey(),entry.getValue());
-            }
-            dataObj.put("data",attris);
-
-        } catch (JSONException e) {
-            if (callback != null) {
-                callback.onFailure(-1, e.toString());
-                return;
-            }
+        if (callback != null) {
+            callback.onFailure(-1, "This API is forbidden, please use setUserConfigV2 instead");
         }
-        callSmartHomeApi(model, "/user/setUserConfig", dataObj, callback, new Parser<Boolean>() {
-            @Override
-            public Boolean parse(String result) throws JSONException {
-                JSONObject response = new JSONObject(result);
-                int res = response.optInt("result");
-                return res != 0;
-            }
-        });
+//        JSONObject dataObj = new JSONObject();
+//        try {
+//            dataObj.put("component_id", app_id);
+//            dataObj.put("key", key);
+//            JSONObject attris = new JSONObject();
+//            Set<Map.Entry<String, Object>> entrys = data.entrySet();
+//            for (Map.Entry<String, Object> entry : entrys) {
+//                attris.put(entry.getKey(),entry.getValue());
+//            }
+//            dataObj.put("data",attris);
+//
+//        } catch (JSONException e) {
+//            if (callback != null) {
+//                callback.onFailure(-1, e.toString());
+//                return;
+//            }
+//        }
+//        callSmartHomeApi(model, "/user/setUserConfig", dataObj, callback, new Parser<Boolean>() {
+//            @Override
+//            public Boolean parse(String result) throws JSONException {
+//                JSONObject response = new JSONObject(result);
+//                int res = response.optInt("result");
+//                return res != 0;
+//            }
+//        });
     }
 
     /** ApiLevel: 22
@@ -1486,38 +1497,42 @@ public abstract class XmPluginHostApi {
      * @param keys 索引，从0开始
      * @param callback  key，value结构数据
      */
+    @Deprecated
     public void getUserConfig(String model, String app_id, int[] keys, Callback<Map<String, Object>> callback) {
-        JSONObject dataObj = new JSONObject();
-        try {
-            dataObj.put("component_id", app_id);
-            JSONArray keysArray = new JSONArray();
-            for (int i=0;i<keys.length;i++){
-                keysArray.put(keys[i]);
-            }
-            dataObj.put("keys", keysArray);
-
-        } catch (JSONException e) {
-            if (callback != null) {
-                callback.onFailure(-1, e.toString());
-                return;
-            }
+        if (callback != null) {
+            callback.onFailure(-1, "API forbidden, please use getUserConfigV2 instead!");
         }
-        callSmartHomeApi(model, "/user/getUserConfig", dataObj, callback, new Parser<Map<String, Object>>() {
-            @Override
-            public Map<String, Object> parse(String result) throws JSONException {
-                JSONObject response = new JSONObject(result);
-                Map<String, Object> map = new HashMap<String, Object>();
-                JSONObject resultObj = response.optJSONObject("result");
-                if(resultObj!=null){
-                    Iterator<String> iterator =  resultObj.keys();
-                    while (iterator.hasNext()){
-                        String key = iterator.next();
-                        map.put(key,resultObj.get(key));
-                    }
-                }
-                return map;
-            }
-        });
+//        JSONObject dataObj = new JSONObject();
+//        try {
+//            dataObj.put("component_id", app_id);
+//            JSONArray keysArray = new JSONArray();
+//            for (int i=0;i<keys.length;i++){
+//                keysArray.put(keys[i]);
+//            }
+//            dataObj.put("keys", keysArray);
+//
+//        } catch (JSONException e) {
+//            if (callback != null) {
+//                callback.onFailure(-1, e.toString());
+//                return;
+//            }
+//        }
+//        callSmartHomeApi(model, "/user/getUserConfig", dataObj, callback, new Parser<Map<String, Object>>() {
+//            @Override
+//            public Map<String, Object> parse(String result) throws JSONException {
+//                JSONObject response = new JSONObject(result);
+//                Map<String, Object> map = new HashMap<String, Object>();
+//                JSONObject resultObj = response.optJSONObject("result");
+//                if(resultObj!=null){
+//                    Iterator<String> iterator =  resultObj.keys();
+//                    while (iterator.hasNext()){
+//                        String key = iterator.next();
+//                        map.put(key,resultObj.get(key));
+//                    }
+//                }
+//                return map;
+//            }
+//        });
     }
 
     /** ApiLevel: 24
@@ -1590,7 +1605,7 @@ public abstract class XmPluginHostApi {
 
 
     /**
-     * ApiLevel: 29 获取组设备中的设备信息
+     * ApiLevel: 30 获取组设备中的设备信息
      * @param did 组设备id
      *
      */
@@ -1618,6 +1633,97 @@ public abstract class XmPluginHostApi {
                     }
                 }
                 return deviceStatArrayList;
+            }
+        });
+    }
+
+    /**
+     * ApiLevel: 30
+     * 创建或修改设置app/插件自由存储空间,最大4k
+     *
+     * @param app_id 厂商APP_ID，需要向小米申请，0和1预留
+     * @param key    索引，从0开始
+     * @param data   key，value结构数据
+     */
+
+    public void setUserConfigV2(String model, int app_id, int key, Map<String, Object> data, Callback<Boolean> callback) {
+        if (app_id == 0 || app_id == 1) {
+            if (callback != null) {
+                callback.onFailure(-1, "App id invalid, value 0 and 1 are reserved.");
+            }
+            return;
+        }
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("component_id", app_id);
+            dataObj.put("key", key);
+            JSONObject attris = new JSONObject();
+            Set<Map.Entry<String, Object>> entrys = data.entrySet();
+            for (Map.Entry<String, Object> entry : entrys) {
+                attris.put(entry.getKey(),entry.getValue());
+            }
+            dataObj.put("data",attris);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+            }
+            return;
+        }
+        callSmartHomeApi(model, "/user/setUserConfig", dataObj, callback, new Parser<Boolean>() {
+            @Override
+            public Boolean parse(String result) throws JSONException {
+                JSONObject response = new JSONObject(result);
+                int res = response.optInt("result");
+                return res != 0;
+            }
+        });
+    }
+
+    /** ApiLevel: 30
+     * 拉取设置app/插件自由存储空间
+     * @param model
+     * @param app_id 厂商APP_ID，需要向小米申请, 0 和 1 预留
+     * @param keys 索引，从0开始
+     * @param callback  key，value结构数据
+     */
+
+    public void getUserConfigV2(String model, int app_id, int[] keys, Callback<Map<String, Object>> callback) {
+        if (app_id == 0 || app_id == 1) {
+            if (callback != null) {
+                callback.onFailure(-1, "App id invalid, 0 and 1 are reserved.");
+            }
+            return;
+        }
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("component_id", app_id);
+            JSONArray keysArray = new JSONArray();
+            for (int i=0;i<keys.length;i++){
+                keysArray.put(keys[i]);
+            }
+            dataObj.put("keys", keysArray);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+                return;
+            }
+        }
+        callSmartHomeApi(model, "/user/getUserConfig", dataObj, callback, new Parser<Map<String, Object>>() {
+            @Override
+            public Map<String, Object> parse(String result) throws JSONException {
+                JSONObject response = new JSONObject(result);
+                Map<String, Object> map = new HashMap<String, Object>();
+                JSONObject resultObj = response.optJSONObject("result");
+                if(resultObj!=null){
+                    Iterator<String> iterator =  resultObj.keys();
+                    while (iterator.hasNext()){
+                        String key = iterator.next();
+                        map.put(key,resultObj.get(key));
+                    }
+                }
+                return map;
             }
         });
     }
