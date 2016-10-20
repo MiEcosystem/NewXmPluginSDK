@@ -821,4 +821,16 @@ public interface IXmPluginHostActivity {
      *
      */
     public abstract void enableVerifyPincode();
+
+    /**
+     * ApiLevel: 29 打开分享dialog，支持分享视频,必须是mp4文件
+     *
+     * @param shareTitle        分享title
+     * @param shareContent      分享文字内容
+     * @param shareImagesFile 本地视频路径
+     */
+    public void openShareVideoActivity(String shareTitle,
+                                         String shareContent,
+                                         String shareImagesFile
+    );
 }
