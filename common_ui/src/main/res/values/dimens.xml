@@ -173,5 +173,77 @@
     <dimen name="std_titlebar_sub_title_margin_bottom">1dp</dimen>
     <dimen name="std_titlebar_redpoint_margin_right">12dp</dimen>
     <dimen name="std_titlebar_redpoint_margin_top">10dp</dimen>
-    
+
+    <!-- TitleBar -->
+    <dimen name="std_titlebar_height">45dp</dimen>
+    <dimen name="std_titlebar_return_area_size">90dp</dimen>
+    <dimen name="std_titlebar_button_margin_left">10dp</dimen>
+    <dimen name="std_titlebar_button_padding_horizontal">13dp</dimen>
+    <dimen name="std_titlebar_button_margin_right">10dp</dimen>
+    <dimen name="std_titlebar_button_interval">7dp</dimen>
+    <dimen name="std_title_bar_text_size">14sp</dimen>
+    <dimen name="std_title_bar_subtitle_text_size">12sp</dimen>
+    <dimen name="std_titlebar_edit_mode_btn_font_size">11sp</dimen>
+
+    <!--list列表-->
+    <dimen name="std_list_font_size_title">14sp</dimen>
+    <dimen name="std_list_font_size_subtitle">12sp</dimen>
+    <dimen name="std_list_font_size_group">11sp</dimen>
+    <dimen name="std_list_padding_left">23dp</dimen>
+    <dimen name="std_list_padding_right">24dp</dimen>
+    <dimen name="std_list_right_icon_padding_left_1">13dp</dimen>
+    <dimen name="std_list_right_icon_padding_left_2">29dp</dimen>
+    <dimen name="std_list_right_icon_padding_left_3">27dp</dimen>
+    <!--list分割线高度，暂时没用到，因为项目中是切图-->
+    <dimen name="std_list_divider_line">1px</dimen>
+    <dimen name="std_list_group_height">39dp</dimen>
+    <dimen name="std_list_group_title_padding_bottom">11dp</dimen>
+    <!--用于单行文本，左图有的话为非实物icon-->
+    <dimen name="std_list_item_height_single_line">50dp</dimen>
+    <!--list左图icon大小，非实物图-->
+    <dimen name="std_list_icon_size_single_line">22dp</dimen>
+    <dimen name="std_list_icon_padding_right_single_line">11dp</dimen>
+    <dimen name="std_list_icon_size_two_line">40dp</dimen>
+    <dimen name="std_list_icon_padding_right_two_line">13dp</dimen>
+    <!--用于双行文本，左图有的话为非实物icon-->
+    <dimen name="std_list_item_height_two_line">64dp</dimen>
+    <dimen name="std_list_padding_between_two_line">4dp</dimen>
+    <!--用于三行文本-->
+    <dimen name="std_list_item_height_three_line">79dp</dimen>
+
+    <!--Dialog规范-->
+    <!--除了list外，大多数元素和dialog边框都有common_padding-->
+    <dimen name="std_dialog_common_padding">23dp</dimen>
+    <dimen name="std_dialog_title_font_size">14sp</dimen>
+    <dimen name="std_dialog_msg_font_size">12sp</dimen>
+    <dimen name="std_dialog_button_font_size">13sp</dimen>
+    <dimen name="std_dialog_top_panel_margin_bottom">22dp</dimen>
+    <dimen name="std_dialog_button_padding_top">22dp</dimen>
+    <dimen name="std_dialog_input_margin_bottom">3dp</dimen>
+    <dimen name="std_dialog_input_padding_left">10dp</dimen>
+    <dimen name="std_dialog_input_padding_right">10dp</dimen>
+    <dimen name="std_dialog_input_title_font_size">12sp</dimen>
+    <dimen name="std_dialog_input_title_padding_bottom">10dp</dimen>
+    <dimen name="std_dialog_list_item_height">45dp</dimen>
+    <dimen name="std_dialog_list_padding_bottom">3dp</dimen>
+    <dimen name="std_dialog_list_item_title_font_size">14sp</dimen>
+    <dimen name="std_dialog_list_item_content_padding_left">23dp</dimen>
+    <dimen name="std_dialog_list_item_content_padding_right">23dp</dimen>
+    <!--用于左侧标志符如选中，非列表的icon-->
+    <dimen name="std_dialog_list_item_indicator_padding_left">11dp</dimen>
+    <dimen name="std_dialog_progress_content_padding">23dp</dimen>
+    <dimen name="std_dialog_progress_title_font_size">14sp</dimen>
+    <dimen name="std_dialog_progress_subtitle_font_size">12sp</dimen>
+    <dimen name="std_dialog_progress_line_padding">13dp</dimen>
+    <dimen name="std_dialog_share_padding_left">23dp</dimen>
+    <dimen name="std_dialog_share_padding_right">23dp</dimen>
+    <dimen name="std_dialog_share_padding_top">14dp</dimen>
+    <dimen name="std_dialog_share_padding_bottom">10dp</dimen>
+    <dimen name="std_dialog_share_icon_space">19dp</dimen>
+
+    <dimen name="std_bottom_bar_btn_text_font_size">10sp</dimen>
+    <dimen name="std_bottom_bar_btn_text_padding_top">5dp</dimen>
+    <dimen name="std_bottom_bar_btn_text_padding_bottom">8dp</dimen>
+    <dimen name="std_bottom_bar_btn_icon_padding_top">11dp</dimen>
+    <dimen name="std_bottom_bar_btn_icon_space">20dp</dimen>
 </resources>

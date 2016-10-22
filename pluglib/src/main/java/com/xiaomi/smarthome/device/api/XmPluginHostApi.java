@@ -1639,13 +1639,6 @@ public abstract class XmPluginHostApi {
                 });
     }
 
-    /**
-     * ApiLevel: 30 创建或修改设置app/插件自由存储空间,最大4k
-     *
-     * @param app_id 厂商APP_ID，需要向小米申请，0和1预留
-     * @param key 索引，从0开始
-     * @param data key，value结构数据
-     */
 
     /**
      * ApiLevel: 30 创建或修改设置app/插件自由存储空间,最大4k
@@ -1742,4 +1735,11 @@ public abstract class XmPluginHostApi {
                     }
                 });
     }
+
+    /**ApiLevel: 30 打开插件安全验证通过后，可以获取设备pincode
+     *
+     * @param did
+     * @return
+     */
+    public abstract String getDevicePincode(String did);
 }

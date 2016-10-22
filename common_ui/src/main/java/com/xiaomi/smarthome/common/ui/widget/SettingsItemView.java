@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -24,9 +25,22 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
     SwitchButton mSwitchButton;
     ImageView mOnclickImageView;
     View mContainerView;
+    ImageView mSelectImageView;
+    View mTitleContainer;
     int mType;
     OnClickListener mOnClickListener;
     CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener;
+    boolean mSelected = false;
+
+    public static interface OnSelectedListener {
+        public void onSelected(View view);
+    }
+
+    OnSelectedListener mOnSelectedListener;
+
+    public void setOnSelectedListener(OnSelectedListener listener) {
+        this.mOnSelectedListener = listener;
+    }
 
     public void setOnClickListener(OnClickListener listener) {
         this.mOnClickListener = listener;
@@ -51,6 +65,10 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
         return false;
     }
 
+    public View getInfoView() {
+        return mInfoTextView;
+    }
+
     public SettingsItemView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -62,7 +80,7 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
 
         View itemView = inflater.inflate(R.layout.settings_item, null);
         mContainerView = itemView;
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         addView(itemView, lp);
 
         mTitleTextView = (TextView) itemView.findViewById(R.id.settings_item_title);
@@ -70,17 +88,28 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
         mSwitchButton = (SwitchButton) itemView.findViewById(R.id.settings_item_switch_btn);
         mOnclickImageView = (ImageView) itemView.findViewById(R.id.settings_item_arrow);
         mInfoTextView = (TextView) itemView.findViewById(R.id.settings_item_info);
+        mSelectImageView = (ImageView) itemView.findViewById(R.id.settings_item_select);
+        mTitleContainer = itemView.findViewById(R.id.title_container);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SettingsItem, 0, 0);
         String title = a.getString(R.styleable.SettingsItem_item_title);
         String subTitle = a.getString(R.styleable.SettingsItem_item_subtitle);
         String info = a.getString(R.styleable.SettingsItem_item_info);
         mType = a.getInt(R.styleable.SettingsItem_item_type, 1);
+        mSelected = a.getBoolean(R.styleable.SettingsItem_item_select, false);
 
         setTitle(title);
         setSubTitle(subTitle);
         setInfo(info);
         setType(mType);
+
+        View view = new View(getContext());
+        view.setBackgroundColor(0xffc6c6c6);
+        lp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, 1);
+        lp.gravity = Gravity.BOTTOM;
+        int marging = getResources().getDimensionPixelOffset(R.dimen.settings_item_margin);
+        lp.setMargins(marging,0,marging,0);
+        addView(view,lp);
     }
 
     public void setTitle(String str) {
@@ -92,6 +121,7 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
             mSubTitleTextView.setVisibility(View.GONE);
         } else {
             mSubTitleTextView.setText(str);
+            mSubTitleTextView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -104,17 +134,51 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
         }
     }
 
+    public void setSelect(boolean select) {
+        mSelected = select;
+        if (select) {
+            mSelectImageView.setVisibility(VISIBLE);
+            mTitleTextView.setTextColor(getResources().getColor(R.color.std_word_008));
+        } else {
+            mTitleTextView.setTextColor(getResources().getColor(R.color.settings_title_text_color));
+            mSelectImageView.setVisibility(INVISIBLE);
+        }
+    }
+
+    public boolean isSelected(){
+        return mSelected;
+    }
+
     public void setType(int type) {
         mType = type;
         if (mType == 0) {//none
             mSwitchButton.setVisibility(View.GONE);
             mOnclickImageView.setVisibility(View.GONE);
+            mSelectImageView.setVisibility(GONE);
         } else if (mType == 1) {//arrows
             mSwitchButton.setVisibility(View.GONE);
             mContainerView.setOnClickListener(this);
+            mSelectImageView.setVisibility(GONE);
         } else if (mType == 2) {//switch
             mOnclickImageView.setVisibility(View.GONE);
             mSwitchButton.setOnCheckedChangeListener(this);
+            mSelectImageView.setVisibility(GONE);
+        } else if (mType == 3) {//select
+            mSwitchButton.setVisibility(View.GONE);
+            mOnclickImageView.setVisibility(View.GONE);
+            mContainerView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!mSelected) {
+                        mSelected = true;
+                        setSelect(mSelected);
+                        if (mOnSelectedListener != null) {
+                            mOnSelectedListener.onSelected(SettingsItemView.this);
+                        }
+                    }
+                }
+            });
+            setSelect(mSelected);
         }
     }
 

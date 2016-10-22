@@ -13,8 +13,8 @@
      <dimen name="std_word_009">14sp</dimen>
      <dimen name="std_word_010">10sp</dimen>
 
-     <dimen name="settings_item_height">55dp</dimen>
-     <dimen name="settings_item_margin">13dp</dimen>
-     <dimen name="settings_item_title_text_size">12sp</dimen>
-     <dimen name="settings_item_subtitle_text_size">11sp</dimen>
+     <dimen name="settings_item_height">60dp</dimen>
+     <dimen name="settings_item_margin">23dp</dimen>
+     <dimen name="settings_item_title_text_size">14sp</dimen>
+     <dimen name="settings_item_subtitle_text_size">12sp</dimen>
 </resources>
