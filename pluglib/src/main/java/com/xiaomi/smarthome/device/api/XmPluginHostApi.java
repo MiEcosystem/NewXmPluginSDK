@@ -20,6 +20,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.xiaomi.plugin.core.XmPluginPackage;
 import com.xiaomi.smarthome.bluetooth.Response;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
+import com.xiaomi.smarthome.plugin.Error;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginSubscribeCallback;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginUnSubscribeCallback;
 import com.xiaomi.smarthome.plugin.service.HostService;
@@ -1737,17 +1738,32 @@ public abstract class XmPluginHostApi {
     }
 
     /**
-     * ApiLevel: 30 打开插件安全验证通过后，可以获取设备pincode
+     * ApiLevel: 31 打开插件安全验证通过后，可以获取设备pincode
      *
      * @param did
      * @return
      */
     public abstract String getDevicePincode(String did);
 
-    /**ApiLevel: 30,本地ping设备，查看设备是否是本地设备
+    /**ApiLevel: 31,本地ping设备，查看设备是否是本地设备
      *
      * @param did
      * @param callback
      */
     public abstract void localPing(String did, Callback<Void> callback);
+
+    /**ApiLevel: 31,从服务器批量获取设备属性
+     *
+     * @param jsonArray [{"did":"aaa", "props":["prop.aaa","prop.bbb"]},{"did":"123", "props":["prop.jjjj","prop.777"]}]
+     * @param callback
+     */
+    public void batchGetDeviceProps(String model, JSONArray jsonArray, Callback<String> callback) {
+        callSmartHomeApi(model, "/device/batchdevicedatas", jsonArray.toString(), callback, new Parser<String>() {
+            @Override
+            public String parse(String result) throws JSONException {
+                return result;
+            }
+        });
+    }
+
 }
