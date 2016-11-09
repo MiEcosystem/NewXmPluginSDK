@@ -281,4 +281,8 @@ public abstract class XmBluetoothManager {
      */
     public abstract void unRegisterMediaButtonReceiver(String model);
 
+    /**
+     * ApiLevel: 30
+     */
+    public abstract void removeToken(String mac);
 }
