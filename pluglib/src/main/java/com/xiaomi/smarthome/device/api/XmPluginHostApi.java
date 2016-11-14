@@ -1,6 +1,7 @@
 
 package com.xiaomi.smarthome.device.api;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -1738,21 +1739,21 @@ public abstract class XmPluginHostApi {
     }
 
     /**
-     * ApiLevel: 31 打开插件安全验证通过后，可以获取设备pincode
+     * ApiLevel: 32 打开插件安全验证通过后，可以获取设备pincode
      *
      * @param did
      * @return
      */
     public abstract String getDevicePincode(String did);
 
-    /**ApiLevel: 31,本地ping设备，查看设备是否是本地设备
+    /**ApiLevel: 32,本地ping设备，查看设备是否是本地设备
      *
      * @param did
      * @param callback
      */
     public abstract void localPing(String did, Callback<Void> callback);
 
-    /**ApiLevel: 31,从服务器批量获取设备属性
+    /**ApiLevel: 32,从服务器批量获取设备属性
      *
      * @param jsonArray [{"did":"aaa", "props":["prop.aaa","prop.bbb"]},{"did":"123", "props":["prop.jjjj","prop.777"]}]
      * @param callback
@@ -1765,5 +1766,34 @@ public abstract class XmPluginHostApi {
             }
         });
     }
+
+    /**
+     * ApiLevel: 32
+     * 检查是否设置过语音授权。如果没有设置过，是无法使用语音控制功能的
+     * @param did
+     */
+    public abstract boolean checkVoiceCtrlAuthorized(String did);
+
+    /**
+     * ApiLevel: 32
+     * 打开语音授权页面。
+     * 使用startActivityForResult方法，回调根据resultCode是RESULT_CANCELED或者RESULT_OK判定操作是否成功
+     * @param did
+     * @param activity:
+     */
+    public abstract void showVoiceCtrlAuthorizePage(Activity activity, String did, int requestCode);
+
+    /**
+     * ApiLevel: 31
+     * @param did
+     */
+    public abstract void visualSecureBind(String did);
+
+
+    /**
+     * ApiLevel: 31
+     * @param model 设备model
+     */
+    public abstract void getFirmwareUpdateInfoCommon(String model, final Callback<FirmwareUpdateInfo> callback);
 
 }

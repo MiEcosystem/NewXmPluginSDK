@@ -51,6 +51,7 @@ public class Response {
     /**
      * ApiLevel: 19
      */
+    @Deprecated
     public interface BleWriteResponse2 extends BleWriteResponse {
 
     }

@@ -1,9 +1,6 @@
 package com.xiaomi.smarthome.bluetooth;
 
-import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.xiaomi.smarthome.bluetooth.Response.BleConnectResponse;
@@ -142,6 +139,7 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_TIMEDOUT = -7;
         public static final int TOKEN_NOT_MATCHED = -10;
         public static final int REQUEST_OVERFLOW = -11;
+        public static final int CONFIG_UNREADY = -12;
     }
 
     /**
@@ -282,9 +280,14 @@ public abstract class XmBluetoothManager {
     public abstract void unRegisterMediaButtonReceiver(String model);
 
     /**
-     * ApiLevel: 30
+     * ApiLevel: 31
      */
     public abstract void removeToken(String mac);
+
+    /**
+     * ApiLevel: 31
+     */
+    public static final int CODE_REMOVE_TOKEN = 1;
 
     /**
      * ApiLevel: 32
