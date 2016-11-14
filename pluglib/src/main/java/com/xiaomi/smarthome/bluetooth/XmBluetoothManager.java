@@ -285,4 +285,10 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 30
      */
     public abstract void removeToken(String mac);
+
+    /**
+     * ApiLevel: 32
+     * 写设备
+     */
+    public abstract void writeNoRsp(String mac, UUID serviceId, UUID characterId, byte[] bytes, final BleWriteResponse response);
 }
