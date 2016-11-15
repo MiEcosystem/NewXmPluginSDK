@@ -290,7 +290,7 @@ public abstract class XmBluetoothManager {
     public static final int CODE_REMOVE_TOKEN = 1;
 
     /**
-     * ApiLevel: 32
+     * ApiLevel: 31
      * 写设备
      */
     public abstract void writeNoRsp(String mac, UUID serviceId, UUID characterId, byte[] bytes, final BleWriteResponse response);

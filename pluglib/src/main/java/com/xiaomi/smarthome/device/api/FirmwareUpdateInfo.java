@@ -22,12 +22,19 @@ public class FirmwareUpdateInfo {
      */
     public String changeLog;
 
+
+    /**
+     * 文件mod5
+     */
+    public String md5;
+
     @Override
     public String toString() {
         return "BtFirmwareUpdateInfo{" +
                 "version='" + version + '\'' +
                 ", url='" + url + '\'' +
                 ", changeLog='" + changeLog + '\'' +
+                ", md5='" + md5 + '\'' +
                 '}';
     }
 }
