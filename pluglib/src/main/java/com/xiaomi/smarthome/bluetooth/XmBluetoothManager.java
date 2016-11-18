@@ -159,6 +159,7 @@ public abstract class XmBluetoothManager {
     public static final String EXTRA_UPGRADE_PROCESS = "extra_upgrade_progress";
     public static final String EXTRA_SCANRECORD = "extra.scanRecord";
     public static final String EXTRA_GATT_PROFILE = "key_gatt_profile";
+    public static final String EXTRA_TOKEN = "token";
 
     /**
      * 正在loading
