@@ -141,6 +141,44 @@ public abstract class XmBluetoothManager {
         public static final int TOKEN_NOT_MATCHED = -10;
         public static final int REQUEST_OVERFLOW = -11;
         public static final int CONFIG_UNREADY = -12;
+        public static final int REQUEST_ONGOING = -13;
+        public static final int REQUEST_DENIED = -14;
+        public static final int REQUEST_EXCEPTION = -15;
+
+        public static String toString(int code) {
+            switch (code) {
+                case REQUEST_SUCCESS:
+                    return "REQUEST_SUCCESS";
+                case REQUEST_FAILED:
+                    return "REQUEST_FAILED";
+                case REQUEST_CANCELED:
+                    return "REQUEST_CANCELED";
+                case ILLEGAL_ARGUMENT:
+                    return "ILLEGAL_ARGUMENT";
+                case BLE_NOT_SUPPORTED:
+                    return "BLE_NOT_SUPPORTED";
+                case BLUETOOTH_DISABLED:
+                    return "BLUETOOTH_DISABLED";
+                case CONNECTION_NOT_READY:
+                    return "CONNECTION_NOT_READY";
+                case REQUEST_TIMEDOUT:
+                    return "REQUEST_TIMEDOUT";
+                case TOKEN_NOT_MATCHED:
+                    return "TOKEN_NOT_MATCHED";
+                case REQUEST_OVERFLOW:
+                    return "REQUEST_OVERFLOW";
+                case CONFIG_UNREADY:
+                    return "CONFIG_UNREADY";
+                case REQUEST_ONGOING:
+                    return "REQUEST_ONGOING";
+                case REQUEST_DENIED:
+                    return "REQUEST_DENIED";
+                case REQUEST_EXCEPTION:
+                    return "REQUEST_EXCEPTION";
+                default:
+                    return "unknown code: " + code;
+            }
+        }
     }
 
     /**
