@@ -1,5 +1,6 @@
 package com.xiaomi.smarthome.bluetooth;
 
+import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -295,4 +296,20 @@ public abstract class XmBluetoothManager {
      * 写设备
      */
     public abstract void writeNoRsp(String mac, UUID serviceId, UUID characterId, byte[] bytes, final BleWriteResponse response);
+
+    /**
+     * ApiLevel: 32
+     * @param mac
+     * @return 获取设备连接状态
+     */
+    public abstract int getConnectStatus(String mac);
+
+    /**
+     * ApiLevel: 32
+     */
+    public static final int STATE_UNKNOWN = -1;
+    public static final int STATE_CONNECTED = BluetoothProfile.STATE_CONNECTED;
+    public static final int STATE_CONNECTING = BluetoothProfile.STATE_CONNECTING;
+    public static final int STATE_DISCONNECTED = BluetoothProfile.STATE_DISCONNECTED;
+    public static final int STATE_DISCONNECTING = BluetoothProfile.STATE_DISCONNECTING;
 }
