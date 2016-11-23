@@ -1769,19 +1769,13 @@ public abstract class XmPluginHostApi {
 
     /**
      * ApiLevel: 32
-     * 检查是否设置过语音授权。如果没有设置过，是无法使用语音控制功能的
-     * @param did
-     */
-    public abstract boolean checkVoiceCtrlAuthorized(String did);
-
-    /**
-     * ApiLevel: 32
      * 打开语音授权页面。
      * 使用startActivityForResult方法，回调根据resultCode是RESULT_CANCELED或者RESULT_OK判定操作是否成功
+     * 返回true,说明打开了授权页面,否则不需要打开授权页面
      * @param did
      * @param activity:
      */
-    public abstract void showVoiceCtrlAuthorizePage(Activity activity, String did, int requestCode);
+    public abstract boolean checkAndShowVoiceCtrlAuthorizePageIfNeed(Activity activity, String did, int requestCode);
 
     /**
      * ApiLevel: 31
@@ -1789,11 +1783,21 @@ public abstract class XmPluginHostApi {
      */
     public abstract void visualSecureBind(String did);
 
-
     /**
      * ApiLevel: 31
      * @param model 设备model
      */
     public abstract void getFirmwareUpdateInfoCommon(String model, final Callback<FirmwareUpdateInfo> callback);
+
+    /**
+     * ApiLevel: 32 下载固件
+     */
+    public abstract void downloadFirmware(String url, Response.FirmwareUpgradeResponse response);
+
+    /**
+     * ApiLevel: 33
+     * 获取网络链接对应的图片资源
+     */
+    public abstract void loadBitmap(String imageUrl, Callback<Bitmap> callback);
 
 }

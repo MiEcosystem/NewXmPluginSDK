@@ -10,6 +10,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.xiaomi.smarthome.bluetooth.BleUpgrader;
 import com.xiaomi.smarthome.bluetooth.IBleUpgradeController;
@@ -833,4 +834,34 @@ public interface IXmPluginHostActivity {
                                          String shareContent,
                                          String shareImagesFile
     );
+
+    /**
+     * ApiLevel: 30 开启插件广告的支持
+     */
+    void enableAd();
+
+    /**
+     * ApiLevel: 30 展示插屏弹窗广告
+     */
+    void showPopAd();
+
+    /**
+     * ApiLevel: 30 展示页面下方弹窗
+     */
+    void showBottomPopAd();
+
+    /**
+     * ApiLevel: 30 创建Banner广告
+     *
+     * @param vAdContainer 用于展示广告View的ViewGroup
+     */
+    void showBannerAd(ViewGroup vAdContainer);
+
+    /**
+     * ApiLevel: 30 展示通知广告
+     *
+     * @param vAdContainer 用于展示广告View的ViewGroup
+     */
+    void showNoticeAd(ViewGroup vAdContainer);
+
 }

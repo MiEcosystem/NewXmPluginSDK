@@ -60,6 +60,14 @@ public class Response {
         void onProgress(int progress);
     }
 
+    public interface ProgressResponse {
+        void onProgress(int progress);
+    }
+
+    public interface FirmwareUpgradeResponse extends ProgressResponse {
+        void onResponse(int code, String path, String md5);
+    }
+
     public interface BleCallResponse extends BleResponse<Bundle> {
 
     }

@@ -71,6 +71,9 @@ public class XmBluetoothDevice implements Parcelable {
         this.deviceType = deviceType;
     }
 
+    public String getAddress() {
+        return device != null ? device.getAddress() : "";
+    }
 
     @Override
     public String toString() {

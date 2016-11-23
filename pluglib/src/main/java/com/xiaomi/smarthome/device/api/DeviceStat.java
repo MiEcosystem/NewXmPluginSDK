@@ -65,6 +65,12 @@ public class DeviceStat implements Parcelable {
      */
     public int isSetPinCode;
 
+    /**
+     * ApiLevel:32
+     * 设备实物图
+     */
+    public String deviceIconReal;
+
     public DeviceStat() {
         did = "";
         name = "";
@@ -129,6 +135,7 @@ public class DeviceStat implements Parcelable {
         event = in.readString();
         permitLevel = in.readInt();
         isSetPinCode = in.readInt();
+        deviceIconReal = in.readString();
     }
 
     @Override
@@ -188,6 +195,7 @@ public class DeviceStat implements Parcelable {
         writeString(event, dest);
         dest.writeInt(permitLevel);
         dest.writeInt(isSetPinCode);
+        dest.writeString(deviceIconReal);
     }
 
     public static final Creator<DeviceStat> CREATOR = new Creator<DeviceStat>() {

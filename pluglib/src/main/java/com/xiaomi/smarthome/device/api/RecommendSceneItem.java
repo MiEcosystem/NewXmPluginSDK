@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * 推荐场景信息类
@@ -181,6 +182,18 @@ public class RecommendSceneItem implements Parcelable {
             mProductId = parcel.readString();
             mAddAllDevice = (Boolean) parcel.readValue(ClassLoader.getSystemClassLoader());
         }
+
+        @Override
+        public String toString() {
+            return "RemommendSceneAction{" +
+                    "mDeviceModels=" + Arrays.toString(mDeviceModels) +
+                    ", mActionName='" + mActionName + '\'' +
+                    ", mKeys=" + Arrays.toString(mKeys) +
+                    ", mProductId='" + mProductId + '\'' +
+                    ", mAddAllDevice=" + mAddAllDevice +
+                    ", tempId=" + tempId +
+                    '}';
+        }
     }
 
     public RecommendSceneItem(Parcel in) {
@@ -251,4 +264,19 @@ public class RecommendSceneItem implements Parcelable {
             return new RecommendSceneItem[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "RecommendSceneItem{" +
+                "mRecommId=" + mRecommId +
+                ", mName='" + mName + '\'' +
+                ", mRecommendConditionList=" + Arrays.toString(mRecommendConditionList) +
+                ", mRecommendActionList=" + Arrays.toString(mRecommendActionList) +
+                ", mRecommLevel=" + mRecommLevel +
+                ", mEnablePush=" + mEnablePush +
+                ", mShowInMainPage=" + mShowInMainPage +
+                ", mIcon='" + mIcon + '\'' +
+                ", mStatus=" + mStatus +
+                '}';
+    }
 }
