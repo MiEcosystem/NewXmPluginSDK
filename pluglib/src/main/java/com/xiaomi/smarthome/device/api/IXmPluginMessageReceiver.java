@@ -116,6 +116,16 @@ public interface IXmPluginMessageReceiver {
     public static final int DEVICE_LIST_MAIN_VIEW = 1;// 设备列表界面
 
     /**
+     * ApiLevel:34 请求相机360p数据
+     */
+    public static final int MSG_REQUEST_CAMERA_360P_DATA = 18;
+
+    /**
+     * ApiLevel:34 停止发送数据
+     */
+    public static final int MSG_STOP_CAMERA_360P_DATA = 19;
+
+    /**
      * 所有插件必须实现该接口，并且在type=LAUNCHER时，启动入口页面 比如下MiTVPageActivity为入口activity switch (type) { case
      * LAUNCHER: {// 启动入口 XmPluginHostApi.instance().startActivity(xmPluginPackage, intent,
      * deviceStat.did, MiTVPageActivity.class); return true; } default: break; } 且
