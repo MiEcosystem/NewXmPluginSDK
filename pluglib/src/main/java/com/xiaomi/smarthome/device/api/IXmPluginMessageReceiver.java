@@ -116,14 +116,17 @@ public interface IXmPluginMessageReceiver {
     public static final int DEVICE_LIST_MAIN_VIEW = 1;// 设备列表界面
 
     /**
-     * ApiLevel:34 请求相机360p数据
+     * ApiLevel:34 请求相机数据
+     * intent里面带有请求数据信息
+     * key:request_frame_rate
+     * value: 0代表自动适应，1代表480p，2代表720p，3代表1080p
      */
-    public static final int MSG_REQUEST_CAMERA_360P_DATA = 18;
+    public static final int MSG_REQUEST_CAMERA_FRAME = 18;
 
     /**
      * ApiLevel:34 停止发送数据
      */
-    public static final int MSG_STOP_CAMERA_360P_DATA = 19;
+    public static final int MSG_STOP_CAMERA_FRAME = 19;
 
     /**
      * 所有插件必须实现该接口，并且在type=LAUNCHER时，启动入口页面 比如下MiTVPageActivity为入口activity switch (type) { case

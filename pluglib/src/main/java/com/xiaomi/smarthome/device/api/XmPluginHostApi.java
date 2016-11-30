@@ -371,7 +371,7 @@ public abstract class XmPluginHostApi {
      * @param value
      * @param extra
     ApiLevel:33 添加打点统计新规范，必须按照下面的key value来传参数
-     key: PageStart	应用页面打开，自动上报
+    key: PageStart	应用页面打开，自动上报
     value: {
     "name":"页面名称",
     "starttime":"打开时间，时间戳格式"
