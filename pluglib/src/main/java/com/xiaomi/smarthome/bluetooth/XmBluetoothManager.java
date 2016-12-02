@@ -359,4 +359,9 @@ public abstract class XmBluetoothManager {
     public static final String EXTRA_RESULT = "extra.result";
     public static final int RESULT_SUCCESS = 1;
     public static final int RESULT_FAILED = 0;
+
+    /**
+     * ApiLevel: 33
+     */
+    public abstract void startLeScan(int durationInMillis, UUID[] serviceUuids, BluetoothSearchResponse response);
 }
