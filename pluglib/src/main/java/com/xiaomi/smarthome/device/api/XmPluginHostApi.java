@@ -1859,7 +1859,7 @@ public abstract class XmPluginHostApi {
      * ApiLevel: 34
      * 摄像机设备发送video接口
      */
-    public abstract void sendCameraFrame(String did, byte[] data, long seq, int frameSize, long timestamp, int width, int height);
+    public abstract void sendCameraFrame(String did, byte[] data, long seq, int frameSize, long timestamp, boolean isIFrame, int width, int height);
 
     /**
      * ApiLevel: 34

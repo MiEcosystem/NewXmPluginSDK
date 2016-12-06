@@ -879,4 +879,14 @@ public interface IXmPluginHostActivity {
      */
     public void openOpHistoryActivity(
     );
+
+    /**
+     * ApiLevel: 35
+     *
+     * 上报热区广告的展示
+     *
+     * @param gid 商品id
+     * @param hotSpotId 热区广告id，用于区分不同的广告
+     */
+    void reportHotSpotAdShow(String gid, String hotSpotId);
 }
