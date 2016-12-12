@@ -350,4 +350,18 @@ public abstract class XmBluetoothManager {
     public static final int STATE_CONNECTING = BluetoothProfile.STATE_CONNECTING;
     public static final int STATE_DISCONNECTED = BluetoothProfile.STATE_DISCONNECTED;
     public static final int STATE_DISCONNECTING = BluetoothProfile.STATE_DISCONNECTING;
+
+    /**
+     * ApiLevel: 32
+     */
+    public static final String ACTION_RENAME_NOTIFY = "action.more.rename.notify";
+    public static final String EXTRA_NAME = "extra.name";
+    public static final String EXTRA_RESULT = "extra.result";
+    public static final int RESULT_SUCCESS = 1;
+    public static final int RESULT_FAILED = 0;
+
+    /**
+     * ApiLevel: 33
+     */
+    public abstract void startLeScan(int durationInMillis, UUID[] serviceUuids, BluetoothSearchResponse response);
 }

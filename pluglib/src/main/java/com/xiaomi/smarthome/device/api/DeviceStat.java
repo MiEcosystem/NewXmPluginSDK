@@ -195,7 +195,7 @@ public class DeviceStat implements Parcelable {
         writeString(event, dest);
         dest.writeInt(permitLevel);
         dest.writeInt(isSetPinCode);
-        dest.writeString(deviceIconReal);
+        writeString(deviceIconReal, dest);
     }
 
     public static final Creator<DeviceStat> CREATOR = new Creator<DeviceStat>() {

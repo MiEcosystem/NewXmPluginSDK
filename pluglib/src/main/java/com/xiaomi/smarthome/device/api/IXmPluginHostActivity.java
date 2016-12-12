@@ -34,6 +34,12 @@ public interface IXmPluginHostActivity {
      */
     public static final int TARGET_ACTIVITY_IN_HOST_DEVICE_SCENE = 1;
 
+    /**
+     * ApiLevel:32
+     */
+    public static final int TARGET_ACTIVITY_IN_HOST_DEVICE_OP_HISTORY = 2;
+
+
     // 动画类型
     public final String ANIM_SLIDE_IN_LEFT = "slide_in_left";
     public final String ANIM_SLIDE_IN_RIGHT = "slide_in_right";
@@ -836,32 +842,51 @@ public interface IXmPluginHostActivity {
     );
 
     /**
-     * ApiLevel: 30 开启插件广告的支持
+     * ApiLevel: 32 开启插件广告的支持
      */
     void enableAd();
 
     /**
-     * ApiLevel: 30 展示插屏弹窗广告
+     * ApiLevel: 32 展示插屏弹窗广告
      */
     void showPopAd();
 
     /**
-     * ApiLevel: 30 展示页面下方弹窗
+     * ApiLevel: 32 展示页面下方弹窗
      */
     void showBottomPopAd();
 
     /**
-     * ApiLevel: 30 创建Banner广告
+     * ApiLevel: 32 创建Banner广告
      *
      * @param vAdContainer 用于展示广告View的ViewGroup
      */
     void showBannerAd(ViewGroup vAdContainer);
 
     /**
-     * ApiLevel: 30 展示通知广告
+     * ApiLevel: 32 展示通知广告
      *
      * @param vAdContainer 用于展示广告View的ViewGroup
      */
     void showNoticeAd(ViewGroup vAdContainer);
 
+    /*
+     * ApiLevel: 32 打开设备操作历史记录
+     *
+     *
+     *
+     *
+     */
+    public void openOpHistoryActivity(
+    );
+
+    /**
+     * ApiLevel: 35
+     *
+     * 上报热区广告的展示
+     *
+     * @param gid 商品id
+     * @param hotSpotId 热区广告id，用于区分不同的广告
+     */
+    void reportHotSpotAdShow(String gid, String hotSpotId);
 }
