@@ -1849,13 +1849,13 @@ public abstract class XmPluginHostApi {
     public abstract void downloadFirmware(String url, Response.FirmwareUpgradeResponse response);
 
     /**
-     * ApiLevel: 33
+     * ApiLevel: 34
      * 获取网络链接对应的图片资源
      */
     public abstract void loadBitmap(String imageUrl, Callback<Bitmap> callback);
 
     /**
-     * ApiLevel:33 获取设备标签
+     * ApiLevel:34 获取设备标签
      *
      * @param did
      * @return
@@ -1863,7 +1863,7 @@ public abstract class XmPluginHostApi {
     public abstract DeviceTag getDeviceTagByDid(String did);
 
     /**
-     * ApiLevel:33 添加标签,若did不为空，则同时为此设备设置该标签
+     * ApiLevel:34 添加标签,若did不为空，则同时为此设备设置该标签
      *
      * @param tag
      * @param did
@@ -1871,32 +1871,32 @@ public abstract class XmPluginHostApi {
     public abstract void addTag(List<String> tag, String did);
 
     /**
-     * ApiLevel:33 删除标签
+     * ApiLevel:34 删除标签
      *
      * @param tag
      */
     public abstract void removeTag(String tag);
 
     /**
-     * ApiLevel: 33
+     * ApiLevel: 34
      * 根据设备的model获取设备实物图
      */
     public abstract void getDeviceRealIconByModel(String model, Callback<Bitmap> callback);
 
     /**
-     * ApiLevel: 34
+     * ApiLevel: 35
      * 初始化相机发送通道
      */
     public abstract void initCameraFrameSender(String did);
 
     /**
-     * ApiLevel: 34
+     * ApiLevel: 35
      * 摄像机设备发送video接口
      */
     public abstract void sendCameraFrame(String did, byte[] data, long seq, int frameSize, long timestamp, boolean isIFrame, int width, int height);
 
     /**
-     * ApiLevel: 34
+     * ApiLevel: 35
      * 关闭发送通道
      */
     public abstract void closeCameraFrameSender(String did);
