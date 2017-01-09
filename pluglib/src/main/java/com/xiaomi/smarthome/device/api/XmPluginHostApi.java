@@ -1884,6 +1884,14 @@ public abstract class XmPluginHostApi {
     public abstract void getDeviceRealIconByModel(String model, Callback<Bitmap> callback);
 
     /**
+     *
+     * ApiLevel:34 获取建议标签
+     *
+     * @param did
+     * @return
+     */
+    public abstract List<String> getRecommendTags(String did);
+    /**
      * ApiLevel: 35
      * 初始化相机发送通道
      */
