@@ -171,7 +171,7 @@ void installPlugin(def project, def variant) {
                             "am start com.xiaomi.smarthome/.SmartHomeMainActivity"
                 }
 
-                sleep(5000);
+                sleep(3000);
 
                 project.exec {
                     commandLine adbcmd,
@@ -184,6 +184,8 @@ void installPlugin(def project, def variant) {
                 if (error) {
                     println "install push error:" + error
                 }
+
+                sleep(5000);
 
                 project.exec {
                     commandLine adbcmd,

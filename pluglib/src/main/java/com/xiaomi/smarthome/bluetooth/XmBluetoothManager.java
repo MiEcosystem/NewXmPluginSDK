@@ -364,4 +364,9 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 33
      */
     public abstract void startLeScan(int durationInMillis, UUID[] serviceUuids, BluetoothSearchResponse response);
+
+    /**
+     * ApiLevel: 33
+     */
+    public abstract void getBluetoothFirmwareVersion(String mac, Response.BleReadFirmwareVersionResponse response);
 }

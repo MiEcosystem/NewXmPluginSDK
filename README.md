@@ -2,6 +2,25 @@
 
 ## 重要修改
 
+- 添加打点统计规范
+ [打点统计规范](打点统计.pdf)
+
+- 添加通用的打开设备安全设置接口
+
+1.调用新版设置页面接口，传入参数"security_setting_enable"，打开安全设置选项
+```
+        Intent intent = new Intent();
+        intent.putExtra("security_setting_enable",true);
+        mHostActivity.openMoreMenu2(menus, true, REQUEST_MENUS, intent);
+```
+
+2.在需要验证pincode的页面onCreate()中调用如下接口
+        
+```
+  mHostActivity.enableVerifyPincode();
+  
+```
+
 - 更新了微信sdk库，如果使用下面的接口插件要更新插件，否则会crash
 
 ```
