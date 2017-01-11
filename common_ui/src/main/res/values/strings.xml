@@ -21,6 +21,7 @@
 
     <string name="progress_dialog_already">已完成</string>
 
+    <string name="action_menu">操作</string>
     <string name="action_back">返回</string>
     <string name="select_all">全选</string>
     <string name="unselect_all">全不选</string>

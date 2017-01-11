@@ -49,5 +49,3 @@ task sourcesJar(type: Jar) {
 project.afterEvaluate {
     makeJar.dependsOn(clearJar, assembleRelease,sourcesJar)
 }
-
-

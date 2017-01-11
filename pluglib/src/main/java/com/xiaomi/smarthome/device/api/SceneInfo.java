@@ -28,18 +28,6 @@ public class SceneInfo implements Parcelable {
     public static final int LAUNCH_MIKEY = 5;
     public static final int LAUNCH_MIBAND = 6;
 
-    /**
-     * ApiLevel:34
-     */
-    public static final int LAUNCH_PHONE_CALL = 7;
-    public static final int LAUNCH_SMS_RECEIVED = 8;
-
-    public static final int ACTION_DELAY = 9;
-    public static final int ACTION_EXEC_AUTONMATION = 10;
-    public static final int ACTION_PUSH = 11;
-    public static final int ACTION_EXEC_SCENE = 12;
-    public static final int ACTION_DEVICE = 13;
-
     @Override
     public int describeContents() {
         return 0;
@@ -234,10 +222,6 @@ public class SceneInfo implements Parcelable {
          * ApiLevel:18
          */
         public int mDelayTime;
-        /**
-         * ApiLevel:34
-         */
-        public int mActionType;
 
         public SceneAction() {
 
@@ -252,7 +236,6 @@ public class SceneInfo implements Parcelable {
             mDid = in.readString();
             mExtra = in.readString();
             mDelayTime = in.readInt();
-            mActionType = in.readInt();
         }
 
         @Override
@@ -273,7 +256,6 @@ public class SceneInfo implements Parcelable {
             dest.writeString(mDid);
             dest.writeString(mExtra);
             dest.writeInt(mDelayTime);
-            dest.writeInt(mActionType);
         }
 
         public static final Creator<SceneAction> CREATOR = new Creator<SceneAction>() {

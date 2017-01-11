@@ -75,4 +75,8 @@ public class Response {
     public interface BleDeviceStatusResponse extends BleResponse<Integer> {
 
     }
+
+    public interface BleReadFirmwareVersionResponse extends BleResponse<String> {
+
+    }
 }

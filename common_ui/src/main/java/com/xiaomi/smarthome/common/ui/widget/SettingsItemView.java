@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiaomi.common.R;
@@ -82,7 +81,7 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
         mContainerView = itemView;
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         addView(itemView, lp);
-
+        itemView.setBackgroundDrawable(getBackground());
         mTitleTextView = (TextView) itemView.findViewById(R.id.settings_item_title);
         mSubTitleTextView = (TextView) itemView.findViewById(R.id.settings_item_sub_title);
         mSwitchButton = (SwitchButton) itemView.findViewById(R.id.settings_item_switch_btn);
@@ -97,6 +96,8 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
         String info = a.getString(R.styleable.SettingsItem_item_info);
         mType = a.getInt(R.styleable.SettingsItem_item_type, 1);
         mSelected = a.getBoolean(R.styleable.SettingsItem_item_select, false);
+        int lineMargin = a.getDimensionPixelSize(R.styleable.SettingsItem_item_line_margin, 0);
+        a.recycle();
 
         setTitle(title);
         setSubTitle(subTitle);
@@ -104,12 +105,12 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
         setType(mType);
 
         View view = new View(getContext());
-        view.setBackgroundColor(0xffc6c6c6);
+        view.setBackgroundColor(0xffe5e5e5);
         lp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, 1);
         lp.gravity = Gravity.BOTTOM;
-        int marging = getResources().getDimensionPixelOffset(R.dimen.settings_item_margin);
-        lp.setMargins(marging,0,marging,0);
-        addView(view,lp);
+//        int marging = getResources().getDimensionPixelOffset(R.dimen.settings_item_margin);
+        lp.setMargins(lineMargin, 0, lineMargin, 0);
+        addView(view, lp);
     }
 
     public void setTitle(String str) {
@@ -145,7 +146,7 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
         }
     }
 
-    public boolean isSelected(){
+    public boolean isSelected() {
         return mSelected;
     }
 
@@ -194,6 +195,12 @@ public class SettingsItemView extends FrameLayout implements View.OnClickListene
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (mOnCheckedChangeListener != null) {
             mOnCheckedChangeListener.onCheckedChanged(buttonView, isChecked);
+        }
+    }
+
+    public void setSwitchEnable(boolean enable) {
+        if (mSwitchButton != null) {
+            mSwitchButton.setEnabled(enable);
         }
     }
 }

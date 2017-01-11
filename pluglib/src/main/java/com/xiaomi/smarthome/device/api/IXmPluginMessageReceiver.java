@@ -119,7 +119,7 @@ public interface IXmPluginMessageReceiver {
      * ApiLevel:34 请求相机数据
      * intent里面带有请求数据信息
      * key:request_frame_rate
-     * value: 0代表自动适应，1代表480p，2代表720p，3代表1080p
+     * value: 0代表自动，1代表480p，2代表720p，3代表1080p
      */
     public static final int MSG_REQUEST_CAMERA_FRAME = 18;
 

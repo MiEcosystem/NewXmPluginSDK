@@ -1,26 +1,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    >
-    <View android:layout_width="23dp"
-        android:layout_height="match_parent"/>
+    android:orientation="horizontal">
+
+    <View
+        android:layout_width="17dp"
+        android:layout_height="match_parent" />
+
     <ImageView
         android:id="@+id/settings_item_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/btn_icon_selected"
         android:layout_marginRight="13dp"
+        android:src="@drawable/btn_icon_selected"
         android:visibility="gone" />
 
-    <LinearLayout android:id="@+id/title_container"
+    <LinearLayout
+        android:id="@+id/title_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginRight="27dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_marginRight="27dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/settings_item_title"
@@ -33,9 +36,9 @@
 
         <TextView
             android:id="@+id/settings_item_sub_title"
-            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@color/settings_subtitle_text_color"
@@ -52,9 +55,9 @@
         android:id="@+id/settings_item_info"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:layout_marginRight="13dp"
         android:ellipsize="end"
+        android:gravity="center_vertical"
         android:lines="1"
         android:textColor="@color/settings_subtitle_text_color"
         android:textSize="@dimen/settings_item_subtitle_text_size"
@@ -66,6 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:src="@drawable/common_list_item_anchor_normal" />
-    <View android:layout_width="23dp"
-        android:layout_height="match_parent"/>
+
+    <View
+        android:layout_width="17dp"
+        android:layout_height="match_parent" />
 </LinearLayout>
