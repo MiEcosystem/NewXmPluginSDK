@@ -881,7 +881,7 @@ public interface IXmPluginHostActivity {
     );
 
     /**
-     * ApiLevel: 35
+     * ApiLevel: 33
      *
      * 上报热区广告的展示
      *

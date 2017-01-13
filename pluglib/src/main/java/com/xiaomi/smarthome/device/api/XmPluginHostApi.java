@@ -193,6 +193,7 @@ public abstract class XmPluginHostApi {
      */
     public abstract DeviceStat getDeviceByDid(String did);
 
+
     /**
      * ApiLevel:1 获取子设备
      *
@@ -364,14 +365,14 @@ public abstract class XmPluginHostApi {
     public abstract void addRecord(String appId, String key, Object value, JSONObject extra);
 
     /**
-     * ApiLevel:6 米家后台统计
+     * ApiLevel: 6 米家后台统计
      *
      * @param loadedInfo 插件上下文
      * @param key
      * @param value
      * @param extra
-    ApiLevel:33 添加打点统计新规范，必须按照下面的key value来传参数
-     key: PageStart	应用页面打开，自动上报
+     添加打点统计新规范，必须按照下面的key value来传参数
+    key: PageStart	应用页面打开，自动上报
     value: {
     "name":"页面名称",
     "starttime":"打开时间，时间戳格式"
@@ -1795,14 +1796,16 @@ public abstract class XmPluginHostApi {
      */
     public abstract String getDevicePincode(String did);
 
-    /**ApiLevel: 32,本地ping设备，查看设备是否是本地设备
+    /**
+     * ApiLevel: 32,本地ping设备，查看设备是否是本地设备
      *
      * @param did
      * @param callback
      */
     public abstract void localPing(String did, Callback<Void> callback);
 
-    /**ApiLevel: 32,从服务器批量获取设备属性
+    /**
+     * ApiLevel: 32,从服务器批量获取设备属性
      *
      * @param jsonArray [{"did":"aaa", "props":["prop.aaa","prop.bbb"]},{"did":"123", "props":["prop.jjjj","prop.777"]}]
      * @param callback
@@ -1821,6 +1824,7 @@ public abstract class XmPluginHostApi {
      * 打开语音授权页面。
      * 使用startActivityForResult方法，回调根据resultCode是RESULT_CANCELED或者RESULT_OK判定操作是否成功
      * 返回true,说明打开了授权页面,否则不需要打开授权页面
+     *
      * @param did
      * @param activity:
      */
@@ -1828,12 +1832,14 @@ public abstract class XmPluginHostApi {
 
     /**
      * ApiLevel: 31
+     *
      * @param did
      */
     public abstract void visualSecureBind(String did);
 
     /**
      * ApiLevel: 31
+     *
      * @param model 设备model
      */
     public abstract void getFirmwareUpdateInfoCommon(String model, final Callback<FirmwareUpdateInfo> callback);
@@ -1850,19 +1856,56 @@ public abstract class XmPluginHostApi {
     public abstract void loadBitmap(String imageUrl, Callback<Bitmap> callback);
 
     /**
+     * ApiLevel:34 获取设备标签
+     *
+     * @param did
+     * @return
+     */
+    public abstract DeviceTag getDeviceTagByDid(String did);
+
+    /**
+     * ApiLevel:34 添加标签,若did不为空，则同时为此设备设置该标签
+     *
+     * @param tag
+     * @param did
+     */
+    public abstract void addTag(List<String> tag, String did);
+
+    /**
+     * ApiLevel:34 删除标签
+     *
+     * @param tag
+     */
+    public abstract void removeTag(String tag);
+
+    /**
      * ApiLevel: 34
+     * 根据设备的model获取设备实物图
+     */
+    public abstract void getDeviceRealIconByModel(String model, Callback<Bitmap> callback);
+
+    /**
+     *
+     * ApiLevel:34 获取建议标签
+     *
+     * @param did
+     * @return
+     */
+    public abstract List<String> getRecommendTags(String did);
+    /**
+     * ApiLevel: 35
      * 初始化相机发送通道
      */
     public abstract void initCameraFrameSender(String did);
 
     /**
-     * ApiLevel: 34
+     * ApiLevel: 35
      * 摄像机设备发送video接口
      */
     public abstract void sendCameraFrame(String did, byte[] data, long seq, int frameSize, long timestamp, boolean isIFrame, int width, int height);
 
     /**
-     * ApiLevel: 34
+     * ApiLevel: 35
      * 关闭发送通道
      */
     public abstract void closeCameraFrameSender(String did);

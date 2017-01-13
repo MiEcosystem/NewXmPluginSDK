@@ -116,15 +116,15 @@ public interface IXmPluginMessageReceiver {
     public static final int DEVICE_LIST_MAIN_VIEW = 1;// 设备列表界面
 
     /**
-     * ApiLevel:34 请求相机数据
+     * ApiLevel: 33 请求相机数据
      * intent里面带有请求数据信息
      * key:request_frame_rate
-     * value: 0代表自动，1代表480p，2代表720p，3代表1080p
+     * value: 0代表自动适应，1代表480p，2代表720p，3代表1080p
      */
     public static final int MSG_REQUEST_CAMERA_FRAME = 18;
 
     /**
-     * ApiLevel:34 停止发送数据
+     * ApiLevel: 33 停止发送数据
      */
     public static final int MSG_STOP_CAMERA_FRAME = 19;
 
