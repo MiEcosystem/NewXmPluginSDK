@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -1870,7 +1869,7 @@ public abstract class XmPluginHostApi {
      * @param tag
      * @param did
      */
-    public abstract void addTag(List<String> tag, String did);
+    public abstract void addTag(String tag, String did);
 
     /**
      * ApiLevel:34 删除标签
@@ -1911,8 +1910,4 @@ public abstract class XmPluginHostApi {
      */
     public abstract void closeCameraFrameSender(String did);
 
-    /**
-     * ApiLevel: 35
-     */
-    public abstract Typeface getFont(String name);
 }
