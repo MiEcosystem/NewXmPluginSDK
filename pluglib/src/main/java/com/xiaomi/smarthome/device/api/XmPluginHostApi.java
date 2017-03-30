@@ -1927,4 +1927,33 @@ public abstract class XmPluginHostApi {
      * ApiLevel: 35
      */
     public abstract Typeface getFont(String name);
+
+    /**
+     * ApiLevel: 37
+     *
+     * @param context
+     * @param loadedInfo
+     * @param hostService
+     * @param serviceClass
+     * @param connection
+     * @param flags
+     * @param callback
+     */
+    public abstract void bindService(Context context, XmPluginPackage loadedInfo,
+                                     HostService hostService, Class serviceClass, ServiceConnection connection, int flags,
+                                     Callback<Bundle> callback);
+
+    /**
+     * ApiLevel: 37
+     *
+     * @param context
+     * @param loadedInfo
+     * @param hostService
+     * @param serviceClass
+     * @param connection
+     * @param callback
+     */
+    public abstract void unbindService(Context context, XmPluginPackage loadedInfo,
+                                       HostService hostService, Class serviceClass, ServiceConnection connection,
+                                       Callback<Bundle> callback);
 }
