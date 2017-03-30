@@ -21,6 +21,11 @@ public abstract class BleUpgrader extends IBleUpgradeController.Stub {
         mBleUpgradeViewer = null;
     }
 
+    @Override
+    public boolean onPreEnterActivity(Bundle data) throws RemoteException {
+        return false;
+    }
+
     public void showPage(int page, Bundle data) {
         if (mBleUpgradeViewer != null) {
             try {
