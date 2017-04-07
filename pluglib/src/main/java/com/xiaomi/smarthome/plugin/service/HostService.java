@@ -8,7 +8,9 @@ public enum HostService {
     /**
      * ApiLevel: 27
      */
-    OneMore("OneMore");
+    OneMore("OneMore"),
+
+    DesaiShoe("DesaiShoe");
 
     private String mValue;
 

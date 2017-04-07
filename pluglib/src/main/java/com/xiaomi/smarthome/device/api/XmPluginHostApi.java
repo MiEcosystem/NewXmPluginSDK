@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -1893,21 +1894,66 @@ public abstract class XmPluginHostApi {
      */
     public abstract List<String> getRecommendTags(String did);
     /**
-     * ApiLevel: 35
+     * ApiLevel: 36
      * 初始化相机发送通道
      */
     public abstract void initCameraFrameSender(String did);
 
     /**
-     * ApiLevel: 35
+     * ApiLevel: 36
      * 摄像机设备发送video接口
      */
     public abstract void sendCameraFrame(String did, byte[] data, long seq, int frameSize, long timestamp, boolean isIFrame, int width, int height);
 
     /**
-     * ApiLevel: 35
+     * ApiLevel: 36
      * 关闭发送通道
      */
     public abstract void closeCameraFrameSender(String did);
 
+    /**
+     * ApiLevel: 36
+     * 开启摄像头悬浮窗（须支持发送摄像头视频数据）
+     */
+    public abstract void openCameraFloatingWindow(String did);
+
+    /**
+     * ApiLevel: 36
+     * 关闭摄像头悬浮窗（须支持发送摄像头视频数据）
+     */
+    public abstract void closeCameraFloatingWindow(String did);
+
+    /**
+     * ApiLevel: 35
+     */
+    public abstract Typeface getFont(String name);
+
+    /**
+     * ApiLevel: 37
+     *
+     * @param context
+     * @param loadedInfo
+     * @param hostService
+     * @param serviceClass
+     * @param connection
+     * @param flags
+     * @param callback
+     */
+    public abstract void bindService(Context context, XmPluginPackage loadedInfo,
+                                     HostService hostService, Class serviceClass, ServiceConnection connection, int flags,
+                                     Callback<Bundle> callback);
+
+    /**
+     * ApiLevel: 37
+     *
+     * @param context
+     * @param loadedInfo
+     * @param hostService
+     * @param serviceClass
+     * @param connection
+     * @param callback
+     */
+    public abstract void unbindService(Context context, XmPluginPackage loadedInfo,
+                                       HostService hostService, Class serviceClass, ServiceConnection connection,
+                                       Callback<Bundle> callback);
 }
