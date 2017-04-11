@@ -1956,4 +1956,8 @@ public abstract class XmPluginHostApi {
     public abstract void unbindService(Context context, XmPluginPackage loadedInfo,
                                        HostService hostService, Class serviceClass, ServiceConnection connection,
                                        Callback<Bundle> callback);
+
+
+
+    public abstract void getControllableDevices(String model, Callback<JSONObject> callback);
 }
