@@ -143,12 +143,12 @@ IXmPluginHostActivity
     public abstract void openHelpActivity();
 
 ```
-- 分享权限控制
+- 共享权限控制
 ```
 类BaseDevice ApiLevel:20
-分享的设备
+共享的设备
 public boolean isShared()
-只读分享的设备，不能控制，兼容旧版同时isShared()返回true
+只读共享的设备，不能控制，兼容旧版同时isShared()返回true
 public boolean isReadOnlyShared()
 ```
 - 插件运行独立进程，退出插件后30s，自动退出插件进程
@@ -177,7 +177,7 @@ keytool -list -v -keystore  keyFilePath -storepass keypassword  -keypass  keypas
 ### 安装开发版智能家庭app
 
 智能家庭应用商店版的app不支持本地开发调试，需要安装sdk目录下的智能家庭app
- 
+
 ### 工程目录结构
 
 - [github](https://github.com/MiEcosystem/NewXmPluginSDK)更新SDK代码
