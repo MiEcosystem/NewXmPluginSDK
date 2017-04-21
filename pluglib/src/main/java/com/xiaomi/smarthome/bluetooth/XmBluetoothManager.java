@@ -376,7 +376,7 @@ public abstract class XmBluetoothManager {
     public static final int CODE_REFRESH_DEVICES = 2;
 
     /**
-     * ApiLevel: 36
+     * ApiLevel: 35
      */
     public static final int ALERT_INCALL_IN_CONTACTS_ENABLED = 1;
     public static final int ALERT_INCALL_NO_CONTACTS_ENABLED = 2;
@@ -386,7 +386,7 @@ public abstract class XmBluetoothManager {
     public abstract boolean setAlertConfigs(String mac, int alert, boolean enable);
 
     /**
-     * ApiLevel: 36
+     * ApiLevel: 35
      */
     public static final int CODE_REFRESH_CACHE = 3;
 }
