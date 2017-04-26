@@ -2001,8 +2001,8 @@ public abstract class XmPluginHostApi {
      * @param callback
      */
     public abstract void unbindService(Context context, XmPluginPackage loadedInfo,
-                                       HostService hostService, Class serviceClass, ServiceConnection connection,
-                                       Callback<Bundle> callback);
+            HostService hostService, Class serviceClass, ServiceConnection connection,
+            Callback<Bundle> callback);
 
     /**
      * ApiLevel: 38
@@ -2010,4 +2010,9 @@ public abstract class XmPluginHostApi {
      */
     public abstract JSONArray getDeviceProp(String did);
 
+
+    /**
+     * 设备列表过滤能控制的设备
+     */
+    public abstract void getControllableDevices(String model, Callback<JSONObject> callback);
 }
