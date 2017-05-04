@@ -16,14 +16,13 @@ compile(name:'authlib-release', ext:"aar")
 IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
 
 ### 3 发起授权IAuthMangerImpl.getInstance().callAuth（final Context context, final Bundle data, final int requestCode, IAuthResponse response）
+
 **requestCode**对应的是要请求哪种授权<br>
 * 1)如果请求的是给设备进行授权则传入AuthCode.REQUEST_CODE_CALL_AUTH_FOR_DEVICE(设备授权之前，该小米账户需要已经绑定该设备)<br>
-* 2)如果请求的是给app进行授权，则传入的是AuthCode.REQUEST_CODE_CALL_AUTH_FOR_APP<br>
-
 
 **Bundle data**对应的是需要传入的参数
- 如果是app授权的话，只需要传入AuthConstants.EXTRA_APPLICATION_ID，一个参数即可，该参数需要到开放平台申请。<br>
- 如果设备授权的话，你还需要传入设备的idAuthConstants.EXTRA_DEVICE_DID。<br>
+ 如果是设备授权的话，需要传入AuthConstants.EXTRA_APPLICATION_ID，该参数需要到开放平台申请。<br>
+ 同时你还需要传入设备的idAuthConstants.EXTRA_DEVICE_DID，该参数是你需要授权的设备的did。<br>
  例如<br>
  
  <pre><code>
@@ -94,18 +93,17 @@ public class AuthConstants {
     
 ### 6  调用示例
 <pre><code>
-
 package com.xiaomi.smarthome.auth;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xiaomi.smarthome.authlib.AuthCode;
 import com.xiaomi.smarthome.authlib.AuthConstants;
@@ -117,7 +115,8 @@ public class AuthActivity extends AppCompatActivity {
     Button mAuthAppBtn;
     TextView mResult;
     ImageView mAppIcon;
-
+    EditText mAppIdET;
+    EditText mDeviceET;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,7 +125,8 @@ public class AuthActivity extends AppCompatActivity {
         mAuthAppBtn = (Button) findViewById(R.id.go_auth2);
         mResult = (TextView) findViewById(R.id.result);
         mAppIcon = (ImageView) findViewById(R.id.app_icon);
-
+        mAppIdET = (EditText) findViewById(R.id.app_id);
+        mDeviceET = (EditText) findViewById(R.id.device);
         IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
         mAuthDeviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,19 +135,29 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
         mAuthAppBtn.setOnClickListener(new View.OnClickListener() {
-                                         @Override
-                                         public void onClick(View v) {
-                                             onAuthClick(AuthCode.REQUEST_CODE_CALL_AUTH_FOR_APP);
-                                         }
-                                     }
+                                           @Override
+                                           public void onClick(View v) {
+                                               onAuthClick(AuthCode.REQUEST_CODE_CALL_AUTH_FOR_APP);
+                                           }
+                                       }
         );
     }
 
     private void onAuthClick(int requestCode){
         Bundle bundle = new Bundle();
+        /*if (TextUtils.isEmpty(mAppIdET.getText().toString())){
+            Toast.makeText(AuthActivity.this,"extra_application_id 不可以为空",Toast.LENGTH_SHORT);
+            return;
+        }*/
         bundle.putString(AuthConstants.EXTRA_APPLICATION_ID, "9971080915123888");
+//        bundle.putString(AuthConstants.EXTRA_APPLICATION_ID, mAppIdET.getText().toString());
         if (requestCode == AuthCode.REQUEST_CODE_CALL_AUTH_FOR_DEVICE){
-            bundle.putString(AuthConstants.EXTRA_DEVICE_DID,"58067337");
+            if (TextUtils.isEmpty(mDeviceET.getText().toString())){
+                Toast.makeText(AuthActivity.this,"device_id 不可以为空",Toast.LENGTH_SHORT);
+                return;
+            }
+//            bundle.putString(AuthConstants.EXTRA_DEVICE_DID,"58067337");
+            bundle.putString(AuthConstants.EXTRA_DEVICE_DID,mDeviceET.getText().toString());
         }
         //发起授权
         IAuthMangerImpl.getInstance().callAuth(AuthActivity.this, bundle, requestCode, new IAuthResponse() {
@@ -185,6 +195,7 @@ public class AuthActivity extends AppCompatActivity {
         IAuthMangerImpl.getInstance().release();
     }
 }
+
 
 </pre></code>
 
