@@ -79,4 +79,11 @@ public class Response {
     public interface BleReadFirmwareVersionResponse extends BleResponse<String> {
 
     }
+
+    /**
+     * ApiLevel: 41
+     */
+    public interface BleReadBlockResponse extends BleResponse<String> {
+
+    }
 }

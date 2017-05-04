@@ -389,4 +389,20 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 35
      */
     public static final int CODE_REFRESH_CACHE = 3;
+
+    /**
+     * ApiLevel: 41
+     */
+    // 通过蓝牙读写大数据，response只是返回发送状态，通过设置registerBlockListener监听返回的数据
+    public abstract void writeBlock(String mac, String msg, final BleWriteResponse response);
+
+    /**
+     * ApiLevel: 41
+     */
+    public abstract void registerBlockListener(String mac, final Response.BleReadBlockResponse response);
+
+    /**
+     * ApiLevel: 41
+     */
+    public abstract void unregisterBlockListener(String mac);
 }
