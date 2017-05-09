@@ -10,7 +10,7 @@
 ### 米家Android客户端授权调用
 
 ### 1 引入sdk包
-compile(name:'authlib-release', ext:"aar")
+compile(name:'mijia_authlib_1.0.0', ext:"aar")
 
 ### 2 在activity的oncreate函数中进行初始化
 IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
