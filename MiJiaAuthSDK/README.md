@@ -52,8 +52,9 @@ public class AuthCode {
     public static final int REQUEST_AUTH_ERROR = -107;//请求授权失败
     public static final int REQUEST_CODE_ERROR = -108;//请求的code错误
     public static final int REQUSET_DID_ERROR = -109;///缺少did
+    public static final int REQUEST_AUTH_NO_CAPABILITY = -110;///缺少授权的支持，可能是你的该账号下面没有绑定该设备
 
-    public static final int REQUEST_CODE_CALL_AUTH_FOR_APP = 1;//请求app授权
+    public static final int REQUEST_CODE_CALL_AUTH_FOR_APP = 1;//请求app授权(暂不支持)
     public static final int REQUEST_CODE_CALL_AUTH_FOR_DEVICE = 2;//请求设备授权
 }
 </pre></code>
@@ -145,12 +146,8 @@ public class AuthActivity extends AppCompatActivity {
 
     private void onAuthClick(int requestCode){
         Bundle bundle = new Bundle();
-        /*if (TextUtils.isEmpty(mAppIdET.getText().toString())){
-            Toast.makeText(AuthActivity.this,"extra_application_id 不可以为空",Toast.LENGTH_SHORT);
-            return;
-        }*/
         bundle.putString(AuthConstants.EXTRA_APPLICATION_ID, "9971080915123888");
-//        bundle.putString(AuthConstants.EXTRA_APPLICATION_ID, mAppIdET.getText().toString());
+
         if (requestCode == AuthCode.REQUEST_CODE_CALL_AUTH_FOR_DEVICE){
             if (TextUtils.isEmpty(mDeviceET.getText().toString())){
                 Toast.makeText(AuthActivity.this,"device_id 不可以为空",Toast.LENGTH_SHORT);
