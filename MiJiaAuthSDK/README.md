@@ -203,9 +203,9 @@ public class AuthActivity extends AppCompatActivity {
 如上图，需要在设备已经绑入到当前小米账号的情况下，将did填入上面的输入框中，点击去授权即可
 
 ### ChangeLog
-####1.0.1
-修改了检测到没有米家app或者当时米家版本不支持的处理逻辑。不在进行toast提示。
-开发者可以自行根据IAuthMangerImpl.getInstance().init(AuthActivity.this);返回值进行判断，如果返回true则表示初始化成功，失败表示没有相应的米家app（这个是推荐使用的）。在调用的时候IAuthMangerImpl.getInstance().callAuth也可以根据返回值进行判断，建议尽量在初始化的时候就进行处理
+#### version  1.0.1
+修改了检测到没有米家app或者当时米家版本不支持的处理逻辑。不在进行toast提示。<br>
+开发者可以自行根据IAuthMangerImpl.getInstance().init(AuthActivity.this);返回值进行判断，如果返回true则表示初始化成功，失败表示没有相应的米家app（这个是推荐使用的）。在调用的时候IAuthMangerImpl.getInstance().callAuth也可以根据返回值进行判断，建议尽量在初始化的时候就进行处理<br>
 
 ### 有问题可以联系:
 renlei@xiaomi.com
