@@ -10,7 +10,7 @@
 ### 米家Android客户端授权调用
 
 ### 1 引入sdk包
-compile(name:'mijia_authlib_1.0.0', ext:"aar")
+compile(name:'mijia_authlib_1.0.1', ext:"aar")
 
 ### 2 在activity的oncreate函数中进行初始化
 IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
@@ -128,7 +128,10 @@ public class AuthActivity extends AppCompatActivity {
         mAppIcon = (ImageView) findViewById(R.id.app_icon);
         mAppIdET = (EditText) findViewById(R.id.app_id);
         mDeviceET = (EditText) findViewById(R.id.device);
-        IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
+        boolean isSuccess = IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
+        if (!isSuccess){
+            Toast.makeText(AuthActivity.this, "请确认已经安装了米家，并且更新到最新的版本啦", Toast.LENGTH_SHORT).show();
+        }
         mAuthDeviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,6 +201,11 @@ public class AuthActivity extends AppCompatActivity {
 ### 7 demo使用方法
 ![image](https://github.com/MiEcosystem/NewXmPluginSDK/blob/master/MiJiaAuthSDK/demo%20UI%E7%95%8C%E9%9D%A2.png)
 如上图，需要在设备已经绑入到当前小米账号的情况下，将did填入上面的输入框中，点击去授权即可
+
+### ChangeLog
+####1.0.1
+修改了检测到没有米家app或者当时米家版本不支持的处理逻辑。不在进行toast提示。
+开发者可以自行根据IAuthMangerImpl.getInstance().init(AuthActivity.this);返回值进行判断，如果返回true则表示初始化成功，失败表示没有相应的米家app（这个是推荐使用的）。在调用的时候IAuthMangerImpl.getInstance().callAuth也可以根据返回值进行判断，建议尽量在初始化的时候就进行处理
 
 ### 有问题可以联系:
 renlei@xiaomi.com
