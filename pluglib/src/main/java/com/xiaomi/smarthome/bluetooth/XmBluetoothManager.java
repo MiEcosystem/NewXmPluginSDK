@@ -392,8 +392,8 @@ public abstract class XmBluetoothManager {
 
     /**
      * ApiLevel: 41
+     * 通过蓝牙读写大数据，response只是返回发送状态，通过设置registerBlockListener监听返回的数据
      */
-    // 通过蓝牙读写大数据，response只是返回发送状态，通过设置registerBlockListener监听返回的数据
     public abstract void writeBlock(String mac, String msg, final BleWriteResponse response);
 
     /**
@@ -405,4 +405,15 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 41
      */
     public abstract void unregisterBlockListener(String mac);
+
+    /**
+     * ApiLevel: 41
+     * 设置指定的设备断开后是否自动重连
+     */
+    public abstract void setAutoReconnect(String mac, boolean enable);
+    /**
+     * ApiLevel: 41
+     * 设备自动重连开关是否打开
+     */
+    public abstract boolean isAutoReconnect(String mac);
 }
