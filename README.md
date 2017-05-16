@@ -312,6 +312,9 @@ gradle tasks
 密码:123asdzxc
 ```
 
+## 依赖其他jar包
+如果想依赖其他jar的话，不需要修改gradle，直接将jar放入./libs目录下面
+
 ## 其他链接
 
 - [框架描述](框架描述.md)
