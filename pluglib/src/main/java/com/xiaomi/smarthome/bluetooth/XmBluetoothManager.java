@@ -410,7 +410,7 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 41
      * 设置指定的设备断开后是否自动重连
      */
-    public abstract void setAutoReconnect(String mac, boolean enable);
+    public abstract boolean setAutoReconnect(String mac, boolean enable);
     /**
      * ApiLevel: 41
      * 设备自动重连开关是否打开
