@@ -1737,6 +1737,43 @@ public abstract class XmPluginHostApi {
     }
 
     /**
+     * ApiLevel: 41 创建或修改设置app/插件自由存储空间,最大4k
+     *
+     * @param xmPluginPackage 插件上下文
+     * @param model           设备Model
+     * @param data            索引，从0开始
+     * @param callback
+     */
+    public void setUserConfigV3(XmPluginPackage xmPluginPackage, String model, int key,
+                                Map<String, Object> data, Callback<Boolean> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("key", key);
+            dataObj.put("model", model);
+            JSONObject attris = new JSONObject();
+            Set<Map.Entry<String, Object>> entrys = data.entrySet();
+            for (Map.Entry<String, Object> entry : entrys) {
+                attris.put(entry.getKey(), entry.getValue());
+            }
+            dataObj.put("data", attris);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+            }
+            return;
+        }
+        callSmartHomeApi(model, "/user/set_third_user_config", dataObj, callback, new Parser<Boolean>() {
+            @Override
+            public Boolean parse(String result) throws JSONException {
+                JSONObject response = new JSONObject(result);
+                int res = response.optInt("result");
+                return res != 0;
+            }
+        });
+    }
+
+    /**
      * ApiLevel: 30 拉取设置app/插件自由存储空间
      *
      * @param xmPluginPackage 插件上下文
@@ -1830,6 +1867,49 @@ public abstract class XmPluginHostApi {
                             JSONObject jsonObject = resultObj.getJSONObject(i);
                             String key = (String) jsonObject.get("key");
                             map.put(key, jsonObject);
+                        }
+                        return map;
+                    }
+                });
+    }
+
+    /**
+     * ApiLevel: 41 拉取设置app/插件自由存储空间
+     *
+     * @param xmPluginPackage 插件上下文
+     * @param model           设备Model
+     * @param keys            索引，从0开始
+     * @param callback        key，value结构数据，key为传入的int[]的各个元素，value为对应的JSONObject，例如"3" -> "{"uid":"923000000","data":{"data":"i am test data"},"component_id":"10000","update_time":"1492657366","key":"3"}"
+     */
+    public void getUserConfigV4(XmPluginPackage xmPluginPackage, String model,
+                                int[] keys, Callback<Map<String, Object>> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            JSONArray keysArray = new JSONArray();
+            for (int i = 0; i < keys.length; i++) {
+                keysArray.put(keys[i]);
+            }
+            dataObj.put("keys", keysArray);
+            dataObj.put("model", model);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+                return;
+            }
+        }
+        callSmartHomeApi(model, "/user/get_third_user_config", dataObj, callback,
+                new Parser<Map<String, Object>>() {
+                    @Override
+                    public Map<String, Object> parse(String result) throws JSONException {
+                        JSONObject response = new JSONObject(result);
+                        Map<String, Object> map = new HashMap<>();
+                        JSONArray resultObj = response.optJSONArray("result");
+                        for (int i = 0; i < resultObj.length(); i++) {
+                            JSONObject jsonObject = resultObj.getJSONObject(i);
+                            Object key = jsonObject.get("key");
+                            if (key.equals(JSONObject.NULL)) continue;
+                            map.put((String) key, jsonObject);
                         }
                         return map;
                     }
