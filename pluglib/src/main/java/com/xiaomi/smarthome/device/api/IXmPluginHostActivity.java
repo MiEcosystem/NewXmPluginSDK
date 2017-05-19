@@ -889,4 +889,10 @@ public interface IXmPluginHostActivity {
      * @param hotSpotId 热区广告id，用于区分不同的广告
      */
     void reportHotSpotAdShow(String gid, String hotSpotId);
+
+
+    /**
+     * ApiLevel: 37
+     */
+    void openShareDeviceActivity();
 }

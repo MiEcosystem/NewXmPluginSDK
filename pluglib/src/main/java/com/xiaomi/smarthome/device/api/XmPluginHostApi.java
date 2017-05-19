@@ -22,7 +22,6 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.xiaomi.plugin.core.XmPluginPackage;
 import com.xiaomi.smarthome.bluetooth.Response;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
-import com.xiaomi.smarthome.plugin.Error;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginSubscribeCallback;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginUnSubscribeCallback;
 import com.xiaomi.smarthome.plugin.service.HostService;
@@ -371,56 +370,55 @@ public abstract class XmPluginHostApi {
      * @param loadedInfo 插件上下文
      * @param key
      * @param value
-     * @param extra
-     添加打点统计新规范，必须按照下面的key value来传参数
-    key: PageStart	应用页面打开，自动上报
-    value: {
-    "name":"页面名称",
-    "starttime":"打开时间，时间戳格式"
-    }
-    key: Task	应用表现，例如等待时间、执行结果等
-    value:{
-    "name":"任务名称",
-    "parent":"任务所在的页面",
-    "duration":"任务耗时，以毫秒计，可选",
-    "result":"任务结果，默认0为成功，-1为失败，其它自行定义，可选",
-    "starttime":"操作时间，时间戳格式"
-    }
-    key: PageEnd	应用页面关闭，自动上报
-    value:{
-    "name":"页面名称",
-    "starttime":"关闭时间，时间戳格式"
-    }
-    key: FloatWindow	悬浮窗打开
-    value:{
-    "name":"悬浮窗名称，可使用悬浮窗标题",
-    "parent":"弹出框所在页面名称",
-    "starttime":"打开时间，时间戳格式"
-    }
-    key: RPC	手机向设备发送指令，自动上报
-    value:{
-    "name":"指令名称",
-    "parameter":"指令的参数列表，json格式",
-    "web":"使用的网络，0为局域网，1为外网",
-    "starttime":"操作时间，时间戳格式"
-    }
-    key: Operation	用户行为，例如点击按钮
-    value:{
-    "name":"操作名称",
-    "parent":"弹出框所在页面名称",
-    "position":"操作所在的位置，格式为x/屏幕宽度&y/屏幕高度，如0.4&0.6",
-    "starttime":"操作时间，时间戳格式"
-    }
-    key:WebEnd	网页关闭，自动上报
-    value: {
-    "url":"网页连接",
-    "starttime":"关闭时间，时间戳格式"
-    }
-    key:WebStart	网页打开，自动上报
-    value:{
-    "url":"网页连接",
-    "starttime":"打开时间，时间戳格式"
-    }
+     * @param extra      添加打点统计新规范，必须按照下面的key value来传参数
+     *                   key: PageStart	应用页面打开，自动上报
+     *                   value: {
+     *                   "name":"页面名称",
+     *                   "starttime":"打开时间，时间戳格式"
+     *                   }
+     *                   key: Task	应用表现，例如等待时间、执行结果等
+     *                   value:{
+     *                   "name":"任务名称",
+     *                   "parent":"任务所在的页面",
+     *                   "duration":"任务耗时，以毫秒计，可选",
+     *                   "result":"任务结果，默认0为成功，-1为失败，其它自行定义，可选",
+     *                   "starttime":"操作时间，时间戳格式"
+     *                   }
+     *                   key: PageEnd	应用页面关闭，自动上报
+     *                   value:{
+     *                   "name":"页面名称",
+     *                   "starttime":"关闭时间，时间戳格式"
+     *                   }
+     *                   key: FloatWindow	悬浮窗打开
+     *                   value:{
+     *                   "name":"悬浮窗名称，可使用悬浮窗标题",
+     *                   "parent":"弹出框所在页面名称",
+     *                   "starttime":"打开时间，时间戳格式"
+     *                   }
+     *                   key: RPC	手机向设备发送指令，自动上报
+     *                   value:{
+     *                   "name":"指令名称",
+     *                   "parameter":"指令的参数列表，json格式",
+     *                   "web":"使用的网络，0为局域网，1为外网",
+     *                   "starttime":"操作时间，时间戳格式"
+     *                   }
+     *                   key: Operation	用户行为，例如点击按钮
+     *                   value:{
+     *                   "name":"操作名称",
+     *                   "parent":"弹出框所在页面名称",
+     *                   "position":"操作所在的位置，格式为x/屏幕宽度&y/屏幕高度，如0.4&0.6",
+     *                   "starttime":"操作时间，时间戳格式"
+     *                   }
+     *                   key:WebEnd	网页关闭，自动上报
+     *                   value: {
+     *                   "url":"网页连接",
+     *                   "starttime":"关闭时间，时间戳格式"
+     *                   }
+     *                   key:WebStart	网页打开，自动上报
+     *                   value:{
+     *                   "url":"网页连接",
+     *                   "starttime":"打开时间，时间戳格式"
+     *                   }
      */
     public abstract void addRecord(XmPluginPackage loadedInfo, String key, Object value,
                                    JSONObject extra);
@@ -1739,6 +1737,43 @@ public abstract class XmPluginHostApi {
     }
 
     /**
+     * ApiLevel: 41 创建或修改设置app/插件自由存储空间,最大4k
+     *
+     * @param xmPluginPackage 插件上下文
+     * @param model           设备Model
+     * @param data            索引，从0开始
+     * @param callback
+     */
+    public void setUserConfigV3(XmPluginPackage xmPluginPackage, String model, int key,
+                                Map<String, Object> data, Callback<Boolean> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("key", key);
+            dataObj.put("model", model);
+            JSONObject attris = new JSONObject();
+            Set<Map.Entry<String, Object>> entrys = data.entrySet();
+            for (Map.Entry<String, Object> entry : entrys) {
+                attris.put(entry.getKey(), entry.getValue());
+            }
+            dataObj.put("data", attris);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+            }
+            return;
+        }
+        callSmartHomeApi(model, "/user/set_third_user_config", dataObj, callback, new Parser<Boolean>() {
+            @Override
+            public Boolean parse(String result) throws JSONException {
+                JSONObject response = new JSONObject(result);
+                int res = response.optInt("result");
+                return res != 0;
+            }
+        });
+    }
+
+    /**
      * ApiLevel: 30 拉取设置app/插件自由存储空间
      *
      * @param xmPluginPackage 插件上下文
@@ -1783,6 +1818,98 @@ public abstract class XmPluginHostApi {
                                 String key = iterator.next();
                                 map.put(key, resultObj.get(key));
                             }
+                        }
+                        return map;
+                    }
+                });
+    }
+
+    /**
+     * ApiLevel: 40 拉取设置app/插件自由存储空间
+     *
+     * @param xmPluginPackage 插件上下文
+     * @param model           设备Model
+     * @param app_id          厂商APP_ID，需要向小米申请, 0 和 1 预留
+     * @param keys            索引，从0开始
+     * @param callback        key，value结构数据，key为传入的int[]的各个元素，value为对应的JSONObject，例如"3" -> "{"uid":"923000000","data":{"data":"i am test data"},"component_id":"10000","update_time":"1492657366","key":"3"}"
+     */
+    public void getUserConfigV3(XmPluginPackage xmPluginPackage, String model, int app_id,
+                                int[] keys, Callback<Map<String, Object>> callback) {
+        if (app_id == 0 || app_id == 1) {
+            if (callback != null) {
+                callback.onFailure(-1, "App id invalid, 0 and 1 are reserved.");
+            }
+            return;
+        }
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("component_id", app_id);
+            JSONArray keysArray = new JSONArray();
+            for (int i = 0; i < keys.length; i++) {
+                keysArray.put(keys[i]);
+            }
+            dataObj.put("keys", keysArray);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+                return;
+            }
+        }
+        callSmartHomeApi(model, "/user/get_user_config", dataObj, callback,
+                new Parser<Map<String, Object>>() {
+                    @Override
+                    public Map<String, Object> parse(String result) throws JSONException {
+                        JSONObject response = new JSONObject(result);
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        JSONArray resultObj = response.optJSONArray("result");
+                        for (int i = 0; i < resultObj.length(); i++) {
+                            JSONObject jsonObject = resultObj.getJSONObject(i);
+                            String key = (String) jsonObject.get("key");
+                            map.put(key, jsonObject);
+                        }
+                        return map;
+                    }
+                });
+    }
+
+    /**
+     * ApiLevel: 41 拉取设置app/插件自由存储空间
+     *
+     * @param xmPluginPackage 插件上下文
+     * @param model           设备Model
+     * @param keys            索引，从0开始
+     * @param callback        key，value结构数据，key为传入的int[]的各个元素，value为对应的JSONObject，例如"3" -> "{"uid":"923000000","data":{"data":"i am test data"},"component_id":"10000","update_time":"1492657366","key":"3"}"
+     */
+    public void getUserConfigV4(XmPluginPackage xmPluginPackage, String model,
+                                int[] keys, Callback<Map<String, Object>> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            JSONArray keysArray = new JSONArray();
+            for (int i = 0; i < keys.length; i++) {
+                keysArray.put(keys[i]);
+            }
+            dataObj.put("keys", keysArray);
+            dataObj.put("model", model);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+                return;
+            }
+        }
+        callSmartHomeApi(model, "/user/get_third_user_config", dataObj, callback,
+                new Parser<Map<String, Object>>() {
+                    @Override
+                    public Map<String, Object> parse(String result) throws JSONException {
+                        JSONObject response = new JSONObject(result);
+                        Map<String, Object> map = new HashMap<>();
+                        JSONArray resultObj = response.optJSONArray("result");
+                        for (int i = 0; i < resultObj.length(); i++) {
+                            JSONObject jsonObject = resultObj.getJSONObject(i);
+                            Object key = jsonObject.get("key");
+                            if (key.equals(JSONObject.NULL)) continue;
+                            map.put((String) key, jsonObject);
                         }
                         return map;
                     }
@@ -1886,13 +2013,13 @@ public abstract class XmPluginHostApi {
     public abstract void getDeviceRealIconByModel(String model, Callback<Bitmap> callback);
 
     /**
-     *
      * ApiLevel:34 获取建议标签
      *
      * @param did
      * @return
      */
     public abstract List<String> getRecommendTags(String did);
+
     /**
      * ApiLevel: 36
      * 初始化相机发送通道
@@ -1927,4 +2054,40 @@ public abstract class XmPluginHostApi {
      * ApiLevel: 35
      */
     public abstract Typeface getFont(String name);
+
+    /**
+     * ApiLevel: 37
+     *
+     * @param context
+     * @param loadedInfo
+     * @param hostService
+     * @param serviceClass
+     * @param connection
+     * @param flags
+     * @param callback
+     */
+    public abstract void bindService(Context context, XmPluginPackage loadedInfo,
+                                     HostService hostService, Class serviceClass, ServiceConnection connection, int flags,
+                                     Callback<Bundle> callback);
+
+    /**
+     * ApiLevel: 37
+     *
+     * @param context
+     * @param loadedInfo
+     * @param hostService
+     * @param serviceClass
+     * @param connection
+     * @param callback
+     */
+    public abstract void unbindService(Context context, XmPluginPackage loadedInfo,
+                                       HostService hostService, Class serviceClass, ServiceConnection connection,
+                                       Callback<Bundle> callback);
+
+    /**
+     * ApiLevel: 38
+     * 根据did获取设备的订阅属性
+     */
+    public abstract JSONArray getDeviceProp(String did);
+
 }
