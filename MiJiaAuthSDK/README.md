@@ -209,6 +209,11 @@ public class AuthActivity extends AppCompatActivity {
 修改了检测到没有米家app或者当时米家版本不支持的处理逻辑。不在进行toast提示。<br>
 开发者可以自行根据IAuthMangerImpl.getInstance().init(AuthActivity.this);返回值进行判断，如果返回true则表示初始化成功，失败表示没有相应的米家app（这个是推荐使用的）。在调用的时候IAuthMangerImpl.getInstance().callAuth也可以根据返回值进行判断，建议尽量在初始化的时候就进行处理<br>
 
+#### version  1.0.3
+新增了对绑定设备授权的功能，以及其使用的一些code值<br>
+更新了新的米家apk(#247),增加了对一些权限的校验等功能<br>
+
+
 ### 有问题可以联系:
 renlei@xiaomi.com
  
