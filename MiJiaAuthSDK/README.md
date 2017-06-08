@@ -55,9 +55,12 @@ public class AuthCode {
     public static final int REQUEST_CODE_ERROR = -108;//请求的code错误
     public static final int REQUSET_DID_ERROR = -109;///缺少did
     public static final int REQUEST_AUTH_NO_CAPABILITY = -110;///缺少授权的支持，可能是你的该账号下面没有绑定该设备
+    public static final int REQUEST_MISS_PARAMS = -112;
+    public static final int REQUEST_BIND_ERROR = -113;
 
     public static final int REQUEST_CODE_CALL_AUTH_FOR_APP = 1;//请求app授权(暂不支持)
     public static final int REQUEST_CODE_CALL_AUTH_FOR_DEVICE = 2;//请求设备授权
+    public static final int REQUEST_CODE_CALL_AUTH_FOR_BIND_DEVICE = 6;//给需要绑定的设备授权
 }
 </pre></code>
 
@@ -76,6 +79,7 @@ public class AuthConstants {
     public static final String EXTRA_PACKAGE_NAME = "extra_package_name";
     public static final String EXTRA_APP_SIGN = "extra_app_sign";
     public static final String EXTRA_DEVICE_DID = "device_id";
+    public static final String EXTRA_DEVICE_TOKEN = "device_token";
     public static final int ACTIVITY_RESULT_FAIL = -2;
 
     /**返回值*****/
