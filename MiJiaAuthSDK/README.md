@@ -19,11 +19,13 @@ IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
 
 **requestCode**对应的是要请求哪种授权<br>
 * 1)如果请求的是给设备进行授权则传入AuthCode.REQUEST_CODE_CALL_AUTH_FOR_DEVICE(设备授权之前，该小米账户需要已经绑定该设备)<br>
+* 2)请求设备绑定的话传入AuthCode.REQUEST_CODE_CALL_AUTH_FOR_BIND_DEVICE<br>
 
 **Bundle data**对应的是需要传入的参数
  如果是设备授权的话，需要传入AuthConstants.EXTRA_APPLICATION_ID，该参数需要到开放平台申请。<br>
  同时你还需要传入设备的idAuthConstants.EXTRA_DEVICE_DID，该参数是你需要授权的设备的did。<br>
  例如<br>
+ 如果是绑定设备，除了传入did之外，还需要传入设备token，EXTRA_DEVICE_TOKEN为key。<br>
  
  <pre><code>
    Bundle bundle = new Bundle();
@@ -53,9 +55,12 @@ public class AuthCode {
     public static final int REQUEST_CODE_ERROR = -108;//请求的code错误
     public static final int REQUSET_DID_ERROR = -109;///缺少did
     public static final int REQUEST_AUTH_NO_CAPABILITY = -110;///缺少授权的支持，可能是你的该账号下面没有绑定该设备
+    public static final int REQUEST_MISS_PARAMS = -112;
+    public static final int REQUEST_BIND_ERROR = -113;
 
     public static final int REQUEST_CODE_CALL_AUTH_FOR_APP = 1;//请求app授权(暂不支持)
     public static final int REQUEST_CODE_CALL_AUTH_FOR_DEVICE = 2;//请求设备授权
+    public static final int REQUEST_CODE_CALL_AUTH_FOR_BIND_DEVICE = 6;//给需要绑定的设备授权
 }
 </pre></code>
 
@@ -74,6 +79,7 @@ public class AuthConstants {
     public static final String EXTRA_PACKAGE_NAME = "extra_package_name";
     public static final String EXTRA_APP_SIGN = "extra_app_sign";
     public static final String EXTRA_DEVICE_DID = "device_id";
+    public static final String EXTRA_DEVICE_TOKEN = "device_token";
     public static final int ACTIVITY_RESULT_FAIL = -2;
 
     /**返回值*****/
@@ -206,6 +212,11 @@ public class AuthActivity extends AppCompatActivity {
 #### version  1.0.1
 修改了检测到没有米家app或者当时米家版本不支持的处理逻辑。不在进行toast提示。<br>
 开发者可以自行根据IAuthMangerImpl.getInstance().init(AuthActivity.this);返回值进行判断，如果返回true则表示初始化成功，失败表示没有相应的米家app（这个是推荐使用的）。在调用的时候IAuthMangerImpl.getInstance().callAuth也可以根据返回值进行判断，建议尽量在初始化的时候就进行处理<br>
+
+#### version  1.0.3
+新增了对绑定设备授权的功能，以及其使用的一些code值<br>
+更新了新的米家apk(#247),增加了对一些权限的校验等功能<br>
+
 
 ### 有问题可以联系:
 renlei@xiaomi.com
