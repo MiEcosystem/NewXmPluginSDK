@@ -394,12 +394,12 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 41
      * 通过蓝牙读写大数据，response只是返回发送状态，通过设置registerBlockListener监听返回的数据
      */
-    public abstract void writeBlock(String mac, String msg, final BleWriteResponse response);
+    public abstract void writeBlock(String mac, byte[] data, final BleWriteResponse response);
 
     /**
      * ApiLevel: 41
      */
-    public abstract void registerBlockListener(String mac, final Response.BleReadBlockResponse response);
+    public abstract void registerBlockListener(String mac, final Response.BleReadResponse response);
 
     /**
      * ApiLevel: 41
@@ -416,4 +416,24 @@ public abstract class XmBluetoothManager {
      * 设备自动重连开关是否打开
      */
     public abstract boolean isAutoReconnect(String mac);
+
+    /**
+     * 支持最新版本非对称加密安全芯片
+     */
+    public abstract void securityChipConnect(String mac, BleConnectResponse response);
+
+
+    public abstract void securityChipWrite(String mac, UUID serviceId, UUID characterId, byte[] bytes, final BleWriteResponse response);
+
+    /**
+     * ApiLevel: 15
+     * notify
+     */
+    public abstract void securityChipNotify(String mac, UUID serviceId, UUID characterId, final BleNotifyResponse response);
+
+    /**
+     * ApiLevel: 15
+     * notify
+     */
+    public abstract void securityChipUnnotify(String mac, UUID serviceId, UUID characterId);
 }

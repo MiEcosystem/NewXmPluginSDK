@@ -1737,6 +1737,57 @@ public abstract class XmPluginHostApi {
     }
 
     /**
+     * ApiLevel: 41 创建或修改设置app/插件自由存储空间,最大4k
+     *
+     * @param xmPluginPackage 插件上下文
+     * @param model           设备Model
+     * @param data            索引，从0开始
+     * @param callback
+     */
+    public void setUserConfigV3(XmPluginPackage xmPluginPackage, String model, int key,
+                                Map<String, Object> data, Callback<Boolean> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("key", key);
+            dataObj.put("model", model);
+            JSONObject attris = new JSONObject();
+            Set<Map.Entry<String, Object>> entrys = data.entrySet();
+            for (Map.Entry<String, Object> entry : entrys) {
+                attris.put(entry.getKey(), entry.getValue());
+            }
+            dataObj.put("data", attris);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+            }
+            return;
+        }
+        callSmartHomeApi(model, "/user/set_third_user_config", dataObj, callback, new Parser<Boolean>() {
+            @Override
+            public Boolean parse(String result) throws JSONException {
+                JSONObject response = new JSONObject(result);
+                int res = response.optInt("result");
+                return res != 0;
+            }
+        });
+    }
+
+    /**
+     * ApiLevel: 42 创建或修改设置app/插件自由存储空间。如果数据超过服务器设置的阈值，自动分段存储到云端。
+     * 但是分段存储会占用额外的key，比如key=100时，分出的新段会存储在101,102,103...等后续相邻的key上，
+     * 所以：若调用者打算用到多个key,每2个key之间需要留出足够的间隔以供分段用，推荐>100，比如100,200,300...
+     *
+     * @param xmPluginPackage
+     * @param model
+     * @param key
+     * @param data
+     * @param callback        返回存储这条数据占用的key
+     */
+    public abstract void setUserConfigV5(XmPluginPackage xmPluginPackage, String model, int key,
+                                         Map<String, Object> data, Callback<int[]> callback);
+
+    /**
      * ApiLevel: 30 拉取设置app/插件自由存储空间
      *
      * @param xmPluginPackage 插件上下文
@@ -1835,6 +1886,61 @@ public abstract class XmPluginHostApi {
                     }
                 });
     }
+
+    /**
+     * ApiLevel: 41 拉取设置app/插件自由存储空间
+     *
+     * @param xmPluginPackage 插件上下文
+     * @param model           设备Model
+     * @param keys            索引，从0开始
+     * @param callback        key，value结构数据，key为传入的int[]的各个元素，value为对应的JSONObject，例如"3" -> "{"uid":"923000000","data":{"data":"i am test data"},"component_id":"10000","update_time":"1492657366","key":"3"}"
+     */
+    public void getUserConfigV4(XmPluginPackage xmPluginPackage, String model,
+                                int[] keys, Callback<Map<String, Object>> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            JSONArray keysArray = new JSONArray();
+            for (int i = 0; i < keys.length; i++) {
+                keysArray.put(keys[i]);
+            }
+            dataObj.put("keys", keysArray);
+            dataObj.put("model", model);
+
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+                return;
+            }
+        }
+        callSmartHomeApi(model, "/user/get_third_user_config", dataObj, callback,
+                new Parser<Map<String, Object>>() {
+                    @Override
+                    public Map<String, Object> parse(String result) throws JSONException {
+                        JSONObject response = new JSONObject(result);
+                        Map<String, Object> map = new HashMap<>();
+                        JSONArray resultObj = response.optJSONArray("result");
+                        for (int i = 0; i < resultObj.length(); i++) {
+                            JSONObject jsonObject = resultObj.getJSONObject(i);
+                            Object key = jsonObject.get("key");
+                            if (key.equals(JSONObject.NULL)) continue;
+                            map.put((String) key, jsonObject);
+                        }
+                        return map;
+                    }
+                });
+    }
+
+    /**
+     * ApiLevel: 42
+     * 与setUserConfigV5配套使用，会把分段的数据自动合并后返回，使得分段行为对调用者透明
+     *
+     * @param xmPluginPackage
+     * @param model
+     * @param keys
+     * @param callback
+     */
+    public abstract void getUserConfigV5(XmPluginPackage xmPluginPackage, String model,
+                                         int[] keys, Callback<Map<String, Object>> callback);
 
     /**
      * ApiLevel: 32 打开插件安全验证通过后，可以获取设备pincode
@@ -2001,8 +2107,8 @@ public abstract class XmPluginHostApi {
      * @param callback
      */
     public abstract void unbindService(Context context, XmPluginPackage loadedInfo,
-            HostService hostService, Class serviceClass, ServiceConnection connection,
-            Callback<Bundle> callback);
+                                       HostService hostService, Class serviceClass, ServiceConnection connection,
+                                       Callback<Bundle> callback);
 
     /**
      * ApiLevel: 38
@@ -2010,8 +2116,19 @@ public abstract class XmPluginHostApi {
      */
     public abstract JSONArray getDeviceProp(String did);
 
+    /**
+     * ApiLevel:39 米家后台统计.该打点同时也更新到小米开放平台上.
+     *
+     * @param loadedInfo 插件上下文
+     * @param model 当前设备model
+     * @param value 为Object 可以为int或String或JsonObject
+     * @param extra 可以为null
+     */
+    @Deprecated
+    public abstract void addRecordV2(XmPluginPackage loadedInfo, String model, String key, Object value, JSONObject extra);
 
     /**
+     * ApiLevel: 41
      * 设备列表过滤能控制的设备
      */
     public abstract void getControllableDevices(String model, Callback<JSONObject> callback);
