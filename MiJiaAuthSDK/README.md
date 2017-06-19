@@ -25,7 +25,10 @@ IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
  如果是设备授权的话，需要传入AuthConstants.EXTRA_APPLICATION_ID，该参数需要到开放平台申请。<br>
  同时你还需要传入设备的idAuthConstants.EXTRA_DEVICE_DID，该参数是你需要授权的设备的did。<br>
  例如<br>
- 如果是绑定设备，除了传入did之外，还需要传入设备token，EXTRA_DEVICE_TOKEN为key。<br>
+ 如果是绑定设备，除了传入did之外，还需要传入下面几个参数:<br>
+ 设备token，EXTRA_DEVICE_TOKEN为key。<br>
+ timestamp, EXTRA_DEVICE_TOKEN_TIMESTAMP为key。这个值类型为long<br>
+ 设备SN，EXTRA_DEVICE_SN为key。<br>
  
  <pre><code>
    Bundle bundle = new Bundle();
@@ -80,6 +83,8 @@ public class AuthConstants {
     public static final String EXTRA_APP_SIGN = "extra_app_sign";
     public static final String EXTRA_DEVICE_DID = "device_id";
     public static final String EXTRA_DEVICE_TOKEN = "device_token";
+    public static final String EXTRA_DEVICE_TOKEN_TIMESTAMP = "token_timestamp";
+    public static final String EXTRA_DEVICE_SN = "device_sn";
     public static final int ACTIVITY_RESULT_FAIL = -2;
 
     /**返回值*****/
