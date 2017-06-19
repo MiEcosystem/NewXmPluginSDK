@@ -1774,6 +1774,20 @@ public abstract class XmPluginHostApi {
     }
 
     /**
+     * ApiLevel: 42 创建或修改设置app/插件自由存储空间。如果数据超过服务器设置的阈值，自动分段存储到云端。
+     * 但是分段存储会占用额外的key，比如key=100时，分出的新段会存储在101,102,103...等后续相邻的key上，
+     * 所以：若调用者打算用到多个key,每2个key之间需要留出足够的间隔以供分段用，推荐>100，比如100,200,300...
+     *
+     * @param xmPluginPackage
+     * @param model
+     * @param key
+     * @param data
+     * @param callback        返回存储这条数据占用的key
+     */
+    public abstract void setUserConfigV5(XmPluginPackage xmPluginPackage, String model, int key,
+                                         Map<String, Object> data, Callback<int[]> callback);
+
+    /**
      * ApiLevel: 30 拉取设置app/插件自由存储空间
      *
      * @param xmPluginPackage 插件上下文
@@ -1915,6 +1929,18 @@ public abstract class XmPluginHostApi {
                     }
                 });
     }
+
+    /**
+     * ApiLevel: 42
+     * 与setUserConfigV5配套使用，会把分段的数据自动合并后返回，使得分段行为对调用者透明
+     *
+     * @param xmPluginPackage
+     * @param model
+     * @param keys
+     * @param callback
+     */
+    public abstract void getUserConfigV5(XmPluginPackage xmPluginPackage, String model,
+                                         int[] keys, Callback<Map<String, Object>> callback);
 
     /**
      * ApiLevel: 32 打开插件安全验证通过后，可以获取设备pincode
@@ -2090,4 +2116,22 @@ public abstract class XmPluginHostApi {
      */
     public abstract JSONArray getDeviceProp(String did);
 
+    /**
+     * ApiLevel:39 米家后台统计.该打点同时也更新到小米开放平台上.
+     *
+     * @param loadedInfo 插件上下文
+     * @param model      当前设备model
+     * @param value      为Object 可以为int或String或JsonObject
+     * @param extra      可以为null
+     */
+    @Deprecated
+    public abstract void addRecordV2(XmPluginPackage loadedInfo, String model, String key, Object value, JSONObject extra);
+
+    /**
+     * ApiLevel: 41
+     * 设备列表过滤能控制的设备
+     */
+    public abstract void getControllableDevices(String model, Callback<JSONObject> callback);
+
+  
 }
