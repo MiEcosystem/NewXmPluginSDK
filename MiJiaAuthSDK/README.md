@@ -180,7 +180,8 @@ public class AuthActivity extends AppCompatActivity {
                                     .append("resultCode：").append(bundle.getInt(AuthConstants.EXTRA_RESULT_CODE, -1)).append("\n")
                                     .append("resultMsg：").append(bundle.getString(AuthConstants.EXTRA_RESULT_MSG, "")).append("\n")
                                     .append("token：").append(bundle.getString(AuthConstants.EXTRA_TOKEN, "")).append("\n")
-                                    .append("user_id").append(bundle.getString(AuthConstants.EXTRA_USER_ID));
+                                    .append("user_id").append(bundle.getString(AuthConstants.EXTRA_USER_ID)).append("\n")
+                                    .append("versionInfo:").append(bundle.getString(AuthConstants.EXTRA_VERSION_INFO));
 
                             mResult.setText(sb);
                         }
@@ -221,6 +222,12 @@ public class AuthActivity extends AppCompatActivity {
 #### version  1.0.3
 新增了对绑定设备授权的功能，以及其使用的一些code值<br>
 更新了新的米家apk(#247),增加了对一些权限的校验等功能<br>
+
+#### version 1.1.0
+采用了最新的服务api
+添加了对sdk的版本控制，会返回version_info,开发者可以自己监测版本是否正确(暂时不用处理)
+修改了app的一些UI逻辑等
+（由于服务改动，该版本改动比较，建议抓紧替换，之前的版本已经不可用，）
 
 
 ### 有问题可以联系:
