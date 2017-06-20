@@ -57,41 +57,47 @@ public class AuthCode {
     public static final int REQUEST_AUTH_ERROR = -107;//请求授权失败
     public static final int REQUEST_CODE_ERROR = -108;//请求的code错误
     public static final int REQUSET_DID_ERROR = -109;///缺少did
-    public static final int REQUEST_AUTH_NO_CAPABILITY = -110;///缺少授权的支持，可能是你的该账号下面没有绑定该设备
+    public static final int REQUEST_AUTH_NO_CAPABILITY = -110;///该设备不支持语音授权，或者该设备不属于你的名下
+    public static final int REQUEST_AUTH_NO_PERMISSION = -111;///该账号不支持该类型授权，请到开放平台申请
     public static final int REQUEST_MISS_PARAMS = -112;
     public static final int REQUEST_BIND_ERROR = -113;
+    public static final int REQUEST_API_LEVEL_ERR = -114;///版本号不匹配
 
-    public static final int REQUEST_CODE_CALL_AUTH_FOR_APP = 1;//请求app授权(暂不支持)
-    public static final int REQUEST_CODE_CALL_AUTH_FOR_DEVICE = 2;//请求设备授权
+    public static final int REQUEST_CODE_CALL_AUTH_FOR_APP = 4;//给应用授权
+    public static final int REQUEST_CODE_CALL_AUTH_FOR_DEVICE = 2;//给设备授权
     public static final int REQUEST_CODE_CALL_AUTH_FOR_BIND_DEVICE = 6;//给需要绑定的设备授权
 }
 </pre></code>
 
-而返回的data中，主要有下面四个值，注意判空使用<br>
- /**返回值*****/<br>
-    public static final String EXTRA_TOKEN = "extra_token";<br>
-    public static final String EXTRA_RESULT_CODE = "extra_result_code";<br>
-    public static final String EXTRA_RESULT_MSG = "extra_result_msg";<br>
-    public static final String EXTRA_USER_ID = "extra_user_id";<br>
+而返回的data中，主要有下面值，注意判空使用<br>
+/**返回值*****/
+    public static final String EXTRA_TOKEN = "extra_token";
+    public static final String EXTRA_RESULT_CODE = "extra_result_code";
+    public static final String EXTRA_RESULT_MSG = "extra_result_msg";
+    public static final String EXTRA_USER_ID = "extra_user_id";
+    public static final String EXTRA_VERSION_INFO = "extra_version_info";
     
 <pre><code>    
 ///一些请求和返回的key常量
 public class AuthConstants {
-    //    请求参数
+     //    请求参数
     public static final String EXTRA_APPLICATION_ID = "extra_application_id";
     public static final String EXTRA_PACKAGE_NAME = "extra_package_name";
     public static final String EXTRA_APP_SIGN = "extra_app_sign";
     public static final String EXTRA_DEVICE_DID = "device_id";
     public static final String EXTRA_DEVICE_TOKEN = "device_token";
+    public static final int ACTIVITY_RESULT_FAIL = -2;
+    public static final String EXTRA_SDK_VERSION_CODE ="sdk_version_code";
+    public static final String EXTRA_SDK_VERSION_NAME = "sdk_version_name";
     public static final String EXTRA_DEVICE_TOKEN_TIMESTAMP = "token_timestamp";
     public static final String EXTRA_DEVICE_SN = "device_sn";
-    public static final int ACTIVITY_RESULT_FAIL = -2;
 
     /**返回值*****/
     public static final String EXTRA_TOKEN = "extra_token";
     public static final String EXTRA_RESULT_CODE = "extra_result_code";
     public static final String EXTRA_RESULT_MSG = "extra_result_msg";
     public static final String EXTRA_USER_ID = "extra_user_id";
+    public static final String EXTRA_VERSION_INFO = "extra_version_info";
 }<br>
 </pre></code>
 
