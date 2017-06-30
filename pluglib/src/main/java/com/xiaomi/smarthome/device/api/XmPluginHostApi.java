@@ -2133,5 +2133,21 @@ public abstract class XmPluginHostApi {
      */
     public abstract void getControllableDevices(String model, Callback<JSONObject> callback);
 
-  
+    /**
+     * ApiLevel:43
+     * 跳转到意见反馈页面
+     *
+     * @param activity
+     * @param model
+     * @param did
+     * @param pluginPackage
+     */
+    public abstract void gotoFeedback(Activity activity, String model, String did, XmPluginPackage pluginPackage);
+    /**
+     * ApiLevel:44
+     * 跳转到授权管理页
+     * @param activity
+     * @param did
+     */
+    public abstract void gotoAuthManagerPage(Activity activity, String did);
 }

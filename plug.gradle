@@ -56,6 +56,13 @@ project.dependencies {
     provided fileTree(dir: pluglibPath, include: ['*.jar'])
 }
 
+
+configurations {
+    all*.exclude group: 'com.android.support', module: 'support-v4'
+    all*.exclude group: 'com.android.support', module: 'support-v7'
+    all*.exclude group: 'com.android.support', module: 'support-v13'
+}
+
 project.evaluationDependsOn(":pluglib")
 
 project.android.applicationVariants.all { variant ->
