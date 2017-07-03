@@ -236,6 +236,34 @@ public class AuthActivity extends AppCompatActivity {
 （由于服务改动，该版本改动比较，建议抓紧替换，之前的版本已经不可用，）<br>
 
 
+#### versionName 1.1.01   versionCode 5
+添加了intiWithCallBack接口，供给没有些生命周期等的使用
+修改了public int init(Context context)得返回值，从boolean改为int  当返回值==0时，表示初始化成功
+（如果不想改老版本SDK还可以继续使用）
+
+
+<pre><code>
+/**
+     * 给没有生命周期的初始化，像RN等
+     * @apilevel  5
+     * @param context
+     * @param callBack
+     */
+ public abstract void intiWithCallBack(Context context,IInitCallBack callBack);
+ 
+ if (IAuthMangerImpl.getInstance().getSdkApiLevel() >= 5) {
+                    IAuthMangerImpl.getInstance().intiWithCallBack(AuthActivity.this, new IInitCallBack() {
+                        @Override
+                        public void onServiceConnected(int result) {
+//                        Toast.makeText(AuthActivity.this, "已经初始化完毕啦", Toast.LENGTH_SHORT).show();
+                             //// TODO:  callAuth
+                        }
+
+                    });
+                }
+ 
+ </pre></code>
+
 ### 有问题可以联系:
 renlei@xiaomi.com
  
