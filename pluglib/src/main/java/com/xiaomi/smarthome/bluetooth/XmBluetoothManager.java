@@ -416,4 +416,16 @@ public abstract class XmBluetoothManager {
      * 设备自动重连开关是否打开
      */
     public abstract boolean isAutoReconnect(String mac);
+
+    /**
+     * ApiLevel: 44
+     * 监听底层ble蓝牙接收到的数据，监听到的数据通过intent返回给插件
+     */
+    public abstract void registerCharacterChanged(String mac, UUID serviceId, UUID characterId, final BleWriteResponse response);
+
+    /**
+     * ApiLevel: 44
+     * 取消监听底层ble蓝牙接收到的数据
+     */
+    public abstract void unregisterCharacterChanged(String mac, UUID serviceId, UUID characterId);
 }

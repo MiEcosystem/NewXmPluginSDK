@@ -141,6 +141,12 @@ public interface IXmPluginMessageReceiver {
     public static final int MSG_DESTROY_REQUEST_CAMERA_FRAME = 21;
 
     /**
+     * ApiLevel: 43
+     * 注册底层ble蓝牙数据监听，当收到数据时发送此msg给插件
+     */
+    public static final int MSG_BLE_CHARACTER_CHANGED = 22;
+
+    /**
      * 所有插件必须实现该接口，并且在type=LAUNCHER时，启动入口页面 比如下MiTVPageActivity为入口activity switch (type) { case
      * LAUNCHER: {// 启动入口 XmPluginHostApi.instance().startActivity(xmPluginPackage, intent,
      * deviceStat.did, MiTVPageActivity.class); return true; } default: break; } 且
