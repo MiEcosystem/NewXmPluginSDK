@@ -237,9 +237,9 @@ public class AuthActivity extends AppCompatActivity {
 
 
 #### versionName 1.1.01   versionCode 5
-添加了intiWithCallBack接口，供给没有些生命周期等的使用
-修改了public int init(Context context)得返回值，从boolean改为int  当返回值==0时，表示初始化成功
-（如果不想改老版本SDK还可以继续使用）
+添加了intiWithCallBack接口，供给没有些生命周期等的使用<br>
+修改了public int init(Context context)得返回值，从boolean改为int  当返回值==0时，表示初始化成功<br>
+（如果不想改老版本SDK还可以继续使用）<br>
 
 
 <pre><code>
