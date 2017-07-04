@@ -143,6 +143,17 @@ IXmPluginHostActivity
     public abstract void openHelpActivity();
 
 ```
+
+- 跳转到授权管理页
+```
+   /**
+     * ApiLevel:44
+     * 跳转到授权管理页
+     * @param activity
+     * @param did
+     */
+    public abstract void gotoAuthManagerPage(Activity activity, String did);
+```
 - 共享权限控制
 ```
 类BaseDevice ApiLevel:20
@@ -157,6 +168,8 @@ public boolean isReadOnlyShared()
 - 执行gradle install自动安装插件并启动app
 
 ----
+
+
 
 
 ## 插件开发
