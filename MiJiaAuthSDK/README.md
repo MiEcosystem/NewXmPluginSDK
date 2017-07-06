@@ -263,6 +263,9 @@ public class AuthActivity extends AppCompatActivity {
                 }
  
  </pre></code>
+ 
+ ###  versionName 1.1.02 versionCode 6
+ 添加了对华为以及魅族手机在授权时，引导用户去开启权限的逻辑<br>
 
 ### 有问题可以联系:
 renlei@xiaomi.com
