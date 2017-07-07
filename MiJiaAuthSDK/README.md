@@ -271,8 +271,8 @@ public class AuthActivity extends AppCompatActivity {
  
  #### versionName 1.1.2 versionCode 7
  修改了授权调起米家的方式,解决之前部分厂商无法调起的问题 需要同步修改米家的apk可以使用<br>
- 之后调用需要两边的versionCode统一，否则会返回REQUEST_API_LEVEL_ERR = -114;///版本号不匹配<br>
- 当版本不匹配的这时候，最好能根据两边的版本号去提箱用户更新相应的app<br>
+ 之后调用需要Sdk的版本号大于app的版本号，否则会返回REQUEST_API_LEVEL_ERR = -114;///版本号不匹配<br>
+ 当版本不匹配的这时候，最好能根据两边的版本号去提箱用户更新米家的app<br>
  新增了两个code   REQUEST_SERVICE_DISCONNECT = -901;//service已经断开   以及   REQUEST_MIJIA_VERSION_ERR = -902;//可能没有安装米家，或者米家版本太低<br>
 
 ### 有问题可以联系:
