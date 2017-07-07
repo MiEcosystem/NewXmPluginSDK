@@ -62,6 +62,9 @@ public class AuthCode {
     public static final int REQUEST_MISS_PARAMS = -112;
     public static final int REQUEST_BIND_ERROR = -113;
     public static final int REQUEST_API_LEVEL_ERR = -114;///版本号不匹配
+    public static final int REQUEST_SERVICE_DISCONNECT = -901;//service已经断开
+    public static final int REQUEST_MIJIA_VERSION_ERR = -902;//可能没有安装米家，或者米家版本太低
+    
 
     public static final int REQUEST_CODE_CALL_AUTH_FOR_APP = 4;//给应用授权
     public static final int REQUEST_CODE_CALL_AUTH_FOR_DEVICE = 2;//给设备授权
@@ -251,21 +254,25 @@ public class AuthActivity extends AppCompatActivity {
      */
  public abstract void intiWithCallBack(Context context,IInitCallBack callBack);
  
- if (IAuthMangerImpl.getInstance().getSdkApiLevel() >= 5) {
-                    IAuthMangerImpl.getInstance().intiWithCallBack(AuthActivity.this, new IInitCallBack() {
+
+        IAuthMangerImpl.getInstance().intiWithCallBack(AuthActivity.this, new IInitCallBack() {
                         @Override
                         public void onServiceConnected(int result) {
 //                        Toast.makeText(AuthActivity.this, "已经初始化完毕啦", Toast.LENGTH_SHORT).show();
                              //// TODO:  callAuth
                         }
 
-                    });
-                }
+                    });            
  
  </pre></code>
  
- ###  versionName 1.1.02 versionCode 6
+ ####  versionName 1.1.02 versionCode 6
  添加了对华为以及魅族手机在授权时，引导用户去开启权限的逻辑<br>
+ 
+ #### versionName 1.1.2 versionCode 7
+ 修改了授权调起米家的方式,解决之前部分厂商无法调起的问题 需要同步修改米家的apk可以使用<br>
+ 之后调用需要两边的versionCode统一，否则会返回REQUEST_API_LEVEL_ERR = -114;///版本号不匹配<br>
+ 新增了两个code   REQUEST_SERVICE_DISCONNECT = -901;//service已经断开   以及   REQUEST_MIJIA_VERSION_ERR = -902;//可能没有安装米家，或者米家版本太低<br>
 
 ### 有问题可以联系:
 renlei@xiaomi.com
