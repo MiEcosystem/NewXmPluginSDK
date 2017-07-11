@@ -17,4 +17,14 @@
         android:text="@string/menu"
         android:textSize="14sp" />
 
+    <Button
+        android:id="@+id/security_chip"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="16dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="@string/security_chip_test"
+        android:textSize="14sp" />
+
 </LinearLayout>

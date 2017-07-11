@@ -1,18 +1,17 @@
 package com.xiaomi.bledemo;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.xiaomi.smarthome.device.api.BaseDevice;
-import com.xiaomi.smarthome.device.api.BaseDevice.StateChangedListener;
-import com.xiaomi.smarthome.device.api.Callback;
-import com.xiaomi.smarthome.device.api.DeviceUpdateInfo;
-import com.xiaomi.smarthome.device.api.IXmPluginHostActivity;
 import com.xiaomi.smarthome.device.api.IXmPluginHostActivity.*;
 import com.xiaomi.smarthome.device.api.XmPluginBaseActivity;
 
@@ -81,6 +80,45 @@ public class MainActivity extends XmPluginBaseActivity {
                 startActivity(new Intent(), MenuActivity.class.getName());
             }
         });
+
+        ((Button) findViewById(R.id.security_chip)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(), SecurityChipTestActivity.class.getName());
+            }
+        });
+
+        registerReceiver();
+    }
+
+    private void registerReceiver() {
+        if (mReceiver == null) {
+            mReceiver = new PluginReceiver();
+            IntentFilter filter = new IntentFilter("action.more.rename");
+            registerReceiver(mReceiver, filter);
+        }
+    }
+
+    private void unregisterReceiver() {
+        if (mReceiver != null) {
+            unregisterReceiver(mReceiver);
+            mReceiver = null;
+        }
+    }
+
+    private BroadcastReceiver mReceiver;
+
+    private class PluginReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && "action.more.rename".equals(intent.getAction())) {
+                String name = intent.getStringExtra("name");
+                int result = intent.getIntExtra("result", 0);
+                Log.i("miio-bluetooth", String.format("name: %s, result = %d",
+                        name, result));
+            }
+        }
     }
 
     @Override
@@ -92,6 +130,12 @@ public class MainActivity extends XmPluginBaseActivity {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        unregisterReceiver();
+        super.onDestroy();
     }
 
     @Override

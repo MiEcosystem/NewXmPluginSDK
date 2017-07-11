@@ -428,4 +428,22 @@ public abstract class XmBluetoothManager {
      * 取消监听底层ble蓝牙接收到的数据
      */
     public abstract void unregisterCharacterChanged(String mac, UUID serviceId, UUID characterId);
+	
+	/**
+     * ApiLevel: 44
+     * 安全芯片连接
+     */
+    public abstract void securityChipConnect(String mac, final BleConnectResponse response);
+
+    /**
+     * ApiLevel: 44
+     * 安全芯片数据加密
+     */
+    public abstract void securityChipEncrypt(String mac, byte[] data, final BleReadResponse response);
+
+    /**
+     * ApiLevel: 44
+     * 安全芯片数据解密
+     */
+    public abstract void securityChipDecrypt(String mac, byte[] data, final BleReadResponse response);
 }
