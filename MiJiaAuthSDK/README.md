@@ -59,9 +59,9 @@ public class AuthCode {
     public static final int REQUSET_DID_ERROR = -109;///缺少did
     public static final int REQUEST_AUTH_NO_CAPABILITY = -110;///该设备不支持语音授权，或者该设备不属于你的名下
     public static final int REQUEST_AUTH_NO_PERMISSION = -111;///该账号不支持该类型授权，请到开放平台申请
-    public static final int REQUEST_MISS_PARAMS = -112;
-    public static final int REQUEST_BIND_ERROR = -113;
-    public static final int REQUEST_API_LEVEL_ERR = -114;///版本号不匹配
+    public static final int REQUEST_MISS_PARAMS = -112;//缺少参数
+    public static final int REQUEST_BIND_ERROR = -113;//绑定失败
+    public static final int REQUEST_API_LEVEL_ERR = -114;///版本号不匹配
     public static final int REQUEST_SERVICE_DISCONNECT = -901;//service已经断开
     public static final int REQUEST_MIJIA_VERSION_ERR = -902;//可能没有安装米家，或者米家版本太低
     public static final int REQUEST_NO_RESPONSE = -903;///IAuthResponse 为空
