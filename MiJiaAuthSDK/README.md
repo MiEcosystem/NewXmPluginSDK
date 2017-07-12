@@ -64,6 +64,7 @@ public class AuthCode {
     public static final int REQUEST_API_LEVEL_ERR = -114;///版本号不匹配
     public static final int REQUEST_SERVICE_DISCONNECT = -901;//service已经断开
     public static final int REQUEST_MIJIA_VERSION_ERR = -902;//可能没有安装米家，或者米家版本太低
+    public static final int REQUEST_NO_RESPONSE = -903;///IAuthResponse 为空
     
 
     public static final int REQUEST_CODE_CALL_AUTH_FOR_APP = 4;//给应用授权
