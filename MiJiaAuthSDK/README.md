@@ -47,6 +47,7 @@ void onFail(int code, Bundle data);  表示授权失败<br>
 <pre><code>
 public class AuthCode {
     public static final int AUTH_SUCCESS = 100;//授权成功
+    public static final int BIND_SUCCESS = 101;//绑定成功
     public static final int PACKAGE_ERROR = -100;//包名错误
     public static final int LACK_PARAMS_ERROR = -101;//缺少参数
     public static final int GET_TOKEN_ERROR = -102;//获取token失败
