@@ -2150,4 +2150,193 @@ public abstract class XmPluginHostApi {
      * @param did
      */
     public abstract void gotoAuthManagerPage(Activity activity, String did);
+
+    /**
+     * ApiLevel:45
+     * 分享电子钥匙
+     *
+     * @param model 设备model
+     * @param did 分享者的did
+     * @param shareUid 分享目标的uid
+     * @param status 分享类别，1：暂时，2：周期，3：永久
+     * @param activeTime 生效时间 UTC时间戳，单位为s
+     * @param expireTime 过期时间 UTC时间戳，单位为s
+     * @param weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
+     * @param callback
+     */
+    public void shareSecurityKey(String model, String did, String shareUid, int status, long activeTime, long expireTime,
+                                 List<Integer> weekdays, Callback<Void> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("type", "bleshare");
+            dataObj.put("did", did);
+            dataObj.put("userid", shareUid);
+            dataObj.put("status", status);
+            dataObj.put("active_time", activeTime);
+            dataObj.put("expire_time", expireTime);
+            if (weekdays != null && weekdays.size() > 0) {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < weekdays.size(); i++) {
+                    if (i == 0) {
+                        sb.append(weekdays.get(i));
+                    } else {
+                        sb.append(",");
+                        sb.append(weekdays.get(i));
+                    }
+                }
+                dataObj.put("weekdays", sb.toString());
+            }
+        } catch (JSONException e) {
+            if (callback != null)
+                callback.onFailure(-1, e.toString());
+            return;
+        }
+
+        callSmartHomeApi(model, "/share/bluetoothkeyshare", dataObj, callback, null);
+    }
+
+    /**
+     * ApiLevel:45
+     * 更新分享的电子钥匙信息
+     *
+     * @param model 设备的model
+     * @param did 分享者的did
+     * @param keyId 电子钥匙的keyId
+     * @param status 分享类别，1：暂时，2：周期，3：永久
+     * @param activeTime 生效时间 UTC时间戳，单位为s
+     * @param expireTime 过期时间 UTC时间戳，单位为s
+     * @param weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
+     * @param callback
+     */
+    public void updateSecurityKey(String model, String did, String keyId, int status, long activeTime, long expireTime, List<Integer> weekdays, Callback<Void> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("type", "update");
+            dataObj.put("did", did);
+            dataObj.put("keyid", keyId);
+            dataObj.put("status", status);
+            dataObj.put("active_time", activeTime);
+            dataObj.put("expire_time", expireTime);
+            if (weekdays != null && weekdays.size() > 0) {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < weekdays.size(); i++) {
+                    if (i == 0) {
+                        sb.append(weekdays.get(i));
+                    } else {
+                        sb.append(",");
+                        sb.append(weekdays.get(i));
+                    }
+                }
+                dataObj.put("weekdays", sb.toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        callSmartHomeApi(model, "/share/bluetoothkeyshare", dataObj, callback, null);
+    }
+
+    /**
+     * ApiLevel:45
+     * 删除共享的电子钥匙
+     *
+     * @param model 设备的model
+     * @param did 分享者的did
+     * @param keyId 分享电子钥匙的KeyId
+     * @param callback
+     */
+    public void deleteSecurityKey(String model, String did, String keyId, final Callback<Void> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("type", "bledelete");
+            dataObj.put("did", did);
+            dataObj.put("keyid", keyId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        callSmartHomeApi(model, "/share/bluetoothkeyshare", dataObj, callback, null);
+    }
+
+    /**
+     * ApiLevel:45
+     * 获取所有分享的电子钥匙信息
+     *
+     * @param model 设备model
+     * @param did 分享者的did
+     * @param callback
+     */
+    public void getSecurityKey(String model, String did, final Callback<List<SecurityKeyInfo>> callback) {
+        final JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("type", "get");
+            dataObj.put("did", did);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        callSmartHomeApi(model, "/share/bluetoothkeyshare", dataObj, callback, new Parser<List<SecurityKeyInfo>>() {
+            @Override
+            public List<SecurityKeyInfo> parse(String result) throws JSONException {
+                /**
+                 * result：格式{"bleshare":[{"keyid":183038048,"shareuid":"23912868","status":"3","active_time":"1499997061","expire_time":"1531446661","isoutofdate":0}]}
+                 */
+                List<SecurityKeyInfo> infos = new ArrayList<SecurityKeyInfo>();
+                try {
+                    JSONObject resultObject = new JSONObject(result);
+                    JSONArray jsonArray = resultObject.optJSONArray("bleshare");
+                    if (jsonArray != null && jsonArray.length() > 0) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.optJSONObject(i);
+                            if (jsonObject != null) {
+                                SecurityKeyInfo info = new SecurityKeyInfo();
+                                info.keyId = jsonObject.optString("keyid");
+                                info.shareUid = jsonObject.optString("shareuid");
+                                info.status = jsonObject.optInt("status");
+                                info.activeTime = jsonObject.optLong("active_time");
+                                info.expireTime = jsonObject.optLong("expire_time");
+                                info.isoutofdate = jsonObject.optInt("isoutofdate");
+                                String weekdays = jsonObject.optString("weekdays");
+                                if (!TextUtils.isEmpty(weekdays)) {
+                                    String[] days = weekdays.split(",");
+                                    if (days != null && days.length > 0) {
+                                        info.weekdays = new ArrayList<Integer>();
+                                        for (int tmp = 0; tmp < days.length; tmp++) {
+                                            info.weekdays.add(Integer.valueOf(days[tmp]));
+                                        }
+                                    }
+                                }
+
+                                infos.add(info);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return infos;
+            }
+        });
+    }
+
+    /**
+     * 被分享用户通过keyId获取shareKey
+     * @param model
+     * @param did
+     * @param keyId
+     * @param callback
+     */
+    public void askSecurityShareKey(String model, String did, String keyId, final Callback<String> callback) {
+        JSONObject dataObject = new JSONObject();
+        try {
+            dataObject.put("did", did);
+            // askbluetoothkey接口服务端使用Go语音实现，严格区分了大小写，不能传String过去
+            dataObject.put("keyid", Long.valueOf(keyId));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        XmPluginHostApi.instance().callSmartHomeApi(model, "/share/askbluetoothkey", dataObject, callback, null);
+    }
 }

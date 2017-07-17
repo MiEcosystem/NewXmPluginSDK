@@ -74,6 +74,7 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
                 finish();
             }
         });
+        findViewById(R.id.title_bar_more).setVisibility(View.GONE);
 
         mConnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,7 +235,6 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-
                 String date = sDateFormat.format(new java.util.Date());
                 mLockMsgTextView.setText(mLockMsgTextView.getText().toString() + "\n" + date + " " + msg);
             }

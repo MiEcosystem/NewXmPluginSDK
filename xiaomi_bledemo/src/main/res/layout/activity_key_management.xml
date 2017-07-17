@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_bar_transparent_black" />
+
+    <Button
+        android:id="@+id/share_key"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="分享钥匙"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/update_key"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="更新钥匙"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/delete_key"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="删除钥匙"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/get_key"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="获取所有分享的钥匙"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/get_share_info"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="获取ShareInfo（供被分享者测试）"
+        android:textAllCaps="false"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="清除所有消息"
+        android:textSize="14sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@color/black"
+        android:fadeScrollbars="false">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
