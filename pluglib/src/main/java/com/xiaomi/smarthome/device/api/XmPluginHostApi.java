@@ -2150,4 +2150,10 @@ public abstract class XmPluginHostApi {
      * @param did
      */
     public abstract void gotoAuthManagerPage(Activity activity, String did);
+
+    /**
+     * ApiLevel:45
+     * 获取插件notification的icon
+     */
+    public abstract int getMiHomeNotificationIcon();
 }

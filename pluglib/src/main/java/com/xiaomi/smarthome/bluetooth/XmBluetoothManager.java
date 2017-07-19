@@ -418,32 +418,15 @@ public abstract class XmBluetoothManager {
     public abstract boolean isAutoReconnect(String mac);
 
     /**
-     * ApiLevel: 44
-     * 监听底层ble蓝牙接收到的数据，监听到的数据通过intent返回给插件
+     * ApiLevel: 45
+     * 监听底层ble蓝牙接收到的数据(就算退出插件也可以收到数据)，监听到的数据主进程通过发送{IXmPluginMessageReceiver.MSG_BLE_CHARACTER_CHANGED}给插件
+     * registerCharacterChanged不会主动使能Characteristic的notify接口，必须插件主动调用notify
      */
     public abstract void registerCharacterChanged(String mac, UUID serviceId, UUID characterId, final BleWriteResponse response);
 
     /**
-     * ApiLevel: 44
+     * ApiLevel: 45
      * 取消监听底层ble蓝牙接收到的数据
      */
     public abstract void unregisterCharacterChanged(String mac, UUID serviceId, UUID characterId);
-	
-	/**
-     * ApiLevel: 44
-     * 安全芯片连接
-     */
-    public abstract void securityChipConnect(String mac, final BleConnectResponse response);
-
-    /**
-     * ApiLevel: 44
-     * 安全芯片数据加密
-     */
-    public abstract void securityChipEncrypt(String mac, byte[] data, final BleReadResponse response);
-
-    /**
-     * ApiLevel: 44
-     * 安全芯片数据解密
-     */
-    public abstract void securityChipDecrypt(String mac, byte[] data, final BleReadResponse response);
 }

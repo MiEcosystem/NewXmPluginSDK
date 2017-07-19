@@ -141,7 +141,7 @@ public interface IXmPluginMessageReceiver {
     public static final int MSG_DESTROY_REQUEST_CAMERA_FRAME = 21;
 
     /**
-     * ApiLevel: 43
+     * ApiLevel: 45
      * 注册底层ble蓝牙数据监听，当收到数据时发送此msg给插件
      */
     public static final int MSG_BLE_CHARACTER_CHANGED = 22;
