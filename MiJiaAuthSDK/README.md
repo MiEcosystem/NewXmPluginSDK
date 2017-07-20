@@ -15,7 +15,9 @@ compile(name:'mijia_authlib_1.0.1', ext:"aar")
 ### 2 在activity的oncreate函数中进行初始化
 IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
 
-### 3 发起授权IAuthMangerImpl.getInstance().callAuth（final Context context, final Bundle data, final int requestCode, IAuthResponse response）
+### 3 发起授权IAuthMangerImpl.getInstance().callAuth（final Context activityContext, final Bundle data, final int requestCode, IAuthResponse response）
+
+#######context需要activity的context。
 
 **requestCode**对应的是要请求哪种授权<br>
 * 1)如果请求的是给设备进行授权则传入AuthCode.REQUEST_CODE_CALL_AUTH_FOR_DEVICE(设备授权之前，该小米账户需要已经绑定该设备)<br>
@@ -276,6 +278,10 @@ public class AuthActivity extends AppCompatActivity {
  之后调用需要Sdk的版本号大于app的版本号，否则会返回REQUEST_API_LEVEL_ERR = -114;///版本号不匹配<br>
  当版本不匹配的这时候，需要第三方能根据两边的版本号去提箱用户更新米家的app<br>
  新增了两个code   REQUEST_SERVICE_DISCONNECT = -901;//service已经断开   以及   REQUEST_MIJIA_VERSION_ERR = -902;//可能没有安装米家，或者米家版本太低<br>
+ 
+ ####  versionName 1.1.3 versionCode 7
+ 优化了在授权过程中点击home问题，（此时会终止授权流程，关闭米家授权相关页面）<br>
+ 
 
 ### 有问题可以联系:
 renlei@xiaomi.com
