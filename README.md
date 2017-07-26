@@ -176,7 +176,7 @@ public boolean isReadOnlyShared()
 
 ### 开发前准备工作
 - 登陆[智能家庭开放平台](https://open.home.mi.com)
-- 申请开发者账号userid
+- 申请开发者账号DevelopId
 - 登记新产品,记录设备model
 - 创建签名证书
 - 创建插件信息，提交证书md5信息给小米
@@ -186,7 +186,9 @@ public boolean isReadOnlyShared()
 
 keytool -list -v -keystore  keyFilePath -storepass keypassword  -keypass  keypassword
 ```
-
+### 配置账号白名单
+如果开发者如果不是用注册开发者的小米账号登录的话，需要把当前的小米账号配置成协作开发或者测试白名单
+![](./md_images/391501033771_.pic.jpg)
 ### 安装开发版智能家庭app
 
 智能家庭应用商店版的app不支持本地开发调试，需要安装sdk目录下的智能家庭app
@@ -215,11 +217,17 @@ python move_plug.py oldPlugPath
 
 ### 创建新插件工程
 - 执行SDK目录下python脚本gen_plug.py
-  注意userid为申请的小米开发者账号,小米账号,不是手机号码
+  注意DevelopId为申请的小米开发者账号,小米账号,不是手机号码
 
 ```
 python gen_plug.py model userid
 ```
+### 如何获取开发者Id
+![](./md_images/developid_1.jpg)
+
+
+
+![](./md_images/developid_2.jpg)
 
 ### 配置插件签名文件
 所有插件在智能家庭app上运行时需要进行签名验证
@@ -336,7 +344,7 @@ gradle tasks
 - [框架描述](框架描述.md)
 - [服务器部署](服务器部署.md)
 - [插件开发](插件开发.md)
-- [开发接口描述](开发接口描述.md)
+- [开发接口描述，请重点关注](./api/README.md)
 - [蓝牙规范](智能家庭蓝牙规范.md)
 - [插件实例工程](https://github.com/MiEcosystem/NewPluginDemo)
 
@@ -344,6 +352,7 @@ gradle tasks
 ## 开发遇到问题
 
 - 插件里边尽量避免和common_ui里边同名资源名，否则插件中的资源会替换掉common_ui里边资源
+- 暂时不支持Serializable，相关需求的话请用Parcelable代替
 - androi-support-*.jar库不需要插件引入，已经在公共配置中加入
 - 插件中用到和app相同的库，目前最新开发版app已经解决这个问题，线上app，还是需要保持库版本一致，而且不要混淆
 
