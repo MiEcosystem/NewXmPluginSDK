@@ -29,9 +29,11 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
     private BroadcastReceiver mBluetoothReceiver;
     private TextView mTitleView;
     private TextView mDeviceStatusTextView;
-    private Button mConnectButton;
+    private Button mOwnConnectButton;
+    private Button mShareConnectButton;
     private Button mUnLockButton;
     private Button mBoltButton;
+    private Button mKeyButton;
     private TextView mLockMsgTextView;
     private Handler mHandler;
 
@@ -61,9 +63,11 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
         mTitleView = ((TextView) findViewById(R.id.title_bar_title));
         mTitleView.setText(R.string.security_chip_test);
         mDeviceStatusTextView = (TextView) findViewById(R.id.device_status);
-        mConnectButton = (Button) findViewById(R.id.connect);
+        mOwnConnectButton = (Button) findViewById(R.id.own_connect);
+        mShareConnectButton = (Button) findViewById(R.id.share_connect);
         mUnLockButton = (Button) findViewById(R.id.unlock);
         mBoltButton = (Button) findViewById(R.id.bolt);
+        mKeyButton = (Button) findViewById(R.id.key_management);
         mLockMsgTextView = (TextView) findViewById(R.id.lock_msg);
 
         // 设置titlebar在顶部透明显示时的顶部padding
@@ -76,18 +80,45 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
         });
         findViewById(R.id.title_bar_more).setVisibility(View.GONE);
 
-        mConnectButton.setOnClickListener(new View.OnClickListener() {
+        mOwnConnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (XmBluetoothManager.getInstance().getConnectStatus(mDevice.getMac()) == BluetoothProfile.STATE_CONNECTED) {
                     Toast.makeText(activity(), "设备已连接", Toast.LENGTH_SHORT).show();
                 } else {
-                    XmBluetoothManager.getInstance().securityChipConnect(mDevice.getMac(), new Response.BleConnectResponse() {
-                        @Override
-                        public void onResponse(int i, Bundle bundle) {
+                    if (mDevice.isOwner()) {
+                        XmBluetoothManager.getInstance().securityChipConnect(mDevice.getMac(), new Response.BleConnectResponse() {
+                            @Override
+                            public void onResponse(int i, Bundle bundle) {
 
-                        }
-                    });
+                            }
+                        });
+                    } else {
+                        Toast.makeText(activity(), "只有Owner才能调用", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        mShareConnectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (XmBluetoothManager.getInstance().getConnectStatus(mDevice.getMac()) == BluetoothProfile.STATE_CONNECTED) {
+                    Toast.makeText(activity(), "设备已连接", Toast.LENGTH_SHORT).show();
+                } else {
+                    String sharedKeyId = XmBluetoothManager.getInstance().getSecurityChipSharedKeyId(mDevice.getMac());
+                    if (mDevice.isOwner()) {
+                        Toast.makeText(activity(), "只有被分享者才能调用", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(sharedKeyId)) {
+                        Toast.makeText(activity(), "没有被分享的钥匙", Toast.LENGTH_SHORT).show();
+                    } else {
+                        XmBluetoothManager.getInstance().securityChipSharedDeviceConnect(mDevice.getMac(), new Response.BleConnectResponse() {
+                            @Override
+                            public void onResponse(int i, Bundle bundle) {
+
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -110,6 +141,12 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
                 } else {
                     Toast.makeText(activity(), "设备未连接，请先建立连接", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        mKeyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(), KeyManagementActivity.class.getName());
             }
         });
 

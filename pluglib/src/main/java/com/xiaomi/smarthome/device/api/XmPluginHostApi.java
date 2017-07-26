@@ -2153,6 +2153,12 @@ public abstract class XmPluginHostApi {
 
     /**
      * ApiLevel:45
+     * 获取插件notification的icon
+     */
+    public abstract int getMiHomeNotificationIcon();
+
+    /**
+     * ApiLevel:45
      * 分享电子钥匙
      *
      * @param model 设备model
@@ -2164,35 +2170,56 @@ public abstract class XmPluginHostApi {
      * @param weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
      * @param callback
      */
-    public void shareSecurityKey(String model, String did, String shareUid, int status, long activeTime, long expireTime,
-                                 List<Integer> weekdays, Callback<Void> callback) {
-        JSONObject dataObj = new JSONObject();
-        try {
-            dataObj.put("type", "bleshare");
-            dataObj.put("did", did);
-            dataObj.put("userid", shareUid);
-            dataObj.put("status", status);
-            dataObj.put("active_time", activeTime);
-            dataObj.put("expire_time", expireTime);
-            if (weekdays != null && weekdays.size() > 0) {
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < weekdays.size(); i++) {
-                    if (i == 0) {
-                        sb.append(weekdays.get(i));
-                    } else {
-                        sb.append(",");
-                        sb.append(weekdays.get(i));
+    public void shareSecurityKey(final String model, final String did, String shareUid, final int status, final long activeTime, final long expireTime,
+                                 final List<Integer> weekdays, final Callback<Void> callback) {
+        Callback<UserInfo> userInfoCallback = new Callback<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo result) {
+                if (result == null || TextUtils.isEmpty(result.userId)
+                        || result.userId.equalsIgnoreCase("-1")
+                        || result.userId.equalsIgnoreCase("0")) {
+                    if (callback != null) {
+                        callback.onFailure(INVALID, "shareUid is invalid");
                     }
-                }
-                dataObj.put("weekdays", sb.toString());
-            }
-        } catch (JSONException e) {
-            if (callback != null)
-                callback.onFailure(-1, e.toString());
-            return;
-        }
+                } else {
+                    JSONObject dataObj = new JSONObject();
+                    try {
+                        dataObj.put("type", "bleshare");
+                        dataObj.put("did", did);
+                        dataObj.put("userid", result.userId);
+                        dataObj.put("status", status);
+                        dataObj.put("active_time", activeTime);
+                        dataObj.put("expire_time", expireTime);
+                        if (weekdays != null && weekdays.size() > 0) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < weekdays.size(); i++) {
+                                if (i == 0) {
+                                    sb.append(weekdays.get(i));
+                                } else {
+                                    sb.append(",");
+                                    sb.append(weekdays.get(i));
+                                }
+                            }
+                            dataObj.put("weekdays", sb.toString());
+                        }
+                    } catch (JSONException e) {
+                        if (callback != null)
+                            callback.onFailure(-1, e.toString());
+                        return;
+                    }
 
-        callSmartHomeApi(model, "/share/bluetoothkeyshare", dataObj, callback, null);
+                    callSmartHomeApi(model, "/share/bluetoothkeyshare", dataObj, callback, null);
+                }
+            }
+
+            @Override
+            public void onFailure(int error, String errorInfo) {
+                if (callback != null) {
+                    callback.onFailure(error, errorInfo);
+                }
+            }
+        };
+        getUserInfo(shareUid, userInfoCallback);
     }
 
     /**
@@ -2318,25 +2345,5 @@ public abstract class XmPluginHostApi {
                 return infos;
             }
         });
-    }
-
-    /**
-     * 被分享用户通过keyId获取shareKey
-     * @param model
-     * @param did
-     * @param keyId
-     * @param callback
-     */
-    public void askSecurityShareKey(String model, String did, String keyId, final Callback<String> callback) {
-        JSONObject dataObject = new JSONObject();
-        try {
-            dataObject.put("did", did);
-            // askbluetoothkey接口服务端使用Go语音实现，严格区分了大小写，不能传String过去
-            dataObject.put("keyid", Long.valueOf(keyId));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        XmPluginHostApi.instance().callSmartHomeApi(model, "/share/askbluetoothkey", dataObject, callback, null);
     }
 }

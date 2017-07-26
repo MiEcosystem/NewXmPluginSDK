@@ -431,6 +431,12 @@ public abstract class XmBluetoothManager {
     public abstract void unregisterCharacterChanged(String mac, UUID serviceId, UUID characterId);
 
     /**
+     * ApiLevel: 46
+     * 判断当前设备是否是通过蓝牙网关连接
+     */
+    public abstract boolean isBleGatewayConnected(String mac);
+
+    /**
      * ApiLevel: 45
      * 安全芯片连接
      */
@@ -447,4 +453,17 @@ public abstract class XmBluetoothManager {
      * 安全芯片数据解密
      */
     public abstract void securityChipDecrypt(String mac, byte[] data, final BleReadResponse response);
+
+    /**
+     * ApiLevel: 45
+     * 锁的分享设备连接
+     * @param mac 设备的mac
+     */
+    public abstract void securityChipSharedDeviceConnect(String mac, final BleConnectResponse response);
+
+    /**
+     * ApiLevel: 45
+     * 获取锁设备分享后的KeyId
+     */
+    public abstract String getSecurityChipSharedKeyId(String mac);
 }

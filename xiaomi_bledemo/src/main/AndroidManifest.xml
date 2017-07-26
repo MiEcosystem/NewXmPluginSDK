@@ -4,7 +4,7 @@
         <!-- 支持插件的最低版本，必须 -->
         <meta-data android:name="minPluginSdkApiVersion" android:value="2" />
         <!-- 设备model，必须 -->
-        <meta-data android:name="model" android:value="xiaomi.bledemo.v1" />
+        <meta-data android:name="model" android:value="xiaomi.bledemo.v1|shjszn.lock.c1|yunshi.lock.s2" />
         <!-- 设备处理消息入口，必须 -->
         <meta-data android:name="message_handler" android:value="com.xiaomi.bledemo.MessageReceiver" />
         <!-- 开发者Id, 必须 -->
