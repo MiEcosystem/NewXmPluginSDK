@@ -66,6 +66,7 @@ public class AuthCode {
     public static final int REQUEST_BIND_ERROR = -113;//绑定失败
     public static final int REQUEST_API_LEVEL_ERR = -114;///版本号不匹配
     public static final int REQUEST_NOT_SUPPORT_FOR_INTERNAL = -115;//暂时不支持海外版
+    public static final int NET_ERR = -116;//网络不稳定或者没有联网，请检查网络后重试
     public static final int REQUEST_SERVICE_DISCONNECT = -901;//service已经断开
     public static final int REQUEST_MIJIA_VERSION_ERR = -902;//可能没有安装米家，或者米家版本太低
     public static final int REQUEST_NO_RESPONSE = -903;///IAuthResponse 为空
