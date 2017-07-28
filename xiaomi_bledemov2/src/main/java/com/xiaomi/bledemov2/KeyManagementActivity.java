@@ -1,4 +1,4 @@
-package com.xiaomi.bledemo;
+package com.xiaomi.bledemov2;
 
 import android.os.Bundle;
 import android.os.Handler;

@@ -1,5 +1,5 @@
 
-package com.xiaomi.bledemo;
+package com.xiaomi.bledemov2;
 
 import android.content.Context;
 import android.content.Intent;

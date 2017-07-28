@@ -1,4 +1,4 @@
-package com.xiaomi.bledemo;
+package com.xiaomi.bledemov2;
 
 import android.util.Log;
 
