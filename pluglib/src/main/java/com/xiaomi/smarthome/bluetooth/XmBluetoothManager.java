@@ -466,4 +466,29 @@ public abstract class XmBluetoothManager {
      * 获取锁设备分享后的KeyId
      */
     public abstract String getSecurityChipSharedKeyId(String mac);
+
+    /**
+     * ApiLevle: 45
+     * 安全芯片操作符 关锁
+     */
+    public static final int SECURITY_CHIP_LOCK_OPERATOR = 0;
+
+    /**
+     * ApiLevle: 45
+     * 安全芯片操作符 开锁
+     */
+    public static final int SECURITY_CHIP_UNLOCK_OPERATOR = 1;
+
+    /**
+     * ApiLevle: 45
+     * 安全芯片操作符 反锁
+     */
+    public static final int SECURITY_CHIP_BOLT_OPERATOR = 2;
+    /**
+     * ApiLevel: 45
+     * 提供支持安全芯片的锁操作
+     * @param mac
+     * @param operator 1: 开锁，2：反锁
+     */
+    public abstract void securityChipOperate(String mac, int operator, final BleWriteResponse response);
 }

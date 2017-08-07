@@ -2172,12 +2172,12 @@ public abstract class XmPluginHostApi {
      */
     public void shareSecurityKey(final String model, final String did, String shareUid, final int status, final long activeTime, final long expireTime,
                                  final List<Integer> weekdays, final Callback<Void> callback) {
-        Callback<UserInfo> userInfoCallback = new Callback<UserInfo>() {
+        Callback<String> userInfoCallback = new Callback<String>() {
             @Override
-            public void onSuccess(UserInfo result) {
-                if (result == null || TextUtils.isEmpty(result.userId)
-                        || result.userId.equalsIgnoreCase("-1")
-                        || result.userId.equalsIgnoreCase("0")) {
+            public void onSuccess(String userId) {
+                if (TextUtils.isEmpty(userId)
+                        || userId.equalsIgnoreCase("-1")
+                        || userId.equalsIgnoreCase("0")) {
                     if (callback != null) {
                         callback.onFailure(INVALID, "shareUid is invalid");
                     }
@@ -2186,7 +2186,7 @@ public abstract class XmPluginHostApi {
                     try {
                         dataObj.put("type", "bleshare");
                         dataObj.put("did", did);
-                        dataObj.put("userid", result.userId);
+                        dataObj.put("userid", userId);
                         dataObj.put("status", status);
                         dataObj.put("active_time", activeTime);
                         dataObj.put("expire_time", expireTime);
@@ -2219,7 +2219,22 @@ public abstract class XmPluginHostApi {
                 }
             }
         };
-        getUserInfo(shareUid, userInfoCallback);
+
+        JSONObject userInfoObj = new JSONObject();
+        try {
+            userInfoObj.put("id", shareUid);
+        } catch (JSONException e) {
+        }
+
+        Parser<String> parser = new Parser<String>() {
+            @Override
+            public String parse(String response) throws JSONException {
+                JSONObject jsonObject = new JSONObject(response);
+                return jsonObject.optString("userid");
+            }
+        };
+
+        callSmartHomeApi(model, "/home/profile", userInfoObj, userInfoCallback, parser);
     }
 
     /**

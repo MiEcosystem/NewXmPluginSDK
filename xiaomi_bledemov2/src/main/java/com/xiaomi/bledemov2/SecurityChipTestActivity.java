@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +19,6 @@ import com.xiaomi.smarthome.bluetooth.XmBluetoothManager;
 import com.xiaomi.smarthome.device.api.XmPluginBaseActivity;
 
 import java.text.SimpleDateFormat;
-import java.util.UUID;
 
 /**
  * Created by wangchong3@xiaomi.com on 2017/7/6.
@@ -37,19 +37,11 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
     private TextView mLockMsgTextView;
     private Handler mHandler;
 
-    public static final String LOCK_UUID_FORMAT = "0000%04x-0065-6C62-2E74-6F696D2E696D";
-    public static UUID makeLockUUID(int value) {
-        return UUID.fromString(String.format(LOCK_UUID_FORMAT, value));
-    }
-    static UUID UUID_LOCK_SERVICE = makeLockUUID(0x1000);
-    static UUID UUID_LOCK_OPERATOR_CHARACTER = makeLockUUID(0x1001);
-    static UUID UUID_LOCK_STATE_CHARACTER = makeLockUUID(0x1002);
-    static byte[] LOCK_OPERATOR = new byte[] {0x00};
-    static byte[] UNLOCK_OPERATOR = new byte[] {0x01};
-    static byte[] BOLT_OPERATOR= new byte[] {0x02};
-    static byte[] LOCK_STATE = new byte[] {0x00};
-    static byte[] UNLOCK_STATE = new byte[] {0x01};
-    static byte[] BOLT_STATE = new byte[] {0x02};
+    private static final int MSG_UNLOCK_TIMEOUT = 0x1001;
+    private static final int MSG_BOLT_TIMEOUT = 0x1002;
+    // 开锁超时时间，可以根据实际情况自己定义
+    private static final long OPERATE_TIMEOUT = 3 * 1000;
+    private volatile boolean isOperating = false;
 
     SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
@@ -75,6 +67,8 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
         findViewById(R.id.title_bar_return).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 退出时断开蓝牙连接
+                XmBluetoothManager.getInstance().disconnect(mDevice.getMac());
                 finish();
             }
         });
@@ -89,7 +83,7 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
                     if (mDevice.isOwner()) {
                         XmBluetoothManager.getInstance().securityChipConnect(mDevice.getMac(), new Response.BleConnectResponse() {
                             @Override
-                            public void onResponse(int i, Bundle bundle) {
+                            public void onResponse(int code, Bundle bundle) {
 
                             }
                         });
@@ -114,7 +108,7 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
                     } else {
                         XmBluetoothManager.getInstance().securityChipSharedDeviceConnect(mDevice.getMac(), new Response.BleConnectResponse() {
                             @Override
-                            public void onResponse(int i, Bundle bundle) {
+                            public void onResponse(int code, Bundle bundle) {
 
                             }
                         });
@@ -126,21 +120,13 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
         mUnLockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (XmBluetoothManager.getInstance().getConnectStatus(mDevice.getMac()) == BluetoothProfile.STATE_CONNECTED) {
-                    sendLockMsg(UNLOCK_OPERATOR);
-                } else {
-                    Toast.makeText(activity(), "设备未连接，请先建立连接", Toast.LENGTH_SHORT).show();
-                }
+                doUnlockOperate();
             }
         });
         mBoltButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (XmBluetoothManager.getInstance().getConnectStatus(mDevice.getMac()) == BluetoothProfile.STATE_CONNECTED) {
-                    sendLockMsg(BOLT_OPERATOR);
-                } else {
-                    Toast.makeText(activity(), "设备未连接，请先建立连接", Toast.LENGTH_SHORT).show();
-                }
+                doBoltOperate();
             }
         });
         mKeyButton.setOnClickListener(new View.OnClickListener() {
@@ -152,13 +138,38 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
 
         if (XmBluetoothManager.getInstance().getConnectStatus(mDevice.getMac()) == BluetoothProfile.STATE_CONNECTED) {
             mDeviceStatusTextView.setText("已连接");
-            XmBluetoothManager.getInstance().notify(mDevice.getMac(), UUID_LOCK_SERVICE, UUID_LOCK_STATE_CHARACTER, null);
         } else {
             mDeviceStatusTextView.setText("未连接");
         }
 
-        mHandler = new Handler();
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case MSG_UNLOCK_TIMEOUT:
+                        isOperating = false;
+                        updateLockMsg("开锁失败");
+                        break;
+
+                    case MSG_BOLT_TIMEOUT:
+                        isOperating = false;
+                        updateLockMsg("反锁失败");
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        };
+
         registerBluetoothReceiver();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // 退出时断开蓝牙连接
+        XmBluetoothManager.getInstance().disconnect(mDevice.getMac());
+        super.onBackPressed();
     }
 
     @Override
@@ -172,7 +183,6 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
             mBluetoothReceiver = new BluetoothChangeReceiver();
             IntentFilter filter = new IntentFilter();
             filter.addAction(XmBluetoothManager.ACTION_CONNECT_STATUS_CHANGED);
-            filter.addAction(XmBluetoothManager.ACTION_CHARACTER_CHANGED);
             registerReceiver(mBluetoothReceiver, filter);
         }
     }
@@ -198,8 +208,6 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
                 String action = intent.getAction();
                 if (TextUtils.equals(action, XmBluetoothManager.ACTION_CONNECT_STATUS_CHANGED)) {
                     processConnectStatusChanged(intent);
-                } else if (TextUtils.equals(action, XmBluetoothManager.ACTION_CHARACTER_CHANGED)) {
-                    processCharacterChanged(intent);
                 }
             }
         }
@@ -210,62 +218,67 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
 
         if (status == XmBluetoothManager.STATUS_CONNECTED) {
             mDeviceStatusTextView.setText("已连接");
-            XmBluetoothManager.getInstance().notify(mDevice.getMac(), UUID_LOCK_SERVICE, UUID_LOCK_STATE_CHARACTER, null);
         } else if (status == XmBluetoothManager.STATUS_DISCONNECTED) {
             mDeviceStatusTextView.setText("未连接");
         }
     }
 
-    private void processCharacterChanged(Intent intent) {
-        UUID service = (UUID) intent.getSerializableExtra(XmBluetoothManager.KEY_SERVICE_UUID);
-        UUID character = (UUID) intent.getSerializableExtra(XmBluetoothManager.KEY_CHARACTER_UUID);
-        byte[] value = intent.getByteArrayExtra(XmBluetoothManager.KEY_CHARACTER_VALUE);
-        if (UUID_LOCK_SERVICE.equals(service) && UUID_LOCK_STATE_CHARACTER.equals(character)) {
-            XmBluetoothManager.getInstance().securityChipDecrypt(mDevice.getMac(), value, new Response.BleReadResponse() {
-                @Override
-                public void onResponse(int i, byte[] bytes) {
-                    if (i == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                        if (byteEquals(bytes, LOCK_STATE)) {
-                            updateLockMsg("关锁成功");
-                        } else if (byteEquals(bytes, UNLOCK_STATE)) {
-                            updateLockMsg("开锁成功");
-                        } else if (byteEquals(bytes, BOLT_STATE)) {
-                            updateLockMsg("反锁成功");
-                        }
-                    } else {
-                        updateLockMsg("接收到的锁数据解密失败");
-                    }
-                }
-            });
+    private void doUnlockOperate() {
+        if (isOperating) {
+            updateLockMsg("正在开锁操作，请等待");
+            return;
         }
-    }
 
-    private void sendLockMsg(final byte[] operator) {
-        XmBluetoothManager.getInstance().securityChipEncrypt(mDevice.getMac(), operator, new Response.BleReadResponse() {
-            @Override
-            public void onResponse(int i, byte[] bytes) {
-                if (i == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                    XmBluetoothManager.getInstance().write(mDevice.getMac(), UUID_LOCK_SERVICE, UUID_LOCK_OPERATOR_CHARACTER, bytes, new Response.BleWriteResponse() {
+        if (XmBluetoothManager.getInstance().getConnectStatus(mDevice.getMac()) == BluetoothProfile.STATE_CONNECTED) {
+            mHandler.sendEmptyMessageDelayed(MSG_UNLOCK_TIMEOUT, OPERATE_TIMEOUT);
+            isOperating = true;
+            XmBluetoothManager.getInstance().securityChipOperate(
+                    mDevice.getMac(),
+                    XmBluetoothManager.SECURITY_CHIP_UNLOCK_OPERATOR,
+                    new Response.BleWriteResponse() {
                         @Override
-                        public void onResponse(int i, Void aVoid) {
-                            if (i != XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                                if (byteEquals(operator, UNLOCK_OPERATOR)) {
-                                    Toast.makeText(activity(), "发送开锁数据失败", Toast.LENGTH_SHORT).show();
-                                } else if (byteEquals(operator, BOLT_OPERATOR)) {
-                                    Toast.makeText(activity(), "发送反锁数据失败", Toast.LENGTH_SHORT).show();
-                                }
+                        public void onResponse(int code, Void aVoid) {
+                            isOperating = false;
+                            mHandler.removeMessages(MSG_UNLOCK_TIMEOUT);
+                            if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
+                                updateLockMsg("开锁成功");
+                            } else {
+                                updateLockMsg("开锁失败");
                             }
                         }
                     });
-                } else {
-                    if (byteEquals(operator, UNLOCK_OPERATOR)) {
-                        Toast.makeText(activity(), "开锁数据加密失败", Toast.LENGTH_SHORT).show();
-                    } else if (byteEquals(operator, BOLT_OPERATOR)) {
-                        Toast.makeText(activity(), "反锁数据加密失败", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
+        } else {
+            Toast.makeText(activity(), "设备未连接，请先建立连接", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void doBoltOperate() {
+        if (isOperating) {
+            updateLockMsg("正在反锁操作，请等待");
+            return;
+        }
+
+        if (XmBluetoothManager.getInstance().getConnectStatus(mDevice.getMac()) == BluetoothProfile.STATE_CONNECTED) {
+            mHandler.sendEmptyMessageDelayed(MSG_BOLT_TIMEOUT, OPERATE_TIMEOUT);
+            isOperating = true;
+            XmBluetoothManager.getInstance().securityChipOperate(
+                    mDevice.getMac(),
+                    XmBluetoothManager.SECURITY_CHIP_BOLT_OPERATOR,
+                    new Response.BleWriteResponse() {
+                        @Override
+                        public void onResponse(int code, Void aVoid) {
+                            isOperating = false;
+                            mHandler.removeMessages(MSG_BOLT_TIMEOUT);
+                            if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
+                                updateLockMsg("反锁成功");
+                            } else {
+                                updateLockMsg("反锁失败");
+                            }
+                        }
+                    });
+        } else {
+            Toast.makeText(activity(), "设备未连接，请先建立连接", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void updateLockMsg(final String msg) {
@@ -278,28 +291,4 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
         });
     }
 
-    public static boolean byteEquals(byte[] lbytes, byte[] rbytes) {
-        if (lbytes == null && rbytes == null) {
-            return true;
-        }
-
-        if (lbytes == null || rbytes == null) {
-            return false;
-        }
-
-        int llen = lbytes.length;
-        int rlen = rbytes.length;
-
-        if (llen != rlen) {
-            return false;
-        }
-
-        for (int i = 0; i < llen; i++) {
-            if (lbytes[i] != rbytes[i]) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 }
