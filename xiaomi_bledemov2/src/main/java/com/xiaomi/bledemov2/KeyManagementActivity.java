@@ -89,8 +89,9 @@ public class KeyManagementActivity extends XmPluginBaseActivity implements View.
                 long activeTime = getUTCTime(); // 生效时间 UTC时间戳，单位为s
                 long expireTime = activeTime + 1 * DateUtils.YEAR_IN_MILLIS; // 过期时间 UTC时间戳，单位为s
                 List<Integer> weekdays = null; // 生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
+                boolean readonly = true; // true：被分享人不可接收锁push，false：被分享人可接收锁push
                 // 分享钥匙的有效时间可以配置
-                shareSecurityKey(mDevice.getModel(), mDevice.getDid(), shareUid, status, activeTime / 1000, expireTime / 1000, weekdays);
+                shareSecurityKey(mDevice.getModel(), mDevice.getDid(), shareUid, status, activeTime / 1000, expireTime / 1000, weekdays, readonly);
             } else {
                 Toast.makeText(KeyManagementActivity.this.activity(), "输入为空", Toast.LENGTH_SHORT).show();
             }
@@ -119,9 +120,9 @@ public class KeyManagementActivity extends XmPluginBaseActivity implements View.
         }
     }
 
-    public void shareSecurityKey(String model, String did, String shareUid, int status, long activeTime, long expireTime, List<Integer> weekdays) {
+    public void shareSecurityKey(String model, String did, String shareUid, int status, long activeTime, long expireTime, List<Integer> weekdays, boolean readonly) {
         XmPluginHostApi.instance().shareSecurityKey(model, did, shareUid,
-                status, activeTime, expireTime, weekdays, new Callback<Void>() {
+                status, activeTime, expireTime, weekdays, readonly, new Callback<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         updateContent("分享钥匙成功");
