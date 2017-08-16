@@ -2363,4 +2363,10 @@ public abstract class XmPluginHostApi {
             }
         });
     }
+
+    /**
+     * ApiLevel:45
+     * 获取UTC时间，单位为ms
+     */
+    public abstract long getUTCTimeInMillis();
 }
