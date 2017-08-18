@@ -491,4 +491,20 @@ public abstract class XmBluetoothManager {
      * @param operator 1: 开锁，2：反锁
      */
     public abstract void securityChipOperate(String mac, int operator, final BleWriteResponse response);
+
+    /**
+     * ApiLevle: 45
+     * 广播接收设备是否登录成功
+     */
+    public static final String ACTION_ONLINE_STATUS_CHANGED = "action.online.status.changed";
+    public static final String EXTRA_MAC = "extra_mac";
+    public static final String EXTRA_ONLINE_STATUS = "extra_online_status";
+    public static final int STATUS_LOGGED_IN = 0x50;
+
+    /**
+     * ApiLevel: 45
+     * 获取MD5处理过的token
+     * @return
+     */
+    public abstract String getTokenMd5(String mac);
 }
