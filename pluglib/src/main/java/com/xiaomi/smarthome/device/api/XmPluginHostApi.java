@@ -2167,7 +2167,7 @@ public abstract class XmPluginHostApi {
      * @param status 分享类别，1：暂时，2：周期，3：永久
      * @param activeTime 生效时间 UTC时间戳，单位为s
      * @param expireTime 过期时间 UTC时间戳，单位为s
-     * @param weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
+     * @param weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]，星期天对应0），仅在status=2时不可为空
      * @param readonly true：被分享人不可接收锁push，false：被分享人可接收锁push，（family关系用户不受这个字段影响）
      * @param callback
      */

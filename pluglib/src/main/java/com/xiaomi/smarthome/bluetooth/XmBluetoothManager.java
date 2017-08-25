@@ -463,9 +463,10 @@ public abstract class XmBluetoothManager {
 
     /**
      * ApiLevel: 45
-     * 获取锁设备分享后的KeyId
+     * 锁设备分享后的KeyId是否过期
+     * @return true：钥匙没有过期，false：钥匙已过期
      */
-    public abstract String getSecurityChipSharedKeyId(String mac);
+    public abstract boolean isSecurityChipSharedKeyValid(String mac);
 
     /**
      * ApiLevle: 45
