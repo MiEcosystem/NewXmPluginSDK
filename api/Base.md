@@ -162,3 +162,16 @@
      */
     public abstract void addToLauncher();
 ```
+##IXmPluginHostActivity
+```    
+/**
+     * Apilevel:46
+     *
+     * 显示用户协议dialog
+     *
+     * @param title 用户协议名称
+     * @param content 用户协议内容
+     * @param agreeListener 用户点击同意协议按钮listener
+     */
+    void showUserLicenseDialog(String title, String content, View.OnClickListener agreeListener);
+```
