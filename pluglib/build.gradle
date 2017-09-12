@@ -35,17 +35,16 @@ task clearJar(type: Delete) {
 }
 
 task makeJar(type: Copy) {
+    from("${project.buildDir}/intermediates/bundles/default/")
+    into("${project.buildDir}/libs/")
+    include('classes.jar')
+    rename('classes.jar', jarName)
     from("${project.buildDir}/intermediates/bundles/release/")
     into("${project.buildDir}/libs/")
     include('classes.jar')
     rename('classes.jar', jarName)
 }
-task makeJarForGradle3plus(type: Copy) {
-    from("${project.buildDir}/intermediates/bundles/default/")
-    into("${project.buildDir}/libs/")
-    include('classes.jar')
-    rename('classes.jar', jarName)
-}
+
 
 task sourcesJar(type: Jar) {
     from(android.sourceSets.main.java.srcDirs)
@@ -55,6 +54,6 @@ task sourcesJar(type: Jar) {
 }
 
 project.afterEvaluate {
-    makeJar.dependsOn(clearJar, assembleRelease, sourcesJar,makeJarForGradle3plus)
-    makeJarForGradle3plus.dependsOn(clearJar, assembleRelease);
+    makeJar.dependsOn(clearJar, assembleRelease, sourcesJar)
+    
 }
