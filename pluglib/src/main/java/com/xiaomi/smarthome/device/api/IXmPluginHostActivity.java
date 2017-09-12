@@ -895,4 +895,13 @@ public interface IXmPluginHostActivity {
      * ApiLevel: 37
      */
     void openShareDeviceActivity();
+
+    /**
+     * Apilevel:46
+     * @param title
+     * @param content
+     * @param agreeListener
+     */
+
+    void showUserLicenseDialog(String title, String content, View.OnClickListener agreeListener);
 }

@@ -2369,4 +2369,34 @@ public abstract class XmPluginHostApi {
      * 获取UTC时间，单位为ms
      */
     public abstract long getUTCTimeInMillis();
+
+    /**
+     * ApiLevel: 45
+     * 获取蓝牙锁绑定的时间
+     * @param model
+     * @param did
+     * @param callback
+     */
+    public void getBleLockBindInfo(String model, String did, Callback<String> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("did", did);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Parser<String> parser = new Parser<String>() {
+            @Override
+            public String parse(String response) throws JSONException {
+                /**
+                 * {"code":0,"message":"ok","result":{"bindtime":1505180216}}
+                 * 返回数据格式：{"bindtime":1505180216}
+                 */
+                JSONObject jsonObject = new JSONObject(response);
+                return jsonObject.optString("bindtime");
+            }
+        };
+
+        callSmartHomeApi(model, "/device/blelockbindinfo", dataObj, callback, parser);
+    }
 }
