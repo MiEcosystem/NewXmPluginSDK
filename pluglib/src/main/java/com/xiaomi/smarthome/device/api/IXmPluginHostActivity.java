@@ -271,7 +271,7 @@ public interface IXmPluginHostActivity {
 
     /**@deprecated
      * @see MenuItemBase
-     * 
+     *
      * ApiLevel:8 打开菜单,添加传设备did参数，onActivityResult()返回用户点击结果 String
      * selectMenu = data.getStringExtra("menu");
      *
@@ -345,7 +345,7 @@ public interface IXmPluginHostActivity {
                                        String shareContent,
                                        String shareImagesZipUrl, Bitmap thumb
     );
-    
+
     /**
      * ApiLevel: 15 打开分享dialog，分享本地图片
      *
@@ -481,7 +481,7 @@ public interface IXmPluginHostActivity {
         public String name;
         //ApiLevel: 20 支持副标题
         public String subName;
-        
+
         public String onMethod;// 开启时rpc调用
         public String onParams;
         public String offMethod;// 关闭rpc调用
@@ -562,12 +562,12 @@ public interface IXmPluginHostActivity {
      *
      */
     public abstract void startEditCustomScene();
-    
+
     /**
      * ApiLevel:14 进入某个设备固件更新
      */
     public abstract void goUpdateActivity(String did);
-    
+
     /**
      * ApiLevel:15 设置黑色的状态栏，默认是黑色的
      */
@@ -897,14 +897,14 @@ public interface IXmPluginHostActivity {
     void openShareDeviceActivity();
 
     /**
-     * Apilevel:46
+     * Apilevel:47
      *
      * 显示用户协议dialog
-     *
+     * @param dialogTitle dialog标题
      * @param title 用户协议名称
      * @param content 用户协议内容
      * @param agreeListener 用户点击同意协议按钮listener
      */
 
-    void showUserLicenseDialog(String title, String content, View.OnClickListener agreeListener);
+    void showUserLicenseDialog(String dialogTitle, String title, String content, View.OnClickListener agreeListener);
 }
