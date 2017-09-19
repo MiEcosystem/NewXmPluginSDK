@@ -898,10 +898,26 @@ public interface IXmPluginHostActivity {
 
     /**
      * Apilevel:46
-     * @param title
-     * @param content
-     * @param agreeListener
+     *
+     * 显示用户协议dialog
+     *
+     * @param title 用户协议名称
+     * @param content 用户协议内容
+     * @param agreeListener 用户点击同意协议按钮listener
      */
 
     void showUserLicenseDialog(String title, String content, View.OnClickListener agreeListener);
+
+    /**
+     * Apilevel:47
+     *
+     * 支持DeviceMoreNewActivity控制通用设置项里面的显示内容
+     * @param menus
+     * @param useDefault
+     * @param requestCode
+     * @param params
+     * @param commonSettingParams 只有params中设置了common_setting_enable后, commonSettingParams才会生效
+     */
+    public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
+                                       boolean useDefault, int requestCode, Intent params, Intent commonSettingParams);
 }
