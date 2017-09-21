@@ -33,7 +33,6 @@ proguard/
 captures/
 
 *.iml
-plugProject/
 gradle/
 gradlew
 gradlew.bat

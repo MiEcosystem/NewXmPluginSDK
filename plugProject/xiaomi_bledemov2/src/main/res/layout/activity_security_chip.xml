@@ -1,0 +1,109 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_bar_transparent_black" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="设备连接状态："/>
+
+        <TextView
+            android:id="@+id/device_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/own_connect"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="开始连接登录（Owner调用）"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/share_connect"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="使用分享的钥匙连接登录（被分享者调用）"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/unlock"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="开锁"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/lock"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="关锁"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/bolt"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="反锁"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/key_management"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="钥匙管理"
+        android:textSize="14sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@color/black"
+        android:fadeScrollbars="false">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/lock_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

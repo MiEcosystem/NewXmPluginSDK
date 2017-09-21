@@ -470,15 +470,15 @@ public abstract class XmBluetoothManager {
 
     /**
      * ApiLevle: 45
-     * 安全芯片操作符 关锁
+     * 安全芯片操作符 开锁
      */
-    public static final int SECURITY_CHIP_LOCK_OPERATOR = 0;
+    public static final int SECURITY_CHIP_UNLOCK_OPERATOR = 0;
 
     /**
      * ApiLevle: 45
-     * 安全芯片操作符 开锁
+     * 安全芯片操作符 关锁
      */
-    public static final int SECURITY_CHIP_UNLOCK_OPERATOR = 1;
+    public static final int SECURITY_CHIP_LOCK_OPERATOR = 1;
 
     /**
      * ApiLevle: 45
@@ -508,4 +508,5 @@ public abstract class XmBluetoothManager {
      * @return
      */
     public abstract String getTokenMd5(String mac);
+
 }
