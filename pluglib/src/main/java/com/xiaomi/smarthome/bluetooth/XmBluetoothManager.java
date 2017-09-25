@@ -469,29 +469,44 @@ public abstract class XmBluetoothManager {
     public abstract boolean isSecurityChipSharedKeyValid(String mac);
 
     /**
-     * ApiLevle: 45
+     * ApiLevel: 45
      * 安全芯片操作符 开锁
      */
     public static final int SECURITY_CHIP_UNLOCK_OPERATOR = 0;
-
     /**
-     * ApiLevle: 45
+     * ApiLevel: 45
      * 安全芯片操作符 关锁
      */
     public static final int SECURITY_CHIP_LOCK_OPERATOR = 1;
-
     /**
-     * ApiLevle: 45
+     * ApiLevel: 45
      * 安全芯片操作符 反锁
      */
     public static final int SECURITY_CHIP_BOLT_OPERATOR = 2;
+
+    /**
+     * ApiLevel: 45
+     * 开锁成功后，设备通过notify返回的state码
+     */
+    private static byte[] SECURITY_CHIP_UNLOCK_STATE = new byte[] {0x00};
+    /**
+     * ApiLevel: 45
+     * 关锁成功后，设备通过notify返回的state码
+     */
+    private static byte[] SECURITY_CHIP_LOCK_STATE = new byte[] {0x01};
+    /**
+     * ApiLevel: 45
+     * 反锁成功后，设备通过notify返回的state码
+     */
+    private static byte[] SECURITY_CHIP_BOLT_STATE = new byte[] {0x02};
+
     /**
      * ApiLevel: 45
      * 提供支持安全芯片的锁操作
      * @param mac
      * @param operator 1: 开锁，2：反锁
      */
-    public abstract void securityChipOperate(String mac, int operator, final BleWriteResponse response);
+    public abstract void securityChipOperate(String mac, int operator, final BleReadResponse response);
 
     /**
      * ApiLevle: 45

@@ -38,6 +38,10 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
     private TextView mLockMsgTextView;
     private Handler mHandler;
 
+    private static final char HEX_DIGITS[] = {
+            '0', '1', '2', '3', '4', '5',
+            '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+    };
     private static final int MSG_UNLOCK_TIMEOUT = 0x1001;
     private static final int MSG_LOCK_TIMEOUT = 0x1002;
     private static final int MSG_BOLT_TIMEOUT = 0x1003;
@@ -88,7 +92,9 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
                         XmBluetoothManager.getInstance().securityChipConnect(mDevice.getMac(), new Response.BleConnectResponse() {
                             @Override
                             public void onResponse(int code, Bundle bundle) {
-
+                                if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
+                                    // 连接登录成功，可以执行开锁/关锁等操作了
+                                }
                             }
                         });
                     } else {
@@ -250,13 +256,13 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
             XmBluetoothManager.getInstance().securityChipOperate(
                     mDevice.getMac(),
                     XmBluetoothManager.SECURITY_CHIP_UNLOCK_OPERATOR,
-                    new Response.BleWriteResponse() {
+                    new Response.BleReadResponse() {
                         @Override
-                        public void onResponse(int code, Void aVoid) {
+                        public void onResponse(int code, byte[] data) {
                             isOperating = false;
                             mHandler.removeMessages(MSG_UNLOCK_TIMEOUT);
                             if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                                updateLockMsg("开锁成功");
+                                updateLockMsg("开锁成功, data = " + toHexString(data));
                             } else {
                                 updateLockMsg("开锁失败");
                             }
@@ -279,13 +285,13 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
             XmBluetoothManager.getInstance().securityChipOperate(
                     mDevice.getMac(),
                     XmBluetoothManager.SECURITY_CHIP_LOCK_OPERATOR,
-                    new Response.BleWriteResponse() {
+                    new Response.BleReadResponse() {
                         @Override
-                        public void onResponse(int code, Void aVoid) {
+                        public void onResponse(int code, byte[] data) {
                             isOperating = false;
                             mHandler.removeMessages(MSG_LOCK_TIMEOUT);
                             if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                                updateLockMsg("关锁成功");
+                                updateLockMsg("关锁成功, data = " + toHexString(data));
                             } else {
                                 updateLockMsg("关锁失败");
                             }
@@ -308,13 +314,13 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
             XmBluetoothManager.getInstance().securityChipOperate(
                     mDevice.getMac(),
                     XmBluetoothManager.SECURITY_CHIP_BOLT_OPERATOR,
-                    new Response.BleWriteResponse() {
+                    new Response.BleReadResponse() {
                         @Override
-                        public void onResponse(int code, Void aVoid) {
+                        public void onResponse(int code, byte[] data) {
                             isOperating = false;
                             mHandler.removeMessages(MSG_BOLT_TIMEOUT);
                             if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                                updateLockMsg("反锁成功");
+                                updateLockMsg("反锁成功, data = " + toHexString(data));
                             } else {
                                 updateLockMsg("反锁失败");
                             }
@@ -335,4 +341,16 @@ public class SecurityChipTestActivity extends XmPluginBaseActivity {
         });
     }
 
+    public static String toHexString(byte[] b) {
+        if (b == null || b.length == 0) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder(b.length * 2);
+        for (byte aB : b) {
+            sb.append(HEX_DIGITS[(aB & 0xf0) >>> 4]);
+            sb.append(HEX_DIGITS[aB & 0x0f]);
+        }
+        return sb.toString();
+    }
 }
