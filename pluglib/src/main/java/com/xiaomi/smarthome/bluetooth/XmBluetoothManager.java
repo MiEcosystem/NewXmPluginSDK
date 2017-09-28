@@ -144,6 +144,12 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_ONGOING = -13;
         public static final int REQUEST_DENIED = -14;
         public static final int REQUEST_EXCEPTION = -15;
+        // // 设备已经被重置，没有注册的Key信息，需要用户重新绑定
+        public static final int REQUEST_NOT_REGISTERED = -16;
+        // 设备已经被绑定，需要用户解除绑定并且按设备的复位键清除绑定
+        public static final int REQUEST_REGISTERED = -17;
+        // 分享的钥匙已过期
+        public static final int REQUEST_SHARED_KEY_EXPIRED = -18;
 
         public static String toString(int code) {
             switch (code) {
