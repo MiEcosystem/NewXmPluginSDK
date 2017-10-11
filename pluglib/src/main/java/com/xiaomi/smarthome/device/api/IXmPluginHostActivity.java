@@ -1,6 +1,7 @@
 
 package com.xiaomi.smarthome.device.api;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -9,6 +10,7 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
+import android.text.Spanned;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -771,6 +773,9 @@ public interface IXmPluginHostActivity {
     public abstract void openMoreMenu(ArrayList<MenuItemBase> menus,
                                       boolean useDefault, int requestCode, Intent params);
 
+    public abstract void openMoreMenu(Activity currentActivity, DeviceStat device,
+                                      ArrayList<IXmPluginHostActivity.MenuItemBase> menus, boolean useDefault,
+                                      String unbindTips, int requestCode, Intent params);
     /**
      * ApiLevel: 27 更多菜单新标准，从上下拉菜单，默认有
      * 智能场景 scence_enable
@@ -905,6 +910,22 @@ public interface IXmPluginHostActivity {
      * @param content 用户协议内容
      * @param agreeListener 用户点击同意协议按钮listener
      */
-
+    @Deprecated
     void showUserLicenseDialog(String dialogTitle, String title, String content, View.OnClickListener agreeListener);
+
+    /**
+     * Apilevel:48
+     *
+     * 显示用户协议dialog
+     * @param dialogTitle dialog标题
+     * @param licenseTitle 用户协议名称
+     * @param licenseContent 用户协议内容
+     * @param privacyTitle 隐私条款名称
+     * @param privacyContent 隐私条款内容
+     * @param agreeListener 用户点击同意协议按钮listener
+     */
+    void showUserLicenseDialog(String dialogTitle,
+                               String licenseTitle, Spanned licenseContent,
+                               String privacyTitle, Spanned privacyContent,
+                               View.OnClickListener agreeListener);
 }
