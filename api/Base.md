@@ -165,14 +165,18 @@
 ##IXmPluginHostActivity
 ```    
 /**
-     * Apilevel:47
+     * Apilevel:48
      *
      * 显示用户协议dialog
      * @param dialogTitle dialog标题
-     * @param title 用户协议名称
-     * @param content 用户协议内容
+     * @param licenseTitle 用户协议名称
+     * @param licenseContent 用户协议内容
+     * @param privacyTitle 隐私条款名称
+     * @param privacyContent 隐私条款内容
      * @param agreeListener 用户点击同意协议按钮listener
      */
-
-    void showUserLicenseDialog(String dialogTitle, String title, String content, View.OnClickListener agreeListener);
+    void showUserLicenseDialog(String dialogTitle,
+                               String licenseTitle, Spanned licenseContent,
+                               String privacyTitle, Spanned privacyContent,
+                               View.OnClickListener agreeListener);
 ```
