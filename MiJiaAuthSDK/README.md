@@ -72,7 +72,7 @@ public class AuthCode {
     public static final int REQUEST_NO_RESPONSE = -903;///IAuthResponse 为空
     
 
-    public static final int REQUEST_CODE_CALL_AUTH_FOR_APP = 4;//给应用授权
+
     public static final int REQUEST_CODE_CALL_AUTH_FOR_DEVICE = 2;//给设备授权
     public static final int REQUEST_CODE_CALL_AUTH_FOR_BIND_DEVICE = 6;//给需要绑定的设备授权
 }
