@@ -1482,6 +1482,7 @@ public abstract class XmPluginHostApi {
             dataObj.put("key", key);
             dataObj.put("time_start", timeStart);
             dataObj.put("time_end", timeEnd);
+//            dataObj.put("limit",500);
         } catch (JSONException e) {
             if (callback != null) {
                 callback.onFailure(-1, e.toString());
@@ -2367,8 +2368,31 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel:45
      * 获取UTC时间，单位为ms
+     * 被废弃了，使用getUTCFromServer接口
      */
+    @Deprecated
     public abstract long getUTCTimeInMillis();
+
+    /**
+     * ApiLevel:48
+     * 从服务器获取UTC时间，单位为秒（返回-1，说明解析出现异常，当做错误处理）
+     * @param callback
+     */
+    public void getUTCFromServer(String model, Callback<Long> callback) {
+        JSONObject dataObj = new JSONObject();
+        Parser<Long> parser = new Parser<Long>() {
+            @Override
+            public Long parse(String response) throws JSONException {
+                /**
+                 * {"code":0,"message":"ok","result":1502874040}
+                 */
+                JSONObject jsonObject = new JSONObject(response);
+                return jsonObject.optLong("result", -1);
+            }
+        };
+
+        callSmartHomeApi(model, "/device/get_utc_time", dataObj, callback, parser);
+    }
 
     /**
      * ApiLevel: 45

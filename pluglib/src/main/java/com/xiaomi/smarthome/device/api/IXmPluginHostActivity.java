@@ -1,6 +1,7 @@
 
 package com.xiaomi.smarthome.device.api;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -9,6 +10,7 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
+import android.text.Spanned;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -271,7 +273,7 @@ public interface IXmPluginHostActivity {
 
     /**@deprecated
      * @see MenuItemBase
-     * 
+     *
      * ApiLevel:8 打开菜单,添加传设备did参数，onActivityResult()返回用户点击结果 String
      * selectMenu = data.getStringExtra("menu");
      *
@@ -345,7 +347,7 @@ public interface IXmPluginHostActivity {
                                        String shareContent,
                                        String shareImagesZipUrl, Bitmap thumb
     );
-    
+
     /**
      * ApiLevel: 15 打开分享dialog，分享本地图片
      *
@@ -481,7 +483,7 @@ public interface IXmPluginHostActivity {
         public String name;
         //ApiLevel: 20 支持副标题
         public String subName;
-        
+
         public String onMethod;// 开启时rpc调用
         public String onParams;
         public String offMethod;// 关闭rpc调用
@@ -562,12 +564,12 @@ public interface IXmPluginHostActivity {
      *
      */
     public abstract void startEditCustomScene();
-    
+
     /**
      * ApiLevel:14 进入某个设备固件更新
      */
     public abstract void goUpdateActivity(String did);
-    
+
     /**
      * ApiLevel:15 设置黑色的状态栏，默认是黑色的
      */
@@ -771,6 +773,9 @@ public interface IXmPluginHostActivity {
     public abstract void openMoreMenu(ArrayList<MenuItemBase> menus,
                                       boolean useDefault, int requestCode, Intent params);
 
+    public abstract void openMoreMenu(Activity currentActivity, DeviceStat device,
+                                      ArrayList<IXmPluginHostActivity.MenuItemBase> menus, boolean useDefault,
+                                      String unbindTips, int requestCode, Intent params);
     /**
      * ApiLevel: 27 更多菜单新标准，从上下拉菜单，默认有
      * 智能场景 scence_enable
@@ -897,16 +902,32 @@ public interface IXmPluginHostActivity {
     void openShareDeviceActivity();
 
     /**
-     * Apilevel:46
+     * Apilevel:47
      *
      * 显示用户协议dialog
-     *
+     * @param dialogTitle dialog标题
      * @param title 用户协议名称
      * @param content 用户协议内容
      * @param agreeListener 用户点击同意协议按钮listener
      */
+    @Deprecated
+    void showUserLicenseDialog(String dialogTitle, String title, String content, View.OnClickListener agreeListener);
 
-    void showUserLicenseDialog(String title, String content, View.OnClickListener agreeListener);
+    /**
+     * Apilevel:48
+     *
+     * 显示用户协议dialog
+     * @param dialogTitle dialog标题
+     * @param licenseTitle 用户协议名称
+     * @param licenseContent 用户协议内容
+     * @param privacyTitle 隐私条款名称
+     * @param privacyContent 隐私条款内容
+     * @param agreeListener 用户点击同意协议按钮listener
+     */
+    void showUserLicenseDialog(String dialogTitle,
+                               String licenseTitle, Spanned licenseContent,
+                               String privacyTitle, Spanned privacyContent,
+                               View.OnClickListener agreeListener);
 
     /**
      * Apilevel:47

@@ -15,13 +15,27 @@ public class PluginServiceHelper {
      * @param params
      * @return
      */
+    @Deprecated
     public static Intent getNotificationIntent(String model, Intent params) {
+        return getNotificationIntent(model, "", params);
+    }
+
+    /**
+     * ApiLevel: 48
+     *
+     * @param model
+     * @param did
+     * @param params
+     * @return
+     */
+    public static Intent getNotificationIntent(String model, String did, Intent params) {
         Intent intent = new Intent();
         intent.setClassName("com.xiaomi.smarthome",
-                "com.xiaomi.smarthome.framework.navigate.SmartHomeLauncher");
+                "com.xiaomi.smarthome.device.utils.DeviceLauncher2");
         intent.setAction("pluignservice.startForeground.notification.pendingIntent");
         intent.putExtra("params", params);
         intent.putExtra("model", model);
+        intent.putExtra("did", did);
         return intent;
     }
 }
