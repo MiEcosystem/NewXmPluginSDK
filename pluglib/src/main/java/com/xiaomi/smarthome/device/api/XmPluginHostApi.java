@@ -1482,6 +1482,7 @@ public abstract class XmPluginHostApi {
             dataObj.put("key", key);
             dataObj.put("time_start", timeStart);
             dataObj.put("time_end", timeEnd);
+//            dataObj.put("limit",500);
         } catch (JSONException e) {
             if (callback != null) {
                 callback.onFailure(-1, e.toString());
