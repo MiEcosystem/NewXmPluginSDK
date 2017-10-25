@@ -38,3 +38,5 @@ gradle/
 gradlew
 gradlew.bat
 libs_ex/plug_lib.jar
+
+.DS_Store
