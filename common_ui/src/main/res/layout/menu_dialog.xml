@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/dialog_muenu_bg"
     android:orientation="vertical"
+    android:layout_marginTop="20dp"
     >
 
 
