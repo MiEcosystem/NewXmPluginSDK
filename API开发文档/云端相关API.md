@@ -120,68 +120,68 @@ public abstract void getUserConfigV5(XmPluginPackage xmPluginPackage, String mod
 支持的部分云端API：
 
 >* `/scene/list` 获取设备定时列表
-* `/scene/delete` 删除设备定时
-* `/scene/edit` 创建（编辑）设备定时
-* `/home/latest_version` {"model": model} 获取最新固件版本（蓝牙设备）
-* `/home/checkversion` {"pid":0, "did":did} 获取最新固件版本（WIFI设备）
-插件获取设备上报给米家云端的 属性 与 事件 接口（包含蓝牙设备通过蓝牙网关上报的数据）：
-* `/user/get_user_device_data`  读取与时间相关数据，请求参数示例：
-
+>* `/scene/delete` 删除设备定时
+>* `/scene/edit` 创建（编辑）设备定时
+>* `/home/latest_version` {"model": model} 获取最新固件版本（蓝牙设备）
+>* `/home/checkversion` {"pid":0, "did":did} 获取最新固件版本（WIFI设备）
+>插件获取设备上报给米家云端的 属性 与 事件 接口（包含蓝牙设备通过蓝牙网关上报的数据）：
+>* `/user/get_user_device_data`  读取与时间相关数据，请求参数示例：
+>
 >	```
-	{
-		"did":"123",   //设备 id
-		"uid":'123',   //要查询的用户 uid 
-		"key":"power", //与上报时一致
-		"type":"prop", //与上报时一致，属性 为 prop ，事件为 event
-		"time_start":"1473841870", //数据起点时间，单位为秒
-		"time_end":"1473841880", //数据终点时间，单位为为秒
-		"group": //返回数据的方式，默认 raw , 可选值为 hour、day、week、 month。
-		"limit": //返回数据的条数，默认 20，最大 1000
-	}
-	```
+>	{
+>		"did":"123",   //设备 id
+>		"uid":'123',   //要查询的用户 uid 
+>		"key":"power", //与上报时一致
+>		"type":"prop", //与上报时一致，属性 为 prop ，事件为 event
+>		"time_start":"1473841870", //数据起点时间，单位为秒
+>		"time_end":"1473841880", //数据终点时间，单位为为秒
+>		"group": //返回数据的方式，默认 raw , 可选值为 hour、day、week、 month。
+>		"limit": //返回数据的条数，默认 20，最大 1000
+>	}
+>	```
 >* `/device/batchdevicedatas` 读取与时间无关数据，请求参数示例：
-
+>
 >	```
-	{
-	    "0":{
-	        "did":"311223", //设备 id
-	        "props":[
-	            "prop.usb_on",
-	            "prop.on"
-	        ]
-	    },
-	    "1":{
-	        "did":"311304",
-	        "props":[
-	            "prop.usb_on",
-	            "prop.on"
-	        ]
-	    }
-	}
-	```
+>	{
+>	    "0":{
+>	        "did":"311223", //设备 id
+>	        "props":[
+>	            "prop.usb_on",
+>	            "prop.on"
+>	        ]
+>	    },
+>	    "1":{
+>	        "did":"311304",
+>	        "props":[
+>	            "prop.usb_on",
+>	            "prop.on"
+>	        ]
+>	    }
+>	}
+>	```
 >* `/user/set_user_device_data`   插件上报设备数据（属性与事件）至米家云端，支持批量，请求参数示例：
-
+>
 >	```
-	{
-		"0": {
-			"uid": "xxx", //用户 uid
-			"did": "123", //设备id
-			"time": "1473841870", //时间戳，单位为秒
-			"type": "prop", // 属性为 prop，事件为 event
-			"key": "power",
-			"value": {} 
-		},
-		"1": {
-			"uid": "xxx",
-			"did": "456",
-			"time": "1473841888",
-			"type": "prop",
-			"key": "power",
-			"value": {}
-		}
-	}
-	```
-*注：米家服务器不解析该 `value` 故可按照自身需要定义内部格式，只要保证 `value` 最终是 `string` 即可。*
+>	{
+>		"0": {
+>			"uid": "xxx", //用户 uid
+>			"did": "123", //设备id
+>			"time": "1473841870", //时间戳，单位为秒
+>			"type": "prop", // 属性为 prop，事件为 event
+>			"key": "power",
+>			"value": {} 
+>		},
+>		"1": {
+>			"uid": "xxx",
+>			"did": "456",
+>			"time": "1473841888",
+>			"type": "prop",
+>			"key": "power",
+>			"value": {}
+>		}
+>	}
+>	```
+>*注：米家服务器不解析该 `value` 故可按照自身需要定义内部格式，只要保证 `value` 最终是 >`string` 即可。*
 
 插件存取跟设备相关数据，设备解绑（被用户删除）时，数据会被服务器自动清理。
 

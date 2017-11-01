@@ -1,7 +1,7 @@
 # 基本功能API
 ## XmPluginHostApi
-```
 
+```
 /**
  * 插件sdk版本号，插件开发如果必须要与之前api兼容，需要通过SDK_VERSION判断兼容性
  */
@@ -172,7 +172,8 @@ public abstract String decodeBarcode(Bitmap bitmap);
 
 ```
 
-##IXmPluginHostActivity
+## IXmPluginHostActivity
+
 ```    
 /**
  * ApiLevel:2 把设备添加到桌面快捷方式
