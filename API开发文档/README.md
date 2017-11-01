@@ -1,0 +1,27 @@
+# 接口说明
+## 提供接口的几个基本文件
+* XmPluginHostApi.java
+	* 封装了米家app提供给插件的大部分功能接口
+	* 使用XmPluginHostApi.instance()调用其中方法
+* IXmPluginHostActivity.java
+	* 封装了米家app提供的Activity或View相关的接口
+	* 插件的所有Activity都需要继承XmPluginBaseActivity，XmPluginBaseActivity里有个mHostActivity可以用来访问IXmPluginHostActivity类提供的各种方法
+* XmBluetoothManager.java
+	* 封装了所有蓝牙相关的接口
+	* 使用XmBluetoothManager.instance()调用其中方法
+
+## 详细的功能分类API
+* [基本功能API](基本功能API.md)
+* [Activity及页面相关API](Activity及页面相关API.md)  
+* [公共设备菜单API](公共设备菜单API.md)  
+* [设备状态获取、控制和订阅相关API](设备状态获取、控制和订阅相关API.md)
+* [广告接口](广告接口.md)
+* [视频接入](视频接入.md)
+* [云端相关API](云端相关API.md)  
+* [账号相关API](账号相关API.md)  
+* [场景相关API](场景相关API.md)  
+* [统计相关API](统计相关API.md)   
+* [通知栏相关API](通知栏相关API.md)  
+* [蓝牙基础API](蓝牙基础API.md)
+* [蓝牙固件升级API](蓝牙固件升级API.md)
+* [蓝牙锁相关API](蓝牙锁相关API.md)

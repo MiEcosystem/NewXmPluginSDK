@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_bar_transparent_black" />
+
+    <Button
+        android:id="@+id/menu1"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="16dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="@string/menu"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/menu2"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="16dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="@string/menu"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/menu3"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="16dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:text="@string/menu"
+        android:textSize="14sp" />
+
+</LinearLayout>
