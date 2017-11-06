@@ -437,12 +437,6 @@ public abstract class XmBluetoothManager {
     public abstract void unregisterCharacterChanged(String mac, UUID serviceId, UUID characterId);
 
     /**
-     * ApiLevel: 46
-     * 判断当前设备是否是通过蓝牙网关连接
-     */
-    public abstract boolean isBleGatewayConnected(String mac);
-
-    /**
      * ApiLevel: 45
      * 安全芯片连接
      */
@@ -529,5 +523,13 @@ public abstract class XmBluetoothManager {
      * @return
      */
     public abstract String getTokenMd5(String mac);
+
+    /**
+     * ApiLevel: 49
+     * 判断当前设备是否通过蓝牙网关扫描到了
+     * response code = 0 ： 网关扫描到了设备
+     *          code != 0, 网关没有扫描到设备
+     */
+    public abstract void isBleGatewayConnected(String mac, Response.BleResponse<Void> response);
 
 }

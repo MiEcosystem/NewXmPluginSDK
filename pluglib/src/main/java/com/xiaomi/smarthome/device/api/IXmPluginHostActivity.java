@@ -773,6 +773,10 @@ public interface IXmPluginHostActivity {
     public abstract void openMoreMenu(ArrayList<MenuItemBase> menus,
                                       boolean useDefault, int requestCode, Intent params);
 
+    @Deprecated
+    /**
+     * 直接在params中就可以传递删除设备的自定义提示文案，没有必要再单独调用本接口
+     */
     public abstract void openMoreMenu(Activity currentActivity, DeviceStat device,
                                       ArrayList<IXmPluginHostActivity.MenuItemBase> menus, boolean useDefault,
                                       String unbindTips, int requestCode, Intent params);
