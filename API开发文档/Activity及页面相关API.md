@@ -182,9 +182,9 @@ public abstract void openMoreMenu(ArrayList<MenuItemBase> menus,
 
 /**
  * ApiLevel: 27 更多菜单新标准，从上下拉菜单，默认有
- * 智能场景 scence_enable
+ * 智能 scence_enable
  * 通用设置 common_setting_enable
- * 帮助与反馈 help_feedback_enable
+ * 使用帮助 help_feedback_enable
  *
  * ArrayList<IXmPluginHostActivity.MenuItemBase> menus = new
  ArrayList<>();
