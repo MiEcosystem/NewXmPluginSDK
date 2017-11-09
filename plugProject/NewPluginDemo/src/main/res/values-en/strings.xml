@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">XmPluginDemo</string>
+    <string name="hello_world">This is MiHome Demo Plugin</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome">Welcome to use DevBoard</string>
+    <string name="control_example">Device Control</string>
+    <string name="cloud_debug">Cloud Debug</string>
+    <string name="create_product">Create Product</string>
+
+    <!-- control -->
+    <string name="control_title">Device Control Demo</string>
+    <string name="control_desc">Control the lights by Command</string>
+    <string name="send">Send Command</string>
+
+    <!-- welcome -->
+    <string name="welcome_developer">你好，开发者 \n\n 终于等到你的到来，在小米智能硬件平台，您有机会创造出惊艳世界的智能产品。 \n\n 未来是智能化的时代，我们准备好了，你呢?</string>
+
+</resources>

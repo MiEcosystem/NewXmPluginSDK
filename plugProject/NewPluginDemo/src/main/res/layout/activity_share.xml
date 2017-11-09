@@ -1,0 +1,216 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/sub_title_bar_black" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/dialog_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/multi_images_share"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="多图片分享"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+            
+             <RelativeLayout
+                android:id="@+id/single_image_share"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="单图分享"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+            
+             <RelativeLayout
+                android:id="@+id/multi_images_download_share"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="多图下载分享"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+            
+             
+               <RelativeLayout
+            android:id="@+id/testShareUrl"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:background="@drawable/common_white_list" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="分享Url"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/testShareImage"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:background="@drawable/common_white_list" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="分享Image"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/testShareImageDialog"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:background="@drawable/common_white_list" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="分享Image Dialog"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/shopShareImage"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:background="@drawable/common_white_list" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="商城分享"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

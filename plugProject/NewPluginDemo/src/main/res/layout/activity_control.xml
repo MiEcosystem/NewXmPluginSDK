@@ -1,0 +1,199 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/sub_title_bar_black" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/panel"
+            android:background="@color/black" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/control_board" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/control_desc"
+                    android:textColor="#adadad"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="R"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_22sp" />
+
+                        <com.xiaomi.xmplugindemo.widget.MyEditText
+                            android:id="@+id/r_edit"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="9dp"
+                            android:background="@drawable/input_bg"
+                            android:gravity="center"
+                            android:hint="0-255"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:nextFocusForward="@+id/g_edit"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/cursor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="G"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_22sp" />
+
+                        <com.xiaomi.xmplugindemo.widget.MyEditText
+                            android:id="@+id/g_edit"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="9dp"
+                            android:background="@drawable/input_bg"
+                            android:gravity="center"
+                            android:hint="0-255"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:nextFocusForward="@+id/b_edit"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/cursor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="B"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_22sp" />
+
+                        <com.xiaomi.xmplugindemo.widget.MyEditText
+                            android:id="@+id/b_edit"
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="9dp"
+                            android:background="@drawable/input_bg"
+                            android:gravity="center"
+                            android:hint="0-255"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@drawable/cursor" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/control_arrow" >
+                </ImageView>
+
+                <RelativeLayout
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/border"
+                    android:padding="1dp" >
+
+                    <View
+                        android:id="@+id/color_board"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+                    </View>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/focus_holder"
+                android:layout_width="1dp"
+                android:layout_height="1dp" />
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="23.3dip"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/common_button"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/send"
+                android:textColor="@color/common_button"
+                android:textSize="@dimen/font_size_13sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

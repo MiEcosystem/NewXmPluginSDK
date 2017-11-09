@@ -48,7 +48,7 @@ def gen_plug(modelName, userid):
     projectName = modelParam[0] + '_' + modelParam[1]
     packageName = 'com.' + modelParam[0] + '.' + modelParam[1]
     originProjectName = 'Demo'
-    originProjectPath = os.getcwd() + '/' + originProjectName
+    originProjectPath = os.getcwd() + '/plugProject/' + originProjectName
     projectPath = os.getcwd() + '/plugProject/' + projectName
     if os.path.exists(projectPath):
         shutil.rmtree(projectPath)

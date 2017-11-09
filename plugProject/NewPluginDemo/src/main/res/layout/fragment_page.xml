@@ -1,0 +1,65 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/btn"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:background="@drawable/common_button"
+        android:gravity="center"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:text="测试"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:paddingTop="15dp" >
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/common_btn_left"
+            android:gravity="center"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:singleLine="true"
+            android:text="@string/cancel"
+            android:textColor="@color/common_button"
+            android:textSize="@dimen/font_size_13sp" />
+
+        <TextView
+            android:id="@+id/share"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/common_btn_right"
+            android:gravity="center"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:singleLine="true"
+            android:text="@string/ok_button"
+            android:textColor="@color/common_button"
+            android:textSize="@dimen/font_size_13sp" />
+    </LinearLayout>
+
+</FrameLayout>

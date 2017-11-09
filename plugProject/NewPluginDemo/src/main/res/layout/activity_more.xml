@@ -1,0 +1,270 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/sub_title_bar_black" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/menu_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/hello"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="你好, 开发者"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/transparent_titlerar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="透明titlebar"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/dialog"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Dialog"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/share"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="分享"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/setting"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="设置"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/others"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="ApiDemo-Others"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/test_case"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="插件测试用例"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/base_setting"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="通用设置"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

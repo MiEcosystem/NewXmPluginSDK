@@ -1,0 +1,269 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/sub_title_bar_black" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/dialog_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/message_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Message Dialog"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/input_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="输入Dialog"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/progress_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Progress Dialog"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/progress_dialog_1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Progress Dialog 1"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/progress_dialog_2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Progress Dialog 2"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/item_select_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Item List Dialog"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/single_select_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="单选Dialog"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/multi_select_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_item_single_line_without_icon_height"
+                android:background="@drawable/common_white_list_bg"
+                android:paddingLeft="@dimen/setting_item_detail_margin_left"
+                android:paddingRight="@dimen/setting_item_detail_margin_right" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divider_line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="多选Dialog"
+                    android:textColor="@color/setting_item_detail_text_color"
+                    android:textSize="@dimen/setting_item_detail_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/setting_item_detail_icon_margin_right"
+                    android:src="@drawable/right_arrow_white" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
