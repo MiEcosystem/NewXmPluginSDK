@@ -205,7 +205,8 @@ plugProject目录下包含了插件示例工程，可供插件开发参考：
 	如果想依赖其他jar的话，不需要修改gradle，直接将jar放入./libs目录下面。
 
 # 调试插件
-安装上插件后，会自动启动米家app，点击android studio 调试按钮，选择com.xiaomi.smarthome:plugin进程，如下图所示按钮，可以在插件代码中打断点调试
+安装上插件后，会自动启动米家app，点击android studio 调试按钮，选择com.xiaomi.smarthome:plugin进程，如下图所示按钮，可以在插件代码中打断点调试:
+
 ![](./md_images/gradle_debug.png)
 
 # 测试插件
