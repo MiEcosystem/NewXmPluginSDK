@@ -8,13 +8,13 @@
 
 * 通用设置菜单：
 
-***tips: 通用设置整个页面由米家app提供, 插件可以隐藏/显示里面的item, 也可以添加自己的item到里面。***
-![](../md_images/general_more_menu.png)
+	***tips: 通用设置整个页面由米家app提供, 插件可以隐藏/显示里面的item, 也可以添加自己的item到里面。***
+	![](../md_images/general_more_menu.png)
 
 * 下拉弹出菜单（**推荐使用此种菜单样式**）：
 
-***tips: 整个菜单Window由米家app提供, 点击通用设置后会跳转到上一步描述的通用设置菜单页中, 插件可以隐藏里面的item, 也可以添加自己的item到里面。***
-![](../md_images/pop_more_menu.png)
+	***tips: 整个菜单Window由米家app提供, 点击通用设置后会跳转到上一步描述的通用设置菜单页中, 插件可以隐藏里面的item, 也可以添加自己的item到里面。***
+	![](../md_images/pop_more_menu.png)
 
 ## 通用设置菜单
 * 接口描述(IXmPluginHostActivity.java)

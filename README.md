@@ -61,7 +61,7 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的Android插件开�
 # 功能模块文档
 * [Android客户端插件人机界面指南](Android客户端插件人机界面指南.pdf)
 	* 供插件UI设计参考
-* UI交互规范
+* [UI交互规范](UI交互规范)
 	* 供插件UI设计参考
 * [蓝牙连接规范](蓝牙连接规范.md)
 	* 显示米家app中蓝牙设备的配对、连接授权流程，供了解参考
@@ -74,15 +74,17 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的Android插件开�
 
 # 插件示例代码
 
-从github下载[插件示例工程](https://github.com/MiEcosystem/NewPluginDemo)，里面包含米家app提供给插件的各种功能演示。
-	
-安装完示例插件后，点击小米开发板设备，可以看到实例效果。
-	
-*说明：必须得使用米家app测试账号才能运行示例插件，测试账号如下：*
-```
-用户名:923522198
-密码:123asdzxc
-```
+plugProject目录下包含了插件示例工程，可供插件开发参考：
+
+* Demo
+	* 演示了最基本的插件工程
+* xiaomi_bledemov2
+	* 演示了蓝牙锁相关API
+* NewPluginDemo
+	* 演示了给插件提供的大部分UI组件以及相关功能API
+	* 安装完示例插件后，点击小米开发板设备，可以看到实例效果
+	* 说明：必须得使用米家app测试账号才能运行示例插件，测试账号如下：
+     `用户名:923522198`, `密码:123asdzxc`
 
 # 开发前准备工作
 1. 登陆[米家开放平台](https://open.home.mi.com)
@@ -105,19 +107,14 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的Android插件开�
 	米家应用商店版的app不支持本地开发调试，需要安装sdk目录下的米家app（SmartHome.apk）。
 	
 # 开发插件
-1. [github](https://github.com/MiEcosystem/NewXmPluginSDK)更新SDK代码
+1. 从[github](https://github.com/MiEcosystem/NewXmPluginSDK)更新SDK代码
 	
-	插件工程放置于plugProject目录下，如下图，可以放置多个插件工程，注意插件工程目录结构也可以在plugProject目录下直接管理其他git创库工程，比如插件实例工程[NewPluginDemo](https://github.com/MiEcosystem/NewPluginDemo)，在plugProject目录下直接clone即可：
-	
-	```
-	cd plugProject
-	git clone https://github.com/MiEcosystem/NewPluginDemo.git
-	```
+	插件工程放置于plugProject目录下，如下图，可以放置多个插件工程。
 	![](./md_images/gradle_project.png)
 
 1. 创建新插件工程
 	
-	执行SDK目录下python脚本gen_plug.py：
+	在SDK根目录下执行python脚本gen_plug.py（执行完后会在plugProject目录下自动生成最简单的插件工程）：
 	
 	注意：DevelopId为申请的小米开发者账号（小米账号），不是手机号码。
 	
@@ -184,18 +181,7 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的Android插件开�
 	通过gradle指令编译运行，在插件sdk目录下执行：
 	
 	```
-	gradle tasks
-	```
-	可以看到安装插件task，如下图所示：
-	
-	![](./md_images/gradle_tasks.png)
-	
-	```
-	./gradlew install 安装运行release配置插件
-	./gradlew installRelease 安装运行release配置插件
-	./gradlew installDebug 安装运行debug配置插件
-	
-	如果有多个插件工程，上面指令会安装所有插件，指定安装某个插件工程,比如插件Xiaomi_demo
+	假设插件工程名为Xiaomi_demo
 	
 	./gradlew installXiaomi_demo 安装运行release配置插件
 	./gradlew installXiaomi_demoRelease 安装运行release配置插件
