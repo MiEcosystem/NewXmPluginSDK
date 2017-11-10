@@ -135,7 +135,7 @@ public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
                                   boolean useDefault, int requestCode, Intent params);
                                   
 /**
- * Apilevel:49
+ * Apilevel:51
  * 显示下拉菜单, 但是新增了支持对通用设置二级菜单的功能配置
  * 
  * @param menus 同上

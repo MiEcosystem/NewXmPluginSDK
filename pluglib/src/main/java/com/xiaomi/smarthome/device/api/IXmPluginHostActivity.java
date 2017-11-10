@@ -934,7 +934,7 @@ public interface IXmPluginHostActivity {
                                View.OnClickListener agreeListener);
 
     /**
-     * Apilevel:49
+     * Apilevel:51
      *
      * 支持DeviceMoreNewActivity控制通用设置项里面的显示内容
      * @param menus

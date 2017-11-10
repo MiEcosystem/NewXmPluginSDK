@@ -437,71 +437,71 @@ public abstract class XmBluetoothManager {
     public abstract void unregisterCharacterChanged(String mac, UUID serviceId, UUID characterId);
 
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 安全芯片连接
      */
     public abstract void securityChipConnect(String mac, final BleConnectResponse response);
 
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 安全芯片数据加密
      */
     public abstract void securityChipEncrypt(String mac, byte[] data, final BleReadResponse response);
 
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 安全芯片数据解密
      */
     public abstract void securityChipDecrypt(String mac, byte[] data, final BleReadResponse response);
 
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 锁的分享设备连接
      * @param mac 设备的mac
      */
     public abstract void securityChipSharedDeviceConnect(String mac, final BleConnectResponse response);
 
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 锁设备分享后的KeyId是否过期
      * @return true：钥匙没有过期，false：钥匙已过期
      */
     public abstract boolean isSecurityChipSharedKeyValid(String mac);
 
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 安全芯片操作符 开锁
      */
     public static final int SECURITY_CHIP_UNLOCK_OPERATOR = 0;
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 安全芯片操作符 关锁
      */
     public static final int SECURITY_CHIP_LOCK_OPERATOR = 1;
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 安全芯片操作符 反锁
      */
     public static final int SECURITY_CHIP_BOLT_OPERATOR = 2;
 
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 开锁成功后，设备通过notify返回的state码
      */
     private static byte[] SECURITY_CHIP_UNLOCK_STATE = new byte[] {0x00};
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 关锁成功后，设备通过notify返回的state码
      */
     private static byte[] SECURITY_CHIP_LOCK_STATE = new byte[] {0x01};
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 反锁成功后，设备通过notify返回的state码
      */
     private static byte[] SECURITY_CHIP_BOLT_STATE = new byte[] {0x02};
 
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 提供支持安全芯片的锁操作
      * @param mac
      * @param operator 1: 开锁，2：反锁
@@ -509,7 +509,7 @@ public abstract class XmBluetoothManager {
     public abstract void securityChipOperate(String mac, int operator, final BleReadResponse response);
 
     /**
-     * ApiLevle: 49
+     * ApiLevle: 51
      * 广播接收设备是否登录成功
      */
     public static final String ACTION_ONLINE_STATUS_CHANGED = "action.online.status.changed";
@@ -518,7 +518,7 @@ public abstract class XmBluetoothManager {
     public static final int STATUS_LOGGED_IN = 0x50;
 
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 获取MD5处理过的token
      * @return
      */

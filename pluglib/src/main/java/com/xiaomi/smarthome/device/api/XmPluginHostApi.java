@@ -2159,7 +2159,7 @@ public abstract class XmPluginHostApi {
     public abstract int getMiHomeNotificationIcon();
 
     /**
-     * ApiLevel:49
+     * ApiLevel:51
      * 分享电子钥匙
      *
      * @param model 设备model
@@ -2241,7 +2241,7 @@ public abstract class XmPluginHostApi {
     }
 
     /**
-     * ApiLevel:49
+     * ApiLevel:51
      * 更新分享的电子钥匙信息
      *
      * @param model 设备的model
@@ -2282,7 +2282,7 @@ public abstract class XmPluginHostApi {
     }
 
     /**
-     * ApiLevel:49
+     * ApiLevel:51
      * 删除共享的电子钥匙
      *
      * @param model 设备的model
@@ -2304,7 +2304,7 @@ public abstract class XmPluginHostApi {
     }
 
     /**
-     * ApiLevel:49
+     * ApiLevel:51
      * 获取所有分享的电子钥匙信息
      *
      * @param model 设备model
@@ -2366,7 +2366,7 @@ public abstract class XmPluginHostApi {
     }
 
     /**
-     * ApiLevel:49
+     * ApiLevel:51
      * 获取UTC时间，单位为ms
      * 被废弃了，使用getUTCFromServer接口
      */
@@ -2374,7 +2374,7 @@ public abstract class XmPluginHostApi {
     public abstract long getUTCTimeInMillis();
 
     /**
-     * ApiLevel:49
+     * ApiLevel:51
      * 从服务器获取UTC时间，单位为秒（返回-1，说明解析出现异常，当做错误处理）
      * @param callback
      */
@@ -2395,7 +2395,7 @@ public abstract class XmPluginHostApi {
     }
 
     /**
-     * ApiLevel: 49
+     * ApiLevel: 51
      * 获取蓝牙锁绑定的时间
      * @param model
      * @param did
