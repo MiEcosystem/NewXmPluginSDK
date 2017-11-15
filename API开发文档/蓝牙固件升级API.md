@@ -95,6 +95,20 @@ findViewById(R.id.title_bar_more).setOnClickListener(new View.OnClickListener() 
 });
 ```
 
+<h5>如果插件调用的是带下拉列表的菜单项，没法直接调用通用设置页，则需要使用如下方法传入自定义的固件升级接口(该功能只有在ApiLevel >= 51的插件才能使用)：</h5>
+
+```Java
+findViewById(R.id.title_bar_more).setOnClickListener(new View.OnClickListener() {
+
+    @Override
+    public void onClick(View v) {
+        List<MenuItemBase> menus = new ArrayList<MenuItemBase>();
+        menus.add(IXmPluginHostActivity.BleMenuItem.newUpgraderItem(new MyUpgrader()));
+        hostActivity().openMoreMenu2((ArrayList<MenuItemBase>) menus, true, 0, null);
+    }
+});
+```
+
 <h5>固件升级接口需要继承自BleUpgrader，如下：</h5>
 
 ```Java
