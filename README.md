@@ -21,7 +21,7 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的Android插件开�
 
 **米家app最新版本：5.0.10**
 
-**米家app最新API Level：51**
+**米家app最新API Level：52**
 
 **米家app compileSdkVersion：26**
 
