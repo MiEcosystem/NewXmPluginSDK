@@ -8,12 +8,12 @@
 
 * 通用设置菜单：
 
-	***tips: 通用设置整个页面由米家app提供, 插件可以隐藏/显示里面的item, 也可以添加自己的item到里面。***
+	***通用设置整个页面由米家app提供, 插件可以隐藏/显示里面的item, 也可以添加自己的item到里面。***
 	![](../md_images/general_more_menu.png)
 
 * 下拉弹出菜单（**推荐使用此种菜单样式**）：
 
-	***tips: 整个菜单Window由米家app提供, 点击通用设置后会跳转到上一步描述的通用设置菜单页中, 插件可以隐藏里面的item, 也可以添加自己的item到里面。***
+	***整个菜单Window由米家app提供, 点击通用设置后会跳转到上一步描述的通用设置菜单页中, 插件可以隐藏里面的item, 也可以添加自己的item到里面。***
 	![](../md_images/pop_more_menu.png)
 
 ## 通用设置菜单
@@ -99,9 +99,9 @@ menus.add(slideBtnMenuItem);
 // 配置自定义蓝牙固件升级
 menus.add(BleMenuItem.newUpgraderItem(new MyUpgrader()));
    
+// 配置已有通用设置item是否显示，更多配置参数可参考接口描述
 Intent intent = new Intent();
 intent.putExtra("unbind_enable", false);
-// 其它的设置项可以参考API说明
 
 mHostActivity.openMoreMenu(menus, true, REQUEST_MENU, intent);
 
@@ -196,9 +196,18 @@ slideBtnMenuItem.offParams =
        offparams.toString();
 menus.add(slideBtnMenuItem);
    
-// 其它的设置项可以参考API说明
+// 配置自定义蓝牙固件升级
+menus.add(BleMenuItem.newUpgraderItem(new MyUpgrader()));
 
-mHostActivity.openMoreMenu2(menus, true, REQUEST_MENU, null);
+// 配置已有一级菜单item是否显示，更多配置参数可参考接口描述
+Intent params = new Intent();
+params.putExtra("help_feedback_enable", false);
+
+// 配置已有二级通用菜单item是否显示，更多配置参数可参考接口描述
+Intent commonSettingParams = new Intent();
+commonSettingParams.putExtra("unbind_enable", false);
+
+mHostActivity.openMoreMenu2(menus, true, REQUEST_MENU, params, commonSettingParams);
 
 ```
 
