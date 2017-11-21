@@ -154,6 +154,11 @@ public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
  *               name: "security_setting_enable", value: true/false, default: false, 显示/隐藏"安全设置"item
  *               name: "bluetooth_gateway", value: true/false, default: true, 设备属于蓝牙网关设备则显示"蓝牙网关"item (分享的设备不显示本item)
  *               name: "help_enable, value: true/false, default: false, 显示/隐藏"使用帮助"item（显示在插件管理后台配置的用户常用问题FAQ）
+ *         
+ *               查看/解除用户协议，Apilevel:53可用
+ *               name:"enableRemoveLicense",value:true/false,default:false，当为true时此菜单项可见
+ *               name:"licenseContent",value:Spanned,用户协议显示内容
+ *               name:"privacyContent",value:Spanned,隐私政策显示内容
  */
 public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
                                    boolean useDefault, int requestCode, Intent params, Intent commonSettingParams);                                  
