@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -32,10 +33,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -2423,4 +2427,20 @@ public abstract class XmPluginHostApi {
 
         callSmartHomeApi(model, "/device/blelockbindinfo", dataObj, callback, parser);
     }
+
+    /**
+     * ApiLevel: 51
+     * 请求app config
+     * @param name
+     * @param lang
+     * @param version
+     */
+    public abstract void getAppConfig(String name, String lang, String version, Callback<String> callback);
+
+
+    /**
+     * ApiLevel: 51
+     * 获取app语言信息
+     */
+    public abstract Locale getSettingLocale();
 }

@@ -684,7 +684,7 @@ public interface IXmPluginHostActivity {
      */
     public abstract void openRechargePage(int type,double latitude,double longitude);
 
-    public enum BarcodeFormat {
+     public enum BarcodeFormat {
 
         /** Aztec 2D barcode format. */
         AZTEC,
@@ -829,7 +829,7 @@ public interface IXmPluginHostActivity {
      * @param requestCode
      */
     public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
-                                       boolean useDefault, int requestCode, Intent params);
+                                      boolean useDefault, int requestCode, Intent params);
 
     /**
      *  ApiLevel: 29 需要验证pincode，如果设置pincode，则每次打开页面自动跳到验证pincode页面
@@ -846,8 +846,8 @@ public interface IXmPluginHostActivity {
      * @param shareImagesFile 本地视频路径
      */
     public void openShareVideoActivity(String shareTitle,
-                                       String shareContent,
-                                       String shareImagesFile
+                                         String shareContent,
+                                         String shareImagesFile
     );
 
     /**

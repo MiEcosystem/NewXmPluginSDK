@@ -34,6 +34,19 @@ public class SceneInfo implements Parcelable {
     public static final int LAUNCH_PHONE_CALL = 7;
     public static final int LAUNCH_SMS_RECEIVED = 8;
 
+    /**
+     * ApiLevel:51
+     */
+    public static final int LAUNCH_HUMIDITY = 14;
+    public static final int LAUNCH_AQI = 15;
+    public static final int LAUNCH_SUN_RISE = 16;
+    public static final int LAUNCH_SUN_SET = 17;
+    public static final int LAUNCH_TEMPERATURE = 18;
+    public static final int LAUNCH_COME_LOC = 19;
+    public static final int LAUNCH_LEAVE_LOC = 20;
+
+
+
     public static final int ACTION_DELAY = 9;
     public static final int ACTION_EXEC_AUTONMATION = 10;
     public static final int ACTION_PUSH = 11;
