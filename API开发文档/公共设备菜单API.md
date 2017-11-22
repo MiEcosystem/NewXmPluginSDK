@@ -157,6 +157,7 @@ public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
  *         
  *               查看/解除用户协议，Apilevel:53可用
  *               name:"enableRemoveLicense",value:true/false,default:false，当为true时此菜单项可见
+ *               name:"useDefaultLicense",value:true/false,default:false，当为true时使用小米隐私协议政策
  *               name:"licenseContent",value:Spanned,用户协议显示内容
  *               name:"privacyContent",value:Spanned,隐私政策显示内容
  */
