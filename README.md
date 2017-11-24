@@ -81,7 +81,7 @@ plugProject目录下包含了插件示例工程，可供插件开发参考：
      `用户名:923522198`, `密码:123asdzxc`
 
 # 开发前准备工作
-1. 登陆[小米IOT开放平台](https://iot.mi.com)
+1. 登陆[小米IoT开放平台](https://iot.mi.com)
 1. 申请开发者账号DevelopId
 1. 登记新产品,记录设备model
 1. 创建签名证书

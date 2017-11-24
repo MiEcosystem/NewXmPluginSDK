@@ -6,7 +6,7 @@
 
 在获取授权之前，您需要：
 
-1)	登录[小米IOT开放平台](https://iot.mi.com)完成开发者资质认证；
+1)	登录[小米IoT开放平台](https://iot.mi.com)完成开发者资质认证；
 
 2)	完成app应用申请并通过审核，并完善相关资料；
 
@@ -29,7 +29,7 @@ IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
 * 2)请求设备绑定的话传入AuthCode.REQUEST_CODE_CALL_AUTH_FOR_BIND_DEVICE<br>
 
 **Bundle data**对应的是需要传入的参数
- 如果是设备授权的话，需要传入AuthConstants.EXTRA_APPLICATION_ID，该参数需要到小米IOT开放平台申请。<br>
+ 如果是设备授权的话，需要传入AuthConstants.EXTRA_APPLICATION_ID，该参数需要到小米IoT开放平台申请。<br>
  同时你还需要传入设备的idAuthConstants.EXTRA_DEVICE_DID，该参数是你需要授权的设备的did。<br>
  例如<br>
  如果是绑定设备，除了传入did之外，还需要传入下面几个参数:<br>
@@ -63,7 +63,7 @@ public class AuthCode {
     public static final int REQUEST_CODE_ERROR = -108;//请求的code错误
     public static final int REQUSET_DID_ERROR = -109;///缺少did
     public static final int REQUEST_AUTH_NO_CAPABILITY = -110;///该设备不支持语音授权，或者该设备不属于你的名下
-    public static final int REQUEST_AUTH_NO_PERMISSION = -111;///该账号不支持该类型授权，请到小米IOT开放平台申请
+    public static final int REQUEST_AUTH_NO_PERMISSION = -111;///该账号不支持该类型授权，请到小米IoT开放平台申请
     public static final int REQUEST_MISS_PARAMS = -112;//缺少参数
     public static final int REQUEST_BIND_ERROR = -113;//绑定失败
     public static final int REQUEST_API_LEVEL_ERR = -114;///版本号不匹配
