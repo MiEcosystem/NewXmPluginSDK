@@ -1,11 +1,16 @@
-# MiJiaAuth  米家授权
+# MiJiaAuth 米家授权
 
 背景：我们开发了一套授权的系统，通过米家App对自己选择的设备进行授权，就可以在其他app中获取这些授权设备的信息并且可以对其进行操作。
+
 前提条件：
+
 在获取授权之前，您需要：
-1)	在米家开放平台完成开发者资质认证  https://open.home.mi.com/index.html
-2)	完成app应用申请并通过审核，并完善相关资料
-3)	下载一个米家App并注册一个属于自己的账号
+
+1)	登录[小米IOT开放平台](https://iot.mi.com)完成开发者资质认证；
+
+2)	完成app应用申请并通过审核，并完善相关资料；
+
+3)	下载一个米家App并注册一个属于自己的账号。
 
 ### 米家Android客户端授权调用
 
@@ -24,7 +29,7 @@ IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
 * 2)请求设备绑定的话传入AuthCode.REQUEST_CODE_CALL_AUTH_FOR_BIND_DEVICE<br>
 
 **Bundle data**对应的是需要传入的参数
- 如果是设备授权的话，需要传入AuthConstants.EXTRA_APPLICATION_ID，该参数需要到开放平台申请。<br>
+ 如果是设备授权的话，需要传入AuthConstants.EXTRA_APPLICATION_ID，该参数需要到小米IOT开放平台申请。<br>
  同时你还需要传入设备的idAuthConstants.EXTRA_DEVICE_DID，该参数是你需要授权的设备的did。<br>
  例如<br>
  如果是绑定设备，除了传入did之外，还需要传入下面几个参数:<br>
@@ -35,9 +40,8 @@ IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
    bundle.putString(AuthConstants.EXTRA_APPLICATION_ID, "app_id");
    if (requestCode == AuthCode.REQUEST_CODE_CALL_AUTH_FOR_DEVICE){
         bundle.putString(AuthConstants.EXTRA_DEVICE_DID,"device_id");    
-        }               
+  }               
  </pre></code>
- 
 
  
 ### 4 接收返回值 通过IAuthResponse
@@ -59,7 +63,7 @@ public class AuthCode {
     public static final int REQUEST_CODE_ERROR = -108;//请求的code错误
     public static final int REQUSET_DID_ERROR = -109;///缺少did
     public static final int REQUEST_AUTH_NO_CAPABILITY = -110;///该设备不支持语音授权，或者该设备不属于你的名下
-    public static final int REQUEST_AUTH_NO_PERMISSION = -111;///该账号不支持该类型授权，请到开放平台申请
+    public static final int REQUEST_AUTH_NO_PERMISSION = -111;///该账号不支持该类型授权，请到小米IOT开放平台申请
     public static final int REQUEST_MISS_PARAMS = -112;//缺少参数
     public static final int REQUEST_BIND_ERROR = -113;//绑定失败
     public static final int REQUEST_API_LEVEL_ERR = -114;///版本号不匹配
@@ -272,19 +276,19 @@ public class AuthActivity extends AppCompatActivity {
  </pre></code>
  
  ####  versionName 1.1.02 versionCode 6
+ 
  添加了对华为以及魅族手机在授权时，引导用户去开启权限的逻辑<br>
  
  #### versionName 1.1.2 versionCode 7
+ 
  修改了授权调起米家的方式,解决之前部分厂商无法调起的问题 需要同步修改米家的apk可以使用<br>
  之后调用需要Sdk的版本号大于app的版本号，否则会返回REQUEST_API_LEVEL_ERR = -114;///版本号不匹配<br>
  当版本不匹配的这时候，需要第三方能根据两边的版本号去提箱用户更新米家的app<br>
  新增了两个code   REQUEST_SERVICE_DISCONNECT = -901;//service已经断开   以及   REQUEST_MIJIA_VERSION_ERR = -902;//可能没有安装米家，或者米家版本太低<br>
  
  ####  versionName 1.1.3 versionCode 7
- 优化了在授权过程中点击home问题，（此时会终止授权流程，关闭米家授权相关页面）<br>
  
+ 优化了在授权过程中点击home问题，（此时会终止授权流程，关闭米家授权相关页面）<br>
 
-### 有问题可以联系:
-renlei@xiaomi.com
  
  
