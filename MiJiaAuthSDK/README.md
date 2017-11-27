@@ -232,6 +232,9 @@ public class AuthActivity extends AppCompatActivity {
 ![image](https://github.com/MiEcosystem/NewXmPluginSDK/blob/master/MiJiaAuthSDK/demo%20UI%E7%95%8C%E9%9D%A2.png)
 如上图，需要在设备已经绑入到当前小米账号的情况下，将did填入上面的输入框中，点击去授权即可
 
+### 混淆处理
+-keep class com.xiaomi.smarthome.**{*;}
+
 ### ChangeLog
 #### version  1.0.1
 修改了检测到没有米家app或者当时米家版本不支持的处理逻辑。不在进行toast提示。<br>
