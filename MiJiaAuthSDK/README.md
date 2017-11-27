@@ -18,7 +18,15 @@
 compile(name:'mijia_authlib_1.0.1', ext:"aar")
 
 ### 2 在activity的oncreate函数中进行初始化
-IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
+IAuthMangerImpl.getInstance().intiWithCallBack(AuthActivity.this, new IInitCallBack() {
+                        @Override
+                        public void onServiceConnected(int result) {
+//                        Toast.makeText(AuthActivity.this, "已经初始化完毕啦", Toast.LENGTH_SHORT).show();
+                            Log.d("AuthActivity","IAuthMangerImpl.getInstance().getSdkApiLevel()" + IAuthMangerImpl.getInstance().getSdkApiLevel()+"   result:    "+result);
+                            onAuthClick(AuthCode.REQUEST_CODE_CALL_AUTH_FOR_DEVICE);
+                        }
+
+                    });
 
 ### 3 发起授权IAuthMangerImpl.getInstance().callAuth（final Context activityContext, final Bundle data, final int requestCode, IAuthResponse response）
 
