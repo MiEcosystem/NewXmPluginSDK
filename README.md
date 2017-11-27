@@ -1,4 +1,4 @@
-# 新版米家Android app免安装插件开发手册
+# 米家扩展程序（原插件）Android开发手册
 [Github项目主页](https://github.com/MiEcosystem/NewXmPluginSDK)
 
 [Wiki](https://github.com/MiEcosystem/NewXmPluginSDK/wiki)
@@ -13,6 +13,7 @@
 - [调试插件](#调试插件)
 - [测试插件](#测试插件)
 - [上传插件](#上传插件)
+- [插件开发注意事项](#插件开发注意事项)
 - [开发遇到的问题](#开发遇到的问题)
 
 # 概要
@@ -198,11 +199,6 @@ plugProject目录下包含了插件示例工程，可供插件开发参考：
 	
 	如果想依赖其他jar的话，不需要修改gradle，直接将jar放入./libs目录下面。
 	
-1. 插件默认需要支持中英文
-
-   1）英文资源放到/res/values下；
-   
-   2）中文资源放到/res/values-zh/下。
 
 # 调试插件
 安装上插件后，会自动启动米家app，点击android studio 调试按钮，选择com.xiaomi.smarthome:plugin进程，如下图所示按钮，可以在插件代码中打断点调试:
@@ -230,6 +226,14 @@ plugProject目录下包含了插件示例工程，可供插件开发参考：
 上线审核前，会专门针对这两项测试。
 
 **在插件的测试和发布过程中如有其它疑问可联系米家的工作人员。**
+
+# 插件开发注意事项
+
+1. 插件默认需要支持中英文：
+
+   1）英文资源放到/res/values下；
+   
+   2）中文资源放到/res/values-zh/下。
 
 # 开发遇到的问题
 
