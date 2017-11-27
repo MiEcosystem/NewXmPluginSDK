@@ -300,6 +300,8 @@ public class AuthActivity extends AppCompatActivity {
  ####  versionName 1.1.3 versionCode 7
  
  优化了在授权过程中点击home问题，（此时会终止授权流程，关闭米家授权相关页面）<br>
-
+ 
+ ####  versionName 1.1.4 versionCode 8
+ 添加了device_bind_key的支持，<br>
  
  
