@@ -220,4 +220,22 @@ public abstract void startEditCustomScene();
  */
 public abstract void startLoadScene(AsyncCallback callback);
 
+##### IXmPluginMessageReceiver
+创建智能时，需要到插件设置信息时
+/**
+     * ApiLevel:6
+     */
+    public static final int MSG_GET_SCENE_VALUE = 3;
+    会发送该value的信息
+            Intent intent = new Intent(mCommonSceneConditions.get(position).mParamAction);
+            intent.putExtra("action", mCommonSceneConditions.get(position).mKey);
+            intent.putExtra("value", String.valueOf(mCommonSceneConditions.get(position).mValue));
+            if(condition != null) {
+                intent.putExtra("last_value", String.valueOf(((SceneApi.ConditionDeviceCommon)condition.conditionDevice).mValues));
+            }
+            intent.putExtra("actionId",mCommonSceneConditions.get(position).id);
+            sendMessage(startConditionActivity,mDevice,IXmPluginMessageReceiver.MSG_GET_SCENE_VALUE,intent);
+   其中包含intent,回传的也是个intent 
+   
+
 ```
