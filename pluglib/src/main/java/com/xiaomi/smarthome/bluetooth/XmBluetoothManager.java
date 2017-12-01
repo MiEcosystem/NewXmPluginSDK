@@ -524,4 +524,12 @@ public abstract class XmBluetoothManager {
      */
     public abstract String getTokenMd5(String mac);
 
+    /**
+     * ApiLevel: 55
+     * 判断当前设备是否通过蓝牙网关扫描到了
+     * response code = 0 ： 网关扫描到了设备
+     *          code != 0, 网关没有扫描到设备
+     */
+    public abstract void isBleGatewayConnected(String mac, Response.BleResponse<Void> response);
+
 }

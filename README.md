@@ -20,9 +20,9 @@
 
 NewXmPluginSDK是为已接入米家APP的智能设备提供的Android插件开发环境，里面包含米家APP提供给插件的各种功能API，以及常用的UI组件。插件也是基于Android环境开发的，开发插件的时候请确保插件的Android配置信息（比如compileSdkVersion、minSdkVersion、targetSdkVersion）与米家最新版本保持一致。
 
-**米家app最新版本：5.0.10**
+**米家app最新版本：5.0.15**
 
-**米家app最新API Level：52**
+**米家app最新API Level：55**
 
 **米家app compileSdkVersion：26**
 
@@ -30,7 +30,7 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的Android插件开�
 
 **米家app targetSdkVersion：19**
 
-**文档修改日期：2017-11-15**
+**文档修改日期：2017-12-01**
 
 **本文档描述了米家app Android客户端插件的申请、创建、开发、调试的流程，更多内容详见下列文档，遇到问题先查看[Wiki](https://github.com/MiEcosystem/NewXmPluginSDK/wiki)**
 

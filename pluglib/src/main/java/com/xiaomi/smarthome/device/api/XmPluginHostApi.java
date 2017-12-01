@@ -2443,4 +2443,10 @@ public abstract class XmPluginHostApi {
      * 获取app语言信息
      */
     public abstract Locale getSettingLocale();
+
+    /**
+     * ApiLevel: 53
+     * 判断当前app是否支持当前model
+     */
+    public abstract boolean isModelSupport(String model);
 }
