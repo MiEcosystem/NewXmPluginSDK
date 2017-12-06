@@ -171,16 +171,10 @@ public class AuthActivity extends Activity {
         mAppIdET = (EditText) findViewById(R.id.app_id);
         mDeviceET = (EditText) findViewById(R.id.device);
         mRelase = (Button) findViewById(R.id.release_btn);
-        /*int isResult =  IAuthMangerImpl.getInstance().init(AuthActivity.this);///初始化
-        if (isResult != 0){
-            Toast.makeText(AuthActivity.this, "请确认已经安装了米家，并且更新到最新的版本啦", Toast.LENGTH_SHORT).show();
-        }*/
-
         mAuthDeviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //IAuthMangerImpl
-                if (IAuthMangerImpl.getInstance().getSdkApiLevel() >= 4) {
                     IAuthMangerImpl.getInstance().intiWithCallBack(AuthActivity.this, new IInitCallBack() {
                         @Override
                         public void onServiceConnected(int result) {
@@ -190,16 +184,9 @@ public class AuthActivity extends Activity {
                         }
 
                     });
-                }
             }
         });
-        mAuthAppBtn.setOnClickListener(new View.OnClickListener() {
-                                           @Override
-                                           public void onClick(View v) {
-                                               onAuthClick(AuthCode.REQUEST_CODE_CALL_AUTH_FOR_APP);
-                                           }
-                                       }
-        );
+   
 
         mRelase.setOnClickListener(new View.OnClickListener() {
             @Override
