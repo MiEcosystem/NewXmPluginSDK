@@ -24,7 +24,8 @@ IAuthMangerImpl.getInstance().intiWithCallBack(AuthActivity.this, new IInitCallB
                         public void onServiceConnected(int result) {
 //                        Toast.makeText(AuthActivity.this, "已经初始化完毕啦", Toast.LENGTH_SHORT).show();
                             Log.d("AuthActivity","IAuthMangerImpl.getInstance().getSdkApiLevel()" + IAuthMangerImpl.getInstance().getSdkApiLevel()+"   result:    "+result);
-                            onAuthClick(AuthCode.REQUEST_CODE_CALL_AUTH_FOR_DEVICE);
+                           //                        goToDeviceAuth(AuthActivity.this,"9971080915123888","58067422");///设备授权
+                        goToBindDeviceAuth(AuthActivity.this,"9971080915123888","58067422","bindKey");///需要绑定设备的授权
                         }
 
                     });
@@ -183,7 +184,8 @@ public class AuthActivity extends Activity {
                         Toast.makeText(AuthActivity.this, "已经初始化完毕啦", Toast.LENGTH_SHORT).show();
                         Log.d("AuthActivity", "IAuthMangerImpl.getInstance().getSdkApiLevel()" + IAuthMangerImpl.getInstance().getSdkApiLevel() + "   result:    " + result);
 //                        onAuthClick(AuthCode.REQUEST_CODE_CALL_AUTH_FOR_DEVICE);
-                        goToDeviceAuth(AuthActivity.this,"9971080915123888","58067422");
+                        //                        goToDeviceAuth(AuthActivity.this,"9971080915123888","58067422");///设备授权
+                        goToBindDeviceAuth(AuthActivity.this,"9971080915123888","58067422","bindKey");///需要绑定设备的授权
                     }
 
                 });
