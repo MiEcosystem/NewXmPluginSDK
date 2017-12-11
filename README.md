@@ -86,6 +86,9 @@ plugProject目录下包含了插件示例工程，可供插件开发参考：
 1. 申请开发者账号DevelopId
 1. 登记新产品,记录设备model
 1. 创建签名证书
+   
+	创建方式：就是通用的Android APK签名证书生成方式。
+
 1. 创建插件信息，提交证书md5信息
 
 	```
@@ -93,6 +96,12 @@ plugProject目录下包含了插件示例工程，可供插件开发参考：
 	
 	keytool -list -v -keystore  keyFilePath -storepass keypassword  -keypass  keypassword
 	```
+
+	证书md5信息详细提交方式：
+	1）使用上述申请DevelopId的账号登录[小米IoT开放平台](https://iot.mi.com)
+	2）点击右上角个人信息页面，打开个人开发者页面
+	3）在个人开发者页面的“扩展程序公钥”框输入上述md5信息
+
 1. 配置账号白名单
 	
 	如果开发者如果不是用注册开发者的小米账号登录的话，需要把当前的小米账号配置成协作开发或者测试白名单：
