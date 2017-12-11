@@ -18,6 +18,7 @@
 compile(name:'mijia_authlib_1.0.1', ext:"aar")
 
 ### 2 在activity的oncreate函数中进行初始化
+ <pre><code>
 IAuthMangerImpl.getInstance().intiWithCallBack(AuthActivity.this, new IInitCallBack() {
                         @Override
                         public void onServiceConnected(int result) {
@@ -27,7 +28,7 @@ IAuthMangerImpl.getInstance().intiWithCallBack(AuthActivity.this, new IInitCallB
                         }
 
                     });
-
+ </pre></code>
 ### 3 发起授权IAuthMangerImpl.getInstance().callAuth（final Context activityContext, final Bundle data, final int requestCode, IAuthResponse response）
 
 #######context需要activity的context。
@@ -89,13 +90,14 @@ public class AuthCode {
 </pre></code>
 
 而返回的data中，主要有下面值，注意判空使用<br>
+<pre><code>
 /**返回值*****/
     public static final String EXTRA_TOKEN = "extra_token";
     public static final String EXTRA_RESULT_CODE = "extra_result_code";
     public static final String EXTRA_RESULT_MSG = "extra_result_msg";
     public static final String EXTRA_USER_ID = "extra_user_id";
     public static final String EXTRA_VERSION_INFO = "extra_version_info";
-    
+    </pre></code>
 <pre><code>    
 ///一些请求和返回的key常量
 public class AuthConstants {
