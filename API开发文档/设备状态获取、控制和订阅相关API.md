@@ -93,7 +93,7 @@ public abstract <T> void callMethod(String did, String method, JSONObject params
                                     final Callback<T> callback, final Parser<T> parser);
 
 /**
- * ApiLevel:4 插件中设备数据属性发生变化，同步数据到米家主app中，比如设备列表中显示某些属性状态
+ * ApiLevel:4 米家扩展程序中设备数据属性发生变化，同步数据到米家主app中，比如设备列表中显示某些属性状态
  *
  * @param did
  * @param jsonObject

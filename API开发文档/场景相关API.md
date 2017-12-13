@@ -221,7 +221,7 @@ public abstract void startEditCustomScene();
 public abstract void startLoadScene(AsyncCallback callback);
 
 ##### IXmPluginMessageReceiver
-创建智能时，需要到插件设置信息时
+创建智能时，需要到米家扩展程序设置信息时
 /**
      * ApiLevel:6
      */
@@ -237,14 +237,14 @@ public abstract void startLoadScene(AsyncCallback callback);
             sendMessage(startConditionActivity,mDevice,IXmPluginMessageReceiver.MSG_GET_SCENE_VALUE,intent);
    其中包含intent,回传的也是个intent 
    
-  插件中收取客户端发送过来的信息
+  米家扩展程序中收取客户端发送过来的信息
   case MSG_GET_SCENE_VALUE:{
                 ///处理客户端发送过来的场景请求
                 String action = intent.getStringExtra("action");///对应客户端发送过来的action即开放平台配置的字段
             //该intent中可能还会有value,actionId,last_value等不同业务需要的字段，可根据情况使用
-                //todo 根据该字段来跳转插件的页面
+                //todo 根据该字段来跳转米家扩展程序的页面
 
-                //插件跳转并设置完成之后，可以通过MessageCall将设置好的信息返回给客户端。
+                //米家扩展程序跳转并设置完成之后，可以通过MessageCall将设置好的信息返回给客户端。
             // 一般包括keyname（该条件/动作的名称） value(设置的值，String或者Object)
 
             } 

@@ -3,7 +3,7 @@
 
 ```
 /**
- * 插件sdk版本号，插件开发如果必须要与之前api兼容，需要通过SDK_VERSION判断兼容性
+ * 米家扩展程序sdk版本号，米家扩展程序开发如果必须要与之前api兼容，需要通过SDK_VERSION判断兼容性
  */
 public abstract int getApiLevel();
     
@@ -15,12 +15,12 @@ public abstract int getApiLevel();
 public abstract String getChannel();
     
  /**
- * ApiLevel:1 获取当前插件的Application
+ * ApiLevel:1 获取当前米家扩展程序的Application
  */
 public abstract Application application();
 
 /**
- * ApiLevel:1 获取当前插件的Application Context
+ * ApiLevel:1 获取当前米家扩展程序的Application Context
  */
 public abstract Context context();
     
@@ -105,7 +105,7 @@ public abstract void addToLauncher(XmPluginPackage xmPluginPackage, String did, 
 public abstract String getRouterFileDownloadUrl(String url);
     
  /**
- * ApiLevel:8 向某个设备的插件发送消息
+ * ApiLevel:8 向某个设备的米家扩展程序发送消息
  *
  * @param did
  * @param msgType
@@ -117,7 +117,7 @@ public abstract void sendMessage(String did, int msgType, Intent msgArg,
                                  DeviceStat deviceStat, MessageCallback msgCallback);
                                  
 /**
- * 在ApiLevel:25后升级了微信sdk，有用到这个接口的必须更新插件sdk适配，发布新版插件并且修改minPluginSdkApiVersion为25 ApiLevel:20
+ * 在ApiLevel:25后升级了微信sdk，有用到这个接口的必须更新米家扩展程序sdk适配，发布新版米家扩展程序并且修改minPluginSdkApiVersion为25 ApiLevel:20
  * 创建米家app注册的微信接口
  */
 public abstract IWXAPI createWXAPI(Context context, boolean bl);

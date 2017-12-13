@@ -14,7 +14,7 @@
 int frameRate = intent.getIntExtra("request_frame_rate", 0); //0代表自动，1代表480p，2代表720p，3代表1080p
 boolean isMute = intent.getBooleanExtra("mute", false);//true代表mute
 
-开始请求数据之后，音频流由插件负责播放，然后将视频流发送给APP。
+开始请求数据之后，音频流由米家扩展程序负责播放，然后将视频流发送给APP。
 
 ```
 public class MessageReceiver implements IXmPluginMessageReceiver {
@@ -93,12 +93,12 @@ public abstract void closeCameraFrameSender(String did);
 ## 实现悬浮窗逻辑
 使用悬浮窗之前，需要先实现数据流获取。
 
-在插件中点击视频悬浮窗之后，首先需要判断是否有悬浮窗权限，6.0之前默认添加，6.0之后用Settings.canDrawOverlays
+在米家扩展程序中点击视频悬浮窗之后，首先需要判断是否有悬浮窗权限，6.0之前默认添加，6.0之后用Settings.canDrawOverlays
 之后调用XmPluginHostApi.openCameraFloatingWindow开启悬浮窗，最后finish自己的主activity。
 
-当进入插件时，需要先调用closeCameraFloatingWindow来关闭悬浮窗。
+当进入米家扩展程序时，需要先调用closeCameraFloatingWindow来关闭悬浮窗。
 
 ## app验证方法
 把设备model上报给我，我在云端配置之后，本地debug安装的就可以调试了。
 
-插件上线时，需要把packageId提供给我，云端配置之后就用户就可以在app上看到。
+米家扩展程序上线时，需要把packageId提供给我，云端配置之后就用户就可以在app上看到。

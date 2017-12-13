@@ -13,7 +13,7 @@ XmBluetoothManager.instance().getBluetoothFirmwareVersion(mac, new Response.BleR
 });
 ```
 ## 升级信息查询
-<h5>回调的BtFirmwareUpdateInfo中包括插件管理后台最新蓝牙固件信息，包括最新固件的版本、url、changeLog和md5。</h5>
+<h5>回调的BtFirmwareUpdateInfo中包括米家扩展程序管理后台最新蓝牙固件信息，包括最新固件的版本、url、changeLog和md5。</h5>
 
 ```Java
 /**
@@ -81,7 +81,7 @@ XmPluginHostApi.instance().cancelDownloadBleFirmware(url);
 ```
 
 ## 固件升级页面
-<h5>蓝牙设备的固件升级页面样式是统一的，但逻辑是不同的。所以打开插件通用设置页时，需要传入自定义的固件升级接口，如下：</h5>
+<h5>蓝牙设备的固件升级页面样式是统一的，但逻辑是不同的。所以打开米家扩展程序通用设置页时，需要传入自定义的固件升级接口，如下：</h5>
 
 ```Java
 findViewById(R.id.title_bar_more).setOnClickListener(new View.OnClickListener() {
@@ -95,7 +95,7 @@ findViewById(R.id.title_bar_more).setOnClickListener(new View.OnClickListener() 
 });
 ```
 
-<h5>如果插件调用的是带下拉列表的菜单项，没法直接调用通用设置页，则需要使用如下方法传入自定义的固件升级接口(该功能只有在ApiLevel >= 52的插件才能使用)：</h5>
+<h5>如果米家扩展程序调用的是带下拉列表的菜单项，没法直接调用通用设置页，则需要使用如下方法传入自定义的固件升级接口(该功能只有在ApiLevel >= 52的米家扩展程序才能使用)：</h5>
 
 ```Java
 findViewById(R.id.title_bar_more).setOnClickListener(new View.OnClickListener() {

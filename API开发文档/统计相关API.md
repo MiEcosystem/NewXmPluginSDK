@@ -4,7 +4,7 @@
 /**
  * ApiLevel: 6 米家后台统计
  *
- * @param loadedInfo 插件上下文
+ * @param loadedInfo 米家扩展程序上下文
  * @param key
  * @param value
  * @param extra      添加打点统计新规范，必须按照下面的key value来传参数
@@ -63,7 +63,7 @@ public abstract void addRecord(XmPluginPackage loadedInfo, String key, Object va
 /**
  * ApiLevel:39 米家后台统计.该打点同时也更新到小米开放平台上.
  *
- * @param loadedInfo 插件上下文
+ * @param loadedInfo 米家扩展程序上下文
  * @param model      当前设备model
  * @param value      为Object 可以为int或String或JsonObject
  * @param extra      可以为null

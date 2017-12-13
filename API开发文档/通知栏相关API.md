@@ -3,13 +3,13 @@
 
 还有一点，NotificationBuilder的Context需用activity()，当用户点击通知时，设备在MessageReceiver里面会收到MSG\_NOTIFICATION\_PENDING\_INTENT消息。
 
-需要注意，intent里面要保存did，唤起插件时启动activity使用。
+需要注意，intent里面要保存did，唤起米家扩展程序时启动activity使用。
 
 ## XmPluginHostApi
 ```
 /**
  * ApiLevel:45
- * 获取插件notification的icon
+ * 获取米家扩展程序notification的icon
  */
 public abstract int getMiHomeNotificationIcon();
 ```

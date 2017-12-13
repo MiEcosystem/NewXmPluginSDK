@@ -5,12 +5,12 @@
 
 * 通用设置菜单：
 
-	***通用设置整个页面由米家app提供, 插件可以隐藏/显示里面的item, 也可以添加自己的item到里面。***
+	***通用设置整个页面由米家app提供, 米家扩展程序可以隐藏/显示里面的item, 也可以添加自己的item到里面。***
 	![](../md_images/general_more_menu.png)
 
 * 下拉弹出菜单（**推荐使用此种菜单样式**）：
 
-	***整个菜单Window由米家app提供, 点击通用设置后会跳转到上一步描述的通用设置菜单页中, 插件可以隐藏里面的item, 也可以添加自己的item到里面。***
+	***整个菜单Window由米家app提供, 点击通用设置后会跳转到上一步描述的通用设置菜单页中, 米家扩展程序可以隐藏里面的item, 也可以添加自己的item到里面。***
 	![](../md_images/pop_more_menu.png)
 
 ## 通用设置菜单
@@ -35,7 +35,7 @@ public abstract void openMoreMenu(ArrayList<MenuItemBase> menus,
                                   boolean useDefault, int requestCode);
                               
 /**
- * ApiLevel: 25 打开更多界面接口, params传递插件自定义参数, 显示/隐藏默认菜单
+ * ApiLevel: 25 打开更多界面接口, params传递米家扩展程序自定义参数, 显示/隐藏默认菜单
  * 
  * @param menus 同上
  * @param useDefault 同上
@@ -50,7 +50,7 @@ public abstract void openMoreMenu(ArrayList<MenuItemBase> menus,
  *               name: "device_unbind_message_detail", value: string, default: null, 自定义删除设备的弹出框文档
  *               name: "security_setting_enable", value: true/false, default: false, 显示/隐藏"安全设置"item
  *               name: "bluetooth_gateway", value: true/false, default: true, 设备属于蓝牙网关设备则显示"蓝牙网关"item (分享的设备不显示本item)
- *               name: "help_enable, value: true/false, default: false, 显示/隐藏"使用帮助"item（显示在插件管理后台配置的用户常用问题FAQ）
+ *               name: "help_enable, value: true/false, default: false, 显示/隐藏"使用帮助"item（显示在米家扩展程序管理后台配置的用户常用问题FAQ）
  */
 public abstract void openMoreMenu(ArrayList<MenuItemBase> menus,
                           boolean useDefault, int requestCode, Intent params);
@@ -62,13 +62,13 @@ public abstract void openMoreMenu(ArrayList<MenuItemBase> menus,
 ```
 ArrayList<IXmPluginHostActivity.MenuItemBase> menus = new ArrayList<>();
    
-// 插件自定义菜单, 可以在public void onActivityResult(int requestCode, int resultCode, Intent data) 中接收用户点击的菜单项, String result = data.getStringExtra("menu");
+// 米家扩展程序自定义菜单, 可以在public void onActivityResult(int requestCode, int resultCode, Intent data) 中接收用户点击的菜单项, String result = data.getStringExtra("menu");
 IXmPluginHostActivity.StringMenuItem stringMenuItem = new
        IXmPluginHostActivity.StringMenuItem();
 stringMenuItem.name = "test string menu";
 menus.add(stringMenuItem);
    
-// 跳转到插件下一个activity的菜单
+// 跳转到米家扩展程序下一个activity的菜单
 IXmPluginHostActivity.IntentMenuItem intentMenuItem = new
        IXmPluginHostActivity.IntentMenuItem();
 intentMenuItem.name = "test intent menu";
@@ -150,7 +150,7 @@ public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
  *               name: "device_unbind_message_detail", value: string, default: null, 自定义删除设备的弹出框文档
  *               name: "security_setting_enable", value: true/false, default: false, 显示/隐藏"安全设置"item
  *               name: "bluetooth_gateway", value: true/false, default: true, 设备属于蓝牙网关设备则显示"蓝牙网关"item (分享的设备不显示本item)
- *               name: "help_enable, value: true/false, default: false, 显示/隐藏"使用帮助"item（显示在插件管理后台配置的用户常用问题FAQ）
+ *               name: "help_enable, value: true/false, default: false, 显示/隐藏"使用帮助"item（显示在米家扩展程序管理后台配置的用户常用问题FAQ）
  *         
  *               查看/解除用户协议，Apilevel:54可用
  *               name:"enableRemoveLicense",value:true/false,default:false，当为true时此菜单项可见
@@ -158,7 +158,7 @@ public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
  *               name:"licenseContent",value:Spanned,用户协议显示内容
  *               name:"privacyContent",value:Spanned,隐私政策显示内容
  *               解除协议时会在onActivityResult返回一个标记intent.putExtra("result_data","removedLicense")
- *               插件修改完后记录后要立即退出插件
+ *               米家扩展程序修改完后记录后要立即退出米家扩展程序
  */
 public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
                                    boolean useDefault, int requestCode, Intent params, Intent commonSettingParams);                                  
@@ -170,13 +170,13 @@ public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
 ```
 ArrayList<IXmPluginHostActivity.MenuItemBase> menus = new ArrayList<>();
    
-// 插件自定义菜单, 可以在public void onActivityResult(int requestCode, int resultCode, Intent data) 中接收用户点击的菜单项, String result = data.getStringExtra("menu");
+// 米家扩展程序自定义菜单, 可以在public void onActivityResult(int requestCode, int resultCode, Intent data) 中接收用户点击的菜单项, String result = data.getStringExtra("menu");
 IXmPluginHostActivity.StringMenuItem stringMenuItem = new
        IXmPluginHostActivity.StringMenuItem();
 stringMenuItem.name = "test string menu";
 menus.add(stringMenuItem);
    
-// 跳转到插件下一个activity的菜单
+// 跳转到米家扩展程序下一个activity的菜单
 IXmPluginHostActivity.IntentMenuItem intentMenuItem = new
        IXmPluginHostActivity.IntentMenuItem();
 intentMenuItem.name = "test intent menu";

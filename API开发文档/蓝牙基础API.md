@@ -1,8 +1,8 @@
 # 蓝牙基础API
 
-* [插件开发注意事项](#插件开发注意事项)
-* [插件安全连接注意事项](#插件安全连接注意事项)
-* [蓝牙插件Demo](#蓝牙插件demo)
+* [米家扩展程序开发注意事项](#米家扩展程序开发注意事项)
+* [米家扩展程序安全连接注意事项](#米家扩展程序安全连接注意事项)
+* [蓝牙米家扩展程序Demo](#蓝牙米家扩展程序demo)
 * [1、设备连接](#1设备连接)
 	* [普通连接](#普通连接)
 	* [安全连接](#安全连接)
@@ -35,22 +35,22 @@
 
 ------
 
-## 插件开发注意事项
+## 米家扩展程序开发注意事项
  * 一定要在后台配置好设备的配对方式和绑定关系，有必要的需要上传配对引导图。
- * minApiLevel不要设置得过低，插件如果调用了某个高版本的API，但是minApiLevel设置的低于这个版本，则在低版本米家APP中会崩溃
- * 建议插件中使用米家提供的接口与设备通信，不要使用Android原生蓝牙接口
+ * minApiLevel不要设置得过低，米家扩展程序如果调用了某个高版本的API，但是minApiLevel设置的低于这个版本，则在低版本米家APP中会崩溃
+ * 建议米家扩展程序中使用米家提供的接口与设备通信，不要使用Android原生蓝牙接口
 
-## 插件安全连接注意事项
+## 米家扩展程序安全连接注意事项
  - 不要重复多次调用安全连接，在上一次回调还没回来之前不要再次调用
- - 如果正在连接的时候退出插件了，要立即断开连接，不要设置保持时间
- - 建议插件中要断线自动重连，只有重连三次失败时才提示用户
+ - 如果正在连接的时候退出米家扩展程序了，要立即断开连接，不要设置保持时间
+ - 建议米家扩展程序中要断线自动重连，只有重连三次失败时才提示用户
  - 当token不匹配时调用removeToken清除token
- - 退出插件时要断开连接，可指定一个延时
+ - 退出米家扩展程序时要断开连接，可指定一个延时
 
 ### 常见问题
- - 如果插件下载到100%后没反应，可能是插件包有问题，检查minSdkLevel是否过高，高于当前手机level，导致getPackageArchiveInfo时返回null
+ - 如果米家扩展程序下载到100%后没反应，可能是米家扩展程序包有问题，检查minSdkLevel是否过高，高于当前手机level，导致getPackageArchiveInfo时返回null
 
-## 蓝牙插件Demo
+## 蓝牙米家扩展程序Demo
 参考[蓝牙Demo工程](https://github.com/MiEcosystem/NewXmPluginSDK/tree/master/plugProject/xiaomi_bledemo)
 
 ## 1、设备连接
@@ -133,7 +133,7 @@ public abstract boolean setAlertConfigs(String mac, int alert, boolean enable);
 ```
 
 ### 断开连接
-<h5>退出插件时要主动断开设备连接，可以指定一个延时。</h5>
+<h5>退出米家扩展程序时要主动断开设备连接，可以指定一个延时。</h5>
 
 ```Java
 /**
@@ -298,7 +298,7 @@ private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
 XmBluetoothManager.getInstance().deviceRename(mac, name);
 ```
 
-<h5>插件中设置页中重命名后会发送广播通知结果，插件可监听如下广播：</h5>
+<h5>米家扩展程序中设置页中重命名后会发送广播通知结果，米家扩展程序可监听如下广播：</h5>
 
 ```Java
 private class PluginReceiver extends BroadcastReceiver {
@@ -478,8 +478,8 @@ XmBluetoothManager.getInstance().unRegisterMediaButtonReceiver(model);
 ```Java
 /**
  * ApiLevel: 45
- * 监听底层ble蓝牙接收到的数据(就算退出插件也可以收到数据)，监听到的数据主进程通过发送{IXmPluginMessageReceiver.MSG_BLE_CHARACTER_CHANGED}给插件
- * registerCharacterChanged不会主动使能Characteristic的notify接口，必须插件主动调用notify
+ * 监听底层ble蓝牙接收到的数据(就算退出米家扩展程序也可以收到数据)，监听到的数据主进程通过发送{IXmPluginMessageReceiver.MSG_BLE_CHARACTER_CHANGED}给米家扩展程序
+ * registerCharacterChanged不会主动使能Characteristic的notify接口，必须米家扩展程序主动调用notify
  */
 XmBluetoothManager.getInstance().registerCharacterChanged(mac, serviceId, characterId, new Response.BleWriteResponse() {
 

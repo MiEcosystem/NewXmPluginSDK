@@ -4,7 +4,7 @@
 /**
  * ApiLevel:1 调用智能家居后台http服务
  *
- * @param model       插件model
+ * @param model       米家扩展程序model
  * @param relativeUrl 服务接口url，调用请确认后台支持情况
  * @param params
  * @param callback
@@ -29,7 +29,7 @@ public abstract <T> void callHttpApiV13(String model, String url, String method,
 /**
  * ApiLevel:8 调用智能家居后台http服务
  *
- * @param model       插件model
+ * @param model       米家扩展程序model
  * @param relativeUrl 服务接口url
  * @param params
  * @param callback
@@ -72,7 +72,7 @@ public abstract <T> void callRouterRemoteApiV13(String routerId, String url, Str
  * ApiLevel:15 异步调用第三方云接口 需要注意，由于后台返回的数据原因，目前回调接口可能有2种数据。
  * 目前异步接口通过push通知和超时重试2种方式获取数据。其中超时重试可能会比push获取的数据多封装一层
  * 如push获取的数据如果如下"{\"bssid\":\"d0:ee:07:23:22:90\"}"，则超时重试则可能会是{"code":0,"message":"ok","result":"{\"bssid\":\"d0:ee:07:23:22:90\"}"}
- * 有效载荷在result字段中。插件解析可能需要对数据做兼容处理
+ * 有效载荷在result字段中。米家扩展程序解析可能需要对数据做兼容处理
  */
 public abstract void callRemoteAsync(final String[] dids, final int appId, Object object,
                                      Callback<JSONObject> callback);
@@ -86,7 +86,7 @@ public abstract void callRemoteAsync(final String[] dids, final int appId, Objec
                                      Callback<JSONObject> finalCallback, Callback<JSONObject> directCallback);
                                      
 /**
- * ApiLevel: 42 创建或修改设置app/插件自由存储空间。如果数据超过服务器设置的阈值，自动分段存储到云端。
+ * ApiLevel: 42 创建或修改设置app/米家扩展程序自由存储空间。如果数据超过服务器设置的阈值，自动分段存储到云端。
  * 但是分段存储会占用额外的key，比如key=100时，分出的新段会存储在101,102,103...等后续相邻的key上，
  * 所以：若调用者打算用到多个key,每2个key之间需要留出足够的间隔以供分段用，推荐>100，比如100,200,300...
  *
@@ -113,7 +113,7 @@ public abstract void getUserConfigV5(XmPluginPackage xmPluginPackage, String mod
 ```
 
 ## 调用米家云端API
-插件可以自行调用callSmartHomeApi访问米家云端API，通过不同的relativeUrl和params来访问不同的云端功能。
+米家扩展程序可以自行调用callSmartHomeApi访问米家云端API，通过不同的relativeUrl和params来访问不同的云端功能。
 
 具体不同设备开放的云端接口请参照与米家云端对接时提供的文档或说明，以云端给出的信息为准。
 
@@ -124,7 +124,7 @@ public abstract void getUserConfigV5(XmPluginPackage xmPluginPackage, String mod
 >* `/scene/edit` 创建（编辑）设备定时
 >* `/home/latest_version` {"model": model} 获取最新固件版本（蓝牙设备）
 >* `/home/checkversion` {"pid":0, "did":did} 获取最新固件版本（WIFI设备）
->插件获取设备上报给米家云端的 属性 与 事件 接口（包含蓝牙设备通过蓝牙网关上报的数据）：
+>米家扩展程序获取设备上报给米家云端的 属性 与 事件 接口（包含蓝牙设备通过蓝牙网关上报的数据）：
 >* `/user/get_user_device_data`  读取与时间相关数据，请求参数示例：
 >
 >	```
@@ -159,7 +159,7 @@ public abstract void getUserConfigV5(XmPluginPackage xmPluginPackage, String mod
 >	    }
 >	}
 >	```
->* `/user/set_user_device_data`   插件上报设备数据（属性与事件）至米家云端，支持批量，请求参数示例：
+>* `/user/set_user_device_data`   米家扩展程序上报设备数据（属性与事件）至米家云端，支持批量，请求参数示例：
 >
 >	```
 >	{
@@ -183,7 +183,7 @@ public abstract void getUserConfigV5(XmPluginPackage xmPluginPackage, String mod
 >	```
 >*注：米家服务器不解析该 `value` 故可按照自身需要定义内部格式，只要保证 `value` 最终是 >`string` 即可。*
 
-插件存取跟设备相关数据，设备解绑（被用户删除）时，数据会被服务器自动清理。
+米家扩展程序存取跟设备相关数据，设备解绑（被用户删除）时，数据会被服务器自动清理。
 
 >* `/device/getsetting` 获取数据，参数示例：
 >

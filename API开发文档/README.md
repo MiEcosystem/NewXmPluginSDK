@@ -1,11 +1,11 @@
 # 接口说明
 ## 提供接口的几个基本文件
 * XmPluginHostApi.java
-	* 封装了米家app提供给插件的大部分功能接口
+	* 封装了米家APP提供给扩展程序的大部分功能接口
 	* 使用XmPluginHostApi.instance()调用其中方法
 * IXmPluginHostActivity.java
-	* 封装了米家app提供的Activity或View相关的接口
-	* 插件的所有Activity都需要继承XmPluginBaseActivity，XmPluginBaseActivity里有个mHostActivity可以用来访问IXmPluginHostActivity类提供的各种方法
+	* 封装了米家APP提供的Activity或View相关的接口
+	* 米家扩展程序的所有Activity都需要继承XmPluginBaseActivity，XmPluginBaseActivity里有个mHostActivity可以用来访问IXmPluginHostActivity类提供的各种方法
 * XmBluetoothManager.java
 	* 封装了所有蓝牙相关的接口
 	* 使用XmBluetoothManager.instance()调用其中方法

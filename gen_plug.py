@@ -47,7 +47,7 @@ def gen_plug(modelName, userid):
         return
     projectName = modelParam[0] + '_' + modelParam[1]
     packageName = 'com.' + modelParam[0] + '.' + modelParam[1]
-    originProjectName = 'Demo'
+    originProjectName = 'EmptyDemo'
     originProjectPath = os.getcwd() + '/plugProject/' + originProjectName
     projectPath = os.getcwd() + '/plugProject/' + projectName
     if os.path.exists(projectPath):
@@ -59,7 +59,7 @@ def gen_plug(modelName, userid):
         os.makedirs(dstSrcPath)
         copyfile(originProjectPath + '/src/main/java/com/xiaomi/demo', dstSrcPath)
 
-    replaceDic = {'Demo': projectName, 'com.xiaomi.demo': packageName, 'xiaomi.demo.v1': modelName,
+    replaceDic = {'EmptyDemo': projectName, 'com.xiaomi.demo': packageName, 'xiaomi.demo.v1': modelName,
                   'id_894148746': 'id_' + userid}
     replaceDir(projectPath, replaceDic)
     print 'gen plug ' + projectName + ' sucess'

@@ -1,6 +1,6 @@
 # 蓝牙锁相关API
 ## 蓝牙锁Demo
-参考`plugProject/xiaomi_bledemov2`插件工程，里面提供了锁的连接、分享、删除、查询等操作示例。
+参考`plugProject/xiaomi_bledemov2`米家扩展程序工程，里面提供了锁的连接、分享、删除、查询等操作示例。
 
 ## XmBluetoothManager
 ```

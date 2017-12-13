@@ -4,7 +4,7 @@
 /**
  * ApiLevel:1
  *
- * @param xmPluginPackage 插件包，XmPluginBaseActivity中的mPluginPackage活取
+ * @param xmPluginPackage 米家扩展程序包，XmPluginBaseActivity中的mPluginPackage活取
  * @param intent          传入的参数
  * @param did             设备did
  * @param activityClass   启动的activity
@@ -175,7 +175,7 @@ public abstract void openScanBarcodePage(Bundle bundle,int requestCode);
 public abstract void loadWebView(String url, String title);
     
 /**
- * ApiLevel:6 打开另一个插件设备页面
+ * ApiLevel:6 打开另一个米家扩展程序设备页面
  *
  * @param did
  */
@@ -204,7 +204,7 @@ public abstract void enableWhiteTranslucentStatus();
 public abstract void enableBlackTranslucentStatus();
 
 /**
- * ApiLevel:3 设置插件Activity动画 public final String ANIM_SLIDE_IN_LEFT =
+ * ApiLevel:3 设置米家扩展程序Activity动画 public final String ANIM_SLIDE_IN_LEFT =
  * "slide_in_left"; public final String ANIM_SLIDE_IN_RIGHT =
  * "slide_in_right"; public final String ANIM_SLIDE_IN_TOP = "slide_in_top";
  * public final String ANIM_SLIDE_IN_BOTTOM = "slide_in_bottom"; public
@@ -231,7 +231,7 @@ public void openShareVideoActivity(String shareTitle,
 );
 
 /**
- * ApiLevel: 32 开启插件广告的支持
+ * ApiLevel: 32 开启米家扩展程序广告的支持
  */
 void enableAd();
 
@@ -281,10 +281,10 @@ void reportHotSpotAdShow(String gid, String hotSpotId);
 void openShareDeviceActivity();
     
 /**
- * ApiLevel:1 启动插件中的Activity
+ * ApiLevel:1 启动米家扩展程序中的Activity
  *
  * @param intent
- * @param packageName 插件包名
+ * @param packageName 米家扩展程序包名
  * @param className   启动的Activity类名
  * @param requestCode
  */
@@ -292,7 +292,7 @@ public abstract void startActivityForResult(Intent intent, String packageName,
                                             String className, int requestCode);
                                             
 /**
- * ApiLevel:1 获取启动插件内activity的Intent,用于设备更多页面进入设置页面
+ * ApiLevel:1 获取启动米家扩展程序内activity的Intent,用于设备更多页面进入设置页面
  *
  * @param packageName
  * @param className
