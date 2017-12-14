@@ -245,7 +245,7 @@ public abstract void startLoadScene(AsyncCallback callback);
                 //todo 根据该字段来跳转米家扩展程序的页面
 
                 //米家扩展程序跳转并设置完成之后，可以通过MessageCall将设置好的信息返回给客户端。
-            // 一般包括keyname（该条件/动作的名称） value(设置的值，String或者Object)
+            // 一般包括key_name（该条件/动作的名称） value(设置的值，String或者Object)
 
             } 
    
