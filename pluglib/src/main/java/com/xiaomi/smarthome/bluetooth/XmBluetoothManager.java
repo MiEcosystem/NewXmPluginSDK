@@ -144,12 +144,40 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_ONGOING = -13;
         public static final int REQUEST_DENIED = -14;
         public static final int REQUEST_EXCEPTION = -15;
-        // // 设备已经被重置，没有注册的Key信息，需要用户重新绑定
+        // 安全芯片：设备已经被重置，没有注册的Key信息，需要用户重新绑定
         public static final int REQUEST_NOT_REGISTERED = -16;
-        // 设备已经被绑定，需要用户解除绑定并且按设备的复位键清除绑定
+        // 安全芯片：设备已经被绑定，需要用户解除绑定并且按设备的复位键清除绑定
         public static final int REQUEST_REGISTERED = -17;
-        // 分享的钥匙已过期
+        // 安全芯片：分享的钥匙已过期
         public static final int REQUEST_SHARED_KEY_EXPIRED = -18;
+        // 安全芯片：共享登录时没有获取到共享的Key
+        public static final int REQUEST_SC_SHARED_KEY_FAILED = -19;
+        // 安全芯片：注册时验证设备返回的证书和设备签名失败
+        public static final int REQUEST_SC_REGISTER_FAILED = -20;
+        // 安全芯片：Owner登录时解析设备返回的证书和签名失败
+        public static final int REQUEST_SC_LOGIN_ENCRYPT_DATA_FAILED = -21;
+        // 安全芯片：Owner登录时设备返回失败
+        public static final int REQUEST_SC_LOGIN_FAILED = -22;
+        // 安全芯片：共享用户登录时解析设备返回的证书和签名失败
+        public static final int REQUEST_SC_SHARED_LOGIN_ENCRYPT_DATA_FAILED = -23;
+        // 安全芯片：共享用户登录时设备返回失败
+        public static final int REQUEST_SC_SHARED_LOGIN_FAILED = -24;
+        // 安全芯片：共享用户登录时获取SharedKeyId为空
+        public static final int REQUEST_SC_SHARED_LOGIN_KEY_ID_EMPTY = -25;
+        // 安全芯片：Owner登录时绑定LTMK到服务器失败
+        public static final int REQUEST_SC_BIND_LTMK_FAILED = -26;
+        // 连接设备过程中，Notify操作失败
+        public static final int REQUEST_NOTIFY_FAILED = -27;
+        // 数据传输过程中，数据发送失败
+        public static final int REQUEST_WRITE_FAILED = -28;
+        // 普通安全：注册时获取did失败
+        public static final int REQUEST_GET_DID_FAILED = -29;
+        // 普通安全：注册时绑定did失败
+        public static final int REQUEST_BIND_DID_FAILED = -30;
+        // 普通安全：登录时验证设备返回的token失败
+        public static final int REQUEST_TOKEN_VERIFY_FAILED = -31;
+        // 蓝牙连接过程中收到连接断开的广播
+        public static final int REQUEST_STATUS_DISCONNECTED = -32;
 
         public static String toString(int code) {
             switch (code) {
@@ -181,6 +209,40 @@ public abstract class XmBluetoothManager {
                     return "REQUEST_DENIED";
                 case REQUEST_EXCEPTION:
                     return "REQUEST_EXCEPTION";
+                case REQUEST_NOT_REGISTERED:
+                    return "REQUEST_NOT_REGISTERED";
+                case REQUEST_REGISTERED:
+                    return "REQUEST_REGISTERED";
+                case REQUEST_SHARED_KEY_EXPIRED:
+                    return "REQUEST_SHARED_KEY_EXPIRED";
+                case REQUEST_SC_SHARED_KEY_FAILED:
+                    return "REQUEST_SC_SHARED_KEY_FAILED";
+                case REQUEST_SC_REGISTER_FAILED:
+                    return "REQUEST_SC_REGISTER_FAILED";
+                case REQUEST_SC_LOGIN_ENCRYPT_DATA_FAILED:
+                    return "REQUEST_SC_LOGIN_ENCRYPT_DATA_FAILED";
+                case REQUEST_SC_LOGIN_FAILED:
+                    return "REQUEST_SC_LOGIN_FAILED";
+                case REQUEST_SC_SHARED_LOGIN_ENCRYPT_DATA_FAILED:
+                    return "REQUEST_SC_SHARED_LOGIN_ENCRYPT_DATA_FAILED";
+                case REQUEST_SC_SHARED_LOGIN_FAILED:
+                    return "REQUEST_SC_SHARED_LOGIN_FAILED";
+                case REQUEST_SC_SHARED_LOGIN_KEY_ID_EMPTY:
+                    return "REQUEST_SC_SHARED_LOGIN_KEY_ID_EMPTY";
+                case REQUEST_SC_BIND_LTMK_FAILED:
+                    return "REQUEST_SC_BIND_LTMK_FAILED";
+                case REQUEST_NOTIFY_FAILED:
+                    return "REQUEST_NOTIFY_FAILED";
+                case REQUEST_WRITE_FAILED:
+                    return "REQUEST_WRITE_FAILED";
+                case REQUEST_GET_DID_FAILED:
+                    return "REQUEST_GET_DID_FAILED";
+                case REQUEST_BIND_DID_FAILED:
+                    return "REQUEST_BIND_DID_FAILED";
+                case REQUEST_TOKEN_VERIFY_FAILED:
+                    return "REQUEST_TOKEN_VERIFY_FAILED";
+                case REQUEST_STATUS_DISCONNECTED:
+                    return "REQUEST_STATUS_DISCONNECTED";
                 default:
                     return "unknown code: " + code;
             }

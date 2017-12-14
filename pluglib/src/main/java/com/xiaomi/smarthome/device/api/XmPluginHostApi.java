@@ -2449,4 +2449,16 @@ public abstract class XmPluginHostApi {
      * 判断当前app是否支持当前model
      */
     public abstract boolean isModelSupport(String model);
+
+    /**
+     * ApiLevel: 55
+     * 反地理解析获取经纬度信息获取位置信息
+     *
+     * 注意事项：
+     * 1. 插件要缓存相应的结果，避免频繁调用该接口，每天配额是有限的，超过后当天该接口将无法工作
+     * 2. 目前使用Android系统和高德进行反地理解析，而高德并不支持海外反地理解析
+     * 3. 反地理解析结果语言一般是米家设置的语言，如果米家跟随系统，则是手机系统的语言，但是不能保证一定会有相应的语言版本
+     */
+    public abstract void reverseGeo(double latitude, double longitude, Callback<Address> callback);
+
 }
