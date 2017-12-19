@@ -210,5 +210,24 @@ public abstract void openScanBarcodePage(Bundle bundle,int requestCode);
  * @param longitude 经度
  */
 public abstract void openRechargePage(int type,double latitude,double longitude);                
-            
+
+/**
+ * ApiLevel: 51
+ * 获取app语言信息
+ */
+public abstract Locale getSettingLocale();
+
+/**
+ * ApiLevel: 53
+ * 判断当前app是否支持当前model
+ */
+public abstract boolean isModelSupport(String model);
+
+/**
+ * ApiLevel: 54
+ * 提供给插件记录日志保存在本地，用户反馈时可以提交到服务器，
+ * @param model
+ * @param logMessage
+ */
+public abstract void logByModel(String model,String logMessage);
 ```
