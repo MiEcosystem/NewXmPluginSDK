@@ -123,7 +123,7 @@ mHostActivity.openMoreMenu(menus, true, REQUEST_MENU, intent);
  *                   false: 隐藏米家app提供的所有菜单item, 只显示menus中传入的item
  * @param requestCode 通用设置菜单activity退出时通过onActivityResult()返回的code
  * @param intent 通过intent.putExtra(name, value)可以打开/禁用某些菜单, 支持的参数如下：
- *               name: "scence_enable", value: true/false, default: true, 显示/隐藏"自动化"item
+ *               name: "scence_enable", value: true/false, default: true, 显示/隐藏"智能"item
  *               name: "common_setting_enable", value: true/false, default: true, 显示/隐藏"通用设置"item
  *               name: "security_setting_enable", value: true/false, default: false, 显示/隐藏通用设置菜单里的"安全设置"item
  *               name: "help_feedback_enable", value: true/false, default: true, 显示/隐藏"使用帮助"item

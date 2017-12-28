@@ -1,5 +1,25 @@
 # 蓝牙固件升级API
 ## 读取设备固件版本
+
+### 集成了米家蓝牙安全芯片的设备获取固件版本号的方法
+```Java
+/**
+ * 必须与设备处于连接状态的时候才能读取
+ */
+UUID miService = UUID.fromString("0000FE95-0000-1000-8000-00805f9b34fb");
+UUID firmwareVersionCharacter = UUID.fromString("00000004-0000-1000-8000-00805f9b34fb");
+XmBluetoothManager.getInstance().read(mac, miService, firmwareVersionCharacter, new BleReadResponse() {
+    @Override
+    public void onResponse(int code, byte[] data) {
+        if (code == XmBluetoothManager.Code.REQUEST_SUCCESS && data != null && data.length > 0) {
+            // version类似1.0.3_2001
+            String version = new String(data);
+        }
+    }
+});
+```
+
+### 其他普通蓝牙设备获取固件版本号的方法
 ```Java
 /**
  * ApiLevel: 33
