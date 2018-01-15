@@ -945,4 +945,11 @@ public interface IXmPluginHostActivity {
      */
     public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
                                        boolean useDefault, int requestCode, Intent params, Intent commonSettingParams);
+
+    /**
+     * Apilevel:55
+     * @param dialogTitle dialog标题
+     * @param agreeListener 用户点击同意协议按钮listener
+     */
+    void showUseDefaultLicenseDialog(String dialogTitle, View.OnClickListener agreeListener);
 }
