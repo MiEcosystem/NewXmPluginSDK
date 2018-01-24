@@ -1,10 +1,12 @@
 
 package com.xiaomi.xmplugindemo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +17,7 @@ import com.xiaomi.smarthome.device.api.BaseDevice;
 import com.xiaomi.smarthome.device.api.BaseDevice.StateChangedListener;
 import com.xiaomi.smarthome.device.api.IXmPluginHostActivity;
 import com.xiaomi.smarthome.device.api.XmPluginBaseActivity;
+import com.xiaomi.smarthome.device.api.XmPluginHostApi;
 
 import org.json.JSONArray;
 
@@ -24,6 +27,8 @@ import java.util.ArrayList;
 public class MainActivity extends XmPluginBaseActivity implements StateChangedListener {
     static final int REQUEST_MENUS = 1;
     static final int MSG_SUB_PROPERTIES = 1;
+    private static final String IS_FIRST_OPEN = "isFirstOpen";
+    private static final String PREF_NAME = "prefName";
     private TextView mInfoView;
     private boolean mIsResume;
     private MyHandler mHandler;
@@ -52,7 +57,7 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
                         break;
 
                     default:
-                            break;
+                        break;
                 }
             }
         }
@@ -62,6 +67,7 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkIsFirstOpen();
         TextView version = (TextView) findViewById(R.id.version);
         version.setText("version:" + mPluginPackage.packageVersion);
         TextView subTitleView = ((TextView) findViewById(R.id.sub_title_bar_title));
@@ -131,7 +137,30 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         mHostActivity.enableAd();
     }
 
-    private void openMoreMenuNew(){
+    private void checkIsFirstOpen() {
+        if (getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getBoolean(IS_FIRST_OPEN, true)) {
+            if (XmPluginHostApi.instance().getApiLevel() >= 48) {
+                mHostActivity.showUserLicenseDialog("小米用户协议", "用户协议", Html.fromHtml(getString(R.string.user_license_new)),
+                        "隐私条款", Html.fromHtml(getString(R.string.user_license_new)), new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit().putBoolean(IS_FIRST_OPEN, false).apply();
+                            }
+                        });
+            }
+            //使用小米协议
+//            if (XmPluginHostApi.instance().getApiLevel() >= 56) {
+//                mHostActivity.showUseDefaultLicenseDialog("小米用户协议", new OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit().putBoolean(IS_FIRST_OPEN, true).apply();
+//                    }
+//                });
+//            }
+        }
+    }
+
+    private void openMoreMenuNew() {
         ArrayList<IXmPluginHostActivity.MenuItemBase> menus = new ArrayList<>();
 
         // 插件自定义菜单，可以在onActivityResult(int requestCode, int resultCode, Intent data) 中接收用户点击的菜单项，String result = data.getStringExtra("menu");
@@ -185,8 +214,18 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         menus.add(intentMenuItem);
 
         Intent intent = new Intent();
-        intent.putExtra("security_setting_enable",true);
-        mHostActivity.openMoreMenu2(menus, true, REQUEST_MENUS, intent);
+        intent.putExtra("security_setting_enable", true);
+
+        //在通用设置中显示解除协议选项
+        Intent commonSetting = new Intent();
+        commonSetting.putExtra("enableRemoveLicense", true);
+        //此项置成true，使用小米默认协议
+//        commonSetting.putExtra("useDefaultLicense", true);
+        commonSetting.putExtra("licenseContent", Html.fromHtml(getString(R.string.user_license_new)));
+        commonSetting.putExtra("privacyContent", Html.fromHtml(getString(R.string.user_license_new)));
+
+
+        mHostActivity.openMoreMenu2(menus, true, REQUEST_MENUS, intent, commonSetting);
     }
 
     @Override
@@ -195,6 +234,12 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         if (resultCode == RESULT_OK) {
             // 自定义菜单返回
             if (requestCode == REQUEST_MENUS && data != null) {
+                String removedLicense = data.getStringExtra("result_data");
+                if (removedLicense != null && removedLicense.equals("removedLicense")) {
+                    Toast.makeText(this, "removedLicense", Toast.LENGTH_SHORT).show();
+                    getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit().putBoolean(IS_FIRST_OPEN, true).apply();
+                    finish();
+                }
                 String selectMenu = data.getStringExtra("menu");
                 if (TextUtils.isEmpty(selectMenu)) {
                     return;
