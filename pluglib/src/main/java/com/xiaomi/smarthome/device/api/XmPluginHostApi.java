@@ -2063,6 +2063,16 @@ public abstract class XmPluginHostApi {
      */
     public abstract void sendCameraFrame(String did, byte[] data, long seq, int frameSize, long timestamp, boolean isIFrame, int width, int height);
 
+
+    /**
+     * ApiLevel: 57
+     * 摄像机设备发送video接口
+     * videoType 发送的video格式
+     *  1 - H264
+     *  2 - H265
+     */
+    public abstract void sendCameraFrame(String did, byte[] data, long seq, int frameSize, long timestamp, int videoType, boolean isIFrame, int width, int height);
+
     /**
      * ApiLevel: 36
      * 关闭发送通道
@@ -2449,6 +2459,14 @@ public abstract class XmPluginHostApi {
      * 判断当前app是否支持当前model
      */
     public abstract boolean isModelSupport(String model);
+
+    /**
+     * ApiLevel: 54
+     * 提供给插件记录日志保存在本地，用户反馈时可以提交到服务器，
+     * @param model
+     * @param logMessage
+     */
+    public abstract void logByModel(String model,String logMessage);
 
     /**
      * ApiLevel: 55
