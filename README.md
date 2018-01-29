@@ -159,8 +159,19 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 
 ## 开发前准备工作
 1. 登陆[小米IoT开放平台](https://iot.mi.com)
-1. 申请开发者账号DevelopId
-1. 登记新产品,记录设备model
+1. 申请开发者账号developerId
+1. 登记新产品，记录设备model
+   
+   按照下图所示，点击“创建新硬件”：
+   
+   ![](./md_images/developer_create_new_device.jpg)
+
+1. 创建Android扩展程序
+
+	创建好新产品后，在“我的硬件”页面点击新创建产品的“开发”按钮，进入下图所示页面，然后按图所示点击“创建扩展程序”后即可配置Android扩展程序，再后面就按照提示输入开发者developerId、扩展程序包名等信息：
+	
+	![](./md_images/developer_create_android_plugin.png)
+
 1. 创建签名证书
    
 	创建方式：就是通用的Android APK签名证书生成方式。
@@ -175,7 +186,7 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 
 	证书md5信息详细提交方式：
 
-	1）使用上述申请DevelopId的账号登录[小米IoT开放平台](https://iot.mi.com)
+	1）使用上述申请developerId的账号登录[小米IoT开放平台](https://iot.mi.com)
 
 	2）点击右上角个人信息页面，打开个人开发者页面
 
@@ -193,17 +204,20 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 ## 开发米家扩展程序
 1. 从[github](https://github.com/MiEcosystem/NewXmPluginSDK)更新SDK代码
 	
-	米家扩展程序工程放置于plugProject目录下，如下图，可以放置多个米家扩展程序工程。
+	米家扩展程序工程放置于plugProject目录下，如下图，可以放置多个米家扩展程序工程：
 	![](./md_images/gradle_project.png)
 
 1. 创建新的米家扩展程序工程
 	
 	在SDK根目录下执行python脚本gen_plug.py（执行完后会在plugProject目录下自动生成最简单的米家扩展程序工程）：
 	
-	注意：DevelopId为申请的小米开发者账号（小米账号），不是手机号码。
+	注意：
+	1) model为创建新硬件时配置的
+	2) developerId为申请的小米开发者账号（小米账号），不是手机号码
+	3）packageName为创建Android扩展程序时配置的
 	
 	```
-	python gen_plug.py model userid
+	python gen_plug.py model developerId packageName
 	```
 
 	创建了米家扩展程序工程后，需要同步下NewXmPluginSDK工程的gradle信息，不然新的米家扩展程序模块有可能没刷新显示出来：
@@ -211,6 +225,8 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 	![](./md_images/android_studio_sync_gradle.png)
 
 1. 配置米家扩展程序签名文件
+	
+	通过gen_plug.py脚本生成新的米家扩展程序工程时，会在keystore目录下生成一个示例的key.keystore，这个只是作为示例使用，为了安全实际扩展程序开发中需要替换成自己的签名文件。
 	
 	所有米家扩展程序在米家APP上运行时需要进行签名验证，修改米家扩展程序工程build.gradle的签名信息：
 	

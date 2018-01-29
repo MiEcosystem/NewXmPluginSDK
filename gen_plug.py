@@ -40,13 +40,12 @@ def copyfile(src, dst):
 
 
 #
-def gen_plug(modelName, userid):
+def gen_plug(modelName, developerId, packageName):
     modelParam = modelName.split('.')
     if len(modelParam) != 3:
         print 'model format error, for example: xiaomi.demo.v1'
         return
     projectName = modelParam[0] + '_' + modelParam[1]
-    packageName = 'com.' + modelParam[0] + '.' + modelParam[1]
     originProjectName = 'EmptyDemo'
     originProjectPath = os.getcwd() + '/plugProject/' + originProjectName
     projectPath = os.getcwd() + '/plugProject/' + projectName
@@ -60,22 +59,24 @@ def gen_plug(modelName, userid):
         copyfile(originProjectPath + '/src/main/java/com/xiaomi/demo', dstSrcPath)
 
     replaceDic = {'EmptyDemo': projectName, 'com.xiaomi.demo': packageName, 'xiaomi.demo.v1': modelName,
-                  'id_894148746': 'id_' + userid}
+                  'id_894148746': 'id_' + developerId}
     replaceDir(projectPath, replaceDic)
-    print 'gen plug ' + projectName + ' sucess'
+    print 'gen plug ' + projectName + ' success'
 
 
 isTest = False
 # if __name__ == "__main__":
 if isTest:
     modelName = 'xiaomi.camera.v1'
-    userid = '894148746'
-    gen_plug(modelName, userid)
+    developerId = '894148746'
+    packageName = 'com.xiaomi.demo'
+    gen_plug(modelName, developerId, packageName)
 
 else:
-    if len(sys.argv)<3:
-        print "params error,for example: python gen_plug xiaomi.demo.v1 894148746"
+    if len(sys.argv) < 4:
+        print "params error,for example: python gen_plug xiaomi.demo.v1 894148746 com.xiaomi.demo"
     else:
         modelName = sys.argv[1]
-        userid = sys.argv[2]
-        gen_plug(modelName, userid)
+        developerId = sys.argv[2]
+        packageName = sys.argv[3]
+        gen_plug(modelName, developerId, packageName)
