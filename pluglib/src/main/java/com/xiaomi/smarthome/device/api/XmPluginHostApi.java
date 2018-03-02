@@ -104,6 +104,20 @@ public abstract class XmPluginHostApi {
     public abstract <T> void callSmartHomeApi(String model, String relativeUrl, JSONObject params,
                                               final Callback<T> callback, final Parser<T> parser);
 
+    /**
+     * ApiLevel:58 调用智能家居后台http服务
+     *
+     * @param model       插件model
+     * @param hostPrefix  HOST前缀
+     * @param relativeUrl 服务接口url
+     * @param method      请求方法
+     * @param params
+     * @param callback
+     * @param parser
+     */
+    public abstract <T> void callSmartHomeApi(String model, String hostPrefix, String relativeUrl, String method, JSONObject params,
+                                              final Callback<T> callback, final Parser<T> parser);
+
     // method POST or GET
 
     /**
@@ -155,6 +169,18 @@ public abstract class XmPluginHostApi {
      */
     public abstract <T> void callMethod(String did, String method, JSONArray params,
                                         final Callback<T> callback, final Parser<T> parser);
+
+    /**
+     * ApiLevel:29 设备方法调用，强制从云端调用，object为JSONObject或者为JSONArray
+     *
+     * @param method   方法名
+     * @param params
+     * @param callback 回调结果
+     * @param parser
+     */
+    public abstract <T> void callMethodFromCloud(String did, String method, Object params,
+                                        final Callback<T> callback, final Parser<T> parser);
+
 
     /**
      * ApiLevel:29 设备方法调用
@@ -1223,6 +1249,20 @@ public abstract class XmPluginHostApi {
                                               final Callback<T> callback, final Parser<T> parser);
 
     /**
+     * ApiLevel:58 调用智能家居后台http服务
+     *
+     * @param model       插件model
+     * @param hostPrefix  host前缀
+     * @param relativeUrl 服务接口url
+     * @param method      请求方法
+     * @param params
+     * @param callback
+     * @param parser
+     */
+    public abstract <T> void callSmartHomeApi(String model, String hostPrefix, String relativeUrl, String method, String params,
+                                              final Callback<T> callback, final Parser<T> parser);
+
+    /**
      * ApiLevel:8 向某个设备的插件发送消息
      *
      * @param did
@@ -2068,8 +2108,8 @@ public abstract class XmPluginHostApi {
      * ApiLevel: 57
      * 摄像机设备发送video接口
      * videoType 发送的video格式
-     *  1 - H264
-     *  2 - H265
+     * 1 - H264
+     * 2 - H265
      */
     public abstract void sendCameraFrame(String did, byte[] data, long seq, int frameSize, long timestamp, int videoType, boolean isIFrame, int width, int height);
 
@@ -2158,9 +2198,11 @@ public abstract class XmPluginHostApi {
      * @param pluginPackage
      */
     public abstract void gotoFeedback(Activity activity, String model, String did, XmPluginPackage pluginPackage);
+
     /**
      * ApiLevel:44
      * 跳转到授权管理页
+     *
      * @param activity
      * @param did
      */
@@ -2176,14 +2218,14 @@ public abstract class XmPluginHostApi {
      * ApiLevel:51
      * 分享电子钥匙
      *
-     * @param model 设备model
-     * @param did 分享者的did
-     * @param shareUid 分享目标的uid
-     * @param status 分享类别，1：暂时，2：周期，3：永久
+     * @param model      设备model
+     * @param did        分享者的did
+     * @param shareUid   分享目标的uid
+     * @param status     分享类别，1：暂时，2：周期，3：永久
      * @param activeTime 生效时间 UTC时间戳，单位为s
      * @param expireTime 过期时间 UTC时间戳，单位为s
-     * @param weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]，星期天对应0），仅在status=2时不可为空
-     * @param readonly true：被分享人不可接收锁push，false：被分享人可接收锁push，（family关系用户不受这个字段影响）
+     * @param weekdays   生效日期（星期几，例如周一和周三对应1和3，[1, 3]，星期天对应0），仅在status=2时不可为空
+     * @param readonly   true：被分享人不可接收锁push，false：被分享人可接收锁push，（family关系用户不受这个字段影响）
      * @param callback
      */
     public void shareSecurityKey(final String model, final String did, String shareUid, final int status, final long activeTime, final long expireTime,
@@ -2258,13 +2300,13 @@ public abstract class XmPluginHostApi {
      * ApiLevel:51
      * 更新分享的电子钥匙信息
      *
-     * @param model 设备的model
-     * @param did 分享者的did
-     * @param keyId 电子钥匙的keyId
-     * @param status 分享类别，1：暂时，2：周期，3：永久
+     * @param model      设备的model
+     * @param did        分享者的did
+     * @param keyId      电子钥匙的keyId
+     * @param status     分享类别，1：暂时，2：周期，3：永久
      * @param activeTime 生效时间 UTC时间戳，单位为s
      * @param expireTime 过期时间 UTC时间戳，单位为s
-     * @param weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
+     * @param weekdays   生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
      * @param callback
      */
     public void updateSecurityKey(String model, String did, String keyId, int status, long activeTime, long expireTime, List<Integer> weekdays, Callback<Void> callback) {
@@ -2299,9 +2341,9 @@ public abstract class XmPluginHostApi {
      * ApiLevel:51
      * 删除共享的电子钥匙
      *
-     * @param model 设备的model
-     * @param did 分享者的did
-     * @param keyId 分享电子钥匙的KeyId
+     * @param model    设备的model
+     * @param did      分享者的did
+     * @param keyId    分享电子钥匙的KeyId
      * @param callback
      */
     public void deleteSecurityKey(String model, String did, String keyId, final Callback<Void> callback) {
@@ -2321,8 +2363,8 @@ public abstract class XmPluginHostApi {
      * ApiLevel:51
      * 获取所有分享的电子钥匙信息
      *
-     * @param model 设备model
-     * @param did 分享者的did
+     * @param model    设备model
+     * @param did      分享者的did
      * @param callback
      */
     public void getSecurityKey(String model, String did, final Callback<List<SecurityKeyInfo>> callback) {
@@ -2390,6 +2432,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel:51
      * 从服务器获取UTC时间，单位为秒（返回-1，说明解析出现异常，当做错误处理）
+     *
      * @param callback
      */
     public void getUTCFromServer(String model, Callback<Long> callback) {
@@ -2411,6 +2454,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 51
      * 获取蓝牙锁绑定的时间
+     *
      * @param model
      * @param did
      * @param callback
@@ -2441,6 +2485,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 51
      * 请求app config
+     *
      * @param name
      * @param lang
      * @param version
@@ -2463,20 +2508,30 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 54
      * 提供给插件记录日志保存在本地，用户反馈时可以提交到服务器，
+     *
      * @param model
      * @param logMessage
      */
-    public abstract void logByModel(String model,String logMessage);
+    public abstract void logByModel(String model, String logMessage);
 
     /**
      * ApiLevel: 55
      * 反地理解析获取经纬度信息获取位置信息
-     *
+     * <p>
      * 注意事项：
      * 1. 插件要缓存相应的结果，避免频繁调用该接口，每天配额是有限的，超过后当天该接口将无法工作
      * 2. 目前使用Android系统和高德进行反地理解析，而高德并不支持海外反地理解析
      * 3. 反地理解析结果语言一般是米家设置的语言，如果米家跟随系统，则是手机系统的语言，但是不能保证一定会有相应的语言版本
      */
     public abstract void reverseGeo(double latitude, double longitude, Callback<Address> callback);
+
+    /**
+     * ApiLevel: 58
+     * 提供给插件记录日志保存在本地，用户反馈时可以提交到服务器
+     *
+     * @param model
+     * @param logMessage
+     */
+    public abstract void logForModel(String model, String logMessage);
 
 }

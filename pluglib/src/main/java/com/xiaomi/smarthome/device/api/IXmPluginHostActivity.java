@@ -952,4 +952,27 @@ public interface IXmPluginHostActivity {
      * @param agreeListener 用户点击同意协议按钮listener
      */
     void showUseDefaultLicenseDialog(String dialogTitle, View.OnClickListener agreeListener);
+
+
+    /**
+     * ApiLevel: 58 startSetTimerListV2(mDeviceStat.did, "set_rgb",
+     * String.valueOf(0x00ffffff), "set_rgb", String.valueOf(0x00000000),
+     * mDeviceStat.did, "RGB灯定时器", "RGB灯定时器");
+     *
+     * @param deviceId    device id
+     * @param onMethod    当on timer时间到的时候执行的action，执行原始数据
+     * @param onParams    on action的参数
+     * @param offMethod   当off timer时间到的时候执行的action，执行原始数据
+     * @param offParams   off action参数
+     * @param identify    定时器的identify，使用device id
+     * @param displayName 定时的名称,在场景执行日志中显示
+     * @param timerTitle  定时器标题
+     * @param bothTimerMustBeSet  如果为true，则必须同时设置开启和关闭时间才能提交定时
+     * @param onTimerTip  开启定时的定时标题提示：默认是“开启时间”
+     * @param offTimerTip  关闭定时的定时标题提示：默认是“关闭时间”
+     * @param timerListTip  定时列表的标题提示：默认是“开启时段”/“开启时间”/“关闭时间”
+     */
+    public void startSetTimerListV2(String deviceId, String onMethod, String onParams,
+                                    String offMethod, String offParams, String identify, String displayName,
+                                    String timerTitle, boolean bothTimerMustBeSet, String onTimerTip, String offTimerTip, String timerListTip);
 }
