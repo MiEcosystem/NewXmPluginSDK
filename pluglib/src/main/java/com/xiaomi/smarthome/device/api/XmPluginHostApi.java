@@ -171,7 +171,7 @@ public abstract class XmPluginHostApi {
                                         final Callback<T> callback, final Parser<T> parser);
 
     /**
-     * ApiLevel:29 设备方法调用，强制从云端调用，object为JSONObject或者为JSONArray
+     * ApiLevel:59 设备方法调用，强制从云端调用，object为JSONObject或者为JSONArray
      *
      * @param method   方法名
      * @param params
