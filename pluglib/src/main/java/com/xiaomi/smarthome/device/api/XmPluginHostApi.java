@@ -1494,6 +1494,13 @@ public abstract class XmPluginHostApi {
     public abstract String getGlobalSettingServer();
 
     /**
+     * ApiLevel: 60 获取当前服务器
+     * @param changeServer true: 获取到的不一定是用户当前选择的服务器（比如香港共用新加坡服务器），false：获取到的是用户当前选择的服务器
+     * @return "cn":中国大陆 "tw":台湾 "sg":新加坡 "in":印度
+     */
+    public abstract String getGlobalSettingServer(boolean changeServer);
+
+    /**
      * ApiLevel: 22 给设备发送broadcast，会发送给IXmPluginMessageReceiver.handleMessage
      */
     public Intent getBroadCastIntent(DeviceStat deviceStat) {
