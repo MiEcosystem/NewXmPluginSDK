@@ -2541,4 +2541,14 @@ public abstract class XmPluginHostApi {
      */
     public abstract void logForModel(String model, String logMessage);
 
+    /**
+     * ApiLevel: 61
+     * 获取更加详细的本地天气信息，包括温度、AQI、PM2.5、TDS、湿度等等
+     * @param model
+     * @param locationID 地区编码，必填
+     * @param location 地区经纬度，选填
+     * @param callback
+     */
+    public abstract void getAreaPropInfo(String model, final String locationID, final Location location, final Callback<String> callback);
+
 }
