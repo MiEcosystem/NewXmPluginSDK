@@ -2541,45 +2541,4 @@ public abstract class XmPluginHostApi {
      */
     public abstract void logForModel(String model, String logMessage);
 
-    /**
-     * ApiLevel: 61
-     * 获取更加详细的本地天气信息，包括温度、AQI、PM2.5、TDS、湿度等等
-     * @param model
-     * @param locationID 地区编码，必填
-     * @param location 地区经纬度，选填
-     * @param callback
-     */
-    public abstract void getAreaPropInfo(String model, final String locationID, final Location location, final Callback<String> callback);
-
-	/**
-     * ApiLevel: 62
-     * 创建一个播放视频流的播放视图
-     *
-     * @param context
-     * @param original 父容器
-     * @param useHard  是否优先使用硬解码
-     * @param type     视频流编码类型 1==h264 2==h265
-     * @return
-     * @see com.xiaomi.smarthome.camera.VideoFrame
-     */
-    public abstract XmVideoViewGl createVideoView(Context context, FrameLayout original, boolean useHard, int type);
-
-    /**
-     * ApiLevel: 62
-     * 创建一个用来播放本地Mp4的视图
-     *
-     * @param context
-     * @param original 父容器
-     * @param useHard  true MediaPlayer播放mp4 // false 使用ffmpeg 播放mp4
-     * @return
-     */
-    public abstract XmVideoViewGl createMp4View(Context context, FrameLayout original, boolean useHard);
-
-    /**
-     * ApiLevel: 62
-     * 创建一个可以用来合成Mp4的接口
-     * @return Mp4音视频流合成器的接口
-     */
-    public abstract XmMp4Record createMp4Record();
-
 }
