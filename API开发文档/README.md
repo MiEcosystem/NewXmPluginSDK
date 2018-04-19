@@ -13,7 +13,7 @@
 ## 详细的功能分类API
 * [基本功能API](基本功能API.md)
 * [Activity及页面相关API](Activity及页面相关API.md)  
-* [公共设备菜单API](公共设备菜单API.md)  
+* [设备更多菜单API](设备更多菜单API.md)  
 * [设备状态获取、控制和订阅相关API](设备状态获取、控制和订阅相关API.md)
 * [个性化运营API](个性化运营API.md)
 * [摄像机预览功能API](摄像机预览功能API.md)
