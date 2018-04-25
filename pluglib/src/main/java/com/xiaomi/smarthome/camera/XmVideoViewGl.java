@@ -109,13 +109,6 @@ public interface XmVideoViewGl {
      */
     public boolean isGPUDecoder();
 
-    /**
-     * ApiLevel: 62
-     * 是否处于基础的比例模式
-     *
-     * @return
-     */
-    public boolean isMiniScale();
 
     /**
      * ApiLevel: 62
