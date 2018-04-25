@@ -594,4 +594,14 @@ public abstract class XmBluetoothManager {
      */
     public abstract void isBleGatewayConnected(String mac, Response.BleResponse<Void> response);
 
+    /**
+     * ApiLevel: 62
+     * 给锁设备提供的获取一次性密码
+     * @param mac
+     * @param interval 密码的有效时间，单位为分钟，必须 >= 1 并且 <= 60，否则会返回错误。必须与固件中的有效时间保持一致。
+     * @param digits 密码的长度，必须 >= 6 并且 <= 8，否则会返回错误。
+     * @param response 返回操作成功还是失败，如果操作成功则返回一次性密码
+     */
+    public abstract void getOneTimePassword(String mac, int interval, int digits, Response.BleResponseV2<int[]> response);
+
 }
