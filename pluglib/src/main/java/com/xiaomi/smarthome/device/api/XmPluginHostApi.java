@@ -2541,4 +2541,20 @@ public abstract class XmPluginHostApi {
      */
     public abstract void logForModel(String model, String logMessage);
 
+    /**
+     * ApiLevel: 64+
+     * 检查/请求权限
+     *
+     * @param activity
+     * @param requestPermission 是否发起请求权限流程
+     * @param callback 授权结果回调
+     * @param permissions 申请的权限或权限组
+     * @return 权限都已经授予/功能正常，返回true，否则，返回false
+     */
+    public abstract boolean checkAndRequestPermisson(Activity activity, boolean requestPermission, Callback<List<String>> callback, String... permissions);
+    /**
+     * ApiLevel: 64
+     * 插件获取bindkey后传给设备，然后设备再传给MIOT后台，完成设备与MIOT的绑定
+     */
+    public abstract void getBindKey(String model, Callback<String> callback);
 }
