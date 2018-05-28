@@ -2542,19 +2542,26 @@ public abstract class XmPluginHostApi {
     public abstract void logForModel(String model, String logMessage);
 
     /**
-     * ApiLevel: 64+
-     * 检查/请求权限
-     *
-     * @param activity
-     * @param requestPermission 是否发起请求权限流程
-     * @param callback 授权结果回调
-     * @param permissions 申请的权限或权限组
-     * @return 权限都已经授予/功能正常，返回true，否则，返回false
-     */
-    public abstract boolean checkAndRequestPermisson(Activity activity, boolean requestPermission, Callback<List<String>> callback, String... permissions);
-    /**
      * ApiLevel: 64
      * 插件获取bindkey后传给设备，然后设备再传给MIOT后台，完成设备与MIOT的绑定
      */
     public abstract void getBindKey(String model, Callback<String> callback);
+
+    /**
+     * ApiLevel: 65
+     * 检查/请求权限
+     * 米家将targetSdkVersion升级到>=23之后,需要适配全新的权限机制。
+     * ps：6.0之前的安卓版本上，申请的权限在app安装时就被授予。
+     * 6.0之后为了更好的保护用户隐私，部分涉及隐私的权限被定义为危险权限（CAMERA、麦克风等），需要用户主动授权后才能使用。
+     * 针对这种情况，凡涉及到危险权限的功能，都应该在使用前动态的检查是否已被用户授权。
+     * 否则可能会出现java.lang.SecurityException: Permission Denial从而导致应用崩溃。
+     * 危险权限列表可以参考Android开发文档https://developer.android.com/guide/topics/permissions/overview#perm-groups
+     *
+     * @param activity
+     * @param requestPermission 是否发起请求权限流程
+     * @param callback 授权结果回调
+     * @param permissions 申请的权限或权限组(常见危险权限已在Permission这个类中定义，可直接作为参数传入该方法使用。)
+     * @return 权限都已经授予/功能正常，返回true，否则，返回false
+     */
+    public abstract boolean checkAndRequestPermisson(Activity activity, boolean requestPermission, Callback<List<String>> callback, String... permissions);
 }

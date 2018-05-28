@@ -5,6 +5,7 @@
 
 # 目录
 - [概要](#概要)
+- [changelog] (#changelog)
 - [目录结构及文件含义](#目录结构及文件含义)
 - [功能模块文档](#功能模块文档)
 - [米家扩展程序示例代码](#米家扩展程序示例代码)
@@ -18,19 +19,24 @@
 
 NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序Android开发环境，里面包含米家APP提供给扩展程序的各种功能API，以及常用的UI组件。米家扩展程序也是基于Android环境开发的，开发扩展程序的时候请确保Android配置信息（比如compileSdkVersion、minSdkVersion、targetSdkVersion）与米家最新版本保持一致。
 
-**米家APP最新版本：5.1.31**
+**米家APP最新版本：5.1.37**
 
-**米家APP最新API Level：62**
+**米家APP最新API Level：65**
 
 **米家APP compileSdkVersion：27**
 
 **米家APP minSdkVersion：15**
 
-**米家APP targetSdkVersion：19**
+**米家APP targetSdkVersion：25**
 
-**文档修改日期：2018-4-25**
+**文档修改日期：2018-5-28**
 
 **本文档描述了米家扩展程序Android客户端的申请、创建、开发、调试的流程，更多内容详见下列文档，遇到问题先查看[Wiki](https://github.com/MiEcosystem/NewXmPluginSDK/wiki)**
+
+# changelog
+记录关键的sdk修改提交：
+
+1）2018-5-28：在XmPluginHostApi类中新添加了一个接口checkAndRequestPermisson（API Level 65），用于扩展程序检查/请求所用到的Android权限。米家APP已经将targetSdkVersion升级到了25，如果扩展程序调用未经授权的Android相关权限功能，会导致扩展程序崩溃异常退出。
 
 # 目录结构及文件含义
 
@@ -334,7 +340,7 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 
 # 上传米家扩展程序
 
-米家扩展程序开发完成，测试通过后，可以到米家后台申请上线，编译好的安装包在对应米家扩展程序工程/build/outputs/apk下面。
+米家扩展程序开发完成，测试通过后，可以到米家后台申请上线，编译好的安装包在对应米家扩展程序工程/build/outputs/apk下面。注意：上传的扩展程序APK必须要正式签名，而且签名文件要与在开发者平台提交的签名信息一致。
 
 除了功能测试通过，必须要注意进行内存测试，原则上在退出米家扩展程序页面后，米家扩展程序需要退出所有的后台线程，释放所有的内存资源，特别是Activity对象的内存泄露
 上线审核前，会专门针对这两项测试。
