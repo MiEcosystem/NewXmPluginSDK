@@ -159,6 +159,11 @@ public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
  *               name:"privacyContent",value:Spanned,隐私政策显示内容
  *               解除协议时会在onActivityResult返回一个标记intent.putExtra("result_data","removedLicense")
  *               米家扩展程序修改完后记录后要立即退出米家扩展程序
+ 
+ *               增加传递协议文件地址的方式来显示协议内容，Apilevel:64可用，插件将协议内容写入文件，然后将文件的绝对路径作为参数传入
+ *               commonSettingParams
+ *               name:"licenseContentUri",value:String,用户协议文件绝对路径
+ *               name:"privacyContentUri",value:String,隐私政策文件绝对路径
  */
 public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
                                    boolean useDefault, int requestCode, Intent params, Intent commonSettingParams);                                  
