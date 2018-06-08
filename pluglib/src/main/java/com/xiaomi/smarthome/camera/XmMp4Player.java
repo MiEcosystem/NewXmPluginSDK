@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 public interface XmMp4Player {
 
     /**
+     * ApiLevel: 64
      * 主要用来回调视图是否初始化完成
      */
     public static interface RenderCallback {
@@ -16,6 +17,7 @@ public interface XmMp4Player {
     }
 
     /**
+     * ApiLevel: 64
      * 如果播放Mp4时候选择了使用FFmpeg播放需要用到这个回调
      */
     public interface AudioListener {
@@ -30,7 +32,7 @@ public interface XmMp4Player {
     }
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 软解的时候需要设置音频回调接口
      *
      * @param listener 返回解析出来的音频数据
@@ -38,7 +40,7 @@ public interface XmMp4Player {
     public void setAudioListener(AudioListener listener);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 是否初始化完成的回调,使用该接口的内容需要RenderCallback回调后
      *
      * @param callback
@@ -46,14 +48,14 @@ public interface XmMp4Player {
     public void setRenderCallback(RenderCallback callback);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * @param preparedListener
      * @See android.media.MediaPlayer
      */
     public void setOnPreparedListener(MediaPlayer.OnPreparedListener preparedListener);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 63
      * @param listener
      * @See android.media.MediaPlayer
      */
@@ -66,7 +68,7 @@ public interface XmMp4Player {
     public void setOnErrorListener(MediaPlayer.OnErrorListener listener);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 更换播放Mp4资源文件
      *
      * @param path 新Mp4的路径
@@ -74,7 +76,7 @@ public interface XmMp4Player {
     public abstract void changeSource(final String path);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 开始播放Mp4文件
      *
      * @param path Mp4的路径
@@ -82,7 +84,7 @@ public interface XmMp4Player {
     public abstract void openVideoPlayer(String path);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 当前播放器是否正在播放文件
      *
      * @return
@@ -90,13 +92,13 @@ public interface XmMp4Player {
     public abstract boolean isPlaying();
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 暂停播放
      */
     public abstract void pause();
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 63
      * 跳转到指定时间
      *
      * @param pos position in milliseconds
@@ -104,7 +106,7 @@ public interface XmMp4Player {
     public abstract void seekTo(int pos);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 获取当前播放位置
      *
      * @return the current position in milliseconds
@@ -112,7 +114,7 @@ public interface XmMp4Player {
     public abstract int getCurrentPosition();
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 获取Mp4文件的时长
      *
      * @return milliseconds
@@ -120,7 +122,7 @@ public interface XmMp4Player {
     public abstract int getDuration();
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 设置音量是否需要声音
      *
      * @param volume 0无声音 1播放声音

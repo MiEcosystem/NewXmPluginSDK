@@ -22,7 +22,7 @@ public class VideoFrame {
 
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 发送视频流 只支持H264
      *
      * @param data        数据
@@ -51,7 +51,7 @@ public class VideoFrame {
     }
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 发送视频流 支持视频流编码类型 h264 h265
      *
      * @param data        数据
@@ -86,7 +86,7 @@ public class VideoFrame {
     }
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 发送视频流 主要用于需要畸变的
      *
      * @param data        数据

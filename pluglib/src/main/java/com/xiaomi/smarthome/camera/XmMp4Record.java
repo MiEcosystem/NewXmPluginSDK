@@ -13,7 +13,7 @@ public interface XmMp4Record {
     }
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 开始录制Mp4文件 目前声音支持AAC 视频支持h265 h264
      *
      * @param fileName    文件全路径
@@ -25,7 +25,7 @@ public interface XmMp4Record {
     public void startRecord(String fileName, int videoType, int width, int height, int audioSample);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 写入视频流文件
      *
      * @param data     数据
@@ -36,7 +36,7 @@ public interface XmMp4Record {
     public void writeVideoData(byte[] data, int length, boolean isIFrame, int time);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 写入音频数据
      *
      * @param data   数据
@@ -45,10 +45,24 @@ public interface XmMp4Record {
     public void writeAAcData(byte[] data, int length);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 结束录制
      *
      * @param listener 结果回调是否录制成功
      */
     public void stopRecord(final IRecordListener listener);
+
+    /**
+     * 设置最短录制时长默认 3000ms
+     *
+     * @param time 单位毫秒
+     */
+    public void setMineDuration(int time);
+
+    /**
+     * ApiLevel: 64
+     * 获取录制视频的时长
+     * @return time 单位毫秒
+     */
+    public int getRecordTime();
 }

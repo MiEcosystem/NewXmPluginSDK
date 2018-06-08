@@ -24,13 +24,13 @@ public interface XmVideoViewGl {
     }
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 配置完各种参数后要调用初始化
      */
     public void initial();
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 设置视频视图被点击的回调(单击)
      *
      * @param listener
@@ -38,7 +38,7 @@ public interface XmVideoViewGl {
     public void setVideoViewListener(IVideoViewListener listener);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 截图回调返回一个Bitmap
      *
      * @param callback 结果回调
@@ -46,7 +46,7 @@ public interface XmVideoViewGl {
     public void snap(PhotoSnapCallback callback);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 填充视频流数据数据
      *
      * @param frame 帧数据
@@ -55,7 +55,7 @@ public interface XmVideoViewGl {
     public void drawVideoFrame(VideoFrame frame);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 设置视频的背景色
      *
      * @param red
@@ -66,7 +66,7 @@ public interface XmVideoViewGl {
 
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 63
      * 设置背景的透明度
      *
      * @param alpha
@@ -74,7 +74,7 @@ public interface XmVideoViewGl {
     public void setAlpha(@FloatRange(from = 0.0, to = 1.0) float alpha);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 设置畸变纠正保留范围,相对于右上角
      *
      * @param x
@@ -83,7 +83,7 @@ public interface XmVideoViewGl {
     public void setDistort(float x, float y);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 设置一个显示的图像
      *
      * @param bitmap
@@ -91,7 +91,7 @@ public interface XmVideoViewGl {
     public void setFirstBitmap(Bitmap bitmap);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 63
      * 清除视频缓存
      */
     public void clearQueue();
@@ -102,7 +102,14 @@ public interface XmVideoViewGl {
     public void release();
 
     /**
-     * ApiLevel: 62
+     * 自动释放播放相关，默认false
+     *
+     * @param auto true surfaceDestroyed自动释放 false 需要用户不用的时候释放
+     */
+    public void setAutoRelease(boolean auto);
+
+    /**
+     * ApiLevel: 64
      * 是否是硬解码
      *
      * @return
@@ -111,7 +118,7 @@ public interface XmVideoViewGl {
 
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 设置是否需要填充满整视图
      *
      * @param needMini true 会保持比例不会放大 false会放大
@@ -126,7 +133,7 @@ public interface XmVideoViewGl {
     public void setRotation(int rotation);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 设置是否是全屏模式
      *
      * @param isFull
@@ -134,7 +141,7 @@ public interface XmVideoViewGl {
     public void setIsFull(boolean isFull);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 63
      * 添加一个贴图水印
      *
      * @param listener 回调
@@ -145,7 +152,7 @@ public interface XmVideoViewGl {
     public int drawBitmap(IDrawBitmapCallback listener, Bitmap bitmap, RectF rectF);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 63
      * 更新渲染的内容
      *
      * @param index
@@ -155,7 +162,7 @@ public interface XmVideoViewGl {
     public void updateBitmap(int index, Bitmap bitmap, RectF rectF);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 63
      * 移除渲染
      *
      * @param index
@@ -163,7 +170,7 @@ public interface XmVideoViewGl {
     public void removeBitmap(int index);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 设置视图的大小
      *
      * @param width
@@ -173,7 +180,7 @@ public interface XmVideoViewGl {
     public void setVideoFrameSize(int width, int height, boolean isFull);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 添加Mp4播放的接口，外部不可调用
      *
      * @param mp4Player
@@ -181,7 +188,7 @@ public interface XmVideoViewGl {
     public void addMp4Player(XmMp4Player mp4Player);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 获取Mp4播放的接口
      *
      * @return
@@ -190,7 +197,7 @@ public interface XmVideoViewGl {
     public XmMp4Player getMp4Player();
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 设置视图是否可以接收触摸事件
      *
      * @param touch
@@ -198,10 +205,44 @@ public interface XmVideoViewGl {
     public void setTouch(boolean touch);
 
     /**
-     * ApiLevel: 62
+     * ApiLevel: 64
      * 获取视图的 Context 对象
      *
      * @return
      */
     public Context getContext();
+
+    /**
+     * ApiLevel: 64
+     * 获取视图的 Context 对象
+     *
+     * @param scale  需要缩放的值
+     * @param animal 是否需要缩放动画 true需要 false不需要
+     */
+    public void setScale(float scale, boolean animal);
+
+    /**
+     * ApiLevel: 64
+     * 获取当前的缩放比例
+     *
+     * @return 当前视频的缩放
+     */
+    public float getScale();
+
+    /**
+     * ApiLevel: 64
+     * 缓冲区是否满了
+     *
+     * @return true满了 false未满
+     */
+    public boolean isBufferFull();
+
+    /**
+     * ApiLevel: 64
+     * 设置最大缩放
+     *
+     * @param port 竖屏最大缩放值 默认1.5
+     * @param land 横屏最大缩放值 默认2.0
+     */
+    public void setMaxScale(float port, float land);
 }
