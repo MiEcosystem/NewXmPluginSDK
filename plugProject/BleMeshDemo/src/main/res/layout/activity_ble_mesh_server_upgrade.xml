@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_bar_transparent_black" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/get_device_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取设备固件版本号" />
+
+        <TextView
+            android:id="@+id/device_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="设备固件版本号: "/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+        <Button
+            android:id="@+id/get_server_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取后台最新固件版本号" />
+
+        <TextView
+            android:id="@+id/server_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="后台最新固件版本号: "/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/start_upgrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="开始升级"/>
+
+    <TextView
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"/>
+
+</LinearLayout>

@@ -24,7 +24,7 @@ import java.io.File;
  * 2）从设备获取固件版本信息
  * 3）从后台调用接口下载固件到本地
  */
-public class BleMeshUpgradeActivity extends XmPluginBaseActivity {
+public class BleMeshLocalUpgradeActivity extends XmPluginBaseActivity {
     private TextView mTitleView;
     private EditText mInputMacView;
     private EditText mInputFilepathView;
@@ -36,7 +36,7 @@ public class BleMeshUpgradeActivity extends XmPluginBaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ble_mesh_upgrade);
+        setContentView(R.layout.activity_ble_mesh_local_upgrade);
 
         mTitleView = ((TextView) findViewById(R.id.title_bar_title));
         mInputMacView = (EditText) findViewById(R.id.input_mac);
@@ -47,7 +47,7 @@ public class BleMeshUpgradeActivity extends XmPluginBaseActivity {
         // 初始化device
         mDevice = Device.getDevice(mDeviceStat);
 
-        mTitleView.setText("蓝牙Mesh设备固件升级");
+        mTitleView.setText("蓝牙Mesh设备固件升级-读取本地固件升级");
         // 设置titlebar在顶部透明显示时的顶部padding
         mHostActivity.setTitleBarPadding(findViewById(R.id.title_bar));
         findViewById(R.id.title_bar_return).setOnClickListener(new View.OnClickListener() {
@@ -61,35 +61,6 @@ public class BleMeshUpgradeActivity extends XmPluginBaseActivity {
         mInputMacView.setText(mDevice.getMac());
         mInputFilepathView.setText("/sdcard/ble_mesh_dfu.bin");
 
-        findViewById(R.id.get_version).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String mac = mInputMacView.getText().toString().toUpperCase();
-                if (TextUtils.isEmpty(mac)) {
-                    toast("输入的MAC地址为空");
-                    return;
-                }
-
-                if (XmBluetoothManager.getInstance().getConnectStatus(mac) == XmBluetoothManager.STATUS_CONNECTED) {
-                    getFirmwareVersion(mac);
-                } else {
-                    mProgressView.setText("正在连接设备...(如果一直连不上，30s后会超时失败)");
-                    // TODO 暂时先使用connect普通连接，后续正式版需要调用bleMeshConnect安全连接
-                    XmBluetoothManager.getInstance().connect(mac, new Response.BleConnectResponse() {
-                        @Override
-                        public void onResponse(int code, Bundle data) {
-                            if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                                getFirmwareVersion(mac);
-                            } else {
-                                toast("连接设备失败");
-                                mProgressView.setText("连接设备失败");
-                            }
-                        }
-                    });
-                }
-            }
-        });
-
         mStartUpgradeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,22 +73,6 @@ public class BleMeshUpgradeActivity extends XmPluginBaseActivity {
                 }
 
                 updateUI();
-            }
-        });
-    }
-
-    private void getFirmwareVersion(String mac) {
-        mProgressView.setText("设备连接成功，正在获取固件版本号...");
-        XmBluetoothManager.getInstance().getBleMeshFirmwareVersion(mac, new Response.BleReadFirmwareVersionResponse() {
-            @Override
-            public void onResponse(int code, String version) {
-                if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                    toast("version = " + version);
-                    mProgressView.setText("version = " + version);
-                } else {
-                    toast("获取固件版本号失败");
-                    mProgressView.setText("获取固件版本号失败");
-                }
             }
         });
     }

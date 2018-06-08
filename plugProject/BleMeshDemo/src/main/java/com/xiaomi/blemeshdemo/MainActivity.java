@@ -3,7 +3,6 @@ package com.xiaomi.blemeshdemo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -55,12 +54,20 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
             }
         });
 
-        findViewById(R.id.mesh_firmware_upgrade).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.mesh_firmware_upgrade_local).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(), BleMeshUpgradeActivity.class.getName());
+                startActivity(new Intent(), BleMeshLocalUpgradeActivity.class.getName());
             }
         });
+
+        findViewById(R.id.mesh_firmware_upgrade_server).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(), BleMeshServerUpgradeActivity.class.getName());
+            }
+        });
+
         // 打开分享
         View shareView = findViewById(R.id.title_bar_share);
         if (mDevice.isOwner()) {
