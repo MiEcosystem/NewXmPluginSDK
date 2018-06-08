@@ -79,12 +79,4 @@ public class Response {
     public interface BleReadFirmwareVersionResponse extends BleResponse<String> {
 
     }
-
-    /**
-     * ApiLevel: 62
-     * 携带错误信息的response
-     */
-    public interface BleResponseV2<T> {
-        void onResponse(int code, String message, T data);
-    }
 }
