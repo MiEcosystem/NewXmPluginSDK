@@ -21,7 +21,7 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序
 
 **米家APP最新版本：5.1.37**
 
-**米家APP最新API Level：65**
+**米家APP最新API Level：66**
 
 **米家APP compileSdkVersion：27**
 
@@ -36,7 +36,7 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序
 # changelog
 记录关键的sdk修改提交：
 
-1）2018-5-28：在XmPluginHostApi类中新添加了一个接口checkAndRequestPermisson（API Level 65），用于扩展程序检查/请求所用到的Android权限。米家APP已经将targetSdkVersion升级到了25，如果扩展程序调用未经授权的Android相关权限功能，会导致扩展程序崩溃异常退出。
+1）2018-5-28：在XmPluginHostApi类中新添加了一个接口checkAndRequestPermisson（API Level 66），用于扩展程序检查/请求所用到的Android权限。米家APP已经将targetSdkVersion升级到了25，如果扩展程序调用未经授权的Android相关权限功能，会导致扩展程序崩溃异常退出。
 
 # 目录结构及文件含义
 
