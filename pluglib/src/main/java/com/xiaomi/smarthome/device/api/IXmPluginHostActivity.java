@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import com.xiaomi.smarthome.bluetooth.BleUpgrader;
 import com.xiaomi.smarthome.bluetooth.IBleUpgradeController;
 import com.xiaomi.smarthome.bluetooth.ISlideBtnController;
-import com.xiaomi.smarthome.bluetooth.SlideBtnController;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothManager;
 
 import java.util.ArrayList;
@@ -341,7 +340,7 @@ public interface IXmPluginHostActivity {
      * @param shareTitle        分享title
      * @param shareContent      分享文字内容
      * @param shareImagesZipUrl 分享链接图片zip包，可以是本地文件zip包文件路径，本地单张图片路径，网络zip包url
-     * @param thumb      缩略图，不超过32k大小
+     * @param thumb             缩略图，不超过32k大小
      */
     public void openShareMediaActivity(String shareTitle,
                                        String shareContent,
@@ -351,8 +350,8 @@ public interface IXmPluginHostActivity {
     /**
      * ApiLevel: 15 打开分享dialog，分享本地图片
      *
-     * @param shareTitle        分享title
-     * @param shareContent      分享文字内容
+     * @param shareTitle      分享title
+     * @param shareContent    分享文字内容
      * @param shareImagesFile 本地单张图片路径
      */
     public void openSharePictureActivity(String shareTitle,
@@ -561,7 +560,6 @@ public interface IXmPluginHostActivity {
 
     /**
      * ApiLevel: 13 打开自定义场景创建页面
-     *
      */
     public abstract void startEditCustomScene();
 
@@ -574,6 +572,7 @@ public interface IXmPluginHostActivity {
      * ApiLevel:15 设置黑色的状态栏，默认是黑色的
      */
     public abstract void enableBlackTranslucentStatus();
+
     /**
      * ApiLevel:19 开始加载场景
      */
@@ -631,7 +630,6 @@ public interface IXmPluginHostActivity {
 
         @Deprecated
         public void setHasNewerVersion(boolean flag) {
-//            intent.putExtra(EXTRA_HAS_NEWER, flag);
         }
 
         public BleMenuItem(Parcel in) {
@@ -670,6 +668,7 @@ public interface IXmPluginHostActivity {
 
     /**
      * ApiLevel:23
+     *
      * @param intent
      * @param upgrader
      */
@@ -678,71 +677,107 @@ public interface IXmPluginHostActivity {
 
     /**
      * ApiLevel:24 跳转水电燃气缴费页面
-     * @param type 0:水电燃气缴费主页面 1:水 2:电 3:燃气
-     * @param latitude 纬度
+     *
+     * @param type      0:水电燃气缴费主页面 1:水 2:电 3:燃气
+     * @param latitude  纬度
      * @param longitude 经度
      */
-    public abstract void openRechargePage(int type,double latitude,double longitude);
+    public abstract void openRechargePage(int type, double latitude, double longitude);
 
-     public enum BarcodeFormat {
+    public enum BarcodeFormat {
 
-        /** Aztec 2D barcode format. */
+        /**
+         * Aztec 2D barcode format.
+         */
         AZTEC,
 
-        /** CODABAR 1D format. */
+        /**
+         * CODABAR 1D format.
+         */
         CODABAR,
 
-        /** Code 39 1D format. */
+        /**
+         * Code 39 1D format.
+         */
         CODE_39,
 
-        /** Code 93 1D format. */
+        /**
+         * Code 93 1D format.
+         */
         CODE_93,
 
-        /** Code 128 1D format. */
+        /**
+         * Code 128 1D format.
+         */
         CODE_128,
 
-        /** Data Matrix 2D barcode format. */
+        /**
+         * Data Matrix 2D barcode format.
+         */
         DATA_MATRIX,
 
-        /** EAN-8 1D format. */
+        /**
+         * EAN-8 1D format.
+         */
         EAN_8,
 
-        /** EAN-13 1D format. */
+        /**
+         * EAN-13 1D format.
+         */
         EAN_13,
 
-        /** ITF (Interleaved Two of Five) 1D format. */
+        /**
+         * ITF (Interleaved Two of Five) 1D format.
+         */
         ITF,
 
-        /** MaxiCode 2D barcode format. */
+        /**
+         * MaxiCode 2D barcode format.
+         */
         MAXICODE,
 
-        /** PDF417 format. */
+        /**
+         * PDF417 format.
+         */
         PDF_417,
 
-        /** QR Code 2D barcode format. */
+        /**
+         * QR Code 2D barcode format.
+         */
         QR_CODE,
 
-        /** RSS 14 */
+        /**
+         * RSS 14
+         */
         RSS_14,
 
-        /** RSS EXPANDED */
+        /**
+         * RSS EXPANDED
+         */
         RSS_EXPANDED,
 
-        /** UPC-A 1D format. */
+        /**
+         * UPC-A 1D format.
+         */
         UPC_A,
 
-        /** UPC-E 1D format. */
+        /**
+         * UPC-E 1D format.
+         */
         UPC_E,
 
-        /** UPC/EAN extension format. Not a stand-alone format. */
+        /**
+         * UPC/EAN extension format. Not a stand-alone format.
+         */
         UPC_EAN_EXTENSION
 
     }
 
     /**
      * ApiLevel:25 跳转二维码扫描页面
-     * @param bundle 请求参数，可以传null即为扫描二维码,或者指定扫描码类型 bundle.putIntArray("barcode_format",new int[]{IXmPluginHostActivity.BarcodeFormat.QR_CODE.ordinal()});
-     * 请求逻辑@see #Activity.startActivityForResult(Intent, requestCode)
+     *
+     * @param bundle      请求参数，可以传null即为扫描二维码,或者指定扫描码类型 bundle.putIntArray("barcode_format",new int[]{IXmPluginHostActivity.BarcodeFormat.QR_CODE.ordinal()});
+     *                    请求逻辑@see #Activity.startActivityForResult(Intent, requestCode)
      * @param requestCode @see #Activity.startActivityForResult(Intent, requestCode)
      *
      * 结果返回到调用Activity的onActivityResult中，调用如下
@@ -757,15 +792,16 @@ public interface IXmPluginHostActivity {
      *    }
      * </pre>
      */
-    public abstract void openScanBarcodePage(Bundle bundle,int requestCode);
+    public abstract void openScanBarcodePage(Bundle bundle, int requestCode);
 
     /**
      * ApiLevel: 25 新打开更多界面接口，params传递插件自定义参数
-     *下面的参数可以禁用某些菜单
-     *public static final String ARGS_FIRMWARE_ENABLE = "firmware_enable";
-     *public static final String ARGS_SHARE_EBABLE = "share_enable";
-     *public static final String ARGS_UNBIND_ENABLE = "unbind_enable";
-     *public static final String ARGS_DELETE_ENABLE = "delete_enable";
+     * 下面的参数可以禁用某些菜单
+     * public static final String ARGS_FIRMWARE_ENABLE = "firmware_enable";
+     * public static final String ARGS_SHARE_EBABLE = "share_enable";
+     * public static final String ARGS_UNBIND_ENABLE = "unbind_enable";
+     * public static final String ARGS_DELETE_ENABLE = "delete_enable";
+     *
      * @param menus
      * @param useDefault
      * @param requestCode
@@ -780,104 +816,105 @@ public interface IXmPluginHostActivity {
     public abstract void openMoreMenu(Activity currentActivity, DeviceStat device,
                                       ArrayList<IXmPluginHostActivity.MenuItemBase> menus, boolean useDefault,
                                       String unbindTips, int requestCode, Intent params);
+
     /**
      * ApiLevel: 27 更多菜单新标准，从上下拉菜单，默认有
      * 智能场景 scence_enable
      * 通用设置 common_setting_enable
      * 帮助与反馈 help_feedback_enable
-     *
+     * <p>
      * ArrayList<IXmPluginHostActivity.MenuItemBase> menus = new
-     ArrayList<>();
-
-     //插件自定义菜单，可以在public void onActivityResult(int requestCode, int resultCode, Intent data) 中接收用户点击的菜单项，String result = data.getStringExtra("menu");
-     IXmPluginHostActivity.StringMenuItem stringMenuItem = new
-     IXmPluginHostActivity.StringMenuItem();
-     stringMenuItem.name = "test string menu";
-     menus.add(stringMenuItem);
-
-     //跳转到插件下一个activity的菜单
-     IXmPluginHostActivity.IntentMenuItem intentMenuItem = new
-     IXmPluginHostActivity.IntentMenuItem();
-     intentMenuItem.name = "test intent menu";
-     intentMenuItem.intent =
-     mHostActivity.getActivityIntent(null,
-     ApiDemosActivity.class.getName());
-     menus.add(intentMenuItem);
-
-     //带开关按钮的菜单，可以自动调用设备rpc
-     IXmPluginHostActivity.SlideBtnMenuItem slideBtnMenuItem = new
-     IXmPluginHostActivity.SlideBtnMenuItem();
-     slideBtnMenuItem.name = "test slide menu";
-     slideBtnMenuItem.isOn = mDevice.getRgb() > 0;
-     slideBtnMenuItem.onMethod = "set_rgb";
-     JSONArray onparams = new JSONArray();
-     onparams.put(0xffffff);
-     slideBtnMenuItem.onParams =
-     onparams.toString();
-     slideBtnMenuItem.offMethod = "set_rgb";
-     JSONArray offparams = new JSONArray();
-     offparams.put(0);
-     slideBtnMenuItem.offParams =
-     offparams.toString();
-     menus.add(slideBtnMenuItem);
-
-     mHostActivity.openMoreMenu2(menus, true, REQUEST_MENU, null);
-
-     params 设置 security_setting_enable true，添加安全设置接口
+     * ArrayList<>();
+     * <p>
+     * //插件自定义菜单，可以在public void onActivityResult(int requestCode, int resultCode, Intent data) 中接收用户点击的菜单项，String result = data.getStringExtra("menu");
+     * IXmPluginHostActivity.StringMenuItem stringMenuItem = new
+     * IXmPluginHostActivity.StringMenuItem();
+     * stringMenuItem.name = "test string menu";
+     * menus.add(stringMenuItem);
+     * <p>
+     * //跳转到插件下一个activity的菜单
+     * IXmPluginHostActivity.IntentMenuItem intentMenuItem = new
+     * IXmPluginHostActivity.IntentMenuItem();
+     * intentMenuItem.name = "test intent menu";
+     * intentMenuItem.intent =
+     * mHostActivity.getActivityIntent(null,
+     * ApiDemosActivity.class.getName());
+     * menus.add(intentMenuItem);
+     * <p>
+     * //带开关按钮的菜单，可以自动调用设备rpc
+     * IXmPluginHostActivity.SlideBtnMenuItem slideBtnMenuItem = new
+     * IXmPluginHostActivity.SlideBtnMenuItem();
+     * slideBtnMenuItem.name = "test slide menu";
+     * slideBtnMenuItem.isOn = mDevice.getRgb() > 0;
+     * slideBtnMenuItem.onMethod = "set_rgb";
+     * JSONArray onparams = new JSONArray();
+     * onparams.put(0xffffff);
+     * slideBtnMenuItem.onParams =
+     * onparams.toString();
+     * slideBtnMenuItem.offMethod = "set_rgb";
+     * JSONArray offparams = new JSONArray();
+     * offparams.put(0);
+     * slideBtnMenuItem.offParams =
+     * offparams.toString();
+     * menus.add(slideBtnMenuItem);
+     * <p>
+     * mHostActivity.openMoreMenu2(menus, true, REQUEST_MENU, null);
+     * <p>
+     * params 设置 security_setting_enable true，添加安全设置接口
+     *
      * @param menus
      * @param useDefault
      * @param requestCode
      */
     public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
-                                      boolean useDefault, int requestCode, Intent params);
+                                       boolean useDefault, int requestCode, Intent params);
 
     /**
-     *  ApiLevel: 29 需要验证pincode，如果设置pincode，则每次打开页面自动跳到验证pincode页面
-     *  设置里边需要打开安全设置选项，参考openMoreMenu2接口
-     *
+     * ApiLevel: 29 需要验证pincode，如果设置pincode，则每次打开页面自动跳到验证pincode页面
+     * 设置里边需要打开安全设置选项，参考openMoreMenu2接口
      */
     public abstract void enableVerifyPincode();
 
     /**
      * ApiLevel: 29 打开分享dialog，支持分享视频,必须是mp4文件
      *
-     * @param shareTitle        分享title
-     * @param shareContent      分享文字内容
+     * @param shareTitle      分享title
+     * @param shareContent    分享文字内容
      * @param shareImagesFile 本地视频路径
      */
     public void openShareVideoActivity(String shareTitle,
-                                         String shareContent,
-                                         String shareImagesFile
+                                       String shareContent,
+                                       String shareImagesFile
     );
 
     /**
-     * ApiLevel: 32 开启插件广告的支持
+     * ApiLevel: 65 开启插件广告的支持
      */
     void enableAd();
 
     /**
-     * ApiLevel: 32 展示插屏弹窗广告
-     */
-    void showPopAd();
-
-    /**
-     * ApiLevel: 32 展示页面下方弹窗
-     */
-    void showBottomPopAd();
-
-    /**
-     * ApiLevel: 32 创建Banner广告
+     * ApiLevel: 65 创建Banner广告
+     * type:BANNER = "banner";
      *
+     * @param adPositionID 广告位ID
      * @param vAdContainer 用于展示广告View的ViewGroup
      */
-    void showBannerAd(ViewGroup vAdContainer);
+    void showBannerAd(ViewGroup vAdContainer, String adPositionID);
 
     /**
-     * ApiLevel: 32 展示通知广告
+     * ApiLevel:65 展示通知广告
+     * type:NOTICE = "notice"
      *
+     * @param adPositionID 广告位ID
      * @param vAdContainer 用于展示广告View的ViewGroup
      */
-    void showNoticeAd(ViewGroup vAdContainer);
+    void showNoticeAd(ViewGroup vAdContainer, String adPositionID);
+
+    /**
+     * ApiLevel: 65 点击自定义热区跳转至相应界面
+     * @param adPositionId 热区广告位id
+     */
+    void clickHotSpotAd(String adPositionId);
 
     /*
      * ApiLevel: 32 打开设备操作历史记录
@@ -890,14 +927,13 @@ public interface IXmPluginHostActivity {
     );
 
     /**
-     * ApiLevel: 33
-     *
+     * ApiLevel: 65
+     * <p>
      * 上报热区广告的展示
      *
-     * @param gid 商品id
-     * @param hotSpotId 热区广告id，用于区分不同的广告
+     * @param adPositionId 热区广告位id
      */
-    void reportHotSpotAdShow(String gid, String hotSpotId);
+    void reportHotSpotAdShow(String adPositionId);
 
 
     /**
@@ -907,11 +943,12 @@ public interface IXmPluginHostActivity {
 
     /**
      * Apilevel:47
-     *
+     * <p>
      * 显示用户协议dialog
-     * @param dialogTitle dialog标题
-     * @param title 用户协议名称
-     * @param content 用户协议内容
+     *
+     * @param dialogTitle   dialog标题
+     * @param title         用户协议名称
+     * @param content       用户协议内容
      * @param agreeListener 用户点击同意协议按钮listener
      */
     @Deprecated
@@ -919,14 +956,15 @@ public interface IXmPluginHostActivity {
 
     /**
      * Apilevel:48
-     *
+     * <p>
      * 显示用户协议dialog
-     * @param dialogTitle dialog标题
-     * @param licenseTitle 用户协议名称
+     *
+     * @param dialogTitle    dialog标题
+     * @param licenseTitle   用户协议名称
      * @param licenseContent 用户协议内容
-     * @param privacyTitle 隐私条款名称
+     * @param privacyTitle   隐私条款名称
      * @param privacyContent 隐私条款内容
-     * @param agreeListener 用户点击同意协议按钮listener
+     * @param agreeListener  用户点击同意协议按钮listener
      */
     void showUserLicenseDialog(String dialogTitle,
                                String licenseTitle, Spanned licenseContent,
@@ -935,8 +973,9 @@ public interface IXmPluginHostActivity {
 
     /**
      * Apilevel:51
-     *
+     * <p>
      * 支持DeviceMoreNewActivity控制通用设置项里面的显示内容
+     *
      * @param menus
      * @param useDefault
      * @param requestCode
@@ -960,18 +999,18 @@ public interface IXmPluginHostActivity {
      * String.valueOf(0x00ffffff), "set_rgb", String.valueOf(0x00000000),
      * mDeviceStat.did, "RGB灯定时器", "RGB灯定时器");
      *
-     * @param deviceId    device id
-     * @param onMethod    当on timer时间到的时候执行的action，执行原始数据
-     * @param onParams    on action的参数
-     * @param offMethod   当off timer时间到的时候执行的action，执行原始数据
-     * @param offParams   off action参数
-     * @param identify    定时器的identify，使用device id
-     * @param displayName 定时的名称,在场景执行日志中显示
-     * @param timerTitle  定时器标题
-     * @param bothTimerMustBeSet  如果为true，则必须同时设置开启和关闭时间才能提交定时
-     * @param onTimerTip  开启定时的定时标题提示：默认是“开启时间”
-     * @param offTimerTip  关闭定时的定时标题提示：默认是“关闭时间”
-     * @param timerListTip  定时列表的标题提示：默认是“开启时段”/“开启时间”/“关闭时间”
+     * @param deviceId           device id
+     * @param onMethod           当on timer时间到的时候执行的action，执行原始数据
+     * @param onParams           on action的参数
+     * @param offMethod          当off timer时间到的时候执行的action，执行原始数据
+     * @param offParams          off action参数
+     * @param identify           定时器的identify，使用device id
+     * @param displayName        定时的名称,在场景执行日志中显示
+     * @param timerTitle         定时器标题
+     * @param bothTimerMustBeSet 如果为true，则必须同时设置开启和关闭时间才能提交定时
+     * @param onTimerTip         开启定时的定时标题提示：默认是“开启时间”
+     * @param offTimerTip        关闭定时的定时标题提示：默认是“关闭时间”
+     * @param timerListTip       定时列表的标题提示：默认是“开启时段”/“开启时间”/“关闭时间”
      */
     public void startSetTimerListV2(String deviceId, String onMethod, String onParams,
                                     String offMethod, String offParams, String identify, String displayName,

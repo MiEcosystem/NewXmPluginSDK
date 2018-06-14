@@ -30,7 +30,7 @@ public class NoticeAdActicity extends XmPluginBaseActivity {
         findViewById(R.id.ad_notice_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mHostActivity.showNoticeAd(vNoticeGroup,"123qwe");
+                mHostActivity.showNoticeAd(vNoticeGroup,"crossCutting");
             }
         });
 

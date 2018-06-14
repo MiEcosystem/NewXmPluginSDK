@@ -13,9 +13,6 @@ import com.xiaomi.xmplugindemo.R;
  */
 public class HotSpotActivity extends XmPluginBaseActivity {
 
-    private static final String AD_GID = "97";
-    private static final String AD_ID = "1";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,22 +26,10 @@ public class HotSpotActivity extends XmPluginBaseActivity {
             }
         });
 
-//        findViewById(R.id.ad_hot_spot).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mHostActivity.openShopActivity(AD_GID);
-//            }
-//        });
-        findViewById(R.id.report_show).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.ad_hot_spot).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-//                mHostActivity.reportHotSpotAdShow("ggg1");
-            }
-        });
-        findViewById(R.id.report_click).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mHostActivity.clickHotSpotAd("ggg1");
+            public void onClick(View view) {
+                mHostActivity.clickHotSpotAd("custom");
             }
         });
     }

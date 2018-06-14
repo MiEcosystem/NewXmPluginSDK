@@ -19,18 +19,4 @@
         android:layout_height="wrap_content"
         android:src="@drawable/welcome" />
 
-    <Button
-        android:id="@+id/report_show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="上报显示" />
-
-    <Button
-        android:id="@+id/report_click"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="点击广告" />
-
 </LinearLayout>
