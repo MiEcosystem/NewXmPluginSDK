@@ -2548,7 +2548,7 @@ public abstract class XmPluginHostApi {
     public abstract void getBindKey(String model, Callback<String> callback);
 
     /**
-     * ApiLevel: 65
+     * ApiLevel: 66
      * 检查/请求权限
      * 米家将targetSdkVersion升级到>=23之后,需要适配全新的权限机制。
      * ps：6.0之前的安卓版本上，申请的权限在app安装时就被授予。
