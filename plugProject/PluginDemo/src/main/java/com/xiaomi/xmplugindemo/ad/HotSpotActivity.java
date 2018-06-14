@@ -8,7 +8,7 @@ import com.xiaomi.xmplugindemo.R;
 
 /**
  * 热区广告
- *
+ * <p>
  * Created by wangyeming on 2016/12/1.
  */
 public class HotSpotActivity extends XmPluginBaseActivity {
@@ -29,10 +29,22 @@ public class HotSpotActivity extends XmPluginBaseActivity {
             }
         });
 
-        findViewById(R.id.ad_hot_spot).setOnClickListener(new View.OnClickListener() {
+//        findViewById(R.id.ad_hot_spot).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mHostActivity.openShopActivity(AD_GID);
+//            }
+//        });
+        findViewById(R.id.report_show).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                mHostActivity.openShopActivity(AD_GID);
+            public void onClick(View v) {
+//                mHostActivity.reportHotSpotAdShow("ggg1");
+            }
+        });
+        findViewById(R.id.report_click).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                mHostActivity.clickHotSpotAd("ggg1");
             }
         });
     }
@@ -41,6 +53,5 @@ public class HotSpotActivity extends XmPluginBaseActivity {
     public void onResume() {
         super.onResume();
         //上报广告的展示事件
-        mHostActivity.reportHotSpotAdShow(AD_GID, AD_ID);
     }
 }

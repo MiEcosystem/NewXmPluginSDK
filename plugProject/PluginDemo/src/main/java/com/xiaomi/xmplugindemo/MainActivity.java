@@ -3,11 +3,13 @@ package com.xiaomi.xmplugindemo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -21,6 +23,12 @@ import com.xiaomi.smarthome.device.api.XmPluginHostApi;
 
 import org.json.JSONArray;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -138,8 +146,8 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
     }
 
     private void checkIsFirstOpen() {
-        if (getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getBoolean(IS_FIRST_OPEN, true)) {
-            if (XmPluginHostApi.instance().getApiLevel() >= 48) {
+//        if (getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getBoolean(IS_FIRST_OPEN, true)) {
+//            if (XmPluginHostApi.instance().getApiLevel() >= 48) {
                 mHostActivity.showUserLicenseDialog("小米用户协议", "用户协议", Html.fromHtml(getString(R.string.user_license_new)),
                         "隐私条款", Html.fromHtml(getString(R.string.user_license_new)), new OnClickListener() {
                             @Override
@@ -147,7 +155,7 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
                                 getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit().putBoolean(IS_FIRST_OPEN, false).apply();
                             }
                         });
-            }
+//            }
             //使用小米协议
 //            if (XmPluginHostApi.instance().getApiLevel() >= 56) {
 //                mHostActivity.showUseDefaultLicenseDialog("小米用户协议", new OnClickListener() {
@@ -157,7 +165,7 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
 //                    }
 //                });
 //            }
-        }
+//        }
     }
 
     private void openMoreMenuNew() {
@@ -224,6 +232,43 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         commonSetting.putExtra("licenseContent", Html.fromHtml(getString(R.string.user_license_new)));
         commonSetting.putExtra("privacyContent", Html.fromHtml(getString(R.string.user_license_new)));
 
+        String rootPath = activity().getFilesDir().getAbsolutePath();
+        File licenseFile = new File(rootPath, "license.html");
+        File privacyFile = new File(rootPath, mDevice.getModel() + "_privacy.html");
+//        if (!licenseFile.exists() && !privacyFile.exists()) {
+        FileOutputStream fos1 = null;
+        FileOutputStream fos2 = null;
+        InputStream is = null;
+        try {
+            fos1 = openFileOutput(licenseFile.getName(), Context.MODE_PRIVATE);
+            fos2 = openFileOutput(privacyFile.getName(), Context.MODE_PRIVATE);
+            is = getAssets().open("user_license.html");
+            int length = is.available();
+            byte[] buffer = new byte[length];
+            is.read(buffer);
+            fos1.write(buffer);
+            fos1.flush();
+            fos2.write(buffer);
+            fos2.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            Log.d("wangyh", "openMoreMenuNew: ");
+            if (is != null && fos1 != null && fos2 != null) {
+                try {
+                    is.close();
+                    fos1.close();
+                    fos2.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+//        }
+        commonSetting.putExtra("licenseContentUri", licenseFile.getAbsolutePath());
+        commonSetting.putExtra("privacyContentUri", licenseFile.getAbsolutePath());
 
         mHostActivity.openMoreMenu2(menus, true, REQUEST_MENUS, intent, commonSetting);
     }

@@ -26,7 +26,7 @@ public class BottomPopAdActivity extends XmPluginBaseActivity {
         findViewById(R.id.ad_bottom_pop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHostActivity.showBottomPopAd();
+//                mHostActivity.showBottomDialogAd();
             }
         });
     }

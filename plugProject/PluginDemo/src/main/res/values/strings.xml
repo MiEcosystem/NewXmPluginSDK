@@ -20,6 +20,7 @@
     <!--advertisement-->
     <string name="ad_pop">插屏弹窗</string>
     <string name="ad_bottom_pop">底部弹窗</string>
+    <string name="ad_bottom_flow">底部浮窗</string>
     <string name="ad_banner">Banner广告</string>
     <string name="ad_notice">横切公告</string>
     <string name="ad_hot_spot">热区广告</string>

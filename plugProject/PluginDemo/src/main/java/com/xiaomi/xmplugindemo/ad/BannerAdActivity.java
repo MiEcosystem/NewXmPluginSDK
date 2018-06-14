@@ -29,7 +29,7 @@ public class BannerAdActivity extends XmPluginBaseActivity {
         findViewById(R.id.ad_banner_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHostActivity.showBannerAd(vBannerGroup);
+//                mHostActivity.showBannerAd(vBannerGroup,"asd123");
             }
         });
 

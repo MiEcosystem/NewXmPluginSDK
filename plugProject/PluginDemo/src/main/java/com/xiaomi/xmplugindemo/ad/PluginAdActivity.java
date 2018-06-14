@@ -24,20 +24,26 @@ public class PluginAdActivity extends XmPluginBaseActivity {
                 finish();
             }
         });
-
-        findViewById(R.id.float_ad).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(), PopAdActivity.class.getName());
-            }
-        });
-
-        findViewById(R.id.alert_dialog_ad).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(), BottomPopAdActivity.class.getName());
-            }
-        });
+//
+//        findViewById(R.id.float_ad).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(), PopAdActivity.class.getName());
+//            }
+//        });
+//
+//        findViewById(R.id.alert_dialog_ad).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(), BottomPopAdActivity.class.getName());
+//            }
+//        });
+//        findViewById(R.id.bottom_flow_ad).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mHostActivity.showBottomFlowAd("bottom");
+//            }
+//        });
 
         findViewById(R.id.banner_ad).setOnClickListener(new View.OnClickListener() {
             @Override

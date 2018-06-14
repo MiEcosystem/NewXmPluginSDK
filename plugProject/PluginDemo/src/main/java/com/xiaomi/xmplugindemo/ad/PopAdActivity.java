@@ -26,7 +26,7 @@ public class PopAdActivity extends XmPluginBaseActivity {
         findViewById(R.id.ad_pop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHostActivity.showPopAd();
+//                mHostActivity.showPopAd("cutting");
             }
         });
     }
