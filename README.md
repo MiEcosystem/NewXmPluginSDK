@@ -19,9 +19,9 @@
 
 NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序Android开发环境，里面包含米家APP提供给扩展程序的各种功能API，以及常用的UI组件。米家扩展程序也是基于Android环境开发的，开发扩展程序的时候请确保Android配置信息（比如compileSdkVersion、minSdkVersion、targetSdkVersion）与米家最新版本保持一致。
 
-**米家APP最新版本：5.1.37**
+**米家APP最新版本：5.3.10**
 
-**米家APP最新API Level：66**
+**米家APP最新API Level：75**
 
 **米家APP compileSdkVersion：27**
 
@@ -29,14 +29,14 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序
 
 **米家APP targetSdkVersion：25**
 
-**文档修改日期：2018-5-28**
+**文档修改日期：2018-6-22**
 
 **本文档描述了米家扩展程序Android客户端的申请、创建、开发、调试的流程，更多内容详见下列文档，遇到问题先查看[Wiki](https://github.com/MiEcosystem/NewXmPluginSDK/wiki)**
 
 # changelog
 记录关键的sdk修改提交：
 
-1）2018-5-28：在XmPluginHostApi类中新添加了一个接口checkAndRequestPermisson（API Level 66），用于扩展程序检查/请求所用到的Android权限。米家APP已经将targetSdkVersion升级到了25，如果扩展程序调用未经授权的Android相关权限功能，会导致扩展程序崩溃异常退出。
+1）2018-6-22：在XmPluginHostApi类中新添加了一个接口checkAndRequestPermisson（API Level 75），用于扩展程序检查/请求所用到的Android权限。米家APP已经将targetSdkVersion升级到了25，如果扩展程序调用未经授权的Android相关权限功能，会导致扩展程序崩溃异常退出。
 
 # 目录结构及文件含义
 
@@ -157,7 +157,7 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 	
 	![](./md_images/android_studio_debug.jpg)
 
-	2）选择com.xiaomi.smarthome:plugin0进程，如下图所示按钮：
+	2）选择com.xiaomi.smarthome:plugin0进程(如果不行，选择com.xiaomi.smarthome进程调试)，如下图所示按钮：
 
 	![](./md_images/android_studio_choose_process.png)
 

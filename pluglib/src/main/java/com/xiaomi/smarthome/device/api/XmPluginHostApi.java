@@ -6,7 +6,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -18,11 +17,14 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.FrameLayout;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.xiaomi.plugin.core.XmPluginPackage;
 import com.xiaomi.smarthome.bluetooth.Response;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
+import com.xiaomi.smarthome.camera.XmMp4Record;
+import com.xiaomi.smarthome.camera.XmVideoViewGl;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginSubscribeCallback;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginUnSubscribeCallback;
 import com.xiaomi.smarthome.plugin.service.HostService;
@@ -33,8 +35,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -179,7 +179,7 @@ public abstract class XmPluginHostApi {
      * @param parser
      */
     public abstract <T> void callMethodFromCloud(String did, String method, Object params,
-                                        final Callback<T> callback, final Parser<T> parser);
+                                                 final Callback<T> callback, final Parser<T> parser);
 
 
     /**
@@ -274,21 +274,7 @@ public abstract class XmPluginHostApi {
                             result.name = object.optString("name");
                             result.bindFlag = object.optInt("adminFlag");
                             result.authFlag = object.optInt("shareFlag");
-                            // result.resetFlag = object.optInt("resetFlag");
-                            // result.rssi = object.optInt("rssi", 0);
-                            // if ((result.bindFlag ==
-                            // MiioDBConst.BIND_FLAG_UNSET
-                            // && result.authFlag ==
-                            // MiioDBConst.AUTH_FLAG_UNSET)) {
-                            // result.token = "";
-                            // } else {
-                            // result.token = object.optString("token");
-                            // }
                             result.ip = object.optString("localip");
-                            // result.latitude = object.optDouble("latitude");
-                            // result.longitude = object.optDouble("longitude");
-
-                            // result.propInfo = object.optJSONObject("prop");
                             result.mac = object.optString("mac");
                             result.parentModel = object.optString("parent_model");
                             result.parentId = object.optString("parent_id");
@@ -1154,9 +1140,6 @@ public abstract class XmPluginHostApi {
             dataObj.put("st_id", st_id);
             dataObj.put("did", did);
             dataObj.put("identify", identify);
-            // if (name != null && !name.equals("")) {
-            // dataObj.put("name", name);
-            // }
         } catch (JSONException e) {
             if (callback != null)
                 callback.onFailure(-1, e.toString());
@@ -1564,31 +1547,6 @@ public abstract class XmPluginHostApi {
         if (callback != null) {
             callback.onFailure(-1, "This API is forbidden, please use setUserConfigV2 instead");
         }
-        // JSONObject dataObj = new JSONObject();
-        // try {
-        // dataObj.put("component_id", app_id);
-        // dataObj.put("key", key);
-        // JSONObject attris = new JSONObject();
-        // Set<Map.Entry<String, Object>> entrys = data.entrySet();
-        // for (Map.Entry<String, Object> entry : entrys) {
-        // attris.put(entry.getKey(),entry.getValue());
-        // }
-        // dataObj.put("data",attris);
-        //
-        // } catch (JSONException e) {
-        // if (callback != null) {
-        // callback.onFailure(-1, e.toString());
-        // return;
-        // }
-        // }
-        // callSmartHomeApi(model, "/user/setUserConfig", dataObj, callback, new Parser<Boolean>() {
-        // @Override
-        // public Boolean parse(String result) throws JSONException {
-        // JSONObject response = new JSONObject(result);
-        // int res = response.optInt("result");
-        // return res != 0;
-        // }
-        // });
     }
 
     /**
@@ -1605,38 +1563,6 @@ public abstract class XmPluginHostApi {
         if (callback != null) {
             callback.onFailure(-1, "API forbidden, please use getUserConfigV2 instead!");
         }
-        // JSONObject dataObj = new JSONObject();
-        // try {
-        // dataObj.put("component_id", app_id);
-        // JSONArray keysArray = new JSONArray();
-        // for (int i=0;i<keys.length;i++){
-        // keysArray.put(keys[i]);
-        // }
-        // dataObj.put("keys", keysArray);
-        //
-        // } catch (JSONException e) {
-        // if (callback != null) {
-        // callback.onFailure(-1, e.toString());
-        // return;
-        // }
-        // }
-        // callSmartHomeApi(model, "/user/getUserConfig", dataObj, callback, new Parser<Map<String,
-        // Object>>() {
-        // @Override
-        // public Map<String, Object> parse(String result) throws JSONException {
-        // JSONObject response = new JSONObject(result);
-        // Map<String, Object> map = new HashMap<String, Object>();
-        // JSONObject resultObj = response.optJSONObject("result");
-        // if(resultObj!=null){
-        // Iterator<String> iterator = resultObj.keys();
-        // while (iterator.hasNext()){
-        // String key = iterator.next();
-        // map.put(key,resultObj.get(key));
-        // }
-        // }
-        // return map;
-        // }
-        // });
     }
 
     /**
@@ -2541,6 +2467,36 @@ public abstract class XmPluginHostApi {
      */
     public abstract void logForModel(String model, String logMessage);
 
+	/**
+     * 创建一个播放视频流的播放视图
+     *
+     * @param context
+     * @param original 父容器
+     * @param useHard  是否优先使用硬解码
+     * @param type     视频流编码类型 1==h264 2==h265
+     * @return
+     * @see com.xiaomi.smarthome.camera.VideoFrame
+     */
+    public abstract XmVideoViewGl createVideoView(Context context, FrameLayout original, boolean useHard, int type);
+
+    /**
+     * ApiLevel: 64
+     * 创建一个用来播放本地Mp4的视图
+     *
+     * @param context
+     * @param original 父容器
+     * @param useHard  true MediaPlayer播放mp4 // false 使用ffmpeg 播放mp4
+     * @return
+     */
+    public abstract XmVideoViewGl createMp4View(Context context, FrameLayout original, boolean useHard);
+
+    /**
+     * ApiLevel: 64
+     * 创建一个可以用来合成Mp4的接口
+     * @return Mp4音视频流合成器的接口
+     */
+    public abstract XmMp4Record createMp4Record();
+
     /**
      * ApiLevel: 64
      * 插件获取bindkey后传给设备，然后设备再传给MIOT后台，完成设备与MIOT的绑定
@@ -2548,7 +2504,7 @@ public abstract class XmPluginHostApi {
     public abstract void getBindKey(String model, Callback<String> callback);
 
     /**
-     * ApiLevel: 66
+     * ApiLevel: 75
      * 检查/请求权限
      * 米家将targetSdkVersion升级到>=23之后,需要适配全新的权限机制。
      * ps：6.0之前的安卓版本上，申请的权限在app安装时就被授予。

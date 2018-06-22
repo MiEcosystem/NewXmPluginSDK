@@ -4,7 +4,6 @@ package com.xiaomi.smarthome.device.api;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 
 import java.lang.reflect.Field;
 

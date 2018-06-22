@@ -54,8 +54,6 @@ public class BaseDevice {
         mStateChangedListeners
                 .add(new WeakReference<StateChangedListener>(
                         listener));
-
-        // DevicePushListener.getInstance().registerListener(this);
     }
 
     /**
@@ -74,8 +72,6 @@ public class BaseDevice {
             }
 
         }
-
-        // DevicePushListener.getInstance().unregisterListener(this);
     }
 
     public void notifyStateChanged() {
