@@ -29,7 +29,6 @@ import android.view.WindowManager;
 import com.xiaomi.plugin.core.XmPluginPackage;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * 免安装插件activity基类 所有与activity和context相关的调用，请使用方法activity()获取，比如Toast弹出和Dialog创建
@@ -509,20 +508,6 @@ public class XmPluginBaseActivity extends FragmentActivity implements IXmPluginA
     public void onSceneLoaded(boolean success) {
 
     }
-
-    // public void startActivityForResult(Intent intent, int requestCode,
-    // Bundle options) {
-    // if (isLocalLaunch()) {
-    // super.startActivityForResult(intent, requestCode, options);
-    // } else {
-    // XmPluginManager.getInstance(mMainActivity).startActivityForResult(
-    // mMainActivity, intent.getExtras(),
-    // intent.getComponent().getPackageName(),
-    // intent.getComponent().getClassName(), requestCode);
-    //
-    // }
-    //
-    // }
 
     // 启动插件包内的activity
     public void startActivity(Intent intent, String className) {

@@ -6,7 +6,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -18,11 +17,14 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.FrameLayout;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.xiaomi.plugin.core.XmPluginPackage;
 import com.xiaomi.smarthome.bluetooth.Response;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
+import com.xiaomi.smarthome.camera.XmMp4Record;
+import com.xiaomi.smarthome.camera.XmVideoViewGl;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginSubscribeCallback;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginUnSubscribeCallback;
 import com.xiaomi.smarthome.plugin.service.HostService;
@@ -33,8 +35,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -179,7 +179,7 @@ public abstract class XmPluginHostApi {
      * @param parser
      */
     public abstract <T> void callMethodFromCloud(String did, String method, Object params,
-                                        final Callback<T> callback, final Parser<T> parser);
+                                                 final Callback<T> callback, final Parser<T> parser);
 
 
     /**
@@ -274,21 +274,7 @@ public abstract class XmPluginHostApi {
                             result.name = object.optString("name");
                             result.bindFlag = object.optInt("adminFlag");
                             result.authFlag = object.optInt("shareFlag");
-                            // result.resetFlag = object.optInt("resetFlag");
-                            // result.rssi = object.optInt("rssi", 0);
-                            // if ((result.bindFlag ==
-                            // MiioDBConst.BIND_FLAG_UNSET
-                            // && result.authFlag ==
-                            // MiioDBConst.AUTH_FLAG_UNSET)) {
-                            // result.token = "";
-                            // } else {
-                            // result.token = object.optString("token");
-                            // }
                             result.ip = object.optString("localip");
-                            // result.latitude = object.optDouble("latitude");
-                            // result.longitude = object.optDouble("longitude");
-
-                            // result.propInfo = object.optJSONObject("prop");
                             result.mac = object.optString("mac");
                             result.parentModel = object.optString("parent_model");
                             result.parentId = object.optString("parent_id");
@@ -827,6 +813,14 @@ public abstract class XmPluginHostApi {
     }
 
     /**
+     * ApiLevel:65 设备方法调用，完全透明调用，需要自己设置参数
+     *
+     * @param sid servicetoken 对应的 sid
+     * @param callback 回调结果
+     */
+    public abstract void getServiceToken(String sid,  Callback<JSONObject> callback);
+
+    /**
      * ApiLevel:2 设备方法调用，完全透明调用，需要自己设置参数
      *
      * @param did
@@ -1154,9 +1148,6 @@ public abstract class XmPluginHostApi {
             dataObj.put("st_id", st_id);
             dataObj.put("did", did);
             dataObj.put("identify", identify);
-            // if (name != null && !name.equals("")) {
-            // dataObj.put("name", name);
-            // }
         } catch (JSONException e) {
             if (callback != null)
                 callback.onFailure(-1, e.toString());
@@ -1564,31 +1555,6 @@ public abstract class XmPluginHostApi {
         if (callback != null) {
             callback.onFailure(-1, "This API is forbidden, please use setUserConfigV2 instead");
         }
-        // JSONObject dataObj = new JSONObject();
-        // try {
-        // dataObj.put("component_id", app_id);
-        // dataObj.put("key", key);
-        // JSONObject attris = new JSONObject();
-        // Set<Map.Entry<String, Object>> entrys = data.entrySet();
-        // for (Map.Entry<String, Object> entry : entrys) {
-        // attris.put(entry.getKey(),entry.getValue());
-        // }
-        // dataObj.put("data",attris);
-        //
-        // } catch (JSONException e) {
-        // if (callback != null) {
-        // callback.onFailure(-1, e.toString());
-        // return;
-        // }
-        // }
-        // callSmartHomeApi(model, "/user/setUserConfig", dataObj, callback, new Parser<Boolean>() {
-        // @Override
-        // public Boolean parse(String result) throws JSONException {
-        // JSONObject response = new JSONObject(result);
-        // int res = response.optInt("result");
-        // return res != 0;
-        // }
-        // });
     }
 
     /**
@@ -1605,38 +1571,6 @@ public abstract class XmPluginHostApi {
         if (callback != null) {
             callback.onFailure(-1, "API forbidden, please use getUserConfigV2 instead!");
         }
-        // JSONObject dataObj = new JSONObject();
-        // try {
-        // dataObj.put("component_id", app_id);
-        // JSONArray keysArray = new JSONArray();
-        // for (int i=0;i<keys.length;i++){
-        // keysArray.put(keys[i]);
-        // }
-        // dataObj.put("keys", keysArray);
-        //
-        // } catch (JSONException e) {
-        // if (callback != null) {
-        // callback.onFailure(-1, e.toString());
-        // return;
-        // }
-        // }
-        // callSmartHomeApi(model, "/user/getUserConfig", dataObj, callback, new Parser<Map<String,
-        // Object>>() {
-        // @Override
-        // public Map<String, Object> parse(String result) throws JSONException {
-        // JSONObject response = new JSONObject(result);
-        // Map<String, Object> map = new HashMap<String, Object>();
-        // JSONObject resultObj = response.optJSONObject("result");
-        // if(resultObj!=null){
-        // Iterator<String> iterator = resultObj.keys();
-        // while (iterator.hasNext()){
-        // String key = iterator.next();
-        // map.put(key,resultObj.get(key));
-        // }
-        // }
-        // return map;
-        // }
-        // });
     }
 
     /**
@@ -2540,5 +2474,110 @@ public abstract class XmPluginHostApi {
      * @param logMessage
      */
     public abstract void logForModel(String model, String logMessage);
+
+    /**
+     * ApiLevel: 64
+     * 创建一个播放视频流的播放视图
+     *
+     * @param context
+     * @param original 父容器
+     * @param useHard  是否优先使用硬解码
+     * @param type     视频流编码类型 1==h264 2==h265
+     * @return
+     * @see com.xiaomi.smarthome.camera.VideoFrame
+     */
+    public abstract XmVideoViewGl createVideoView(Context context, FrameLayout original, boolean useHard, int type);
+
+    /**
+     * ApiLevel: 64
+     * 创建一个用来播放本地Mp4的视图
+     *
+     * @param context
+     * @param original 父容器
+     * @param useHard  true MediaPlayer播放mp4 // false 使用ffmpeg 播放mp4
+     * @return
+     */
+    public abstract XmVideoViewGl createMp4View(Context context, FrameLayout original, boolean useHard);
+
+    /**
+     * ApiLevel: 64
+     * 创建一个可以用来合成Mp4的接口
+     * @return Mp4音视频流合成器的接口
+     */
+    public abstract XmMp4Record createMp4Record();
+
+    /**
+     * ApiLevel: 64
+     * 插件获取bindkey后传给设备，然后设备再传给MIOT后台，完成设备与MIOT的绑定
+     */
+    public abstract void getBindKey(String model, Callback<String> callback);
+
+
+    /**
+     * ApiLevel: 65
+     * 插件获取云存储报警视频, mp4格式
+     * @param context 不能为null
+     * @param params 包括did，fileId，stoId的json格式string
+     * @param callback 回调函数，获取成功或者失败的结果
+     */
+    public abstract void getCloudVideoFile(Context context, String params, ICloudDataCallback callback);
+
+    /**
+     * ApiLevel: 65
+     * 插件获取图片url的api，只是获取url，不真正下载图片
+     * @param did 设备id
+     * @param fileId 文件id
+     * @param stoId 存储id
+     * @return 图片url
+     */
+    public abstract String getCloudImageUrl(String did, String fileId, String stoId);
+
+    /**
+     * ApiLevel: 65
+     * 插件获取加密的图片
+     * @param context 不能为null
+     * @param imageUri 图片的uri
+     * @return 图片数据
+     */
+    public abstract byte[] sendImageDownloadRequest(Context context, String imageUri);
+
+    /**
+     * ApiLevel: 70
+     * 获取蓝牙设备固件升级信息
+     */
+    public abstract void getBleMeshFirmwareUpdateInfo(String model, String did, Callback<BleMeshFirmwareUpdateInfo> callback);
+
+    /**
+     * ApiLevel: 70
+     * 根据miotspec协议，读取设备属性
+     *
+     * @param model 当前设备model
+     * @param params 要读取的设备信息，可以一次读取设备的多个属性，格式如下：[{"did": "123", "siid": 1, "piid": 2}, {"did": "124", "siid": 1, "piid": 3}]
+     * @param callback 返回读取的多个设备属性信息，"code"为0表示成功，其他表示失败，格式如下：[{"did": "123", "siid": 1, "piid": 2， "value": 10, "code": 0}, {"did": "124", "siid": 1, "piid": 3, "value": "hello", "code": 0}]
+     */
+    public abstract void getMiotSpecProp(String model, JSONArray params, Callback<JSONArray> callback);
+
+    /**
+     * ApiLevel: 70
+     * 根据miotspec协议，写设备属性
+     *
+     * @param model 当前设备model
+     * @param params 需要设置的设备属性，可以一次设备设备的多个属性，格式如下：[{"did": "1234", "siid": 1, "piid": 1, "value": 10}, {"did": "1234", "siid": 1, "piid": 88, "value": "hello"}]
+     * @param callback 返回写的结果，"code"为0表示成功，其他表示失败，格式如下：[{"did": "1234", "siid": 1, "piid": 1, "code": 0}, {"did": "1234", "siid": 1, "piid": 88, "code": -4003}]
+     */
+    public abstract void setMiotSpecProp(String model, JSONArray params, Callback<JSONArray> callback);
+
+    /**
+     * ApiLevel: 70
+     * 根据miotspec协议，执行设备支持的方法
+     *
+     * @param model 当前设备model
+     * @param did 当前设备did
+     * @param siid 设备的service id
+     * @param aiid 设备的action id
+     * @param in 要执行的action信息，包含property id和要设备的value，格式如下：[{"piid": 1, "vaule": 10}]
+     * @param callback 返回action的执行结果，"code"为0表示成功，其他表示失败，格式如下：["did": "1234", "siid": 1, "aiid": 1, "code": 0, "out": ["piid": 3, "value": 10]]
+     */
+    public abstract void callMiotSpecAction(String model, String did, int siid, int aiid, int piid, JSONArray in, Callback<String> callback);
 
 }

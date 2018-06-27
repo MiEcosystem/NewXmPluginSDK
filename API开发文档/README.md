@@ -25,4 +25,5 @@
 * [蓝牙基础API](蓝牙基础API.md)
 * [蓝牙固件升级API](蓝牙固件升级API.md)
 * [蓝牙锁相关API](蓝牙锁相关API.md)
+* [蓝牙Mesh相关API](蓝牙Mesh相关API.md)
 * [摄像机相关API](摄像机相关API.md)

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_bar_transparent_black" />
+
+    <Button
+        android:id="@+id/get_switch_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取灯的开关状态"/>
+
+    <Button
+        android:id="@+id/get_brightness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="获取灯的亮度"/>
+
+    <Button
+        android:id="@+id/turn_on_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="开灯"/>
+
+    <Button
+        android:id="@+id/turn_off_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="关灯"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="亮度调节"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/black"/>
+
+        <SeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:progressBackgroundTint="@color/black"
+            android:layout_marginRight="30dp"/>
+    </LinearLayout>
+
+</LinearLayout>

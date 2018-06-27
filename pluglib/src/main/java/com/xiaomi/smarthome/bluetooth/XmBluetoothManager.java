@@ -605,7 +605,17 @@ public abstract class XmBluetoothManager {
     public abstract void isBleGatewayConnected(String mac, Response.BleResponse<Void> response);
 
     /**
-     * ApiLevel: 65+
+     * ApiLevel: 62
+     * 给锁设备提供的获取一次性密码
+     * @param mac
+     * @param interval 密码的有效时间，单位为分钟，必须 >= 1 并且 <= 60，否则会返回错误。必须与固件中的有效时间保持一致。
+     * @param digits 密码的长度，必须 >= 6 并且 <= 8，否则会返回错误。
+     * @param response 返回操作成功还是失败，如果操作成功则返回一次性密码
+     */
+    public abstract void getOneTimePassword(String mac, int interval, int digits, Response.BleResponseV2<int[]> response);
+
+    /**
+     * ApiLevel: 70
      * 安全连接蓝牙Mesh设备
      *
      * @param mac
@@ -614,7 +624,16 @@ public abstract class XmBluetoothManager {
     public abstract void bleMeshConnect(String mac, BleConnectResponse response);
 
     /**
-     * ApiLevel: 65+
+     * ApiLevel: 70
+     * 获取蓝牙Mesh设备当前固件版本号（只有连接设备成功后才能获取固件版本号）
+     *
+     * @param mac
+     * @param response
+     */
+    public abstract void getBleMeshFirmwareVersion(String mac, Response.BleReadFirmwareVersionResponse response);
+
+    /**
+     * ApiLevel: 70
      * 统一的蓝牙Mesh设备固件升级（只有连接设备成功后才能调用升级），非mesh设备不能调用这个升级接口
      * @param mac
      * @param filePath 已下载到本地的固件文件路径
@@ -628,14 +647,5 @@ public abstract class XmBluetoothManager {
      * @param mac
      */
     public abstract void cancelBleMeshUpgrade(String mac);
-
-    /**
-     * ApiLevel: 65+
-     * 获取蓝牙Mesh设备当前固件版本号（只有连接设备成功后才能获取固件版本号）
-     *
-     * @param mac
-     * @param response
-     */
-    public abstract void getBleMeshFirmwareVersion(String mac, Response.BleReadFirmwareVersionResponse response);
 
 }
