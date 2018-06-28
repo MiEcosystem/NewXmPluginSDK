@@ -813,6 +813,14 @@ public abstract class XmPluginHostApi {
     }
 
     /**
+     * ApiLevel:65 设备方法调用，完全透明调用，需要自己设置参数
+     *
+     * @param sid servicetoken 对应的 sid
+     * @param callback 回调结果
+     */
+    public abstract void getServiceToken(String sid,  Callback<JSONObject> callback);
+
+    /**
      * ApiLevel:2 设备方法调用，完全透明调用，需要自己设置参数
      *
      * @param did
@@ -2467,7 +2475,8 @@ public abstract class XmPluginHostApi {
      */
     public abstract void logForModel(String model, String logMessage);
 
-	/**
+    /**
+     * ApiLevel: 64
      * 创建一个播放视频流的播放视图
      *
      * @param context
@@ -2520,4 +2529,32 @@ public abstract class XmPluginHostApi {
      * @return 权限都已经授予/功能正常，返回true，否则，返回false
      */
     public abstract boolean checkAndRequestPermisson(Activity activity, boolean requestPermission, Callback<List<String>> callback, String... permissions);
+
+    /*
+     * ApiLevel: 65
+     * 插件获取云存储报警视频, mp4格式
+     * @param context 不能为null
+     * @param params 包括did，fileId，stoId的json格式string
+     * @param callback 回调函数，获取成功或者失败的结果
+     */
+    public abstract void getCloudVideoFile(Context context, String params, ICloudDataCallback callback);
+
+    /*
+     * ApiLevel: 65
+     * 插件获取图片url的api，只是获取url，不真正下载图片
+     * @param did 设备id
+     * @param fileId 文件id
+     * @param stoId 存储id
+     * @return 图片url
+     */
+    public abstract String getCloudImageUrl(String did, String fileId, String stoId);
+
+    /*
+     * ApiLevel: 65
+     * 插件获取加密的图片
+     * @param context 不能为null
+     * @param imageUri 图片的uri
+     * @return 图片数据
+     */
+    public abstract byte[] sendImageDownloadRequest(Context context, String imageUri);
 }
