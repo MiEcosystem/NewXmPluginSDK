@@ -31,6 +31,12 @@
         android:text="点击连接设备" />
 
     <Button
+        android:id="@+id/mesh_firmware_upgrade_local"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="蓝牙Mesh设备固件升级(读取本地固件升级)"/>
+
+    <Button
         android:id="@+id/mesh_control"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

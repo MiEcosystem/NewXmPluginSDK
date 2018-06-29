@@ -2513,7 +2513,7 @@ public abstract class XmPluginHostApi {
     public abstract void getBindKey(String model, Callback<String> callback);
 
 
-    /**
+    /*
      * ApiLevel: 65
      * 插件获取云存储报警视频, mp4格式
      * @param context 不能为null
@@ -2522,7 +2522,7 @@ public abstract class XmPluginHostApi {
      */
     public abstract void getCloudVideoFile(Context context, String params, ICloudDataCallback callback);
 
-    /**
+    /*
      * ApiLevel: 65
      * 插件获取图片url的api，只是获取url，不真正下载图片
      * @param did 设备id
@@ -2532,7 +2532,7 @@ public abstract class XmPluginHostApi {
      */
     public abstract String getCloudImageUrl(String did, String fileId, String stoId);
 
-    /**
+    /*
      * ApiLevel: 65
      * 插件获取加密的图片
      * @param context 不能为null
@@ -2542,8 +2542,7 @@ public abstract class XmPluginHostApi {
     public abstract byte[] sendImageDownloadRequest(Context context, String imageUri);
 
     /**
-     * ApiLevel: 70
-     * 获取蓝牙设备固件升级信息
+     * ApiLevel:70 获取蓝牙设备固件升级信息
      */
     public abstract void getBleMeshFirmwareUpdateInfo(String model, String did, Callback<BleMeshFirmwareUpdateInfo> callback);
 

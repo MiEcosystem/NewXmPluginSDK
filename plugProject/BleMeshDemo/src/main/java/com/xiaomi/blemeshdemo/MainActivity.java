@@ -109,6 +109,13 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
             }
         });
 
+        findViewById(R.id.mesh_firmware_upgrade_local).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(), BleMeshLocalUpgradeActivity.class.getName());
+            }
+        });
+
         findViewById(R.id.mesh_control).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

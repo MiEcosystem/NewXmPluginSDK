@@ -178,16 +178,22 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_TOKEN_VERIFY_FAILED = -31;
         // 蓝牙连接过程中收到连接断开的广播
         public static final int REQUEST_STATUS_DISCONNECTED = -32;
+        // 安全芯片：绑定的时候需要用户在设备输入配对码
+        public static final int REQUEST_SC_REGISTER_INPUT_PAIR_CODE = -33;
+        // 安全芯片：绑定时设备输入的配对码失败
+        public static final int REQUEST_SC_REGISTER_PAIR_CODE_FAILED = -34;
+        // 安全芯片：绑定时配对码过期
+        public static final int REQUEST_SC_REGISTER_PAIR_CODE_EXPIRED = -35;
         // 蓝牙Mesh绑定过程中，服务端校验设备证书失败
-        public static final int REQUEST_MESH_REG_SERVER_VERIFY_CERT_FAILED = -33;
+        public static final int REQUEST_MESH_REG_SERVER_VERIFY_CERT_FAILED = -36;
         // 蓝牙Mesh绑定过程中，服务端校验设备签名失败
-        public static final int REQUEST_MESH_REG_SERVER_VERIFY_SIGN_FAILED = -34;
+        public static final int REQUEST_MESH_REG_SERVER_VERIFY_SIGN_FAILED = -37;
         // 蓝牙Mesh绑定过程中，设备校验服务端证书失败
-        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_CERT_FAILED = -35;
+        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_CERT_FAILED = -38;
         // 蓝牙Mesh绑定过程中，设备校验服务端签名失败
-        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_SIGN_FAILED = -36;
+        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_SIGN_FAILED = -39;
         // 蓝牙Mesh绑定过程中，设备校验服务端公钥失败
-        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_PUB_FAILED = -37;
+        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_PUB_FAILED = -40;
 
         public static String toString(int code) {
             switch (code) {
@@ -253,6 +259,22 @@ public abstract class XmBluetoothManager {
                     return "REQUEST_TOKEN_VERIFY_FAILED";
                 case REQUEST_STATUS_DISCONNECTED:
                     return "REQUEST_STATUS_DISCONNECTED";
+                case REQUEST_SC_REGISTER_INPUT_PAIR_CODE:
+                    return "REQUEST_SC_REGISTER_INPUT_PAIR_CODE";
+                case REQUEST_SC_REGISTER_PAIR_CODE_FAILED:
+                    return "REQUEST_SC_REGISTER_PAIR_CODE_FAILED";
+                case REQUEST_SC_REGISTER_PAIR_CODE_EXPIRED:
+                    return "REQUEST_SC_REGISTER_PAIR_CODE_EXPIRED";
+                case REQUEST_MESH_REG_SERVER_VERIFY_CERT_FAILED:
+                    return "REQUEST_MESH_REG_SERVER_VERIFY_CERT_FAILED";
+                case REQUEST_MESH_REG_SERVER_VERIFY_SIGN_FAILED:
+                    return "REQUEST_MESH_REG_SERVER_VERIFY_SIGN_FAILED";
+                case REQUEST_MESH_REG_DEVICE_VERIFY_CERT_FAILED:
+                    return "REQUEST_MESH_REG_DEVICE_VERIFY_CERT_FAILED";
+                case REQUEST_MESH_REG_DEVICE_VERIFY_SIGN_FAILED:
+                    return "REQUEST_MESH_REG_DEVICE_VERIFY_SIGN_FAILED";
+                case REQUEST_MESH_REG_DEVICE_VERIFY_PUB_FAILED:
+                    return "REQUEST_MESH_REG_DEVICE_VERIFY_PUB_FAILED";
                 default:
                     return "unknown code: " + code;
             }
@@ -619,18 +641,10 @@ public abstract class XmBluetoothManager {
      * 安全连接蓝牙Mesh设备
      *
      * @param mac
+     * @param did
      * @param response
      */
-    public abstract void bleMeshConnect(String mac, BleConnectResponse response);
-
-    /**
-     * ApiLevel: 70
-     * 获取蓝牙Mesh设备当前固件版本号（只有连接设备成功后才能获取固件版本号）
-     *
-     * @param mac
-     * @param response
-     */
-    public abstract void getBleMeshFirmwareVersion(String mac, Response.BleReadFirmwareVersionResponse response);
+    public abstract void bleMeshConnect(String mac, String did, BleConnectResponse response);
 
     /**
      * ApiLevel: 70
@@ -642,10 +656,19 @@ public abstract class XmBluetoothManager {
     public abstract void startBleMeshUpgrade(String mac, String filePath, Response.BleUpgradeResponse response);
 
     /**
-     * ApiLevel: 65+
+     * ApiLevel: 70
      * 取消正在执行的蓝牙Mesh固件升级
      * @param mac
      */
     public abstract void cancelBleMeshUpgrade(String mac);
+
+    /**
+     * ApiLevel: 70
+     * 获取蓝牙Mesh设备当前固件版本号（只有连接设备成功后才能获取固件版本号）
+     *
+     * @param mac
+     * @param response
+     */
+    public abstract void getBleMeshFirmwareVersion(String mac, Response.BleReadFirmwareVersionResponse response);
 
 }
