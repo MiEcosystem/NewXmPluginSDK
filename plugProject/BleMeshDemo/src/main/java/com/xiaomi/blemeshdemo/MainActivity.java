@@ -62,6 +62,8 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
 
         registerBluetoothReceiver();
 
+        mBleMeshFirmwareUpgrader = new BleMeshFirmwareUpgrader(mDevice.getMac(), mDevice.getModel(), mDevice.getDid(), mNewFirmwareCallback);
+
         if (XmBluetoothManager.getInstance().getConnectStatus(mDevice.getMac()) == BluetoothProfile.STATE_CONNECTED) {
             mConnectStatusView.setText("已连接");
             mBleMeshFirmwareUpgrader.getDeviceFirmwareVersion(null);
@@ -69,8 +71,6 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
             mConnectStatusView.setText("未连接");
             connectDevice();
         }
-
-        mBleMeshFirmwareUpgrader = new BleMeshFirmwareUpgrader(mDevice.getMac(), mDevice.getModel(), mDevice.getDid(), mNewFirmwareCallback);
     }
 
     private void initView() {

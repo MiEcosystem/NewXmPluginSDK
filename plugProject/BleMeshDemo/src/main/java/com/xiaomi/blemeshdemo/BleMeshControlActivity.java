@@ -177,7 +177,7 @@ public class BleMeshControlActivity extends XmPluginBaseActivity {
             jsonObject.put("did", mDevice.getDid());
             jsonObject.put("siid", 2);
             jsonObject.put("piid", 1);
-            jsonObject.put("value", on ? "true" : "false");
+            jsonObject.put("value", on);
         } catch (JSONException e) {
             e.printStackTrace();
         }
