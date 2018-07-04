@@ -220,8 +220,11 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 	在SDK根目录下执行python脚本gen_plug.py（执行完后会在plugProject目录下自动生成最简单的米家扩展程序工程）：
 	
 	注意：
+	
 	1）model为创建新硬件时配置的
+	
 	2）developerId为申请的小米开发者账号（小米账号），不是手机号码
+	
 	3）packageName为创建Android扩展程序时配置的包名（**针对Android包名，禁止出现Java关键字（[关键字列表](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html)），开关类产品需特别注意**）
 	
 	```
