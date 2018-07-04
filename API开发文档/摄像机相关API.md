@@ -1,8 +1,6 @@
 FastVideo 使用说明
 ApiLevel 62
 
-目前需要使用SmartHome_camera_debug.apk 进行调试
-
 一、视频播放
 	接口 XmPluginHostApi
 	创建一个播放实时流的视图 返回操作视图的接口
