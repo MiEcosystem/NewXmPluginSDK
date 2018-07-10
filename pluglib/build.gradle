@@ -25,7 +25,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    provided fileTree(dir: 'lib_ex', include: ['*.jar'])
+    provided files('./lib_ex/android-support-v13.jar')
+    provided files('./lib_ex/libammsdk.jar')
 }
 
 def jarName = 'pluglib.jar'
