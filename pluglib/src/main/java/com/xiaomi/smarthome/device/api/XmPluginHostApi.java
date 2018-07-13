@@ -2557,4 +2557,11 @@ public abstract class XmPluginHostApi {
      * @return 图片数据
      */
     public abstract byte[] sendImageDownloadRequest(Context context, String imageUri);
+    /**
+     * ApiLevel: 66
+     * 打开创建组设备界面
+     *
+     * @param groupModel
+     */
+    public abstract void createDeviceGroup(Context context, String groupModel);
 }

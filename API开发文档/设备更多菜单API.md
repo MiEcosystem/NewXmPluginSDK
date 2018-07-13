@@ -163,6 +163,9 @@ public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
  *               commonSettingParams
  *               name:"licenseContentUri",value:String,用户协议文件绝对路径
  *               name:"privacyContentUri",value:String,隐私政策文件绝对路径
+ *               
+ *               解除协议时是否需要删除服务器数据，APIlevel：66可用
+ *               name:"need_delete_server_data",value:true/false,default:true,是否需要删除服务器数据,目前附近设备可能会用到此选项
  */
 public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
                                    boolean useDefault, int requestCode, Intent params, Intent commonSettingParams);                                  

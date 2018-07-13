@@ -169,6 +169,14 @@ public abstract String decodeBarcode(Bitmap bitmap);
      intent.putExtra("device_id", deviceStat.did);
      return intent;
  }
+ 
+ /**
+   * ApiLevel: 66
+   * 供插件创建组设备，打开创建组设备界面
+   *
+   * @param groupModel 组设备model
+   */
+ public abstract void createDeviceGroup(Context context, String groupModel);
 
 ```
 
