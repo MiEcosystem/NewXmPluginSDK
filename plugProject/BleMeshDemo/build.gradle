@@ -10,7 +10,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 19
         //每次发布版本versionCode必须加1
-        versionCode 7
+        versionCode 8
         versionName "1.0"
     }
 
