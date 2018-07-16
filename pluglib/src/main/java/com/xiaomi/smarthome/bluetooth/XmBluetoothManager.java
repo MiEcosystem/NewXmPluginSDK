@@ -604,4 +604,13 @@ public abstract class XmBluetoothManager {
      */
     public abstract void getOneTimePassword(String mac, int interval, int digits, Response.BleResponseV2<int[]> response);
 
+    /**
+     * ApiLevel:66
+     * 当前设备列表是否有支持蓝牙网关的设备
+     *
+     * @param response code = 0 ：有支持蓝牙网关的设备
+     *                 code != 0, 没有支持蓝牙网关的设备
+     */
+    public abstract void isBleGatewayExistInDeviceList(Response.BleResponse<Bundle> response);
+
 }
