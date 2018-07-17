@@ -49,49 +49,16 @@ public void getSubDevice(String model, String[] didList,
                          final Callback<List<DeviceStat>> callback);
                          
 /**
- * ApiLevel:1 设备方法调用
- *
- * @param method   方法名，在开放平台上配置，需要固件支持
- * @param params   参数，可以是一个集合Collection子类
- * @param callback 回调结果
- * @param parser
- */
-public abstract <T> void callMethod(String did, String method, Object[] params,
-                                    final Callback<T> callback, final Parser<T> parser);
-
-/**
- * ApiLevel:1 设备方法调用
+ * ApiLevel: 59 设备方法调用，强制从云端调用，object为JSONObject或者为JSONArray
  *
  * @param method   方法名，在开放平台上配置，需要固件支持
  * @param params
  * @param callback 回调结果
  * @param parser
  */
-public abstract <T> void callMethod(String did, String method, JSONArray params,
-                                    final Callback<T> callback, final Parser<T> parser);
-                                    
-/**
- * ApiLevel:2 设备方法调用，完全透明调用，需要自己设置参数
- *
- * @param did
- * @param params   参数，JsonObject字符串
- * @param callback 回调结果
- * @param parser
- */
-public abstract <T> void callMethod(String did, String params, final Callback<T> callback,
-                                    final Parser<T> parser);
-
-/**
- * ApiLevel:29 设备方法调用
- *
- * @param method   方法名，在开放平台上配置，需要固件支持
- * @param params
- * @param callback 回调结果
- * @param parser
- */
-public abstract <T> void callMethod(String did, String method, JSONObject params,
-                                    final Callback<T> callback, final Parser<T> parser);
-
+public abstract <T> void callMethodFromCloud(String did, String method, Object params,
+                                             final Callback<T> callback, final Parser<T> parser);
+                                             
 /**
  * ApiLevel:4 米家扩展程序中设备数据属性发生变化，同步数据到米家主app中，比如设备列表中显示某些属性状态
  *
