@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -143,8 +142,8 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
 
     private void checkIsFirstOpen() {
         if (getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getBoolean(IS_FIRST_OPEN, true)) {
-            mHostActivity.showUserLicenseDialog("小米用户协议", "用户协议", Html.fromHtml(getString(R.string.user_license_new)),
-                    "隐私条款", Html.fromHtml(getString(R.string.user_license_new)), new OnClickListener() {
+            mHostActivity.showUserLicenseHtmlDialog("小米用户协议", "用户协议", getHtmlLicenseContent(),
+                    "隐私条款", getHtmlLicenseContent(), new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit().putBoolean(IS_FIRST_OPEN, false).apply();
@@ -221,12 +220,40 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         commonSetting.putExtra("enableRemoveLicense", true);
         //此项置成true，使用小米默认协议
 //        commonSetting.putExtra("useDefaultLicense", true);
-        commonSetting.putExtra("licenseContent", Html.fromHtml(getString(R.string.user_license_new)));
-        commonSetting.putExtra("privacyContent", Html.fromHtml(getString(R.string.user_license_new)));
+//        commonSetting.putExtra("licenseContent", Html.fromHtml(getString(R.string.user_license_new)));
+//        commonSetting.putExtra("privacyContent", Html.fromHtml(getString(R.string.user_license_new)));
+
+        //使用html方式
+        commonSetting.putExtra("licenseContentHtml", getHtmlLicenseContent());
+        commonSetting.putExtra("privacyContentHtml", getHtmlLicenseContent());
         //如果文件太大不适合通过intent传递，可以将协议写入文件中，传入文件绝对路径
 //        addLicenseUri(commonSetting);
 
         mHostActivity.openMoreMenu2(menus, true, REQUEST_MENUS, intent, commonSetting);
+    }
+
+    private String getHtmlLicenseContent() {
+        InputStream is = null;
+        try {
+            is = getAssets().open("user_license.html");
+            int length = is.available();
+            byte[] buffer = new byte[length];
+            is.read(buffer);
+            return new String(buffer, "utf-8");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 
     private void addLicenseUri(Intent commonSetting) {
