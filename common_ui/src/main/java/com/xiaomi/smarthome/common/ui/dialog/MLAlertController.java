@@ -19,11 +19,14 @@ package com.xiaomi.smarthome.common.ui.dialog;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.util.Map;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -788,6 +791,20 @@ public class MLAlertController {
             mContext = context;
             mCancelable = true;
             mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if(Build.VERSION.SDK_INT <= 23) {
+                try {
+                    Field field = LayoutInflater.class.getDeclaredField("sConstructorMap");
+                    if(field != null) {
+                        field.setAccessible(true);
+                        Object object = field.get(null);
+                        if(object != null) {
+                            ((Map)object).clear();
+                        }
+                    }
+                } catch (Exception e) {
+
+                }
+            }
         }
 
         public void apply(MLAlertController dialog) {
