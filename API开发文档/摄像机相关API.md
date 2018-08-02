@@ -1,75 +1,75 @@
-FastVideo Ê¹ÓÃËµÃ÷
+ï»¿FastVideo ä½¿ç”¨è¯´æ˜
 ApiLevel 62
 
-Ò»¡¢ÊÓÆµ²¥·Å
-	½Ó¿Ú XmPluginHostApi
-	´´½¨Ò»¸ö²¥·ÅÊµÊ±Á÷µÄÊÓÍ¼ ·µ»Ø²Ù×÷ÊÓÍ¼µÄ½Ó¿Ú
+ä¸€ã€è§†é¢‘æ’­æ”¾
+	æ¥å£ XmPluginHostApi
+	åˆ›å»ºä¸€ä¸ªæ’­æ”¾å®æ—¶æµçš„è§†å›¾ è¿”å›æ“ä½œè§†å›¾çš„æ¥å£
  
      /**
      * 
-     * ´´½¨Ò»¸ö²¥·ÅÊÓÆµÁ÷µÄ²¥·ÅÊÓÍ¼
+     * åˆ›å»ºä¸€ä¸ªæ’­æ”¾è§†é¢‘æµçš„æ’­æ”¾è§†å›¾
      *
      * @param context
-     * @param original ¸¸ÈİÆ÷
-     * @param useHard  ÊÇ·ñÓÅÏÈÊ¹ÓÃÓ²½âÂë
-     * @param type     ÊÓÆµÁ÷±àÂëÀàĞÍ 1==h264 2==h265
+     * @param original çˆ¶å®¹å™¨
+     * @param useHard  æ˜¯å¦ä¼˜å…ˆä½¿ç”¨ç¡¬è§£ç 
+     * @param type     è§†é¢‘æµç¼–ç ç±»å‹ 1==h264 2==h265
      * @return
      * @see com.xiaomi.smarthome.camera.VideoFrame
      */
 	public abstract XmVideoViewGl createVideoView(Context context, FrameLayout original, boolean useHard, int type);
 	
-	Ê¹ÓÃÀı×Ó£º		
+	ä½¿ç”¨ä¾‹å­ï¼š		
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT);
         FrameLayout layout = new FrameLayout(activity());
       
         mVideoView = XmPluginHostApi.instance().createVideoView(activity(), layout, true, VideoFrame.VIDEO_H264);
 		
-		layout¾ÍÊÇĞèÒªÏÔÊ¾ÊÓÆµµÄÊÓÍ¼£¨¿ÉÒÔÊÇNewµÄÒ²¿ÉÒÔÊÇÔÚXML²¼¾ÖÖĞµÄ£©
+		layoutå°±æ˜¯éœ€è¦æ˜¾ç¤ºè§†é¢‘çš„è§†å›¾ï¼ˆå¯ä»¥æ˜¯Newçš„ä¹Ÿå¯ä»¥æ˜¯åœ¨XMLå¸ƒå±€ä¸­çš„ï¼‰
  
-	´´½¨Ò»¸ö²¥·ÅMp4µÄÊÓÍ¼ ·µ»Ø²Ù×÷ÊÓÍ¼µÄ½Ó¿Ú
+	åˆ›å»ºä¸€ä¸ªæ’­æ”¾Mp4çš„è§†å›¾ è¿”å›æ“ä½œè§†å›¾çš„æ¥å£
     /**
      *
-     * ´´½¨Ò»¸öÓÃÀ´²¥·Å±¾µØMp4µÄÊÓÍ¼ ·µ»Ø²Ù×÷ÊÓÍ¼µÄ½Ó¿Ú
-     *	Mp4²¥·ÅµÄ¿ØÖÆ XmVideoViewGl getMp4Player() ·½·¨»á·µ»ØÒ»¸öMp4¿ØÖÆµÄ½Ó¿Ú
+     * åˆ›å»ºä¸€ä¸ªç”¨æ¥æ’­æ”¾æœ¬åœ°Mp4çš„è§†å›¾ è¿”å›æ“ä½œè§†å›¾çš„æ¥å£
+     *	Mp4æ’­æ”¾çš„æ§åˆ¶ XmVideoViewGl getMp4Player() æ–¹æ³•ä¼šè¿”å›ä¸€ä¸ªMp4æ§åˆ¶çš„æ¥å£
      * @param context
-     * @param original ¸¸ÈİÆ÷
-     * @param useHard  true MediaPlayer²¥·Åmp4£¬false Ê¹ÓÃffmpeg ²¥·Åmp4
+     * @param original çˆ¶å®¹å™¨
+     * @param useHard  true MediaPlayeræ’­æ”¾mp4ï¼Œfalse ä½¿ç”¨ffmpeg æ’­æ”¾mp4
      * @return
      */
    public abstract XmVideoViewGl createMp4View(Context context, FrameLayout original, boolean useHard);
 
-   Ê¹ÓÃÀı×Ó£º
+   ä½¿ç”¨ä¾‹å­ï¼š
 		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         FrameLayout layout = new FrameLayout(activity());    
         XmVideoViewGl xmVideoViewGl = XmPluginHostApi.instance().createMp4View(activity(), layout, true);    
         XmMp4Player xmMp4Player = xmVideoViewGl.getMp4Player();
-		xmVideoViewGl ÓÃÀ´²Ù×÷ÊÓÆµ²¥·ÅÏà¹Ø¹¦ÄÜ
-		xmMp4Player ÓÃÀ´¿ØÖÆMp4Ïà¹Ø¹¦ÄÜ
-		layout ¾ÍÊÇÒªÏÔÊ¾µÄÊÓÍ¼ ĞèÒªÊÇFrameLayout
-	Èç¹ûÊÖ»ú±¾ÉíÖ§³ÖMp4ÖĞÊÓÆµÁ÷µÄ²¥·Å£¬useHardÌî³ätrue  ÊÖ»ú±¾Éí²»Ö§³ÖMp4ÖĞÊÓÆµÁ÷µÄ²¥·Å(µÍ°æ±¾ÊÖ»ú²»Ö§³Öh265)£¬useHardÌî³äfalse
+		xmVideoViewGl ç”¨æ¥æ“ä½œè§†é¢‘æ’­æ”¾ç›¸å…³åŠŸèƒ½
+		xmMp4Player ç”¨æ¥æ§åˆ¶Mp4ç›¸å…³åŠŸèƒ½
+		layout å°±æ˜¯è¦æ˜¾ç¤ºçš„è§†å›¾ éœ€è¦æ˜¯FrameLayout
+	å¦‚æœæ‰‹æœºæœ¬èº«æ”¯æŒMp4ä¸­è§†é¢‘æµçš„æ’­æ”¾ï¼ŒuseHardå¡«å……true  æ‰‹æœºæœ¬èº«ä¸æ”¯æŒMp4ä¸­è§†é¢‘æµçš„æ’­æ”¾(ä½ç‰ˆæœ¬æ‰‹æœºä¸æ”¯æŒh265)ï¼ŒuseHardå¡«å……false
 	
 	
-¶ş¡¢»û±ä¾ÀÕı 
-	Èç¹ûÉè±¸ÎŞ·¨½øĞĞ»û±ä¾ÀÕıSDKÌá¹©»ù´¡µÄ»û±ä¾ÀÕı¹¦ÄÜ,ÔÚÌá¹©VideoFrame Ê±ºò¸Ã¹¹Ôìº¯ÊıĞèÒª´«µİ²å¼şĞèÒªµÄ»û±äÀàĞÍ
+äºŒã€ç•¸å˜çº æ­£ 
+	å¦‚æœè®¾å¤‡æ— æ³•è¿›è¡Œç•¸å˜çº æ­£SDKæä¾›åŸºç¡€çš„ç•¸å˜çº æ­£åŠŸèƒ½,åœ¨æä¾›VideoFrame æ—¶å€™è¯¥æ„é€ å‡½æ•°éœ€è¦ä¼ é€’æ’ä»¶éœ€è¦çš„ç•¸å˜ç±»å‹
 	 
-	//0²»»û±ä¾ÀÕı 1 »û±ä¾ÀÕıÎŞÊ±¼äË®Ó¡ 2»û±ä¾ÀÕıÓĞÊ±¼äË®Ó¡
+	//0ä¸ç•¸å˜çº æ­£ 1 ç•¸å˜çº æ­£æ— æ—¶é—´æ°´å° 2ç•¸å˜çº æ­£æœ‰æ—¶é—´æ°´å°
     public static final int DISTORT_NONE = 0;
     public static final int DISTORT_ALL = 1;
     public static final int DISTORT_PART = 2;
 	     /**
-     * ·¢ËÍÊÓÆµÁ÷
+     * å‘é€è§†é¢‘æµ
      *
-     * @param data        Êı¾İ
-     * @param frameNumber Ö¡ĞòºÅ
-     * @param frameSize   ´óĞ¡
-     * @param width       ¿í
-     * @param height      ¸ß
-     * @param timestamp   Ê±¼ä´Á
-     * @param videoType   ÊÓÆµÁ÷±àÂë1:h264 2:h265
-     * @param isIFrame    ÊÇ·ñÊÇIÖ¡
-     * @param distrot     »û±äµÄ×´Ì¬
-     * @param isReal      ÊÇ·ñÊÇÊµÊ±Á÷
+     * @param data        æ•°æ®
+     * @param frameNumber å¸§åºå·
+     * @param frameSize   å¤§å°
+     * @param width       å®½
+     * @param height      é«˜
+     * @param timestamp   æ—¶é—´æˆ³
+     * @param videoType   è§†é¢‘æµç¼–ç 1:h264 2:h265
+     * @param isIFrame    æ˜¯å¦æ˜¯Iå¸§
+     * @param distrot     ç•¸å˜çš„çŠ¶æ€
+     * @param isReal      æ˜¯å¦æ˜¯å®æ—¶æµ
      */
     public VideoFrame(byte[] data,
                       long frameNumber, int frameSize,
@@ -78,10 +78,10 @@ ApiLevel 62
 					  }
 
    /**
-     * Èç¹û»û±ä¾ÀÕıÓĞ·¶Î§²»ĞèÒª¾ÀÕı £¨ÓÃÓÚ¾ÀÕıºóÊµÊ±Á÷Ê±¼ä´ÁÏÔÊ¾ÎÊÌâ£©
+     * å¦‚æœç•¸å˜çº æ­£æœ‰èŒƒå›´ä¸éœ€è¦çº æ­£ ï¼ˆç”¨äºçº æ­£åå®æ—¶æµæ—¶é—´æˆ³æ˜¾ç¤ºé—®é¢˜ï¼‰
      *
-     * @param x Ïà¶ÔÓÚ×óÉÏ½ÇXÖá
-     * @param y Ïà¶ÔÓÚ×óÉÏ½ÇYÖá
+     * @param x ç›¸å¯¹äºå·¦ä¸Šè§’Xè½´
+     * @param y ç›¸å¯¹äºå·¦ä¸Šè§’Yè½´
      */
     public void setDistort(float x, float y) {
         mDistortX = x;
@@ -89,45 +89,45 @@ ApiLevel 62
     }					  
 
 
-Èı¡¢Mp4µÄºÏ³É
-1.Mp4Record  ºÏ³ÉÊ±ºòÊÓÆµÁ÷Ö§³Ö£¨h264/h265£© ÒôÆµÖ§³Ö£¨aac£©Èç¹ûÉè±¸´«µİ¹ıÀ´µÄÊÇÆäËûÒôÆµ¸ñÊ½ĞèÒª²å¼ş×Ô¼º×ª»»³Éaac
-³õÊ¼»¯Ê±ºòĞèÒªÌá¹© mp4ºÏ³ÉµÄ²ÎÊı
+ä¸‰ã€Mp4çš„åˆæˆ
+1.Mp4Record  åˆæˆæ—¶å€™è§†é¢‘æµæ”¯æŒï¼ˆh264/h265ï¼‰ éŸ³é¢‘æ”¯æŒï¼ˆaacï¼‰å¦‚æœè®¾å¤‡ä¼ é€’è¿‡æ¥çš„æ˜¯å…¶ä»–éŸ³é¢‘æ ¼å¼éœ€è¦æ’ä»¶è‡ªå·±è½¬æ¢æˆaac
+åˆå§‹åŒ–æ—¶å€™éœ€è¦æä¾› mp4åˆæˆçš„å‚æ•°
     /**
      * 
-     * @param fileName ºÏ³ÉMp4µÄÎÄ¼şÈ«Â·¾¶
-     * @param videoType ÊÓÆµÁ÷ÀàĞÍ(h264-h265) @see H264Decoder
-     * @param width ÊÓÆµÁ÷¿í¶È
-     * @param height ÊÓÆµÁ÷¸ß¶È
-     * @param audioSample ÒôÆµ²ÉÑùÂÊ
+     * @param fileName åˆæˆMp4çš„æ–‡ä»¶å…¨è·¯å¾„
+     * @param videoType è§†é¢‘æµç±»å‹(h264-h265) @see H264Decoder
+     * @param width è§†é¢‘æµå®½åº¦
+     * @param height è§†é¢‘æµé«˜åº¦
+     * @param audioSample éŸ³é¢‘é‡‡æ ·ç‡
      */
   public void startRecord(String fileName, int videoType, int width, int height, int audioSample);
      /**
      * 
-     * @param data Ğ´ÈëµÄÊÓÆµÁ÷Êı¾İ(Ò»Ö¡)
-     * @param length (Êı¾İ³¤¶È)
-     * @param isIFrame £¨ÊÇ·ñÊÇI Ö¡£©
-     * @param time Ê±¼ä´Á
+     * @param data å†™å…¥çš„è§†é¢‘æµæ•°æ®(ä¸€å¸§)
+     * @param length (æ•°æ®é•¿åº¦)
+     * @param isIFrame ï¼ˆæ˜¯å¦æ˜¯I å¸§ï¼‰
+     * @param time æ—¶é—´æˆ³
      */
   public  void writeVideoData(byte[] data, int length, boolean isIFrame, int time);
   
    /**
-     * Ğ´ÈëÒôÆµÊı¾İ
-     * @param data Êı¾İ
-     * @param length Êı¾İ³¤¶È
+     * å†™å…¥éŸ³é¢‘æ•°æ®
+     * @param data æ•°æ®
+     * @param length æ•°æ®é•¿åº¦
      */
   public  void writeAAcData(byte[] data, int length);
   
   /**
-     * ½áÊøÂ¼ÖÆ
-     * @param listener ½á¹û»Øµ÷ÊÇ·ñÂ¼ÖÆ³É¹¦
+     * ç»“æŸå½•åˆ¶
+     * @param listener ç»“æœå›è°ƒæ˜¯å¦å½•åˆ¶æˆåŠŸ
      */
   public void stopRecord(final IRecordListener listener);
 
-ËÄ¡¢Mp4µÄ²¥·Å
-	SDKÌá¹©ÁËÁ½ÖÖMp4²¥·ÅÄ£Ê½(FFmpeg²¥·Å¡¢MediaPlayer²¥·Å)
-	1.MediaPlayer ²¥·Å£º
+å››ã€Mp4çš„æ’­æ”¾
+	SDKæä¾›äº†ä¸¤ç§Mp4æ’­æ”¾æ¨¡å¼(FFmpegæ’­æ”¾ã€MediaPlayeræ’­æ”¾)
+	1.MediaPlayer æ’­æ”¾ï¼š
 	
-	Ê¹ÓÃVideoGlSurfaceView ½øĞĞäÖÈ¾,³õÊ¼»¯µÄÊ±ºòĞèÒªÊ¹ÓÃ VideoPlayerRender½øĞĞ½âÂëÏà¹Ø
+	ä½¿ç”¨VideoGlSurfaceView è¿›è¡Œæ¸²æŸ“,åˆå§‹åŒ–çš„æ—¶å€™éœ€è¦ä½¿ç”¨ VideoPlayerRenderè¿›è¡Œè§£ç ç›¸å…³
 	
-	2.FFmpeg²¥·Å: ÊÖ»ú±¾Éí²»Ö§³ÖMp4ÖĞÊÓÆµÁ÷µÄ²¥·Å(µÍ°æ±¾ÊÖ»ú²»Ö§³Öh265)
-	Ê¹ÓÃVideoGlSurfaceView ½øĞĞäÖÈ¾,³õÊ¼»¯µÄÊ±ºòĞèÒªÊ¹ÓÃ VideoPlayerFFmpeg½øĞĞ½âÂëÏà¹Ø
+	2.FFmpegæ’­æ”¾: æ‰‹æœºæœ¬èº«ä¸æ”¯æŒMp4ä¸­è§†é¢‘æµçš„æ’­æ”¾(ä½ç‰ˆæœ¬æ‰‹æœºä¸æ”¯æŒh265)
+	ä½¿ç”¨VideoGlSurfaceView è¿›è¡Œæ¸²æŸ“,åˆå§‹åŒ–çš„æ—¶å€™éœ€è¦ä½¿ç”¨ VideoPlayerFFmpegè¿›è¡Œè§£ç ç›¸å…³
