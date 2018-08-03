@@ -61,17 +61,6 @@ public abstract void addRecord(XmPluginPackage loadedInfo, String key, Object va
                                JSONObject extra);
                                
 /**
- * ApiLevel:39 米家后台统计.该打点同时也更新到小米开放平台上.
- *
- * @param loadedInfo 米家扩展程序上下文
- * @param model      当前设备model
- * @param value      为Object 可以为int或String或JsonObject
- * @param extra      可以为null
- */
-@Deprecated
-public abstract void addRecordV2(XmPluginPackage loadedInfo, String model, String key, Object value, JSONObject extra);
-
-/**
  * ApiLevel:4 写log文件，可以从反馈上报到统计平台
  *
  * @param tag
