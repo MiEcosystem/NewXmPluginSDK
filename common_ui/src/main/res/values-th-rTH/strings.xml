@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pull_down_refresh">ดึงลงเพื่อรีเฟรช</string>
+    <string name="release_to_refresh">ปล่อยเพื่อรีเฟรช</string>
+    <string name="refreshing">รอสักครู่\u202</string>
+    <string name="ok_button">ตกลง</string>
+    <string name="know_button">รับทราบ</string>
+    <string name="ignore">ละเว้น</string>
+    <string name="cancel">ยกเลิก</string>
+    <string name="picker_hour">h\u0020</string>
+    <string name="picker_minite">m\u0020</string>
+    <string name="picker_year">y\u0020</string>
+    <string name="picker_month">m\u0020</string>
+    <string name="picker_day">d\u0020</string>
+    <string name="action_back">ย้อนกลับ</string>
+    <string name="select_all">เลือกทั้งหมด</string>
+    <string name="unselect_all">ยกเลิกการเลือก</string>
+</resources>

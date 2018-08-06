@@ -9,6 +9,7 @@ android {
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
+        resConfigs "bo-rCN", "en-rIN", "ko-rKR", "zh", "zh-rTW", "zh-rHK", "es", "ru","fr","it","de-rDE","in-rID"
     }
 
     lintOptions {

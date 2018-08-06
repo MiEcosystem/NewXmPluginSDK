@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pull_down_refresh">Tirer vers le bas pour actualiser</string>
+    <string name="release_to_refresh">Relâcher pour actualiser</string>
+    <string name="refreshing">Patientez un instant\u2026</string>
+    <string name="refreshing_no_point">Chargement en cours\u2026</string>
+    <string name="ok_button">OK</string>
+    <string name="know_button">Compris</string>
+    <string name="ignore">Ignorer</string>
+    <string name="cancel">Annuler</string>
+    <string name="setting_title">Réglages généraux</string>
+    <string name="picker_hour">Heure</string>
+    <string name="picker_month">Mois</string>
+    <string name="picker_day">Jour</string>
+    <string name="progress_dialog_already">Terminé</string>
+    <string name="action_back">Retour</string>
+    <string name="select_all">Sélectionner tout</string>
+    <string name="unselect_all">Désélectionner</string>
+</resources>

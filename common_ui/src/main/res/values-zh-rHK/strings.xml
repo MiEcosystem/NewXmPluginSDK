@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">com.xiaomi.common</string>
     <string name="pull_down_refresh">下拉刷新</string>
     <string name="release_to_refresh">鬆開刷新</string>
-    <string name="refreshing">載入中…</string>
+    <string name="refreshing">載入中&#8230;</string>
     <string name="refreshing_no_point">載入中</string>
     <string name="refreshing_retry">加載失敗，重試？</string>
     <string name="ok_button">確定</string>

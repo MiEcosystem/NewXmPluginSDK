@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pull_down_refresh">プルダウンして更新する</string>
+    <string name="release_to_refresh">リリースして更新する</string>
+    <string name="refreshing">少しお待ちください\u2026</string>
+    <string name="ok_button">OK</string>
+    <string name="know_button">わかりました</string>
+    <string name="ignore">無視</string>
+    <string name="cancel">キャンセル</string>
+    <string name="picker_hour">時</string>
+    <string name="picker_minite">分</string>
+    <string name="picker_year">年</string>
+    <string name="picker_month">月</string>
+    <string name="picker_day">日</string>
+    <string name="action_back">戻る</string>
+    <string name="select_all">すべて選択</string>
+    <string name="unselect_all">選択解除</string>
+</resources>

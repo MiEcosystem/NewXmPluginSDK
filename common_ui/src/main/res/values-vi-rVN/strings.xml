@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pull_down_refresh">Kéo xuống để làm mới</string>
+    <string name="release_to_refresh">Nhả ra để làm mới</string>
+    <string name="refreshing">Đợi một lát\u2026</string>
+    <string name="ok_button">OK</string>
+    <string name="know_button">OK</string>
+    <string name="ignore">Bỏ qua</string>
+    <string name="cancel">Hủy</string>
+    <string name="picker_hour">h\u0020</string>
+    <string name="picker_minite">m\u0020</string>
+    <string name="picker_year">y\u0020</string>
+    <string name="picker_month">m\u0020</string>
+    <string name="picker_day">d\u0020</string>
+    <string name="action_back">Quay lại</string>
+    <string name="select_all">Chọn tất cả</string>
+    <string name="unselect_all">Bỏ chọn</string>
+</resources>
