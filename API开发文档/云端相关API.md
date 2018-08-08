@@ -12,6 +12,26 @@
  */
 public abstract <T> void callSmartHomeApi(String model, String relativeUrl, JSONObject params,
                                           final Callback<T> callback, final Parser<T> parser);
+
+callSmartHomeApi接口使用示例：
+public void getUTCFromServer(String model, Callback<Long> callback) {
+    JSONObject dataObj = new JSONObject();
+    Parser<Long> parser = new Parser<Long>() {
+        @Override
+        public Long parse(String response) throws JSONException {
+            // 注意：parse可能调用多次，在parse里面只能做解析数据操作，不能处理具体的业务逻辑
+            // 具体业务逻辑，需要放到callback中收到回调后再进行处理
+            
+            /**
+             * {"code":0,"message":"ok","result":1502874040}
+             */
+            JSONObject jsonObject = new JSONObject(response);
+            return jsonObject.optLong("result", -1);
+        }
+    };
+
+    callSmartHomeApi(model, "/device/get_utc_time", dataObj, callback, parser);
+}
                                           
 /**
  * ApiLevel: 13 调用普通http请求
