@@ -205,6 +205,37 @@ void showUserLicenseDialog(String dialogTitle,
                            View.OnClickListener agreeListener);
                            
 /**
+ * Apilevel:68
+ *
+ * @param dialogTitle
+ * @param licenseTitle
+ * @param licenseHtml   用户协议Html内容
+ * @param privacyTitle
+ * @param privacyHtml   隐私条款Html内容
+ * @param agreeListener
+ */
+void showUserLicenseHtmlDialog(String dialogTitle,
+                                   String licenseTitle, String licenseHtml,
+                                   String privacyTitle, String privacyHtml,
+                                   View.OnClickListener agreeListener);
+
+/**
+ * Apilevel:68
+ * 当协议内容过大，不适合使用intent传递时，使用此方法，将协议内容写入存储文件中，将URL传入
+ *
+ * @param dialogTitle
+ * @param licenseTitle
+ * @param licenseUri    用户协议Html内容地址
+ * @param privacyTitle
+ * @param privacyUri    用户协议Html内容地址
+ * @param agreeListener
+ */
+void showUserLicenseUriDialog(String dialogTitle,
+                                  String licenseTitle, String licenseUri,
+                                  String privacyTitle, String privacyUri,
+                                  View.OnClickListener agreeListener);
+                           
+/**
  * ApiLevel:25 跳转二维码扫描页面
  * @param bundle 请求参数，可以穿null @see #Activity.startActivityForResult(Intent, requestCode)
  * @param requestCode @see #Activity.startActivityForResult(Intent, requestCode)

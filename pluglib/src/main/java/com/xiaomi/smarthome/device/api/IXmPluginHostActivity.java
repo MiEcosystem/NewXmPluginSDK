@@ -974,7 +974,7 @@ public interface IXmPluginHostActivity {
                                View.OnClickListener agreeListener);
 
     /**
-     * Apilevel:67
+     * Apilevel:68
      *
      * @param dialogTitle
      * @param licenseTitle
@@ -989,7 +989,7 @@ public interface IXmPluginHostActivity {
                                    View.OnClickListener agreeListener);
 
     /**
-     * Apilevel:67
+     * Apilevel:68
      * 当协议内容过大，不适合使用intent传递时，使用此方法，将协议内容写入存储文件中，将URL传入
      *
      * @param dialogTitle
