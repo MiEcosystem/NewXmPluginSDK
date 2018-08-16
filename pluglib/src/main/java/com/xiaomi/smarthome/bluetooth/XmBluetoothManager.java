@@ -178,6 +178,12 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_TOKEN_VERIFY_FAILED = -31;
         // 蓝牙连接过程中收到连接断开的广播
         public static final int REQUEST_STATUS_DISCONNECTED = -32;
+        // 安全芯片：绑定的时候需要用户在设备输入配对码
+        public static final int REQUEST_SC_REGISTER_INPUT_PAIR_CODE = -33;
+        // 安全芯片：绑定时设备输入的配对码失败
+        public static final int REQUEST_SC_REGISTER_PAIR_CODE_FAILED = -34;
+        // 安全芯片：绑定时配对码过期
+        public static final int REQUEST_SC_REGISTER_PAIR_CODE_EXPIRED = -35;
 
         public static String toString(int code) {
             switch (code) {
@@ -243,6 +249,12 @@ public abstract class XmBluetoothManager {
                     return "REQUEST_TOKEN_VERIFY_FAILED";
                 case REQUEST_STATUS_DISCONNECTED:
                     return "REQUEST_STATUS_DISCONNECTED";
+                case REQUEST_SC_REGISTER_INPUT_PAIR_CODE:
+                    return "REQUEST_SC_REGISTER_INPUT_PAIR_CODE";
+                case REQUEST_SC_REGISTER_PAIR_CODE_FAILED:
+                    return "REQUEST_SC_REGISTER_PAIR_CODE_FAILED";
+                case REQUEST_SC_REGISTER_PAIR_CODE_EXPIRED:
+                    return "REQUEST_SC_REGISTER_PAIR_CODE_EXPIRED";
                 default:
                     return "unknown code: " + code;
             }

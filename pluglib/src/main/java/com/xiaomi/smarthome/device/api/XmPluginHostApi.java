@@ -493,9 +493,15 @@ public abstract class XmPluginHostApi {
     public void editScene(String model, int st_id, int us_id, String did, String name,
                           JSONObject setting,
                           JSONArray authed, final Callback<JSONObject> callback) {
+        if(us_id<0){
+            if (callback != null) {
+                callback.onFailure(-1, "us_id is illegal");
+            }
+            return;
+        }
         JSONObject dataObj = new JSONObject();
         try {
-            dataObj.put("us_id", us_id);
+            dataObj.put("us_id", us_id+"");
             dataObj.put("identify", did);
             dataObj.put("name", name);
             dataObj.put("st_id", st_id);
@@ -530,10 +536,15 @@ public abstract class XmPluginHostApi {
     public void editTimerScene(String model, String did, int us_id, String name,
                                JSONObject setting,
                                JSONArray authed, final Callback<JSONObject> callback) {
-
+        if(us_id<0){
+            if (callback != null) {
+                callback.onFailure(-1, "us_id is illegal");
+            }
+            return;
+        }
         JSONObject dataObj = new JSONObject();
         try {
-            dataObj.put("us_id", us_id);
+            dataObj.put("us_id", us_id+"");
             dataObj.put("identify", did);
             dataObj.put("name", name);
             dataObj.put("st_id", 8);
@@ -553,7 +564,6 @@ public abstract class XmPluginHostApi {
         });
 
     }
-
     /**
      * ApiLevel:3 加载所有定时场景
      *
@@ -596,10 +606,16 @@ public abstract class XmPluginHostApi {
     @Deprecated
     public void getTimerScene(String model, String did, int us_id,
                               final Callback<JSONObject> callback) {
+        if(us_id<0){
+            if (callback != null) {
+                callback.onFailure(-1, "us_id is illegal");
+            }
+            return;
+        }
         JSONObject dataObj = new JSONObject();
         try {
             dataObj.put("identify", did);
-            dataObj.put("us_id", us_id);
+            dataObj.put("us_id", us_id+"");
         } catch (JSONException e) {
             if (callback != null)
                 callback.onFailure(-1, e.toString());
@@ -625,10 +641,16 @@ public abstract class XmPluginHostApi {
     @Deprecated
     public void delScene(String model, String did, int us_id,
                          final Callback<JSONObject> callback) {
+        if(us_id<0){
+            if (callback != null) {
+                callback.onFailure(-1, "us_id is illegal");
+            }
+            return;
+        }
         JSONObject dataObj = new JSONObject();
         try {
             dataObj.put("identify", did);
-            dataObj.put("us_id", us_id);
+            dataObj.put("us_id", us_id+"");
         } catch (JSONException e) {
             if (callback != null)
                 callback.onFailure(-1, e.toString());
@@ -643,7 +665,6 @@ public abstract class XmPluginHostApi {
         });
 
     }
-
     /**
      * ApiLevel:3 设置场景
      *
@@ -815,10 +836,18 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel:65 设备方法调用，完全透明调用，需要自己设置参数
      *
-     * @param sid servicetoken 对应的 sid
+     * @param sid      servicetoken 对应的 sid
      * @param callback 回调结果
      */
-    public abstract void getServiceToken(String sid,  Callback<JSONObject> callback);
+    public abstract void getServiceToken(String sid, Callback<JSONObject> callback);
+
+
+    /**
+     * ApiLevel:66
+     *
+     * @return 红外列表
+     */
+    public abstract List<DeviceStat> getIrDevList();
 
     /**
      * ApiLevel:2 设备方法调用，完全透明调用，需要自己设置参数
@@ -1175,10 +1204,62 @@ public abstract class XmPluginHostApi {
      * @param authed
      * @param callback
      */
+    @Deprecated
     public void editScene(String model, int st_id, int us_id, String did, String identify,
                           String name,
                           JSONObject setting,
                           JSONArray authed, final Callback<JSONObject> callback) {
+        if (us_id < 0) {
+            if (callback != null) {
+                callback.onFailure(-1, "us_id is illegal");
+            }
+            return;
+        }
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("us_id", us_id+"");
+            dataObj.put("identify", identify);
+            if (name != null) {
+                dataObj.put("name", name);
+            }
+            dataObj.put("st_id", st_id);
+            dataObj.put("setting", setting);
+            dataObj.put("authed", authed);
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, e.toString());
+                return;
+            }
+        }
+        callSmartHomeApi(model, "/scene/edit", dataObj, callback, new Parser<JSONObject>() {
+            @Override
+            public JSONObject parse(String result) throws JSONException {
+                return new JSONObject(result);
+            }
+        });
+    }
+    /**
+     * ApiLevel:67 编辑场景接口
+     *
+     * @param model
+     * @param st_id    场景模板id
+     * @param us_id    场景id
+     * @param did
+     * @param name
+     * @param setting
+     * @param authed
+     * @param callback
+     */
+    public void editScene(String model, int st_id, String us_id, String did, String identify,
+                          String name,
+                          JSONObject setting,
+                          JSONArray authed, final Callback<JSONObject> callback) {
+        if(TextUtils.isEmpty(us_id)){
+            if (callback != null) {
+                callback.onFailure(-1, "us_id is illegal");
+            }
+            return;
+        }
         JSONObject dataObj = new JSONObject();
         try {
             dataObj.put("us_id", us_id);
@@ -1206,9 +1287,43 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel:8 删除场景接口
      */
-
+    @Deprecated
     public void delScene(String model, int us_id,
                          final Callback<JSONObject> callback) {
+        if(us_id<0){
+            if (callback != null) {
+                callback.onFailure(-1, "us_id is illegal");
+            }
+            return;
+        }
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("us_id", us_id+"");
+        } catch (JSONException e) {
+            if (callback != null)
+                callback.onFailure(-1, e.toString());
+            return;
+        }
+
+        callSmartHomeApi(model, "/scene/delete", dataObj, callback, new Parser<JSONObject>() {
+            @Override
+            public JSONObject parse(String result) throws JSONException {
+                return new JSONObject(result);
+            }
+        });
+
+    }
+    /**
+     * ApiLevel:67 删除场景接口
+     */
+    public void delScene(String model, String us_id,
+                         final Callback<JSONObject> callback) {
+        if(TextUtils.isEmpty(us_id)){
+            if (callback != null) {
+                callback.onFailure(-1, "us_id is illegal");
+            }
+            return;
+        }
         JSONObject dataObj = new JSONObject();
         try {
             dataObj.put("us_id", us_id);
@@ -1486,6 +1601,7 @@ public abstract class XmPluginHostApi {
 
     /**
      * ApiLevel: 60 获取当前服务器
+     *
      * @param changeServer true: 获取到的不一定是用户当前选择的服务器（比如香港共用新加坡服务器），false：获取到的是用户当前选择的服务器
      * @return "cn":中国大陆 "tw":台湾 "sg":新加坡 "in":印度
      */
@@ -2502,6 +2618,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 64
      * 创建一个可以用来合成Mp4的接口
+     *
      * @return Mp4音视频流合成器的接口
      */
     public abstract XmMp4Record createMp4Record();
@@ -2557,6 +2674,7 @@ public abstract class XmPluginHostApi {
      * @return 图片数据
      */
     public abstract byte[] sendImageDownloadRequest(Context context, String imageUri);
+
     /**
      * ApiLevel: 66
      * 打开创建组设备界面
@@ -2564,4 +2682,21 @@ public abstract class XmPluginHostApi {
      * @param groupModel
      */
     public abstract void createDeviceGroup(Context context, String groupModel);
+
+    /**
+     * ApiLevel: 67
+     * 查询did对应的设备是否开启的用户体验计划
+     *
+     * @param did
+     */
+    public abstract boolean isUsrExpPlanEnabled(String did);
+
+    /**
+     * ApiLevel: 67
+     * 设置did对应的设备是否开启的用户体验计划
+     * 只保存本地，目前清除数据后恢复默认值
+     *
+     * @param did
+     */
+    public abstract void setUsrExpPlanEnabled(String did, boolean enabled);
 }

@@ -58,8 +58,8 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序
 * plug.gradle
 	* 封装了common\_ui、libs\_ex、pluglib工程的引用，米家扩展程序只需要在自己的build.gradle脚本中添加`apply from: "${project.rootDir.absolutePath}/plug.gradle"`就可以自动依赖了
 	* 米家扩展程序的调试安装也是在该脚本实现
-* SmartHome.apk
-	* 米家扩展程序开发调试的时候请使用此调试apk，不要使用线上版本的米家APP，另外调试的时候务必关闭应用商店的自动升级功能，避免调试apk被覆盖
+* 米家调试APK下载地址.txt
+	* 包含最新的米家调试APK下载地址，米家扩展程序开发调试的时候请使用此调试apk，不要使用线上版本的米家APP，另外调试的时候务必关闭应用商店的自动升级功能，避免调试apk被覆盖
 * md_image
 	* 存放SDK使用文档中引用到的图片，米家扩展程序开发可忽略
 
@@ -91,9 +91,9 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 
 1. 从[github](https://github.com/MiEcosystem/NewXmPluginSDK)下载NewXmPluginSDK工程
 
-1. 安装工程根目录下的SmartHome.apk
+1. 安装工程根目录下提供的米家调试APK
 
-	应用商店版本米家APP是没有办法调试米家扩展程序的，只能安装工程根目录下单独提供的SmartHome.apk
+	应用商店版本米家APP是没有办法调试米家扩展程序的，只能安装工程根目录下单独提供的米家调试APK
 
 1. 使用测试账号登录
 
@@ -207,7 +207,7 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 
 1. 安装开发版米家APP
 
-	米家应用商店版的APP不支持本地开发调试，需要安装sdk目录下的米家APP（SmartHome.apk）。
+	米家应用商店版的APP不支持本地开发调试，需要安装sdk目录下的米家调试APP。
 	
 ## 开发米家扩展程序
 1. 从[github](https://github.com/MiEcosystem/NewXmPluginSDK)更新SDK代码
