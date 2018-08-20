@@ -188,6 +188,7 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 
 	```
 	签名文件的md5信息获取，需要去掉:号
+	说明：不要使用Java10版本的keytool，使用Java8及以下版本的keytool
 	
 	keytool -list -v -keystore  keyFilePath -storepass keypassword  -keypass  keypassword
 	```
