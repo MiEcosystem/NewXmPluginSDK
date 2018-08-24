@@ -228,6 +228,8 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 	
 	3）packageName为创建Android扩展程序时配置的包名（**针对Android包名，禁止出现Java关键字（[关键字列表](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html)），开关类产品需特别注意**）
 	
+	4）只支持python2.7版本
+	
 	```
 	python gen_plug.py model developerId packageName
 	```
