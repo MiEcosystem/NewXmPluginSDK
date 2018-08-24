@@ -11,10 +11,10 @@
     <string name="ignore">Ignore</string>
     <string name="cancel">Cancel</string>
     <string name="setting_title">General settings</string>
-    <string name="picker_hour">hour</string>
-    <string name="picker_minite">minute</string>
-    <string name="picker_year">year</string>
-    <string name="picker_month">month</string>
+    <string name="picker_hour">h\u0020</string>
+    <string name="picker_minite">m\u0020</string>
+    <string name="picker_year">y\u0020</string>
+    <string name="picker_month">m\u0020</string>
     <string name="picker_day">day</string>
     <string name="progress_dialog_already">Done</string>
     <string name="action_menu">Set</string>

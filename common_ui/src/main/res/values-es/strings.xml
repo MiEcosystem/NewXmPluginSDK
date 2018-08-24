@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pull_down_refresh">Desliza hacia abajo para actualizar</string>
-    <string name="release_to_refresh">Suelta para actualizar</string>
-    <string name="refreshing">Un momento\u2026</string>
+    <string name="pull_down_refresh">Desplace hacia abajo para actualizar</string>
+    <string name="release_to_refresh">Suelte para actualizar</string>
+    <string name="refreshing">Actualizando&#8230;</string>
     <string name="refreshing_no_point">Cargando&#8230;</string>
+    <string name="refreshing_retry">No se pudo cargar, inténtalo de nuevo</string>
     <string name="ok_button">Aceptar</string>
     <string name="know_button">Entendido</string>
     <string name="ignore">Ignorar</string>
     <string name="cancel">Cancelar</string>
     <string name="setting_title">Ajustes generales</string>
-    <string name="picker_hour">Hora</string>
-    <string name="picker_month">Mes</string>
+    <string name="picker_hour">h\u0020</string>
+    <string name="picker_minite">m\u0020</string>
+    <string name="picker_year">a\u0020</string>
+    <string name="picker_month">m\u0020</string>
     <string name="picker_day">Día</string>
     <string name="progress_dialog_already">Hecho</string>
+    <string name="action_menu">Establecer</string>
     <string name="action_back">Atrás</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="unselect_all">Deseleccionar</string>

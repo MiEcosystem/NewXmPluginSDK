@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pull_down_refresh">Потяните вниз для обновления</string>
-    <string name="release_to_refresh">Отпустите для обновления</string>
-    <string name="refreshing">Секунду\u2026</string>
+    <string name="pull_down_refresh">Потяните вниз, чтобы обновить</string>
+    <string name="release_to_refresh">Отпустите, чтобы обновить</string>
+    <string name="refreshing">Обновление\u2026</string>
     <string name="refreshing_no_point">Загрузка&#8230;</string>
+    <string name="refreshing_retry">Не удалось загрузить, повторите попытку</string>
     <string name="ok_button">Принять</string>
     <string name="know_button">Хорошо</string>
     <string name="ignore">Игнорировать</string>
     <string name="cancel">Отмена</string>
     <string name="setting_title">Общие настройки</string>
-    <string name="picker_hour">Час</string>
-    <string name="picker_month">Месяц</string>
+    <string name="picker_hour">ч\u0020</string>
+    <string name="picker_minite">мин\u0020</string>
+    <string name="picker_year">г\u0020</string>
+    <string name="picker_month">мес\u0020</string>
     <string name="picker_day">День</string>
     <string name="progress_dialog_already">Готово</string>
+    <string name="action_menu">Установить</string>
     <string name="action_back">Назад</string>
     <string name="select_all">Выбрать все</string>
     <string name="unselect_all">Отменить выбрать</string>

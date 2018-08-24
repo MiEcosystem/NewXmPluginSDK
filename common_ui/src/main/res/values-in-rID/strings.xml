@@ -2,17 +2,21 @@
 <resources>
     <string name="pull_down_refresh">Tarik ke bawah untuk menyegarkan</string>
     <string name="release_to_refresh">Lepaskan untuk menyegarkan</string>
-    <string name="refreshing">Tunggu sebentar\u2026</string>
+    <string name="refreshing">Menyegarkan&#8230;</string>
     <string name="refreshing_no_point">Memuat\u2026</string>
+    <string name="refreshing_retry">Tidak bisa memuat, coba lagi</string>
     <string name="ok_button">OKE</string>
     <string name="know_button">Mengerti</string>
     <string name="ignore">Abaikan</string>
     <string name="cancel">Batal</string>
     <string name="setting_title">Pengaturan umum</string>
-    <string name="picker_hour">Jam</string>
-    <string name="picker_month">Bulan</string>
+    <string name="picker_hour">h\u0020</string>
+    <string name="picker_minite">m\u0020</string>
+    <string name="picker_year">y\u0020</string>
+    <string name="picker_month">m\u0020</string>
     <string name="picker_day">Hari</string>
     <string name="progress_dialog_already">Selesai</string>
+    <string name="action_menu">Atur</string>
     <string name="action_back">Kembali</string>
     <string name="select_all">Pilih semua</string>
     <string name="unselect_all">Batalkan pilihan</string>

@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pull_down_refresh">당겨 내려서 새로고침</string>
-    <string name="release_to_refresh">놓아서 새로고침</string>
-    <string name="refreshing">잠시 기다려주십시오\u2026</string>
+    <string name="pull_down_refresh">아래로 당겨서 새로 고침</string>
+    <string name="release_to_refresh">놓아서 새로 고침</string>
+    <string name="refreshing">로드 중\u2026</string>
+    <string name="refreshing_no_point">로딩 중\u2026</string>
+    <string name="refreshing_retry">로드 실패, 다시 시도</string>
     <string name="ok_button">확인</string>
     <string name="know_button">알겠습니다</string>
     <string name="ignore">무시</string>
     <string name="cancel">취소</string>
     <string name="setting_title">일반 설정</string>
-    <string name="picker_hour">시</string>
-    <string name="picker_month">월</string>
+    <string name="picker_hour">시\u0020</string>
+    <string name="picker_minite">분\u0020</string>
+    <string name="picker_year">년\u0020</string>
+    <string name="picker_month">월\u0020</string>
     <string name="picker_day">일</string>
     <string name="progress_dialog_already">완료</string>
+    <string name="action_menu">설정</string>
     <string name="action_back">뒤로</string>
     <string name="select_all">전체 선택</string>
     <string name="unselect_all">선택 해제</string>

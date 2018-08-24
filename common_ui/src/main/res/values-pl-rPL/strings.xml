@@ -2,12 +2,21 @@
 <resources>
     <string name="pull_down_refresh">Przeciągnij w dół, aby odświeżyć</string>
     <string name="release_to_refresh">Zwolnij, aby odświeżyć</string>
-    <string name="refreshing">Jeszcze chwilę\u2026</string>
+    <string name="refreshing">Odświeżanie</string>
+    <string name="refreshing_no_point">Wczytywanie\u2026</string>
+    <string name="refreshing_retry">Nie można wczytać, spróbuj ponownie</string>
     <string name="ok_button">OK</string>
     <string name="know_button">Rozumiem</string>
     <string name="ignore">Zignoruj</string>
     <string name="cancel">Anuluj</string>
-    <string name="action_back">Tył</string>
+    <string name="setting_title">Ustawienia ogólne</string>
+    <string name="picker_hour">h\u0020</string>
+    <string name="picker_minite">m\u0020</string>
+    <string name="picker_year">r\u0020</string>
+    <string name="picker_month">m\u0020</string>
+    <string name="progress_dialog_already">Gotowe</string>
+    <string name="action_menu">Ustaw</string>
+    <string name="action_back">Wróć</string>
     <string name="select_all">Wybierz wszystko</string>
     <string name="unselect_all">Anuluj wybór</string>
 </resources>

@@ -2,17 +2,21 @@
 <resources>
     <string name="pull_down_refresh">Scorri verso il basso per aggiornare</string>
     <string name="release_to_refresh">Rilascia per aggiornare</string>
-    <string name="refreshing">Attendi\u2026</string>
+    <string name="refreshing">Aggiornamento in corso\u2026</string>
     <string name="refreshing_no_point">Caricamento in corso\u2026</string>
+    <string name="refreshing_retry">Impossibile caricare, riprova</string>
     <string name="ok_button">OK</string>
     <string name="know_button">Ho capito</string>
     <string name="ignore">Ignora</string>
     <string name="cancel">Annulla</string>
     <string name="setting_title">Impostazioni generali</string>
-    <string name="picker_hour">Ora</string>
-    <string name="picker_month">Mese</string>
+    <string name="picker_hour">h\u0020</string>
+    <string name="picker_minite">m\u0020</string>
+    <string name="picker_year">a\u0020</string>
+    <string name="picker_month">m\u0020</string>
     <string name="picker_day">Giorno</string>
     <string name="progress_dialog_already">Fine</string>
+    <string name="action_menu">Imposta</string>
     <string name="action_back">Parte posteriore</string>
     <string name="select_all">Seleziona tutte</string>
     <string name="unselect_all">Deseleziona</string>

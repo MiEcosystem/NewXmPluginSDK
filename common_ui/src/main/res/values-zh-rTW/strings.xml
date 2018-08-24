@@ -5,7 +5,7 @@
     <string name="release_to_refresh">鬆開刷新</string>
     <string name="refreshing">載入中…</string>
     <string name="refreshing_no_point">載入中</string>
-    <string name="refreshing_retry">加載失敗，重試？</string>
+    <string name="refreshing_retry">載入失敗，重試？</string>
     <string name="ok_button">確定</string>
     <string name="know_button">我知道了</string>
     <string name="ignore">忽略</string>
