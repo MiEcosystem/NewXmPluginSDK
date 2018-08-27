@@ -4,7 +4,7 @@
         <!-- 支持插件的最低版本，必须 -->
         <meta-data android:name="minPluginSdkApiVersion" android:value="29" />
         <!-- 设备model，必须 -->
-        <meta-data android:name="model" android:value="xiaomi.demo.v1|xiaomi.bledemo.v1|xiaomi.demo.v3|xiaomi.demo.v2|mijia.demo.v1|xiaomi.dev.bledemov2|xiaomi.dev.v1|xiaomi.dev.v2|xiaomi.dev.v4|xiaomi.dev.lx0|xiaomi.dev.lx1|xiaomi.dev.lx2|xiaomi.dev.mtk1" />
+        <meta-data android:name="model" android:value="xiaomi.demo.v1|xiaomi.bledemo.v1|xiaomi.demo.v3|xiaomi.demo.v2|mijia.demo.v1|xiaomi.dev.bledemov2|xiaomi.dev.v1|xiaomi.dev.v2|xiaomi.dev.v4|xiaomi.dev.lx0|xiaomi.dev.lx1|xiaomi.dev.lx2|xiaomi.dev.mtk1|xiaomi.light.team1" />
         <!-- 设备处理消息入口，必须 -->
         <meta-data android:name="message_handler" android:value="com.xiaomi.xmplugindemo.MessageReceiver" />
         <!-- 开发者Id, 必须 -->
