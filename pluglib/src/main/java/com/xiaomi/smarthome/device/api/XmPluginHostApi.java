@@ -25,6 +25,7 @@ import com.xiaomi.smarthome.bluetooth.Response;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
 import com.xiaomi.smarthome.camera.XmMp4Record;
 import com.xiaomi.smarthome.camera.XmVideoViewGl;
+import com.xiaomi.smarthome.device.api.printer.PrinterControl;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginSubscribeCallback;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginUnSubscribeCallback;
 import com.xiaomi.smarthome.plugin.service.HostService;
@@ -199,6 +200,13 @@ public abstract class XmPluginHostApi {
      * @return
      */
     public abstract List<DeviceStat> getDeviceList();
+
+    /**
+     * ApiLevel:30 获取设备列表
+     *
+     * @return 打印机的控制类
+     */
+    public abstract PrinterControl getPrinterControl();
 
     /**
      * ApiLevel: 30 获取指定model的设备列表
@@ -565,6 +573,43 @@ public abstract class XmPluginHostApi {
 
     }
     /**
+     * ApiLevel:68 设置定时场景
+     *
+     * @param model
+     * @param did
+     * @param us_id
+     * @param name
+     * @param setting
+     * @param authed
+     * @param callback
+     */
+    @Deprecated
+    public void editTimerScene(String model, String did, String us_id, String name,
+                               JSONObject setting,
+                               JSONArray authed, final Callback<JSONObject> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("us_id", us_id);
+            dataObj.put("identify", did);
+            dataObj.put("name", name);
+            dataObj.put("st_id", 8);
+            dataObj.put("setting", setting);
+            dataObj.put("authed", authed);
+        } catch (JSONException e) {
+            if (callback != null)
+                callback.onFailure(-1, e.toString());
+            return;
+        }
+
+        callSmartHomeApi(model, "/scene/edit", dataObj, callback, new Parser<JSONObject>() {
+            @Override
+            public JSONObject parse(String result) throws JSONException {
+                return new JSONObject(result);
+            }
+        });
+
+    }
+    /**
      * ApiLevel:3 加载所有定时场景
      *
      * @param model
@@ -629,7 +674,34 @@ public abstract class XmPluginHostApi {
         });
 
     }
+    /**
+     * ApiLevel:68 获取定时场景
+     *
+     * @param model
+     * @param did
+     * @param us_id
+     * @param callback
+     */
+    @Deprecated
+    public void getTimerScene(String model, String did, String us_id,
+                              final Callback<JSONObject> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("identify", did);
+            dataObj.put("us_id", us_id+"");
+        } catch (JSONException e) {
+            if (callback != null)
+                callback.onFailure(-1, e.toString());
+            return;
+        }
+        callSmartHomeApi(model, "/scene/get", dataObj, callback, new Parser<JSONObject>() {
+            @Override
+            public JSONObject parse(String result) throws JSONException {
+                return new JSONObject(result);
+            }
+        });
 
+    }
     /**
      * ApiLevel:3 删除场景
      *
@@ -1239,7 +1311,7 @@ public abstract class XmPluginHostApi {
         });
     }
     /**
-     * ApiLevel:67 编辑场景接口
+     * ApiLevel:68 编辑场景接口
      *
      * @param model
      * @param st_id    场景模板id
@@ -1314,7 +1386,7 @@ public abstract class XmPluginHostApi {
 
     }
     /**
-     * ApiLevel:67 删除场景接口
+     * ApiLevel:68 删除场景接口
      */
     public void delScene(String model, String us_id,
                          final Callback<JSONObject> callback) {
@@ -2684,7 +2756,7 @@ public abstract class XmPluginHostApi {
     public abstract void createDeviceGroup(Context context, String groupModel);
 
     /**
-     * ApiLevel: 67
+     * ApiLevel: 68
      * 查询did对应的设备是否开启的用户体验计划
      *
      * @param did
@@ -2692,11 +2764,20 @@ public abstract class XmPluginHostApi {
     public abstract boolean isUsrExpPlanEnabled(String did);
 
     /**
-     * ApiLevel: 67
+     * ApiLevel: 68
      * 设置did对应的设备是否开启的用户体验计划
      * 只保存本地，目前清除数据后恢复默认值
      *
      * @param did
      */
     public abstract void setUsrExpPlanEnabled(String did, boolean enabled);
+
+    /**
+     * ApiLevel: 69
+     * 获取特定Model蓝牙设备列表信息(在后台配置具体哪个model可以获取哪些设备列表)
+     *
+     * @param requestModel 要获取设备列表的model
+     * @return 返回的设备列表只包含：mac地址、did、model、设备名称（用户自定义的）、产品名称、设备实物图
+     */
+    public abstract List<DeviceStat> getFilterBluetoothDeviceList(String requestModel);
 }

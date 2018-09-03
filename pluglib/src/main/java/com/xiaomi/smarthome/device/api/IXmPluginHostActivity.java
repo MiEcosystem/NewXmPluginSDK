@@ -981,7 +981,7 @@ public interface IXmPluginHostActivity {
 
 
     /**
-     * Apilevel:67
+     * Apilevel:68
      * <p>
      * 显示用户协议dialog
      *
