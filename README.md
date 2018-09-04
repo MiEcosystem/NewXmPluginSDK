@@ -103,6 +103,8 @@ plugProject目录下包含了米家扩展程序示例工程，可供扩展程序
 
 1. Android Studio打开下载的NewXmPluginSDK工程
 
+注意：**Android Studio需要关闭Instant Run**。
+
 1. 按照如下步骤修改米家扩展程序功能的配置
 
 	说明：米家提供的米家扩展程序工程是没有Launch Activity的，Android Studio默认会提示错误，没法直接Run/Debug米家扩展程序工程，因此需要修改下Android Studio配置。
