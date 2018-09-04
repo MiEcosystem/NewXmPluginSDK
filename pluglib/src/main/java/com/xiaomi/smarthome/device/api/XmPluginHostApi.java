@@ -376,8 +376,6 @@ public abstract class XmPluginHostApi {
     public abstract void recordNumericPropertyEvent(String category, String key,
                                                     long value);
 
-    // ///////////////
-
     /**
      * ApiLevel:2 米家后台统计(Deprecated)
      *
@@ -446,6 +444,19 @@ public abstract class XmPluginHostApi {
      */
     public abstract void addRecord(XmPluginPackage loadedInfo, String key, Object value,
                                    JSONObject extra);
+
+    public static final String RecordTypeClick = "click";
+    public static final String RecordTypeResult = "result";
+    public void addRecordV3(XmPluginPackage loadedInfo, String type, String key, Object value,
+                                        JSONObject extra){
+        if(type != null){
+            type = type.toLowerCase().trim();
+            if(!type.isEmpty()){
+                key = type + ":" + key;
+            }
+        }
+        addRecord(loadedInfo, key, value, extra);
+    }
 
     // ///////////////
     // scence
@@ -2780,4 +2791,13 @@ public abstract class XmPluginHostApi {
      * @return 返回的设备列表只包含：mac地址、did、model、设备名称（用户自定义的）、产品名称、设备实物图
      */
     public abstract List<DeviceStat> getFilterBluetoothDeviceList(String requestModel);
+
+    /**
+     * ApiLevel: 69
+     * 获取model对应的产品基本信息，比如产品名称、产品icon等
+     *
+     * @param model
+     * @return
+     */
+    public abstract ProductInfo getProductInfo(String model);
 }

@@ -124,6 +124,7 @@ public interface IXmPluginHostActivity {
      *
      * @param sceneId
      */
+    @Deprecated
     public abstract void startEditScene(int sceneId);
     /**
      * ApiLevel:67 编辑当前已有智能场景
