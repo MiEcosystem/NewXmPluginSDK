@@ -143,6 +143,7 @@ public void loadScene(String model, int st_id, String did, String identify, Stri
  * @param authed
  * @param callback
  */
+ @Deprecated
 public void editScene(String model, int st_id, int us_id, String did, String identify,
                       String name,
                       JSONObject setting,
@@ -151,9 +152,61 @@ public void editScene(String model, int st_id, int us_id, String did, String ide
 /**
  * ApiLevel:8 删除场景接口
  */
-
+@Deprecated
 public void delScene(String model, int us_id,
                      final Callback<JSONObject> callback);
+
+/**
+ * ApiLevel:68 编辑场景接口
+ *
+ * @param model
+ * @param st_id    场景模板id
+ * @param us_id    场景id
+ * @param did
+ * @param name
+ * @param setting
+ * @param authed
+ * @param callback
+ */
+public void editScene(String model, int st_id, String us_id, String did, String identify,
+                          String name,
+                          JSONObject setting,
+                          JSONArray authed, final Callback<JSONObject> callback);
+
+/**
+ * ApiLevel:68 删除场景接口
+ */
+public void delScene(String model, String us_id,
+                         final Callback<JSONObject> callback);
+
+/**
+ * ApiLevel:68 设置定时场景
+ *
+ * @param model
+ * @param did
+ * @param us_id
+ * @param name
+ * @param setting
+ * @param authed
+ * @param callback
+ */
+@Deprecated
+public void editTimerScene(String model, String did, String us_id, String name,
+                               JSONObject setting,
+                               JSONArray authed, final Callback<JSONObject> callback);
+
+ /**
+ * ApiLevel:68 获取定时场景
+ *
+ * @param model
+ * @param did
+ * @param us_id
+ * @param callback
+ */
+@Deprecated
+public void getTimerScene(String model, String did, String us_id,
+                              final Callback<JSONObject> callback);
+
 ```
 ## IPluginHostActivity
 ```
@@ -174,6 +227,7 @@ public abstract void startCreateSceneByDid(String deviceId);
  *
  * @param sceneId
  */
+ @Deprecated
 public abstract void startEditScene(int sceneId);
     
 /**
@@ -220,12 +274,19 @@ public abstract void startEditCustomScene();
  */
 public abstract void startLoadScene(AsyncCallback callback);
 
+/**
+ * ApiLevel:67 编辑当前已有智能场景
+ *
+ * @param sceneId
+ */
+public abstract void startEditScene(String sceneId);
+
 ##### IXmPluginMessageReceiver
 创建智能时，需要到米家扩展程序设置信息时
 /**
-     * ApiLevel:6
-     */
-    public static final int MSG_GET_SCENE_VALUE = 3;
+ * ApiLevel:6
+ */
+public static final int MSG_GET_SCENE_VALUE = 3;
     会发送该value的信息
             Intent intent = new Intent(mCommonSceneConditions.get(position).mParamAction);
             intent.putExtra("action", mCommonSceneConditions.get(position).mKey);
