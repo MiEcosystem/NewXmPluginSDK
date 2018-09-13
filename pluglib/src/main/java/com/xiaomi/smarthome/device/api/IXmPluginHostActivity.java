@@ -126,6 +126,7 @@ public interface IXmPluginHostActivity {
      */
     @Deprecated
     public abstract void startEditScene(int sceneId);
+
     /**
      * ApiLevel:67 编辑当前已有智能场景
      *
@@ -992,15 +993,15 @@ public interface IXmPluginHostActivity {
      * @param privacyTitle   隐私条款名称
      * @param privacyContent 隐私条款内容
      * @param agreeListener  用户点击同意协议按钮listener
-     * @param intent  用户自定义的参数
-     *                ##############用户体验计划参数start##############
-     *                enable_privacy_setting:true/false:是否在对话框中显示开启用户体验计划设置项。可不传。不传则为默认不显示勾选项
-     *                usr_exp_plan_tips:     勾选项的文本提示。可不传。不传的话，如果enable_privacy_setting为true，则显示默认的用户体验计划提示
-     *                usr_exp_plan_start:    整数，usr_exp_plan_tips可点击文本区域的起始位置。可不传。必须和usr_exp_plan_tips同时配对出现
-     *                usr_exp_plan_end:      整数，usr_exp_plan_tips可点击文本区域的截止位置。可不传。必须和usr_exp_plan_tips同时配对出现
-     *                usrExpPlanContent:     用户隐私协议网页内容，需要传Spanned类型的html网页，因为这里的内容会在webview中显示。可不传。不传用米家默认的用户体验计划内容。和usrExpPlanContentUri传一个即可
-     *                usrExpPlanContentUri:  用户隐私协议uri。插件加载resource里的资源可能有问题，推荐用usrExpPlanContent。可不传。不传用米家默认的用户体验计划内容
-     *                ##############用户体验计划参数end################
+     * @param intent         用户自定义的参数
+     *                       ##############用户体验计划参数start##############
+     *                       enable_privacy_setting:true/false:是否在对话框中显示开启用户体验计划设置项。可不传。不传则为默认不显示勾选项
+     *                       usr_exp_plan_tips:     勾选项的文本提示。可不传。不传的话，如果enable_privacy_setting为true，则显示默认的用户体验计划提示
+     *                       usr_exp_plan_start:    整数，usr_exp_plan_tips可点击文本区域的起始位置。可不传。必须和usr_exp_plan_tips同时配对出现
+     *                       usr_exp_plan_end:      整数，usr_exp_plan_tips可点击文本区域的截止位置。可不传。必须和usr_exp_plan_tips同时配对出现
+     *                       usrExpPlanContent:     用户隐私协议网页内容，需要传Spanned类型的html网页，因为这里的内容会在webview中显示。可不传。不传用米家默认的用户体验计划内容。和usrExpPlanContentUri传一个即可
+     *                       usrExpPlanContentUri:  用户隐私协议uri。插件加载resource里的资源可能有问题，推荐用usrExpPlanContent。可不传。不传用米家默认的用户体验计划内容
+     *                       ##############用户体验计划参数end################
      */
     void showUserLicenseDialog(String dialogTitle,
                                String licenseTitle, Spanned licenseContent,
@@ -1084,16 +1085,22 @@ public interface IXmPluginHostActivity {
                                     String offMethod, String offParams, String identify, String displayName,
                                     String timerTitle, boolean bothTimerMustBeSet, String onTimerTip, String offTimerTip, String timerListTip);
 
+    /**
+     *
+     * ApiLevel: 69 跳转到添加房间页面
+     *
+     */
+    public void startAddRoom();
 
     /*
-     * ApiLevel 待定
+     * ApiLevel 66
      *
      * @param did 设备id
      */
     public void openCloudVideoListActivity(String did, String title);
 
     /*
-     * ApiLevel 待定
+     * ApiLevel 66
      *
      * @param did 设备id
      * @param fileId 播放的文件id
@@ -1101,7 +1108,7 @@ public interface IXmPluginHostActivity {
     public void openCloudVideoPlayerActivity(String did, String fileId, String title);
 
     /*
-     * ApiLevel 待定
+     * ApiLevel 66
      * @param url 传入的链接
      * @param title 可为null
      * @param did 设备id
@@ -1116,4 +1123,12 @@ public interface IXmPluginHostActivity {
      * @param did
      */
     public void onDeviceReady(String model, String did);
+
+    /*
+     * ApiLevel 69
+     *
+     * @param did 设备id
+     * @param fileId 播放的文件id
+     */
+    public void openCloudVideoExoPlayerActivity(String did, String fileId, String title);
 }

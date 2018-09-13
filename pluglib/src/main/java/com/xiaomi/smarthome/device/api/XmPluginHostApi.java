@@ -17,15 +17,19 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.xiaomi.plugin.core.XmPluginPackage;
 import com.xiaomi.smarthome.bluetooth.Response;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
+import com.xiaomi.smarthome.camera.HLSDownloader;
 import com.xiaomi.smarthome.camera.XmMp4Record;
 import com.xiaomi.smarthome.camera.XmVideoViewGl;
 import com.xiaomi.smarthome.device.api.printer.PrinterControl;
+import com.xiaomi.smarthome.camera.exopackage.MJExoPlayer;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginSubscribeCallback;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginUnSubscribeCallback;
 import com.xiaomi.smarthome.plugin.service.HostService;
@@ -214,6 +218,30 @@ public abstract class XmPluginHostApi {
      * @return
      */
     public abstract List<DeviceStat> getDeviceListV2(List<String> modelList);
+
+    /**
+     * ApiLevel: 69 获取当前家庭所有房间
+     *
+     * @return
+     */
+    public abstract List<RoomStat> getRoomAll();
+
+    /**
+     * ApiLevel: 69 删除房间
+     *
+     * @param roomIds
+     * @param callback
+     */
+    public abstract void deleteRoom(final List<String> roomIds, final Callback<Void> callback);
+
+    /**
+     * ApiLevel: 69 房间重命名
+     *
+     * @param roomId
+     * @param name
+     * @param callback
+     */
+    public abstract void renameRoom(final String roomId, final String name, final Callback<Void> callback);
 
     /**
      * ApiLevel:1 获取子设备
@@ -447,11 +475,12 @@ public abstract class XmPluginHostApi {
 
     public static final String RecordTypeClick = "click";
     public static final String RecordTypeResult = "result";
+
     public void addRecordV3(XmPluginPackage loadedInfo, String type, String key, Object value,
-                                        JSONObject extra){
-        if(type != null){
+                            JSONObject extra) {
+        if (type != null) {
             type = type.toLowerCase().trim();
-            if(!type.isEmpty()){
+            if (!type.isEmpty()) {
                 key = type + ":" + key;
             }
         }
@@ -512,7 +541,7 @@ public abstract class XmPluginHostApi {
     public void editScene(String model, int st_id, int us_id, String did, String name,
                           JSONObject setting,
                           JSONArray authed, final Callback<JSONObject> callback) {
-        if(us_id<0){
+        if (us_id < 0) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -520,7 +549,7 @@ public abstract class XmPluginHostApi {
         }
         JSONObject dataObj = new JSONObject();
         try {
-            dataObj.put("us_id", us_id+"");
+            dataObj.put("us_id", us_id + "");
             dataObj.put("identify", did);
             dataObj.put("name", name);
             dataObj.put("st_id", st_id);
@@ -555,7 +584,7 @@ public abstract class XmPluginHostApi {
     public void editTimerScene(String model, String did, int us_id, String name,
                                JSONObject setting,
                                JSONArray authed, final Callback<JSONObject> callback) {
-        if(us_id<0){
+        if (us_id < 0) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -563,7 +592,7 @@ public abstract class XmPluginHostApi {
         }
         JSONObject dataObj = new JSONObject();
         try {
-            dataObj.put("us_id", us_id+"");
+            dataObj.put("us_id", us_id + "");
             dataObj.put("identify", did);
             dataObj.put("name", name);
             dataObj.put("st_id", 8);
@@ -583,6 +612,7 @@ public abstract class XmPluginHostApi {
         });
 
     }
+
     /**
      * ApiLevel:68 设置定时场景
      *
@@ -620,6 +650,7 @@ public abstract class XmPluginHostApi {
         });
 
     }
+
     /**
      * ApiLevel:3 加载所有定时场景
      *
@@ -662,7 +693,7 @@ public abstract class XmPluginHostApi {
     @Deprecated
     public void getTimerScene(String model, String did, int us_id,
                               final Callback<JSONObject> callback) {
-        if(us_id<0){
+        if (us_id < 0) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -671,7 +702,7 @@ public abstract class XmPluginHostApi {
         JSONObject dataObj = new JSONObject();
         try {
             dataObj.put("identify", did);
-            dataObj.put("us_id", us_id+"");
+            dataObj.put("us_id", us_id + "");
         } catch (JSONException e) {
             if (callback != null)
                 callback.onFailure(-1, e.toString());
@@ -685,6 +716,7 @@ public abstract class XmPluginHostApi {
         });
 
     }
+
     /**
      * ApiLevel:68 获取定时场景
      *
@@ -699,7 +731,7 @@ public abstract class XmPluginHostApi {
         JSONObject dataObj = new JSONObject();
         try {
             dataObj.put("identify", did);
-            dataObj.put("us_id", us_id+"");
+            dataObj.put("us_id", us_id + "");
         } catch (JSONException e) {
             if (callback != null)
                 callback.onFailure(-1, e.toString());
@@ -713,6 +745,7 @@ public abstract class XmPluginHostApi {
         });
 
     }
+
     /**
      * ApiLevel:3 删除场景
      *
@@ -724,7 +757,7 @@ public abstract class XmPluginHostApi {
     @Deprecated
     public void delScene(String model, String did, int us_id,
                          final Callback<JSONObject> callback) {
-        if(us_id<0){
+        if (us_id < 0) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -733,7 +766,7 @@ public abstract class XmPluginHostApi {
         JSONObject dataObj = new JSONObject();
         try {
             dataObj.put("identify", did);
-            dataObj.put("us_id", us_id+"");
+            dataObj.put("us_id", us_id + "");
         } catch (JSONException e) {
             if (callback != null)
                 callback.onFailure(-1, e.toString());
@@ -748,6 +781,7 @@ public abstract class XmPluginHostApi {
         });
 
     }
+
     /**
      * ApiLevel:3 设置场景
      *
@@ -1300,7 +1334,7 @@ public abstract class XmPluginHostApi {
         }
         JSONObject dataObj = new JSONObject();
         try {
-            dataObj.put("us_id", us_id+"");
+            dataObj.put("us_id", us_id + "");
             dataObj.put("identify", identify);
             if (name != null) {
                 dataObj.put("name", name);
@@ -1321,6 +1355,7 @@ public abstract class XmPluginHostApi {
             }
         });
     }
+
     /**
      * ApiLevel:68 编辑场景接口
      *
@@ -1337,7 +1372,7 @@ public abstract class XmPluginHostApi {
                           String name,
                           JSONObject setting,
                           JSONArray authed, final Callback<JSONObject> callback) {
-        if(TextUtils.isEmpty(us_id)){
+        if (TextUtils.isEmpty(us_id)) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -1373,7 +1408,7 @@ public abstract class XmPluginHostApi {
     @Deprecated
     public void delScene(String model, int us_id,
                          final Callback<JSONObject> callback) {
-        if(us_id<0){
+        if (us_id < 0) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -1381,7 +1416,7 @@ public abstract class XmPluginHostApi {
         }
         JSONObject dataObj = new JSONObject();
         try {
-            dataObj.put("us_id", us_id+"");
+            dataObj.put("us_id", us_id + "");
         } catch (JSONException e) {
             if (callback != null)
                 callback.onFailure(-1, e.toString());
@@ -1396,12 +1431,13 @@ public abstract class XmPluginHostApi {
         });
 
     }
+
     /**
      * ApiLevel:68 删除场景接口
      */
     public void delScene(String model, String us_id,
                          final Callback<JSONObject> callback) {
-        if(TextUtils.isEmpty(us_id)){
+        if (TextUtils.isEmpty(us_id)) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -2800,4 +2836,36 @@ public abstract class XmPluginHostApi {
      * @return
      */
     public abstract ProductInfo getProductInfo(String model);
+
+    /*
+     * ApiLevel: 69
+     * @param context 不能为null
+     * @param viewGroup parent layout
+     * @param attrs
+     * @param defStyleAttr
+     *
+     * @return MJExoPlayer 创建的一个父view为参数viewGroup中的播放器
+     */
+    public abstract MJExoPlayer createExoPlayer(Context context, ViewGroup viewGroup, AttributeSet attrs, int defStyleAttr);
+
+    /*
+     * ApiLevel: 69
+     * 根据参数生成请求url，会添加加密信息(segmentIv)和地区(region)等参数进url，然后将参数进行加密
+     * @param hostParams 请求host的前缀(prefix)和路径(path)变量，包括请求方法(post, get)
+     * @param pathParams 请求路径后面跟的变量数据
+     *
+     * @return 返回一个请求的url
+     */
+    public abstract String generateRequestUrl(String model, JSONObject hostParams, JSONObject pathParams);
+
+
+    /*
+     *
+     *ApiLevel: 69
+     *创建一个从m3u8生成mp4的类，通过这个类可以将流数据转化为mp4文件
+     * @param model 设备的model
+     *
+     * @return 返回一个HLSDownloader实例
+     */
+    public abstract HLSDownloader getHLSDownloader(String model);
 }
