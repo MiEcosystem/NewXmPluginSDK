@@ -220,8 +220,7 @@ public class BleMeshFirmwareUpgrader extends BleUpgrader {
                 }
             });
         } else {
-            // TODO 暂时先使用connect普通连接，后续正式版需要调用bleMeshConnect安全连接
-            XmBluetoothManager.getInstance().connect(mMac, new Response.BleConnectResponse() {
+            XmBluetoothManager.getInstance().bleMeshConnect(mMac, mDid, new Response.BleConnectResponse() {
                 @Override
                 public void onResponse(int code, Bundle bundle) {
                     if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
@@ -298,8 +297,7 @@ public class BleMeshFirmwareUpgrader extends BleUpgrader {
         if (XmBluetoothManager.getInstance().getConnectStatus(mMac) == BluetoothProfile.STATE_CONNECTED) {
             startBleMeshUpgrade(filePath);
         } else {
-            // TODO 暂时先使用connect普通连接，后续正式版需要调用bleMeshConnect安全连接
-            XmBluetoothManager.getInstance().connect(mMac, new Response.BleConnectResponse() {
+            XmBluetoothManager.getInstance().bleMeshConnect(mMac, mDid, new Response.BleConnectResponse() {
                 @Override
                 public void onResponse(int code, Bundle bundle) {
                     if (mHasInUpgradePage) {

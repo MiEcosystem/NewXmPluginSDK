@@ -143,8 +143,7 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
     }
 
     private void connectDevice() {
-        // TODO 暂时先使用connect普通连接，后续正式版需要调用bleMeshConnect安全连接
-        XmBluetoothManager.getInstance().connect(mDevice.getMac(), new Response.BleConnectResponse() {
+        XmBluetoothManager.getInstance().bleMeshConnect(mDevice.getMac(), mDevice.getDid(), new Response.BleConnectResponse() {
             @Override
             public void onResponse(int code, Bundle bundle) {
                 if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
