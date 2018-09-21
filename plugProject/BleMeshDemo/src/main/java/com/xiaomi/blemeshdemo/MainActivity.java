@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.xiaomi.smarthome.device.api.BaseDevice;
 import com.xiaomi.smarthome.device.api.BaseDevice.StateChangedListener;
 import com.xiaomi.smarthome.device.api.IXmPluginHostActivity;
 import com.xiaomi.smarthome.device.api.XmPluginBaseActivity;
+import com.xiaomi.smarthome.device.api.XmPluginHostApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +59,11 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
 
         // 初始化device
         mDevice = Device.getDevice(mDeviceStat);
-
+        // 这里根据组设备的初始化状态选择是否调起初始化页面
+        String virtualGroupStatus = XmPluginHostApi.instance().getVirtualGroupStatus(mDevice.getDid());
+        if(!TextUtils.equals("1", virtualGroupStatus)){
+            mHostActivity.openVirtualGroupInitActivity(mDevice.getDid(), 200);
+        }
         initView();
 
         registerBluetoothReceiver();
@@ -70,6 +76,17 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         } else {
             mConnectStatusView.setText("未连接");
             connectDevice();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 200){
+            if(resultCode != RESULT_OK){
+                finish();
+            }
+            Log.i("TAG", "onActivityResult: " + resultCode);
         }
     }
 

@@ -55,17 +55,17 @@ public interface IXmPluginHostActivity {
     public final String ANIM_FADE_OUT_LEFT = "fade_out_left";
     public final String ANIM_FADE_OUT_RIGHT = "fade_out_right";
 
-    /**@deprecated
-     * @see MenuItemBase
-     *
-     *  ApiLevel:1 打开菜单，onActivityResult()返回用户点击结果 String selectMenu =
-     * data.getStringExtra("menu");
-     *
+    /**
      * @param menus       自定义菜单列表，在默认菜单之上,点击后推出菜单项
      * @param intents     自定义菜单列表，在默认菜单之上，点击后打开Intent
      * @param useDefault  true使用默认菜单，false不使用默认菜单
      * @param requestCode requestCode If >= 0, this code will be returned in
      *                    onActivityResult() when the activity exits.
+     * @see MenuItemBase
+     * <p>
+     * ApiLevel:1 打开菜单，onActivityResult()返回用户点击结果 String selectMenu =
+     * data.getStringExtra("menu");
+     * @deprecated
      */
     public abstract void openMoreMenu(ArrayList<String> menus, ArrayList<Intent> intents,
                                       boolean useDefault, int requestCode);
@@ -125,6 +125,12 @@ public interface IXmPluginHostActivity {
      * @param sceneId
      */
     public abstract void startEditScene(int sceneId);
+    /**
+     * ApiLevel:67 编辑当前已有智能场景
+     *
+     * @param sceneId
+     */
+    public abstract void startEditScene(String sceneId);
 
     /**
      * ApiLevel:2 增加通用时间设置接口
@@ -270,17 +276,17 @@ public interface IXmPluginHostActivity {
      */
     public abstract void modifySceneName(SceneInfo info, AsyncCallback<Void> callback);
 
-    /**@deprecated
-     * @see MenuItemBase
-     *
-     * ApiLevel:8 打开菜单,添加传设备did参数，onActivityResult()返回用户点击结果 String
-     * selectMenu = data.getStringExtra("menu");
-     *
+    /**
      * @param menus       自定义菜单列表，在默认菜单之上,点击后推出菜单项
      * @param intents     自定义菜单列表，在默认菜单之上，点击后打开Intent
      * @param useDefault  true使用默认菜单，false不使用默认菜单
      * @param requestCode requestCode If >= 0, this code will be returned in
      *                    onActivityResult() when the activity exits.
+     * @see MenuItemBase
+     * <p>
+     * ApiLevel:8 打开菜单,添加传设备did参数，onActivityResult()返回用户点击结果 String
+     * selectMenu = data.getStringExtra("menu");
+     * @deprecated
      */
     public abstract void openMoreMenu(String did, ArrayList<String> menus,
                                       ArrayList<Intent> intents,
@@ -779,18 +785,18 @@ public interface IXmPluginHostActivity {
      * @param bundle      请求参数，可以传null即为扫描二维码,或者指定扫描码类型 bundle.putIntArray("barcode_format",new int[]{IXmPluginHostActivity.BarcodeFormat.QR_CODE.ordinal()});
      *                    请求逻辑@see #Activity.startActivityForResult(Intent, requestCode)
      * @param requestCode @see #Activity.startActivityForResult(Intent, requestCode)
-     *
-     * 结果返回到调用Activity的onActivityResult中，调用如下
-     * <pre class="prettyprint">
-     *    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-     *        super.onActivityResult(requestCode, resultCode, data);
-     *        if(resultCode==RESULT_OK){
-     *            if(requestCode==SCAN_BARCODE){
-     *            String result = data.getStringExtra("scan_result");
-     *             }
-     *         }
-     *    }
-     * </pre>
+     *                    <p>
+     *                    结果返回到调用Activity的onActivityResult中，调用如下
+     *                    <pre class="prettyprint">
+     *                    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+     *                    super.onActivityResult(requestCode, resultCode, data);
+     *                    if(resultCode==RESULT_OK){
+     *                    if(requestCode==SCAN_BARCODE){
+     *                    String result = data.getStringExtra("scan_result");
+     *                    }
+     *                    }
+     *                    }
+     *                    </pre>
      */
     public abstract void openScanBarcodePage(Bundle bundle, int requestCode);
 
@@ -912,6 +918,7 @@ public interface IXmPluginHostActivity {
 
     /**
      * ApiLevel: 65 点击自定义热区跳转至相应界面
+     *
      * @param adPositionId 热区广告位id
      */
     void clickHotSpotAd(String adPositionId);
@@ -966,10 +973,70 @@ public interface IXmPluginHostActivity {
      * @param privacyContent 隐私条款内容
      * @param agreeListener  用户点击同意协议按钮listener
      */
+    @Deprecated
     void showUserLicenseDialog(String dialogTitle,
                                String licenseTitle, Spanned licenseContent,
                                String privacyTitle, Spanned privacyContent,
                                View.OnClickListener agreeListener);
+
+
+    /**
+     * Apilevel:68
+     * <p>
+     * 显示用户协议dialog
+     *
+     * @param dialogTitle    dialog标题
+     * @param licenseTitle   用户协议名称
+     * @param licenseContent 用户协议内容
+     * @param privacyTitle   隐私条款名称
+     * @param privacyContent 隐私条款内容
+     * @param agreeListener  用户点击同意协议按钮listener
+     * @param intent  用户自定义的参数
+     *                ##############用户体验计划参数start##############
+     *                enable_privacy_setting:true/false:是否在对话框中显示开启用户体验计划设置项。可不传。不传则为默认不显示勾选项
+     *                usr_exp_plan_tips:     勾选项的文本提示。可不传。不传的话，如果enable_privacy_setting为true，则显示默认的用户体验计划提示
+     *                usr_exp_plan_start:    整数，usr_exp_plan_tips可点击文本区域的起始位置。可不传。必须和usr_exp_plan_tips同时配对出现
+     *                usr_exp_plan_end:      整数，usr_exp_plan_tips可点击文本区域的截止位置。可不传。必须和usr_exp_plan_tips同时配对出现
+     *                usrExpPlanContent:     用户隐私协议网页内容，需要传Spanned类型的html网页，因为这里的内容会在webview中显示。可不传。不传用米家默认的用户体验计划内容。和usrExpPlanContentUri传一个即可
+     *                usrExpPlanContentUri:  用户隐私协议uri。插件加载resource里的资源可能有问题，推荐用usrExpPlanContent。可不传。不传用米家默认的用户体验计划内容
+     *                ##############用户体验计划参数end################
+     */
+    void showUserLicenseDialog(String dialogTitle,
+                               String licenseTitle, Spanned licenseContent,
+                               String privacyTitle, Spanned privacyContent,
+                               View.OnClickListener agreeListener,
+                               Intent intent);
+
+    /**
+     * Apilevel:67
+     *
+     * @param dialogTitle
+     * @param licenseTitle
+     * @param licenseHtml   用户协议Html内容
+     * @param privacyTitle
+     * @param privacyHtml   隐私条款Html内容
+     * @param agreeListener
+     */
+    void showUserLicenseHtmlDialog(String dialogTitle,
+                                   String licenseTitle, String licenseHtml,
+                                   String privacyTitle, String privacyHtml,
+                                   View.OnClickListener agreeListener);
+
+    /**
+     * Apilevel:67
+     * 当协议内容过大，不适合使用intent传递时，使用此方法，将协议内容写入存储文件中，将URL传入
+     *
+     * @param dialogTitle
+     * @param licenseTitle
+     * @param licenseUri    用户协议Html内容地址
+     * @param privacyTitle
+     * @param privacyUri    用户协议Html内容地址
+     * @param agreeListener
+     */
+    void showUserLicenseUriDialog(String dialogTitle,
+                                  String licenseTitle, String licenseUri,
+                                  String privacyTitle, String privacyUri,
+                                  View.OnClickListener agreeListener);
 
     /**
      * Apilevel:51
@@ -1039,4 +1106,23 @@ public interface IXmPluginHostActivity {
      * @param did 设备id
      */
     public void openCloudVideoWebActivity(String url, String title, String did);
+
+    /**
+     * ApiLevel 66
+     * 目前供红外插件使用，插件内添加设备，成功后通知app
+     *
+     * @param model
+     * @param did
+     */
+    public void onDeviceReady(String model, String did);
+
+    /**
+     * ApiLevel:67
+     * 目前供灯组插件使用，以startActivityForResult的方式调起灯组初始化页面
+     * 初始化成功返回: RESULT_OK(-1)
+     * 初始化失败返回: RESULT_CANCELED(0)
+     * @param did           device id
+     * @param requestCode   请求码
+     */
+    public abstract void openVirtualGroupInitActivity(String did, int requestCode);
 }

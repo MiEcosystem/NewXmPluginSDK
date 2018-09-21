@@ -190,7 +190,8 @@ public class BleMeshControlActivity extends XmPluginBaseActivity {
             public void onSuccess(JSONArray jsonArray) {
                 if (jsonArray != null && jsonArray.length() > 0) {
                     JSONObject result = jsonArray.optJSONObject(0);
-                    if (result.has("code") && result.optInt("code") == 0) {
+                    // 李森说 0 和 1都可以作为成功条件来判断 2018.9.7
+                    if (result.has("code") && (result.optInt("code") == 0  || result.optInt("code") == 1)) {
                         if (on) {
                             toast("开灯成功");
                         } else {
@@ -239,7 +240,8 @@ public class BleMeshControlActivity extends XmPluginBaseActivity {
             public void onSuccess(JSONArray jsonArray) {
                 if (jsonArray != null && jsonArray.length() > 0) {
                     JSONObject result = jsonArray.optJSONObject(0);
-                    if (result.has("code") && result.optInt("code") == 0) {
+                    // 李森说 0 和 1都可以作为成功条件来判断 2018.9.7
+                    if (result.has("code") && (result.optInt("code") == 0  || result.optInt("code") == 1)) {
                         toast("亮度设置成功：" + brightness);
 
                         return;

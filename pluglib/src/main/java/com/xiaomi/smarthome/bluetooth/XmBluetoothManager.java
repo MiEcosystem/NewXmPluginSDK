@@ -194,6 +194,10 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_MESH_REG_DEVICE_VERIFY_SIGN_FAILED = -39;
         // 蓝牙Mesh绑定过程中，设备校验服务端公钥失败
         public static final int REQUEST_MESH_REG_DEVICE_VERIFY_PUB_FAILED = -40;
+        // 蓝牙Mesh绑定过程中，获取Mesh配置信息失败
+        public static final int REQUEST_MESH_PROVISION_INFO_FAILED = -41;
+        // 蓝牙Mesh绑定过程中，给服务端发送Mesh配置结果时失败
+        public static final int REQUEST_MESH_SEND_SERVER_RESULT_FAILED = -42;
 
         public static String toString(int code) {
             switch (code) {
@@ -275,6 +279,10 @@ public abstract class XmBluetoothManager {
                     return "REQUEST_MESH_REG_DEVICE_VERIFY_SIGN_FAILED";
                 case REQUEST_MESH_REG_DEVICE_VERIFY_PUB_FAILED:
                     return "REQUEST_MESH_REG_DEVICE_VERIFY_PUB_FAILED";
+                case REQUEST_MESH_PROVISION_INFO_FAILED:
+                    return "REQUEST_MESH_PROVISION_INFO_FAILED";
+                case REQUEST_MESH_SEND_SERVER_RESULT_FAILED:
+                    return "REQUEST_MESH_SEND_SERVER_RESULT_FAILED";
                 default:
                     return "unknown code: " + code;
             }
@@ -635,6 +643,15 @@ public abstract class XmBluetoothManager {
      * @param response 返回操作成功还是失败，如果操作成功则返回一次性密码
      */
     public abstract void getOneTimePassword(String mac, int interval, int digits, Response.BleResponseV2<int[]> response);
+
+    /**
+     * ApiLevel:66
+     * 当前设备列表是否有支持蓝牙网关的设备
+     *
+     * @param response code = 0 ：有支持蓝牙网关的设备
+     *                 code != 0, 没有支持蓝牙网关的设备
+     */
+    public abstract void isBleGatewayExistInDeviceList(Response.BleResponse<Bundle> response);
 
     /**
      * ApiLevel: 70

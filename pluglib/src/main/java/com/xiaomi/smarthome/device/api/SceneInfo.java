@@ -61,6 +61,7 @@ public class SceneInfo implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mSceneId);
+        dest.writeString(mSceneIdV2);
         dest.writeInt(mRecommId);
         dest.writeString(mName);
         dest.writeInt(mEnable ? 1 : 0);
@@ -81,6 +82,7 @@ public class SceneInfo implements Parcelable {
 
     void readFromParcel(Parcel in) {
         mSceneId = in.readInt();
+        mSceneIdV2 = in.readString();
         mRecommId = in.readInt();
         mName = in.readString();
         mEnable = in.readInt() == 1;
@@ -95,8 +97,14 @@ public class SceneInfo implements Parcelable {
 
     /**
      * ApiLevel:8
+     * See mSceneIdV2
      */
+    @Deprecated
     public int mSceneId;
+    /**
+     * ApiLevel:67
+     */
+    public String mSceneIdV2;
     /**
      * ApiLevel:8
      */
@@ -189,10 +197,15 @@ public class SceneInfo implements Parcelable {
             dest.writeString(mLaunchName);
             dest.writeString(mDeviceModel);
             dest.writeString(mEventString);
-            if(mEventValue instanceof JSONArray || mEventValue instanceof JSONObject)
+            if(mEventValue instanceof JSONArray || mEventValue instanceof JSONObject) {
                 dest.writeValue(mEventValue.toString());
-            else
-                dest.writeValue(mEventValue);
+            } else {
+                try {
+                    dest.writeValue(mEventValue);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             dest.writeString(mDid);
             dest.writeString(mExtra);
         }

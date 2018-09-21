@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.xiaomi.blemeshdemo">
     <application>
         <!-- 支持插件的最低版本，必须 -->
-        <meta-data android:name="minPluginSdkApiVersion" android:value="2" />
+        <meta-data android:name="minPluginSdkApiVersion" android:value="68" />
         <!-- 设备model，必须 -->
         <meta-data android:name="model" android:value="xiaomi.dev.blemesh01|xiaomi.dev.blemesh02|xiaomi.light.team1" />
         <!-- 设备处理消息入口，必须 -->

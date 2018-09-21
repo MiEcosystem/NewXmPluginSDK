@@ -1,10 +1,12 @@
 package com.xiaomi.smarthome.device.api;
 
+import java.io.Serializable;
+
 /**
  * Created by wangchong on 2018/6/26.
  * Api Level: 66
  */
-public class BleMeshFirmwareUpdateInfo {
+public class BleMeshFirmwareUpdateInfo implements Serializable{
 
     /**
      * 最新固件版本，如1.0.0_0003
