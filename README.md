@@ -51,6 +51,6 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序
 
 下载地址：
 
-[http://cdn.cnbj0.fds.api.mi-img.com/default/5.4.17_20181012094936_smarthome.apk?GalaxyAccessKeyId=5721718224520&Expires=1547084978000&Signature=OsfXRfU%2bEog3V0FwddwSyIiinmc=](http://cdn.cnbj0.fds.api.mi-img.com/default/5.4.17_20181012094936_smarthome.apk?GalaxyAccessKeyId=5721718224520&Expires=1547084978000&Signature=OsfXRfU%2bEog3V0FwddwSyIiinmc=)
+[http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_apk_ac23ddc8b206fa432a11ce088f9a2719.apk](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_apk_ac23ddc8b206fa432a11ce088f9a2719.apk)
 
 
