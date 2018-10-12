@@ -8,9 +8,9 @@
 
 NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序Android开发环境，里面包含米家APP提供给扩展程序的各种功能API，以及常用的UI组件。米家扩展程序也是基于Android环境开发的，开发扩展程序的时候请确保Android配置信息（比如compileSdkVersion、minSdkVersion、targetSdkVersion）与米家最新版本保持一致。
 
-**米家APP最新版本：5.4.14**
+**米家APP最新版本：5.4.17**
 
-**米家APP最新API Level：75**
+**米家APP最新API Level：76**
 
 **米家APP compileSdkVersion：27**
 
@@ -18,7 +18,7 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序
 
 **米家APP targetSdkVersion：26**
 
-**文档修改日期：2018-9-20**
+**文档修改日期：2018-10-12**
 
 # changelog
 记录关键的sdk修改提交：
@@ -51,6 +51,6 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序
 
 下载地址：
 
-[http://cdn.cnbj0.fds.api.mi-img.com/default/5.4.14_20180920114829_smarthome.apk?GalaxyAccessKeyId=5721718224520&Expires=1545191312000&Signature=Uoq0m7KOwA33J8nWild/qLbLKjw=](http://cdn.cnbj0.fds.api.mi-img.com/default/5.4.14_20180920114829_smarthome.apk?GalaxyAccessKeyId=5721718224520&Expires=1545191312000&Signature=Uoq0m7KOwA33J8nWild/qLbLKjw=)
+[http://cdn.cnbj0.fds.api.mi-img.com/default/5.4.17_20181012094936_smarthome.apk?GalaxyAccessKeyId=5721718224520&Expires=1547084978000&Signature=OsfXRfU%2bEog3V0FwddwSyIiinmc=](http://cdn.cnbj0.fds.api.mi-img.com/default/5.4.17_20181012094936_smarthome.apk?GalaxyAccessKeyId=5721718224520&Expires=1547084978000&Signature=OsfXRfU%2bEog3V0FwddwSyIiinmc=)
 
 

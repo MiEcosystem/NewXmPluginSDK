@@ -1131,4 +1131,10 @@ public interface IXmPluginHostActivity {
      * @param fileId 播放的文件id
      */
     public void openCloudVideoExoPlayerActivity(String did, String fileId, String title);
+
+    /**
+     * ApiLevel 75
+     * @param resultCode result值
+     */
+    public void openWxBindActivity(int resultCode);
 }

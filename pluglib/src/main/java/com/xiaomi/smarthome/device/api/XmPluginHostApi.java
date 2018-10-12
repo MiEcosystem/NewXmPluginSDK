@@ -1140,9 +1140,11 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel:6 加载native so
      *
+     * 已经废弃，请使用System.loadLibrary。如果使用的话会抛出异常
      * @param loadedInfo 插件上下文
      * @param libName    so库名字
      */
+    @Deprecated
     public abstract void loadLibrary(XmPluginPackage loadedInfo, String libName);
 
     /**
@@ -2868,4 +2870,11 @@ public abstract class XmPluginHostApi {
      * @return 返回一个HLSDownloader实例
      */
     public abstract HLSDownloader getHLSDownloader(String model);
+
+    /**
+     * ApiLevel: 76
+     * 获取当前用户设备列表所有的蓝牙网关设备
+     *
+     */
+    public abstract List<DeviceStat> getBleGatewayDeviceList();
 }
