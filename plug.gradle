@@ -200,7 +200,7 @@ void installPlugin(def project, def variant) {
                 project.exec {
                     commandLine adbcmd,
                             "shell",
-                            "am broadcast -a com.xiaomi.smarthome.action.OPEN_API --es type plugin_debug --es sub_type debug_package"
+                            "am broadcast -a com.xiaomi.smarthome.action.OPEN_API -n com.xiaomi.smarthome/.framework.openapi.OpenApiReceiver --es type plugin_debug --es sub_type debug_package"
                 }
 
             } else {
