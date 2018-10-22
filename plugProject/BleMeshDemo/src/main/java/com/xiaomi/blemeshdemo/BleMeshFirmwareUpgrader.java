@@ -320,7 +320,7 @@ public class BleMeshFirmwareUpgrader extends BleUpgrader {
         }
 
         updateProgress(0);
-        XmBluetoothManager.getInstance().startBleMeshUpgrade(mMac, filePath, new Response.BleUpgradeResponse() {
+        XmBluetoothManager.getInstance().startBleMeshUpgrade(mMac, mDid, mBleMeshUpdateInfo.version, filePath, new Response.BleUpgradeResponse() {
             @Override
             public void onProgress(int progress) {
                 updateProgress(progress);

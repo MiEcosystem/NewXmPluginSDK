@@ -59,10 +59,14 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
 
         // 初始化device
         mDevice = Device.getDevice(mDeviceStat);
-        // 这里根据组设备的初始化状态选择是否调起初始化页面
-        String virtualGroupStatus = XmPluginHostApi.instance().getVirtualGroupStatus(mDevice.getDid());
-        if(!TextUtils.equals("1", virtualGroupStatus)){
-            mHostActivity.openVirtualGroupInitActivity(mDevice.getDid(), 200);
+
+        // pid: 17表示当前设备是Mesh虚拟组设备
+        if (mDeviceStat.pid == 17) {
+            // 这里根据组设备的初始化状态选择是否调起初始化页面
+            String virtualGroupStatus = XmPluginHostApi.instance().getVirtualGroupStatus(mDevice.getDid());
+            if (!TextUtils.equals("1", virtualGroupStatus)) {
+                mHostActivity.openVirtualGroupInitActivity(mDevice.getDid(), 200);
+            }
         }
         initView();
 

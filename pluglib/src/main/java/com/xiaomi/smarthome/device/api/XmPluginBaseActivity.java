@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -691,6 +692,13 @@ public class XmPluginBaseActivity extends FragmentActivity implements IXmPluginA
             super.onUserLeaveHint();
         }
     }
-    
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+//        try {
+//            super.onConfigurationChanged(newConfig);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
 }

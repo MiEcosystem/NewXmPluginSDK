@@ -124,7 +124,9 @@ public interface IXmPluginHostActivity {
      *
      * @param sceneId
      */
+    @Deprecated
     public abstract void startEditScene(int sceneId);
+
     /**
      * ApiLevel:67 编辑当前已有智能场景
      *
@@ -788,15 +790,15 @@ public interface IXmPluginHostActivity {
      *                    <p>
      *                    结果返回到调用Activity的onActivityResult中，调用如下
      *                    <pre class="prettyprint">
-     *                    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-     *                    super.onActivityResult(requestCode, resultCode, data);
-     *                    if(resultCode==RESULT_OK){
-     *                    if(requestCode==SCAN_BARCODE){
-     *                    String result = data.getStringExtra("scan_result");
-     *                    }
-     *                    }
-     *                    }
-     *                    </pre>
+     *                                       protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+     *                                       super.onActivityResult(requestCode, resultCode, data);
+     *                                       if(resultCode==RESULT_OK){
+     *                                       if(requestCode==SCAN_BARCODE){
+     *                                       String result = data.getStringExtra("scan_result");
+     *                                       }
+     *                                       }
+     *                                       }
+     *                                       </pre>
      */
     public abstract void openScanBarcodePage(Bundle bundle, int requestCode);
 
@@ -991,15 +993,15 @@ public interface IXmPluginHostActivity {
      * @param privacyTitle   隐私条款名称
      * @param privacyContent 隐私条款内容
      * @param agreeListener  用户点击同意协议按钮listener
-     * @param intent  用户自定义的参数
-     *                ##############用户体验计划参数start##############
-     *                enable_privacy_setting:true/false:是否在对话框中显示开启用户体验计划设置项。可不传。不传则为默认不显示勾选项
-     *                usr_exp_plan_tips:     勾选项的文本提示。可不传。不传的话，如果enable_privacy_setting为true，则显示默认的用户体验计划提示
-     *                usr_exp_plan_start:    整数，usr_exp_plan_tips可点击文本区域的起始位置。可不传。必须和usr_exp_plan_tips同时配对出现
-     *                usr_exp_plan_end:      整数，usr_exp_plan_tips可点击文本区域的截止位置。可不传。必须和usr_exp_plan_tips同时配对出现
-     *                usrExpPlanContent:     用户隐私协议网页内容，需要传Spanned类型的html网页，因为这里的内容会在webview中显示。可不传。不传用米家默认的用户体验计划内容。和usrExpPlanContentUri传一个即可
-     *                usrExpPlanContentUri:  用户隐私协议uri。插件加载resource里的资源可能有问题，推荐用usrExpPlanContent。可不传。不传用米家默认的用户体验计划内容
-     *                ##############用户体验计划参数end################
+     * @param intent         用户自定义的参数
+     *                       ##############用户体验计划参数start##############
+     *                       enable_privacy_setting:true/false:是否在对话框中显示开启用户体验计划设置项。可不传。不传则为默认不显示勾选项
+     *                       usr_exp_plan_tips:     勾选项的文本提示。可不传。不传的话，如果enable_privacy_setting为true，则显示默认的用户体验计划提示
+     *                       usr_exp_plan_start:    整数，usr_exp_plan_tips可点击文本区域的起始位置。可不传。必须和usr_exp_plan_tips同时配对出现
+     *                       usr_exp_plan_end:      整数，usr_exp_plan_tips可点击文本区域的截止位置。可不传。必须和usr_exp_plan_tips同时配对出现
+     *                       usrExpPlanContent:     用户隐私协议网页内容，需要传Spanned类型的html网页，因为这里的内容会在webview中显示。可不传。不传用米家默认的用户体验计划内容。和usrExpPlanContentUri传一个即可
+     *                       usrExpPlanContentUri:  用户隐私协议uri。插件加载resource里的资源可能有问题，推荐用usrExpPlanContent。可不传。不传用米家默认的用户体验计划内容
+     *                       ##############用户体验计划参数end################
      */
     void showUserLicenseDialog(String dialogTitle,
                                String licenseTitle, Spanned licenseContent,
@@ -1008,7 +1010,7 @@ public interface IXmPluginHostActivity {
                                Intent intent);
 
     /**
-     * Apilevel:67
+     * Apilevel:68
      *
      * @param dialogTitle
      * @param licenseTitle
@@ -1023,7 +1025,7 @@ public interface IXmPluginHostActivity {
                                    View.OnClickListener agreeListener);
 
     /**
-     * Apilevel:67
+     * Apilevel:68
      * 当协议内容过大，不适合使用intent传递时，使用此方法，将协议内容写入存储文件中，将URL传入
      *
      * @param dialogTitle
@@ -1083,16 +1085,34 @@ public interface IXmPluginHostActivity {
                                     String offMethod, String offParams, String identify, String displayName,
                                     String timerTitle, boolean bothTimerMustBeSet, String onTimerTip, String offTimerTip, String timerListTip);
 
+    /**
+     * ApiLevel: 69 跳转到添加房间页面
+     */
+    public void startAddRoom();
+
+    /**
+     * Apilevel:75
+     *
+     * @param deviceId        device id
+     * @param onMethod        当on timer时间到的时候执行的action，执行原始数据
+     * @param onParams        on action的参数
+     * @param offMethod       当off timer时间到的时候执行的action，执行原始数据
+     * @param offParams       off action参数
+     * @param isDevicePowerOn 设备当前是否开启
+     */
+    public abstract void startSetTimerCountDown(String deviceId,
+                                                String onMethod, String onParams, String offMethod, String offParams, boolean isDevicePowerOn
+    );
 
     /*
-     * ApiLevel 待定
+     * ApiLevel 66
      *
      * @param did 设备id
      */
     public void openCloudVideoListActivity(String did, String title);
 
     /*
-     * ApiLevel 待定
+     * ApiLevel 66
      *
      * @param did 设备id
      * @param fileId 播放的文件id
@@ -1100,7 +1120,7 @@ public interface IXmPluginHostActivity {
     public void openCloudVideoPlayerActivity(String did, String fileId, String title);
 
     /*
-     * ApiLevel 待定
+     * ApiLevel 66
      * @param url 传入的链接
      * @param title 可为null
      * @param did 设备id
@@ -1115,6 +1135,20 @@ public interface IXmPluginHostActivity {
      * @param did
      */
     public void onDeviceReady(String model, String did);
+
+    /*
+     * ApiLevel 69
+     *
+     * @param did 设备id
+     * @param fileId 播放的文件id
+     */
+    public void openCloudVideoExoPlayerActivity(String did, String fileId, String title);
+
+    /**
+     * ApiLevel 75
+     * @param resultCode result值
+     */
+    public void openWxBindActivity(int resultCode);
 
     /**
      * ApiLevel:67

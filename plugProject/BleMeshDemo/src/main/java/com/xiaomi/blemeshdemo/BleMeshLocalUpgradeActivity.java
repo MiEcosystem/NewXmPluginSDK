@@ -172,7 +172,7 @@ public class BleMeshLocalUpgradeActivity extends XmPluginBaseActivity {
             public void onResponse(int code, Bundle data) {
                 if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
                     mProgressView.setText("设备连接成功");
-                    XmBluetoothManager.getInstance().startBleMeshUpgrade(mac, filePath, new Response.BleUpgradeResponse() {
+                    XmBluetoothManager.getInstance().startBleMeshUpgrade(mac, mDevice.getDid(), "", filePath, new Response.BleUpgradeResponse() {
                         @Override
                         public void onProgress(int progress) {
                             updateProgress(progress);
