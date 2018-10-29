@@ -160,8 +160,8 @@ void installPlugin(def project, def variant) {
             if (sdkDir) {
                 int plugid = (int) (java.lang.Math.random() * 10)
                 if (plugid == 0) {
-                    plugid = 9999
-                }
+                    plugid = 9
+                } 
 
                 def adbcmd =  "${sdkDir}/platform-tools/adb"
                 if(Os.isFamily(Os.FAMILY_WINDOWS)){
