@@ -49,8 +49,7 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序
 
 米家扩展程序开发调试的时候请使用此调试apk，不要使用线上版本的米家APP，另外调试的时候务必关闭应用商店的自动升级功能，避免调试apk被覆盖。
 
-下载地址：
+[下载地址](米家调试APK下载地址.md)
 
-[http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_apk_ac23ddc8b206fa432a11ce088f9a2719.apk](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_apk_ac23ddc8b206fa432a11ce088f9a2719.apk)
 
 
