@@ -93,7 +93,7 @@ public class BleMeshLocalUpgradeActivity extends XmPluginBaseActivity {
             return;
         }
 
-        XmBluetoothManager.getInstance().bleMeshConnect(mac, new Response.BleConnectResponse() {
+        XmBluetoothManager.getInstance().bleMeshConnect(mac, mDevice.getDid(), new Response.BleConnectResponse() {
             @Override
             public void onResponse(int code, Bundle bundle) {
                 if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
@@ -166,7 +166,7 @@ public class BleMeshLocalUpgradeActivity extends XmPluginBaseActivity {
         }
 
         mProgressView.setText("正在连接设备...(如果一直连不上，30s后会超时失败)");
-        XmBluetoothManager.getInstance().bleMeshConnect(mac, new Response.BleConnectResponse() {
+        XmBluetoothManager.getInstance().bleMeshConnect(mac, mDevice.getDid(), new Response.BleConnectResponse() {
             @Override
             public void onResponse(int code, Bundle data) {
                 if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
