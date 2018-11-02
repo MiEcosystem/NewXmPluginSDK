@@ -11,9 +11,8 @@ import java.util.List;
 
 /**
  * 场景信息类
- *
+ * <p>
  * ApiLevel:8
- *
  */
 public class SceneInfo implements Parcelable {
 
@@ -44,7 +43,6 @@ public class SceneInfo implements Parcelable {
     public static final int LAUNCH_TEMPERATURE = 18;
     public static final int LAUNCH_COME_LOC = 19;
     public static final int LAUNCH_LEAVE_LOC = 20;
-
 
 
     public static final int ACTION_DELAY = 9;
@@ -88,9 +86,17 @@ public class SceneInfo implements Parcelable {
         mEnable = in.readInt() == 1;
         mLaunch = (SceneLaunch) in.readValue(SceneLaunch.class.getClassLoader());
         mLaunchList = new ArrayList<SceneLaunch>();
-        in.readList(mLaunchList, SceneLaunch.class.getClassLoader());
+        try {
+            in.readList(mLaunchList, SceneLaunch.class.getClassLoader());
+        } catch (Exception e) {
+
+        }
         mActions = new ArrayList<SceneAction>();
-        in.readList(mActions, SceneAction.class.getClassLoader());
+        try {
+            in.readList(mActions, SceneAction.class.getClassLoader());
+        } catch (Exception e) {
+
+        }
         mType = in.readInt();
         mStatus = in.readInt();
     }
@@ -181,7 +187,11 @@ public class SceneInfo implements Parcelable {
             mLaunchName = in.readString();
             mDeviceModel = in.readString();
             mEventString = in.readString();
-            mEventValue = in.readValue(ClassLoader.getSystemClassLoader());
+            try {
+                mEventValue = in.readValue(ClassLoader.getSystemClassLoader());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             mDid = in.readString();
             mExtra = in.readString();
         }
@@ -197,7 +207,7 @@ public class SceneInfo implements Parcelable {
             dest.writeString(mLaunchName);
             dest.writeString(mDeviceModel);
             dest.writeString(mEventString);
-            if(mEventValue instanceof JSONArray || mEventValue instanceof JSONObject) {
+            if (mEventValue instanceof JSONArray || mEventValue instanceof JSONObject) {
                 dest.writeValue(mEventValue.toString());
             } else {
                 try {
@@ -227,7 +237,7 @@ public class SceneInfo implements Parcelable {
     /**
      * ApiLevel:8
      */
-    public static class SceneAction implements Parcelable{
+    public static class SceneAction implements Parcelable {
         /**
          * ApiLevel:8
          */
@@ -274,7 +284,10 @@ public class SceneInfo implements Parcelable {
             mDeviceModel = in.readString();
             mActionName = in.readString();
             mActionString = in.readString();
-            mActionValue = in.readValue(ClassLoader.getSystemClassLoader());
+            try {
+                mActionValue = in.readValue(ClassLoader.getSystemClassLoader());
+            } catch (Exception e) {
+            }
             mDid = in.readString();
             mExtra = in.readString();
             mDelayTime = in.readInt();
@@ -292,7 +305,7 @@ public class SceneInfo implements Parcelable {
             dest.writeString(mDeviceModel);
             dest.writeString(mActionName);
             dest.writeString(mActionString);
-            if(mActionValue instanceof JSONArray || mActionValue instanceof JSONObject)
+            if (mActionValue instanceof JSONArray || mActionValue instanceof JSONObject)
                 dest.writeValue(mActionValue.toString());
             else
                 dest.writeValue(mActionValue);

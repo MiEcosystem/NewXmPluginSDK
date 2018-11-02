@@ -184,6 +184,10 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_SC_REGISTER_PAIR_CODE_FAILED = -34;
         // 安全芯片：绑定时配对码过期
         public static final int REQUEST_SC_REGISTER_PAIR_CODE_EXPIRED = -35;
+        // 安全芯片：绑定时获取固件版本号失败
+        public static final int REQUEST_SC_REGISTER_GET_VERSION_FAILED = -36;
+        // 安全芯片：绑定时当前app不支持固件的版本，需要提示用户升级app
+        public static final int REQUEST_SC_REGISTER_UNSUPPORT_VERSION = -37;
 
         public static String toString(int code) {
             switch (code) {
@@ -255,6 +259,10 @@ public abstract class XmBluetoothManager {
                     return "REQUEST_SC_REGISTER_PAIR_CODE_FAILED";
                 case REQUEST_SC_REGISTER_PAIR_CODE_EXPIRED:
                     return "REQUEST_SC_REGISTER_PAIR_CODE_EXPIRED";
+                case REQUEST_SC_REGISTER_GET_VERSION_FAILED:
+                    return "REQUEST_SC_REGISTER_GET_VERSION_FAILED";
+                case REQUEST_SC_REGISTER_UNSUPPORT_VERSION:
+                    return "REQUEST_SC_REGISTER_UNSUPPORT_VERSION";
                 default:
                     return "unknown code: " + code;
             }
@@ -578,7 +586,7 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 51
      * 提供支持安全芯片的锁操作
      * @param mac
-     * @param operator 1: 开锁，2：反锁
+     * @param operator 0: 开锁，1: 关锁，2：反锁
      */
     public abstract void securityChipOperate(String mac, int operator, final BleReadResponse response);
 

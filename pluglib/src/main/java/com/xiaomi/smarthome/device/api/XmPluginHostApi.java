@@ -1084,7 +1084,11 @@ public abstract class XmPluginHostApi {
     public abstract boolean isGPSLocationEnable();
 
     /**
-     * ApiLevel:3 获取位置
+     * ApiLevel:3 获取定位+位置
+     * 位置信息描述可以通过以下方法，优先级依次降低
+     * 1. 如果有的话，Location.getExtras().getParcelable("address")，返回android.location.Address类型
+     * 2. 如果有的话，Location.getExtras().getString("address_str")，返回简单的描述信息
+     * Location.getExtras()可能为null，注意判空
      *
      * @param callback
      */
