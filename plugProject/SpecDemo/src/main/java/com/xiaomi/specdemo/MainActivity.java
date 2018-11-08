@@ -26,16 +26,16 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.xiaomi.specdemo.SpecConstance.ACTION_POST;
-import static com.xiaomi.specdemo.SpecConstance.ACTION_TURN_OFF;
-import static com.xiaomi.specdemo.SpecConstance.PROPERTY_INPUT_CONTROL;
-import static com.xiaomi.specdemo.SpecConstance.PROPERTY_MUTE;
-import static com.xiaomi.specdemo.SpecConstance.PROPERTY_REQUEST;
-import static com.xiaomi.specdemo.SpecConstance.PROPERTY_RESPONSE;
-import static com.xiaomi.specdemo.SpecConstance.PROPERTY_VOLUME;
-import static com.xiaomi.specdemo.SpecConstance.SERVICE_MESSAGE_ROUTER;
-import static com.xiaomi.specdemo.SpecConstance.SERVICE_SPEAKER;
-import static com.xiaomi.specdemo.SpecConstance.SERVICE_TELEVISION;
+import static com.xiaomi.specdemo.SpecConstant.ACTION_POST;
+import static com.xiaomi.specdemo.SpecConstant.ACTION_TURN_OFF;
+import static com.xiaomi.specdemo.SpecConstant.PROPERTY_INPUT_CONTROL;
+import static com.xiaomi.specdemo.SpecConstant.PROPERTY_MUTE;
+import static com.xiaomi.specdemo.SpecConstant.PROPERTY_REQUEST;
+import static com.xiaomi.specdemo.SpecConstant.PROPERTY_RESPONSE;
+import static com.xiaomi.specdemo.SpecConstant.PROPERTY_VOLUME;
+import static com.xiaomi.specdemo.SpecConstant.SERVICE_MESSAGE_ROUTER;
+import static com.xiaomi.specdemo.SpecConstant.SERVICE_SPEAKER;
+import static com.xiaomi.specdemo.SpecConstant.SERVICE_TELEVISION;
 
 public class MainActivity extends XmPluginBaseActivity implements StateChangedListener {
     static final int MSG_UPDATE_FIRM = 1;
@@ -200,11 +200,7 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
     }
 
     private void removeListener() {
-        mDeviceController.removePropertyListener(SERVICE_TELEVISION, PROPERTY_INPUT_CONTROL);
-        mDeviceController.removeActionListener(SERVICE_TELEVISION, ACTION_TURN_OFF);
-        mDeviceController.removePropertyListener(SERVICE_SPEAKER, PROPERTY_VOLUME);
-        mDeviceController.removePropertyListener(SERVICE_SPEAKER, PROPERTY_MUTE);
-        mDeviceController.removeActionListener(SERVICE_MESSAGE_ROUTER, ACTION_POST);
+        mDeviceController.removeAllListener();
     }
 
     public void refreshUI() {
@@ -308,7 +304,7 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
             if (value != null) {
                 mVolumeSeekBar.setProgress(Integer.valueOf(String.valueOf(value)));
             }
-            Toast.makeText(activity(), "set volume fail", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity(), "volume fail", Toast.LENGTH_SHORT).show();
         }
     };
 

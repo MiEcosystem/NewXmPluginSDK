@@ -1,6 +1,6 @@
 package com.xiaomi.specdemo;
 
-public class SpecConstance {
+public class SpecConstant {
     static final int SERVICE_TELEVISION = 2;
     static final int PROPERTY_INPUT_CONTROL = 1;
     static final int ACTION_TURN_OFF = 1;

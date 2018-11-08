@@ -6,7 +6,9 @@ import android.text.TextUtils;
 import com.xiaomi.smarthome.device.api.Callback;
 import com.xiaomi.smarthome.device.api.DeviceStat;
 import com.xiaomi.smarthome.device.api.XmPluginHostApi;
+import com.xiaomi.smarthome.device.api.spec.instance.SpecAction;
 import com.xiaomi.smarthome.device.api.spec.instance.SpecDevice;
+import com.xiaomi.smarthome.device.api.spec.instance.SpecProperty;
 import com.xiaomi.smarthome.device.api.spec.instance.SpecService;
 import com.xiaomi.smarthome.device.api.spec.operation.ActionListener;
 import com.xiaomi.smarthome.device.api.spec.operation.ActionParam;
@@ -34,6 +36,12 @@ public class DeviceController extends SpecDevice {
         }
     }
 
+    /**
+     * ApiLevel 77
+     *
+     * @param did
+     * @return
+     */
     public static DeviceController getDeviceController(String did) {
         if (mControllerCache.get(did) != null) {
             return mControllerCache.get(did);
@@ -48,6 +56,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 从服务器获取设备属性值
      *
      * @param context
@@ -85,6 +94,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 设置设备属性值
      *
      * @param context
@@ -99,6 +109,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 执行action
      *
      * @param context
@@ -113,6 +124,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 获取serviceController
      *
      * @param siid
@@ -123,6 +135,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 获取propertyController
      *
      * @param siid
@@ -138,6 +151,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 获取本地保存的值
      *
      * @param siid
@@ -153,6 +167,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 获取actionController
      *
      * @param siid
@@ -168,6 +183,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 获取get property请求参数对象
      *
      * @param siid
@@ -179,6 +195,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 获取set property请求参数对象
      *
      * @param siid
@@ -199,6 +216,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 获取action请求参数对象
      *
      * @param siid
@@ -219,6 +237,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 订阅属性变化，每次只维持3分钟订阅事件
      */
     public void subscribeProperty(DeviceStat deviceStat, List<PropertyParam> params) {
@@ -231,6 +250,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 取消订阅属性，在订阅后，再次订阅前取消，避免重复订阅
      */
     public void unSubscribeProperty(DeviceStat deviceStat, List<PropertyParam> params) {
@@ -243,6 +263,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 处理订阅消息
      *
      * @param data
@@ -272,6 +293,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 添加property监听
      *
      * @param siid
@@ -286,6 +308,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 添加action监听
      *
      * @param siid
@@ -300,6 +323,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 移除监property听
      *
      * @param siid
@@ -313,6 +337,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
+     * ApiLevel 77
      * 移除action监听
      *
      * @param siid
@@ -323,6 +348,31 @@ public class DeviceController extends SpecDevice {
         if (controller != null) {
             controller.removeListener();
         }
+    }
+
+    /**
+     * ApiLevel 77
+     * 移除所有监听
+     */
+    public void removeAllListener() {
+        Map<Integer, SpecService> specServices = getServices();
+        if (specServices == null) return;
+        for (SpecService specService : specServices.values()) {
+            Map<Integer, SpecProperty> propertyMap = specService.getProperties();
+            if (propertyMap != null) {
+                for (SpecProperty specProperty : propertyMap.values()) {
+                    ((PropertyController) specProperty).removeListener();
+                }
+            }
+
+            Map<Integer, SpecAction> actionMap = specService.getActions();
+            if (actionMap != null) {
+                for (SpecAction specAction : actionMap.values()) {
+                    ((ActionController) specAction).removeListener();
+                }
+            }
+        }
+
     }
 
 }
