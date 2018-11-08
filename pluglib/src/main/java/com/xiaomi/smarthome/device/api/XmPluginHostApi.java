@@ -28,8 +28,11 @@ import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
 import com.xiaomi.smarthome.camera.HLSDownloader;
 import com.xiaomi.smarthome.camera.XmMp4Record;
 import com.xiaomi.smarthome.camera.XmVideoViewGl;
-import com.xiaomi.smarthome.device.api.printer.PrinterControl;
 import com.xiaomi.smarthome.camera.exopackage.MJExoPlayer;
+import com.xiaomi.smarthome.device.api.printer.PrinterControl;
+import com.xiaomi.smarthome.device.api.spec.operation.ActionParam;
+import com.xiaomi.smarthome.device.api.spec.operation.PropertyParam;
+import com.xiaomi.smarthome.device.api.spec.operation.controller.DeviceController;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginSubscribeCallback;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginUnSubscribeCallback;
 import com.xiaomi.smarthome.plugin.service.HostService;
@@ -2881,4 +2884,44 @@ public abstract class XmPluginHostApi {
      *
      */
     public abstract List<DeviceStat> getBleGatewayDeviceList();
+
+    /**
+     * ApiLevel: 77
+     * 获取Spec实例
+     *
+     * @param did
+     * @return
+     */
+    public abstract DeviceController getSpecDeviceController(String did);
+
+    /**
+     * ApiLevel: 77
+     * 获取property属性值
+     *
+     * @param context
+     * @param properties
+     * @param callback
+     */
+    public abstract void getPropertyValues(Context context, List<PropertyParam> properties, Callback<List<PropertyParam>> callback);
+
+    /**
+     * ApiLevel: 77
+     * 设置属性值
+     *
+     * @param context
+     * @param property
+     * @param callback
+     */
+    public abstract void setPropertyValue(Context context, PropertyParam property, Callback<PropertyParam> callback);
+
+    /**
+     * ApiLevel: 77
+     * 执行action
+     *
+     * @param context
+     * @param action
+     * @param callback
+     */
+    public abstract void doAction(Context context, ActionParam action, Callback<ActionParam> callback);
+    
 }

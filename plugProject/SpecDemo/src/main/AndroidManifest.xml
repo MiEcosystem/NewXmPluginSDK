@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.xiaomi.specdemo">
+    <application>
+        <!-- 支持插件的最低版本，必须 -->
+        <meta-data android:name="minPluginSdkApiVersion" android:value="2" />
+        <!-- 设备model，必须 -->
+        <meta-data android:name="model" android:value="homwee.tv.q5k" />
+        <!-- 设备处理消息入口，必须 -->
+        <meta-data android:name="message_handler" android:value="com.xiaomi.specdemo.MessageReceiver" />
+        <!-- 开发者Id, 必须 -->
+        <meta-data android:name="MiHomeDeveloperId" android:value="id_894148746" />
+        <!-- 支持的运行平台,必须 -->
+        <meta-data android:name="MiHomePlatform" android:value="phone" />
+        <!-- 是否支持widget显示,非必须 -->
+        <meta-data android:name="MiHomeSupportWidget" android:value="false" />
+    </application>
+</manifest>
