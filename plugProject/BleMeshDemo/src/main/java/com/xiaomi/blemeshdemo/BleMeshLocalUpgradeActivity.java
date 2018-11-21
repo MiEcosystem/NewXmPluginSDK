@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiaomi.smarthome.bluetooth.Response;
+import com.xiaomi.smarthome.bluetooth.XmBluetoothDevice;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothManager;
 import com.xiaomi.smarthome.device.api.XmPluginBaseActivity;
 
@@ -32,6 +33,20 @@ public class BleMeshLocalUpgradeActivity extends XmPluginBaseActivity {
     private TextView mProgressView;
     private boolean isUpgrading = false;
     Device mDevice;
+    // 估计传输完成后，扫描周围的蓝牙设备广播，等待固件升级完成
+    private int mCheckTime = 0;
+    private boolean mIsScanComplete = false;
+
+    /**
+     * 收到固件传输成功的请求后，等待10s再开始扫描
+     */
+    private Runnable mDelayScanRunnable = new Runnable() {
+        @Override
+        public void run() {
+            final String mac = mInputMacView.getText().toString().toUpperCase();
+            scanDeviceBeacon(mac);
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -174,19 +189,24 @@ public class BleMeshLocalUpgradeActivity extends XmPluginBaseActivity {
                     XmBluetoothManager.getInstance().startBleMeshUpgrade(mac, mDevice.getDid(), "", filePath, new Response.BleUpgradeResponse() {
                         @Override
                         public void onProgress(int progress) {
-                            updateProgress(progress);
+                            if (progress < 100) {
+                                updateProgress(progress);
+                            }
                         }
 
                         @Override
                         public void onResponse(int code, String errorMsg) {
                             if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                                toast("固件升级成功");
+                                // 固件传输完成后，等待升级完成后再提示用户升级完成，避免用户提前断电
+                                mCheckTime = 1;
+                                mIsScanComplete = false;
+                                mHandler.postDelayed(mDelayScanRunnable, 10000);
                             } else {
                                 toast("固件升级失败, errorCode = " + code + ", errorMsg = " + errorMsg);
+                                isUpgrading = false;
+                                updateUI();
                             }
 
-                            isUpgrading = false;
-                            updateUI();
                             XmBluetoothManager.getInstance().disconnect(mac);
 
                         }
@@ -212,10 +232,80 @@ public class BleMeshLocalUpgradeActivity extends XmPluginBaseActivity {
         final String mac = mInputMacView.getText().toString().toUpperCase();
         if (isUpgrading) {
             XmBluetoothManager.getInstance().cancelBleMeshUpgrade(mac);
+            mIsScanComplete = true;
+            mHandler.removeCallbacks(mDelayScanRunnable);
+            XmBluetoothManager.getInstance().stopScan();
         }
     }
 
     private void toast(String msg) {
         Toast.makeText(activity(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        XmBluetoothManager.getInstance().stopScan();
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
+    /**
+     * 设备升级完成后会重新发送广播，检测到广播后重连设备，重新读取设备版本号，确定是否真的升级完成了
+     */
+    private void scanDeviceBeacon(final String mac) {
+        XmBluetoothManager.getInstance().stopScan();
+
+        XmBluetoothManager.getInstance().startScan(8000, XmBluetoothManager.SCAN_BLE, new XmBluetoothManager.BluetoothSearchResponse() {
+            @Override
+            public void onSearchStarted() {
+
+            }
+
+            @Override
+            public void onDeviceFounded(XmBluetoothDevice xmBluetoothDevice) {
+                if (TextUtils.equals(xmBluetoothDevice.device.getAddress(), mac) && !mIsScanComplete) {
+                    mIsScanComplete = true;
+
+                    XmBluetoothManager.getInstance().stopScan();
+
+                    updateProgress(100);
+                    toast("固件升级成功");
+                    isUpgrading = false;
+                    updateUI();
+                }
+            }
+
+            @Override
+            public void onSearchStopped() {
+                if (!mIsScanComplete) {
+                    if (mCheckTime >= 3) {
+                        mIsScanComplete = true;
+
+                        toast("固件升级失败");
+                        isUpgrading = false;
+                        updateUI();
+                    } else {
+                        mCheckTime++;
+                        scanDeviceBeacon(mac);
+                    }
+                }
+            }
+
+            @Override
+            public void onSearchCanceled() {
+                if (!mIsScanComplete) {
+                    if (mCheckTime >= 3) {
+                        mIsScanComplete = true;
+
+                        toast("固件升级失败");
+                        isUpgrading = false;
+                        updateUI();
+                    } else {
+                        mCheckTime++;
+                        scanDeviceBeacon(mac);
+                    }
+                }
+            }
+        });
     }
 }

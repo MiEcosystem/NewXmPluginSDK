@@ -10,8 +10,8 @@ android {
         minSdkVersion 14
         targetSdkVersion 19
         //每次发布版本versionCode必须加1
-        versionCode 203
-        versionName "2.0.3"
+        versionCode 204
+        versionName "2.0.4"
     }
 
     signingConfigs {

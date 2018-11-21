@@ -2,11 +2,13 @@ package com.xiaomi.blemeshdemo;
 
 import android.bluetooth.BluetoothProfile;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.RemoteException;
 import android.text.TextUtils;
 
 import com.xiaomi.smarthome.bluetooth.BleUpgrader;
 import com.xiaomi.smarthome.bluetooth.Response;
+import com.xiaomi.smarthome.bluetooth.XmBluetoothDevice;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothManager;
 import com.xiaomi.smarthome.device.api.BleMeshFirmwareUpdateInfo;
 import com.xiaomi.smarthome.device.api.Callback;
@@ -33,12 +35,27 @@ public class BleMeshFirmwareUpgrader extends BleUpgrader {
     /** 当前是否在固件升级页面 */
     private boolean mHasInUpgradePage = false;
     private NewFirmwareCallback mNewFirmwareCallback;
+    private Handler mHandler;
+    // 固件传输完成后，扫描周围的蓝牙设备广播，等待固件升级完成
+    private int mScanTime = 0;
+    private boolean mIsScanComplete = false;
 
-    public BleMeshFirmwareUpgrader(String mac, String model, String did, NewFirmwareCallback callback) {
+    /**
+     * 收到固件传输成功的请求后，等待10s再开始扫描
+     */
+    private Runnable mDelayScanRunnable = new Runnable() {
+        @Override
+        public void run() {
+            scanDeviceBeacon();
+        }
+    };
+
+    public BleMeshFirmwareUpgrader(String mac, String model, String did, NewFirmwareCallback callback, Handler handler) {
         mMac = mac;
         mModel = model;
         mDid = did;
         mNewFirmwareCallback = callback;
+        mHandler = handler;
     }
 
     private void notifyNewFirmwareCallback() {
@@ -323,14 +340,21 @@ public class BleMeshFirmwareUpgrader extends BleUpgrader {
         XmBluetoothManager.getInstance().startBleMeshUpgrade(mMac, mDid, mBleMeshUpdateInfo.version, filePath, new Response.BleUpgradeResponse() {
             @Override
             public void onProgress(int progress) {
-                updateProgress(progress);
+                // 固件传输完成后，等待固件升级，避免用户提前断电
+                if (progress < 100) {
+                    updateProgress(progress);
+                }
             }
 
             @Override
             public void onResponse(int code, String errorMsg) {
                 if (mHasInUpgradePage) {
                     if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                        showPage(XmBluetoothManager.PAGE_UPGRADE_SUCCESS, null);
+                        // 固件传输完成后，等待固件升级，避免用户提前断电
+                        mScanTime = 1;
+                        mIsScanComplete = false;
+
+                        mHandler.postDelayed(mDelayScanRunnable, 10000);
                     } else {
                         showPage(XmBluetoothManager.PAGE_UPGRADE_FAILED, null);
                     }
@@ -382,6 +406,10 @@ public class BleMeshFirmwareUpgrader extends BleUpgrader {
     }
 
     private void cancelUpgrade() {
+        mIsScanComplete = true;
+        XmBluetoothManager.getInstance().stopScan();
+        mHandler.removeCallbacks(mDelayScanRunnable);
+
         if (mBleMeshUpdateInfo != null) {
             XmPluginHostApi.instance().cancelDownloadBleFirmware(mBleMeshUpdateInfo.safeUrl);
         }
@@ -389,6 +417,8 @@ public class BleMeshFirmwareUpgrader extends BleUpgrader {
         if (!TextUtils.isEmpty(mDeviceVersion)) {
             XmPluginHostApi.instance().cancelDownloadBleFirmware(mMac);
         }
+
+        XmBluetoothManager.getInstance().cancelBleMeshUpgrade(mMac);
     }
 
     /**
@@ -403,5 +433,66 @@ public class BleMeshFirmwareUpgrader extends BleUpgrader {
     public interface VersionCallback {
         void onSuccess(String version);
         void onFailed();
+    }
+
+    /**
+     * 设备升级完成后会重新发送广播，检测到广播后重连设备，重新读取设备版本号，确定是否真的升级完成了
+     */
+    private void scanDeviceBeacon() {
+        XmBluetoothManager.getInstance().stopScan();
+
+        XmBluetoothManager.getInstance().startScan(8000, XmBluetoothManager.SCAN_BLE, new XmBluetoothManager.BluetoothSearchResponse() {
+            @Override
+            public void onSearchStarted() {
+
+            }
+
+            @Override
+            public void onDeviceFounded(XmBluetoothDevice xmBluetoothDevice) {
+                if (TextUtils.equals(xmBluetoothDevice.device.getAddress(), mMac) && !mIsScanComplete) {
+                    mIsScanComplete = true;
+
+                     XmBluetoothManager.getInstance().stopScan();
+
+                     if (mHasInUpgradePage) {
+                         mDeviceVersion = mBleMeshUpdateInfo.version;
+                         updateProgress(100);
+                         showPage(XmBluetoothManager.PAGE_UPGRADE_SUCCESS, null);
+                     }
+                }
+            }
+
+            @Override
+            public void onSearchStopped() {
+                if (!mIsScanComplete) {
+                    if (mScanTime >= 3) {
+                        mIsScanComplete = true;
+
+                        if (mHasInUpgradePage) {
+                            showPage(XmBluetoothManager.PAGE_UPGRADE_FAILED, null);
+                        }
+                    } else {
+                        mScanTime++;
+                        scanDeviceBeacon();
+                    }
+                }
+            }
+
+            @Override
+            public void onSearchCanceled() {
+                if (!mIsScanComplete) {
+                    if (mScanTime >= 3) {
+                        mIsScanComplete = true;
+
+                        if (mHasInUpgradePage) {
+                            showPage(XmBluetoothManager.PAGE_UPGRADE_FAILED, null);
+                        }
+                    } else {
+                        mScanTime++;
+                        scanDeviceBeacon();
+                    }
+                }
+            }
+        });
     }
 }

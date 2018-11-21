@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiaomi.smarthome.bluetooth.Response;
+import com.xiaomi.smarthome.bluetooth.XmBluetoothDevice;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothManager;
 import com.xiaomi.smarthome.device.api.BaseDevice;
 import com.xiaomi.smarthome.device.api.BaseDevice.StateChangedListener;
@@ -72,7 +73,7 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
 
         registerBluetoothReceiver();
 
-        mBleMeshFirmwareUpgrader = new BleMeshFirmwareUpgrader(mDevice.getMac(), mDevice.getModel(), mDevice.getDid(), mNewFirmwareCallback);
+        mBleMeshFirmwareUpgrader = new BleMeshFirmwareUpgrader(mDevice.getMac(), mDevice.getModel(), mDevice.getDid(), mNewFirmwareCallback, mHandler);
 
         if (XmBluetoothManager.getInstance().getConnectStatus(mDevice.getMac()) == BluetoothProfile.STATE_CONNECTED) {
             mConnectStatusView.setText("已连接");
@@ -213,6 +214,8 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
     public void onDestroy() {
         super.onDestroy();
         unregisterBluetoothReceiver();
+        // 退出时断开蓝牙连接
+        XmBluetoothManager.getInstance().disconnect(mDevice.getMac());
     }
 
     @Override
