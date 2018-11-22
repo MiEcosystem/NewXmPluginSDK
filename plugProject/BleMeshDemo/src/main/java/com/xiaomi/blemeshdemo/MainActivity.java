@@ -19,7 +19,9 @@ import com.xiaomi.smarthome.bluetooth.XmBluetoothDevice;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothManager;
 import com.xiaomi.smarthome.device.api.BaseDevice;
 import com.xiaomi.smarthome.device.api.BaseDevice.StateChangedListener;
+import com.xiaomi.smarthome.device.api.Callback;
 import com.xiaomi.smarthome.device.api.IXmPluginHostActivity;
+import com.xiaomi.smarthome.device.api.Permission;
 import com.xiaomi.smarthome.device.api.XmPluginBaseActivity;
 import com.xiaomi.smarthome.device.api.XmPluginHostApi;
 
@@ -81,6 +83,27 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         } else {
             mConnectStatusView.setText("未连接");
             connectDevice();
+        }
+
+        showLocationPermissionRequest();
+    }
+
+    /**
+     * 需要有定位权限才能扫描周围的蓝牙设备
+     */
+    private void showLocationPermissionRequest() {
+        if (XmPluginHostApi.instance().getApiLevel() >= 75) {
+            XmPluginHostApi.instance().checkAndRequestPermisson(activity(), true, new Callback<List<String>>() {
+                @Override
+                public void onSuccess(List<String> strings) {
+
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+
+                }
+            }, Permission.Group.LOCATION);
         }
     }
 
