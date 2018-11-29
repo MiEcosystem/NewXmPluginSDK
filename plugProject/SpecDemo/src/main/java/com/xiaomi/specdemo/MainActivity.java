@@ -3,6 +3,7 @@ package com.xiaomi.specdemo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -83,21 +84,21 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
     private PropertyListener mInputControlListener = new PropertyListener() {
         @Override
         public void onDataChanged(Object o) {
-            updateControlMode();
+            updateControlMode(o);
         }
     };
 
     private PropertyListener mVolumeListener = new PropertyListener() {
         @Override
         public void onDataChanged(Object o) {
-            updateVoice();
+            updateVoice(o);
         }
     };
 
     private PropertyListener mMuteListener = new PropertyListener() {
         @Override
         public void onDataChanged(Object o) {
-            updateMuteButton();
+            updateMuteButton(o);
         }
     };
 
@@ -170,7 +171,7 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
                         @Override
                         public void onSuccess(Object o) {
                             mMuteBt.setEnabled(true);
-                            updateMuteButton();
+                            updateMuteButton(o);
                         }
 
                         @Override
@@ -202,13 +203,13 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
                     @Override
                     public void onSuccess(Object o) {
                         seekBar.setEnabled(true);
-                        updateVoice();
+                        updateVoice(o);
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
                         seekBar.setEnabled(true);
-                        updateVoice();
+                        updateVoice(mDeviceController.getPropertyValue(SERVICE_SPEAKER,PROPERTY_VOLUME));
                         Toast.makeText(activity(), "volume fail", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -259,23 +260,21 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         });
     }
 
-    private void updateControlMode() {
-        Object o = mDeviceController.getPropertyValue(SERVICE_TELEVISION, PROPERTY_INPUT_CONTROL);
-        if (o != null) {
+    private void updateControlMode(Object value) {
+        if (value instanceof Integer) {
             ValueList valueList = (ValueList) mDeviceController.getPropertyController(SERVICE_TELEVISION, PROPERTY_INPUT_CONTROL)
                     .getPropertyDefinition().getConstraintValue();
             for (ValueDefinition dataValue : valueList.values()) {
-                if (o == dataValue.value().getObjectValue()) {
+                if (value == dataValue.value().getObjectValue()) {
                     mInputControlTv.setText(dataValue.description());
                 }
             }
         }
     }
 
-    private void updateMuteButton() {
-        Object o = mDeviceController.getPropertyValue(SERVICE_SPEAKER, PROPERTY_MUTE);
-        if (o != null) {
-            if ((boolean) o) {
+    private void updateMuteButton(Object value) {
+        if (value instanceof Boolean) {
+            if ((boolean) value) {
                 mMuteBt.setText("点击取消静音");
             } else {
                 mMuteBt.setText("点击置为静音");
@@ -283,10 +282,9 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         }
     }
 
-    private void updateVoice() {
-        Object o = mDeviceController.getPropertyValue(SERVICE_SPEAKER, PROPERTY_VOLUME);
-        if (o != null) {
-            mVolumeSeekBar.setProgress(Integer.valueOf(String.valueOf(o)));
+    private void updateVoice(Object value) {
+        if (value instanceof Integer) {
+            mVolumeSeekBar.setProgress((Integer) value);
         }
     }
 
@@ -317,9 +315,26 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         mDeviceController.getSpecProperties(activity(), mRequestParams, new Callback<List<PropertyParam>>() {
             @Override
             public void onSuccess(List<PropertyParam> params) {
-                updateControlMode();
-                updateMuteButton();
-                updateVoice();
+                Object inputMode = getPropertyValue(params, SERVICE_TELEVISION, PROPERTY_INPUT_CONTROL);
+                if (inputMode != null) {
+                    updateControlMode(inputMode);
+                } else {
+                    Log.e("spec plugin", "get input mode fail");
+                }
+
+                Object mute = getPropertyValue(params, SERVICE_SPEAKER, PROPERTY_MUTE);
+                if (mute != null) {
+                    updateMuteButton(mute);
+                } else {
+                    Log.e("spec plugin", "get mute status fail");
+                }
+
+                Object voice = getPropertyValue(params, SERVICE_SPEAKER, PROPERTY_VOLUME);
+                if (voice != null) {
+                    updateVoice(voice);
+                } else {
+                    Log.e("spec plugin", "get volume fail");
+                }
             }
 
             @Override
@@ -329,6 +344,20 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         });
         mHandler.sendEmptyMessage(MSG_SUB_PROPERTIES);
         ((TextView) findViewById(R.id.title_bar_title)).setText(mDevice.getName());
+    }
+
+    private Object getPropertyValue(List<PropertyParam> params, int siid, int piid) {
+        if (params == null || params.size() == 0) return null;
+        for (PropertyParam param : params) {
+            if (param.getSiid() == siid && param.getPiid() == piid) {
+                if (param.getResultCode() == 0) {
+                    return param.getValue();
+                } else {
+                    return null;
+                }
+            }
+        }
+        return null;
     }
 
     public void onPause() {
