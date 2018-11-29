@@ -6,11 +6,9 @@ import android.text.TextUtils;
 import com.xiaomi.smarthome.device.api.Callback;
 import com.xiaomi.smarthome.device.api.DeviceStat;
 import com.xiaomi.smarthome.device.api.XmPluginHostApi;
-import com.xiaomi.smarthome.device.api.spec.instance.SpecAction;
 import com.xiaomi.smarthome.device.api.spec.instance.SpecDevice;
 import com.xiaomi.smarthome.device.api.spec.instance.SpecProperty;
 import com.xiaomi.smarthome.device.api.spec.instance.SpecService;
-import com.xiaomi.smarthome.device.api.spec.operation.ActionListener;
 import com.xiaomi.smarthome.device.api.spec.operation.ActionParam;
 import com.xiaomi.smarthome.device.api.spec.operation.PropertyListener;
 import com.xiaomi.smarthome.device.api.spec.operation.PropertyParam;
@@ -37,7 +35,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      *
      * @param did
      * @return
@@ -56,22 +54,27 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 从服务器获取设备属性值
      *
      * @param context
      * @param propertyParamList
      */
-    public void getSpecProperties(Context context, final List<PropertyParam> propertyParamList) {
+    public void getSpecProperties(Context context, final List<PropertyParam> propertyParamList, final Callback<List<PropertyParam>> callback) {
         XmPluginHostApi.instance().getPropertyValues(context, propertyParamList, new Callback<List<PropertyParam>>() {
             @Override
             public void onSuccess(List<PropertyParam> result) {
                 updateValue(result);
+                if (callback != null) {
+                    callback.onSuccess(result);
+                }
             }
 
             @Override
             public void onFailure(int error, String errorInfo) {
-                updateValue(propertyParamList);
+                if (callback != null) {
+                    callback.onFailure(error, errorInfo);
+                }
             }
         });
     }
@@ -88,43 +91,45 @@ public class DeviceController extends SpecDevice {
         for (PropertyParam operation : operations) {
             ServiceController serviceController = (ServiceController) getServices().get(operation.getSiid());
             if (serviceController != null) {
-                serviceController.updateValue(operation);
+                serviceController.updateValue(operation, false);
             }
         }
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 设置设备属性值
      *
      * @param context
      * @param propertyParam
+     * @param callback
      */
-    public void setSpecProperty(Context context, final PropertyParam propertyParam) {
+    public void setSpecProperty(Context context, final PropertyParam propertyParam, Callback<Object> callback) {
         if (propertyParam == null) return;
         ServiceController controller = (ServiceController) getServices().get(propertyParam.getSiid());
         if (controller != null) {
-            controller.setSpecProperty(context, propertyParam);
+            controller.setSpecProperty(context, propertyParam, callback);
         }
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 执行action
      *
      * @param context
      * @param actionParam
+     * @param callback
      */
-    public void doAction(Context context, final ActionParam actionParam) {
+    public void doAction(Context context, final ActionParam actionParam, Callback<List<Object>> callback) {
         if (actionParam == null) return;
         ServiceController controller = (ServiceController) getServices().get(actionParam.getSiid());
         if (controller != null) {
-            controller.doAction(context, actionParam);
+            controller.doAction(context, actionParam, callback);
         }
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 获取serviceController
      *
      * @param siid
@@ -135,7 +140,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 获取propertyController
      *
      * @param siid
@@ -151,7 +156,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 获取本地保存的值
      *
      * @param siid
@@ -167,7 +172,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 获取actionController
      *
      * @param siid
@@ -183,7 +188,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 获取get property请求参数对象
      *
      * @param siid
@@ -195,7 +200,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 获取set property请求参数对象
      *
      * @param siid
@@ -216,7 +221,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 获取action请求参数对象
      *
      * @param siid
@@ -237,7 +242,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 订阅属性变化，每次只维持3分钟订阅事件
      */
     public void subscribeProperty(DeviceStat deviceStat, List<PropertyParam> params) {
@@ -250,7 +255,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 取消订阅属性，在订阅后，再次订阅前取消，避免重复订阅
      */
     public void unSubscribeProperty(DeviceStat deviceStat, List<PropertyParam> params) {
@@ -263,7 +268,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 处理订阅消息
      *
      * @param data
@@ -284,7 +289,7 @@ public class DeviceController extends SpecDevice {
                     Object object = dataArray.opt(0);
                     PropertyParam param = newPropertyParam(Integer.valueOf(items[1]), Integer.valueOf(items[2]), object);
                     param.setResultCode(0);
-                    controller.updateValue(param);
+                    controller.updateValue(param, true);
                 }
             }
         } catch (JSONException e) {
@@ -293,7 +298,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 添加property监听
      *
      * @param siid
@@ -308,22 +313,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
-     * 添加action监听
-     *
-     * @param siid
-     * @param aiid
-     * @param listener
-     */
-    public void setActionListener(int siid, int aiid, ActionListener listener) {
-        ActionController controller = getActionController(siid, aiid);
-        if (controller != null) {
-            controller.setListener(listener);
-        }
-    }
-
-    /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 移除监property听
      *
      * @param siid
@@ -337,21 +327,7 @@ public class DeviceController extends SpecDevice {
     }
 
     /**
-     * ApiLevel 77
-     * 移除action监听
-     *
-     * @param siid
-     * @param aiid
-     */
-    public void removeActionListener(int siid, int aiid) {
-        ActionController controller = getActionController(siid, aiid);
-        if (controller != null) {
-            controller.removeListener();
-        }
-    }
-
-    /**
-     * ApiLevel 77
+     * ApiLevel 79
      * 移除所有监听
      */
     public void removeAllListener() {
@@ -362,13 +338,6 @@ public class DeviceController extends SpecDevice {
             if (propertyMap != null) {
                 for (SpecProperty specProperty : propertyMap.values()) {
                     ((PropertyController) specProperty).removeListener();
-                }
-            }
-
-            Map<Integer, SpecAction> actionMap = specService.getActions();
-            if (actionMap != null) {
-                for (SpecAction specAction : actionMap.values()) {
-                    ((ActionController) specAction).removeListener();
                 }
             }
         }

@@ -17,7 +17,6 @@ import com.xiaomi.smarthome.device.api.DeviceUpdateInfo;
 import com.xiaomi.smarthome.device.api.XmPluginBaseActivity;
 import com.xiaomi.smarthome.device.api.spec.definitions.data.ValueDefinition;
 import com.xiaomi.smarthome.device.api.spec.definitions.data.ValueList;
-import com.xiaomi.smarthome.device.api.spec.operation.ActionListener;
 import com.xiaomi.smarthome.device.api.spec.operation.PropertyListener;
 import com.xiaomi.smarthome.device.api.spec.operation.PropertyParam;
 import com.xiaomi.smarthome.device.api.spec.operation.controller.DeviceController;
@@ -81,6 +80,27 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         }
     }
 
+    private PropertyListener mInputControlListener = new PropertyListener() {
+        @Override
+        public void onDataChanged(Object o) {
+            updateControlMode();
+        }
+    };
+
+    private PropertyListener mVolumeListener = new PropertyListener() {
+        @Override
+        public void onDataChanged(Object o) {
+            updateVoice();
+        }
+    };
+
+    private PropertyListener mMuteListener = new PropertyListener() {
+        @Override
+        public void onDataChanged(Object o) {
+            updateMuteButton();
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +129,6 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         });
 
         findViewById(R.id.title_bar_more).setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 mHostActivity.openMoreMenu(null, true, -1);
@@ -146,8 +165,20 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
                 Object value = mDeviceController.getPropertyValue(SERVICE_SPEAKER, PROPERTY_MUTE);
                 if (value != null) {
                     mMuteBt.setEnabled(false);
-                    mDeviceController.setSpecProperty(activity(), mDeviceController
-                            .newPropertyParam(SERVICE_SPEAKER, PROPERTY_MUTE, !(boolean) value));
+                    mDeviceController.setSpecProperty(activity(), mDeviceController.newPropertyParam(SERVICE_SPEAKER, PROPERTY_MUTE,
+                            !(boolean) value), new Callback<Object>() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            mMuteBt.setEnabled(true);
+                            updateMuteButton();
+                        }
+
+                        @Override
+                        public void onFailure(int i, String s) {
+                            mMuteBt.setEnabled(true);
+                            Toast.makeText(activity(), "mute fail", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });
@@ -164,18 +195,43 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onStopTrackingTouch(final SeekBar seekBar) {
                 seekBar.setEnabled(false);
-                mDeviceController.setSpecProperty(activity(), mDeviceController
-                        .newPropertyParam(SERVICE_SPEAKER, PROPERTY_VOLUME, seekBar.getProgress()));
+                mDeviceController.setSpecProperty(activity(), mDeviceController.newPropertyParam(SERVICE_SPEAKER, PROPERTY_VOLUME,
+                        seekBar.getProgress()), new Callback<Object>() {
+                    @Override
+                    public void onSuccess(Object o) {
+                        seekBar.setEnabled(true);
+                        updateVoice();
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        seekBar.setEnabled(true);
+                        updateVoice();
+                        Toast.makeText(activity(), "volume fail", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         mTurnOffBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 mTurnOffBt.setEnabled(false);
-                mDeviceController.doAction(activity(), mDeviceController
-                        .newActionParam(SERVICE_TELEVISION, ACTION_TURN_OFF, null));
+                mDeviceController.doAction(activity(), mDeviceController.newActionParam(SERVICE_TELEVISION, ACTION_TURN_OFF,
+                        null), new Callback<List<Object>>() {
+                    @Override
+                    public void onSuccess(List<Object> objects) {
+                        mTurnOffBt.setEnabled(true);
+                        Toast.makeText(activity(), "turn off success", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        mTurnOffBt.setEnabled(true);
+                        Toast.makeText(activity(), "turn off fail", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -185,26 +241,59 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
                 mPostBt.setEnabled(false);
                 List<Object> list = new ArrayList<>();
                 list.add(mDeviceController.getPropertyValue(SERVICE_MESSAGE_ROUTER, PROPERTY_REQUEST));
-                mDeviceController.doAction(activity(), mDeviceController.
-                        newActionParam(SERVICE_MESSAGE_ROUTER, ACTION_POST, list));
+                mDeviceController.doAction(activity(), mDeviceController.newActionParam(SERVICE_MESSAGE_ROUTER, ACTION_POST, list),
+                        new Callback<List<Object>>() {
+                            @Override
+                            public void onSuccess(List<Object> objects) {
+                                mPostBt.setEnabled(true);
+                                Toast.makeText(activity(), "post success", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(int i, String s) {
+                                mPostBt.setEnabled(true);
+                                Toast.makeText(activity(), "post fail", Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
     }
 
+    private void updateControlMode() {
+        Object o = mDeviceController.getPropertyValue(SERVICE_TELEVISION, PROPERTY_INPUT_CONTROL);
+        if (o != null) {
+            ValueList valueList = (ValueList) mDeviceController.getPropertyController(SERVICE_TELEVISION, PROPERTY_INPUT_CONTROL)
+                    .getPropertyDefinition().getConstraintValue();
+            for (ValueDefinition dataValue : valueList.values()) {
+                if (o == dataValue.value().getObjectValue()) {
+                    mInputControlTv.setText(dataValue.description());
+                }
+            }
+        }
+    }
+
+    private void updateMuteButton() {
+        Object o = mDeviceController.getPropertyValue(SERVICE_SPEAKER, PROPERTY_MUTE);
+        if (o != null) {
+            if ((boolean) o) {
+                mMuteBt.setText("点击取消静音");
+            } else {
+                mMuteBt.setText("点击置为静音");
+            }
+        }
+    }
+
+    private void updateVoice() {
+        Object o = mDeviceController.getPropertyValue(SERVICE_SPEAKER, PROPERTY_VOLUME);
+        if (o != null) {
+            mVolumeSeekBar.setProgress(Integer.valueOf(String.valueOf(o)));
+        }
+    }
+
     private void setListener() {
         mDeviceController.setPropertyListener(SERVICE_TELEVISION, PROPERTY_INPUT_CONTROL, mInputControlListener);
-        mDeviceController.setActionListener(SERVICE_TELEVISION, ACTION_TURN_OFF, mTurnOffListener);
         mDeviceController.setPropertyListener(SERVICE_SPEAKER, PROPERTY_VOLUME, mVolumeListener);
         mDeviceController.setPropertyListener(SERVICE_SPEAKER, PROPERTY_MUTE, mMuteListener);
-        mDeviceController.setActionListener(SERVICE_MESSAGE_ROUTER, ACTION_POST, mPostListener);
-    }
-
-    private void removeListener() {
-        mDeviceController.removeAllListener();
-    }
-
-    public void refreshUI() {
-        mTitleView.setText(mDevice.getName());
     }
 
     @Override
@@ -225,18 +314,27 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
             }
         });
         setListener();
-        mDeviceController.getSpecProperties(activity(), mRequestParams);
+        mDeviceController.getSpecProperties(activity(), mRequestParams, new Callback<List<PropertyParam>>() {
+            @Override
+            public void onSuccess(List<PropertyParam> params) {
+                updateControlMode();
+                updateMuteButton();
+                updateVoice();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Toast.makeText(activity(), "load property fail", Toast.LENGTH_SHORT).show();
+            }
+        });
         mHandler.sendEmptyMessage(MSG_SUB_PROPERTIES);
         ((TextView) findViewById(R.id.title_bar_title)).setText(mDevice.getName());
-        refreshUI();
     }
 
-
-    @Override
     public void onPause() {
         super.onPause();
         mIsResume = false;
-        removeListener();
+        mDeviceController.removeAllListener();
         mHandler.removeMessages(MSG_SUB_PROPERTIES);
     }
 
@@ -257,92 +355,9 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         }
     }
 
-    private PropertyListener mInputControlListener = new PropertyListener() {
-        @Override
-        public void onSuccess(Object o) {
-            if (o == null) return;
-            ValueList valueList = (ValueList) mDeviceController.getPropertyController(SERVICE_TELEVISION, PROPERTY_INPUT_CONTROL)
-                    .getPropertyDefinition().getConstraintValue();
-            for (ValueDefinition dataValue : valueList.values()) {
-                if (o == dataValue.value().getObjectValue()) {
-                    mInputControlTv.setText(dataValue.description());
-                }
-            }
-        }
-
-        @Override
-        public void onFail(int i) {
-            mInputControlTv.setText("load fail");
-        }
-    };
-
-    private ActionListener mTurnOffListener = new ActionListener() {
-        @Override
-        public void onSuccess(List<Object> list) {
-            mTurnOffBt.setEnabled(true);
-            Toast.makeText(activity(), "turn off success", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onFail(int i) {
-            mTurnOffBt.setEnabled(true);
-            Toast.makeText(activity(), "turn off fail", Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    private PropertyListener mVolumeListener = new PropertyListener() {
-        @Override
-        public void onSuccess(Object o) {
-            mVolumeSeekBar.setEnabled(true);
-            mVolumeSeekBar.setProgress(Integer.valueOf(String.valueOf(o)));
-        }
-
-        @Override
-        public void onFail(int i) {
-            mVolumeSeekBar.setEnabled(true);
-            Object value = mDeviceController.getPropertyValue(SERVICE_SPEAKER, PROPERTY_VOLUME);
-            if (value != null) {
-                mVolumeSeekBar.setProgress(Integer.valueOf(String.valueOf(value)));
-            }
-            Toast.makeText(activity(), "volume fail", Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    private PropertyListener mMuteListener = new PropertyListener() {
-        @Override
-        public void onSuccess(Object o) {
-            mMuteBt.setEnabled(true);
-            if ((boolean) o) {
-                mMuteBt.setText("点击取消静音");
-            } else {
-                mMuteBt.setText("点击置为静音");
-            }
-        }
-
-        @Override
-        public void onFail(int i) {
-            mMuteBt.setEnabled(true);
-            Toast.makeText(activity(), "mute fail", Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    private ActionListener mPostListener = new ActionListener() {
-        @Override
-        public void onSuccess(List<Object> list) {
-            mPostBt.setEnabled(true);
-            Toast.makeText(activity(), "post success", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onFail(int i) {
-            mPostBt.setEnabled(true);
-            Toast.makeText(activity(), "post fail", Toast.LENGTH_SHORT).show();
-        }
-    };
-
     @Override
     public void onStateChanged(BaseDevice device) {
-        refreshUI();
+
     }
 
 }

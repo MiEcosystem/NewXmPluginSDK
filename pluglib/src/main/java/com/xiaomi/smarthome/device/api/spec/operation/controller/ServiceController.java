@@ -2,6 +2,7 @@ package com.xiaomi.smarthome.device.api.spec.operation.controller;
 
 import android.content.Context;
 
+import com.xiaomi.smarthome.device.api.Callback;
 import com.xiaomi.smarthome.device.api.spec.instance.SpecService;
 import com.xiaomi.smarthome.device.api.spec.operation.ActionParam;
 import com.xiaomi.smarthome.device.api.spec.operation.PropertyParam;
@@ -21,24 +22,24 @@ public class ServiceController extends SpecService {
         }
     }
 
-    public void updateValue(PropertyParam operation) {
+    public void updateValue(PropertyParam operation, boolean notice) {
         PropertyController controller = (PropertyController) getProperties().get(operation.getPiid());
         if (controller != null) {
-            controller.updateValue(operation);
+            controller.updateValue(operation,notice);
         }
     }
 
-    public void setSpecProperty(Context context, final PropertyParam operation) {
+    public void setSpecProperty(Context context, final PropertyParam operation, Callback<Object> callback) {
         PropertyController controller = (PropertyController) getProperties().get(operation.getPiid());
         if (controller != null) {
-            controller.setSpecProperty(context, operation);
+            controller.setSpecProperty(context, operation, callback);
         }
     }
 
-    public void doAction(Context context, final ActionParam operation) {
+    public void doAction(Context context, final ActionParam operation, Callback<List<Object>> callback) {
         ActionController controller = (ActionController) getActions().get(operation.getAiid());
         if (controller != null) {
-            controller.doAction(context, operation);
+            controller.doAction(context, operation, callback);
         }
     }
 }

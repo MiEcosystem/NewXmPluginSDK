@@ -17,37 +17,37 @@ public class PropertyController extends SpecProperty {
         super(iid, definition);
     }
 
-    public void updateValue(PropertyParam operation) {
-        if (operation.getResultCode() != 0) {
-            if (mListener != null) {
-                mListener.onFail(operation.getResultCode());
-            }
-        } else if (setValue(operation.getValue())) {
-            if (mListener != null) {
-                mListener.onSuccess(operation.getValue());
-            }
-        } else {
-            if (mListener != null) {
-                mListener.onFail(operation.getResultCode());
+    public void updateValue(PropertyParam operation, boolean notice) {
+        if (operation.getResultCode() == 0 && setValue(operation.getValue())) {
+            if (notice && mListener != null) {
+                mListener.onDataChanged(operation.getValue());
             }
         }
     }
 
-    public void setSpecProperty(Context context, final PropertyParam propertyParam) {
+    public void setSpecProperty(Context context, final PropertyParam propertyParam, final Callback<Object> callback) {
         if (!validateParam(propertyParam.getValue())) {
-            if (mListener != null) {
-                mListener.onFail(-1);
+            if (callback != null) {
+                callback.onFailure(-1, "set value wrong type");
             }
         }
         XmPluginHostApi.instance().setPropertyValue(context, propertyParam, new Callback<PropertyParam>() {
             @Override
             public void onSuccess(PropertyParam result) {
-                updateValue(result);
+                if (setValue(result.getValue())) {
+                    if (callback != null) {
+                        callback.onSuccess(result.getValue());
+                    }
+                } else if (callback != null) {
+                    callback.onFailure(-1, "set value failed");
+                }
             }
 
             @Override
             public void onFailure(int error, String errorInfo) {
-                updateValue(propertyParam);
+                if (callback != null) {
+                    callback.onFailure(error, errorInfo);
+                }
             }
         });
     }
