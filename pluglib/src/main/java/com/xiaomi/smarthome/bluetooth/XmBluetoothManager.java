@@ -188,6 +188,8 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_SC_REGISTER_GET_VERSION_FAILED = -36;
         // 安全芯片：绑定时当前app不支持固件的版本，需要提示用户升级app
         public static final int REQUEST_SC_REGISTER_UNSUPPORT_VERSION = -37;
+        // 安全芯片：从服务端同步到加密的LTMK，解密的时候pincode为空
+        public static final int REQUEST_PINCODE_IS_EMPTY = -38;
 
         public static String toString(int code) {
             switch (code) {
@@ -263,6 +265,8 @@ public abstract class XmBluetoothManager {
                     return "REQUEST_SC_REGISTER_GET_VERSION_FAILED";
                 case REQUEST_SC_REGISTER_UNSUPPORT_VERSION:
                     return "REQUEST_SC_REGISTER_UNSUPPORT_VERSION";
+                case REQUEST_PINCODE_IS_EMPTY:
+                    return "REQUEST_PINCODE_IS_EMPTY";
                 default:
                     return "unknown code: " + code;
             }

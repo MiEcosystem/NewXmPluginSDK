@@ -878,6 +878,31 @@ public interface IXmPluginHostActivity {
                                        boolean useDefault, int requestCode, Intent params);
 
     /**
+     * ApiLevel: 77
+     * 打开添加红外遥控器的页面
+     * 在 onActivityResult 接受添加成功或失败的回调requestCode=10000。
+     * resultCode=RESULT_OK 添加成功 data返回参数{infrared_did,infrared_parentid,infrared_name,infrared_model}
+     * resultCode=RESULT_CANCELED 取消添加
+     *
+     * @param deviceStat 当前设备信息
+     * @param type       0 按照已经收录的品牌信息匹配遥控器 1 自定义红外信号和按键名称
+     * @param model      要创建的红外遥控器类型 电视盒子、电视、空调、机顶盒、电扇、dvd、投影仪、热水器、空气净化器、灯、照相机、音响、自定义
+     *                   miir.tvbox.ir01、miir.tv.ir01、miir.aircondition.ir01、miir.stb.ir01、miir.fan.ir01、miir.dvd.ir01、miir.projector.ir01、miir.waterheater.ir01、miir.airpurifier.ir01、miir.light.ir01、miir.camera.ir01、miir.wifispeaker.ir01、miir.remote.ir01、
+     */
+    public void openAddIRController(DeviceStat deviceStat, int type, String model);
+
+    /**
+     * ApiLevel: 77
+     * 打开添加红外遥控器的页面,添加遥控器，不限制红外遥控器类型。
+     * 在 onActivityResult 接受添加成功或失败的回调requestCode=10000。
+     * resultCode=RESULT_OK 添加成功 data返回参数{infrared_did,infrared_parentid,infrared_name,infrared_model}
+     * resultCode=RESULT_CANCELED 取消添加
+     *
+     * @param deviceStat 当前设备信息
+     */
+    public void openAddIRController(DeviceStat deviceStat);
+
+    /**
      * ApiLevel: 29 需要验证pincode，如果设置pincode，则每次打开页面自动跳到验证pincode页面
      * 设置里边需要打开安全设置选项，参考openMoreMenu2接口
      */

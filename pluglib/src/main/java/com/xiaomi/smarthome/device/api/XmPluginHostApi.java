@@ -619,21 +619,22 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel:68 设置定时场景
      *
-     * @param model
-     * @param did
-     * @param us_id
-     * @param name
-     * @param setting
-     * @param authed
+     * @param model    设备model
+     * @param did      设备 did
+     * @param us_id    定时场景的唯一标识。创建时传"0"
+     * @param name     定时器名称
+     * @param setting  定时器具体内容
+     * @param authed   可以为null
      * @param callback
      */
-    @Deprecated
     public void editTimerScene(String model, String did, String us_id, String name,
                                JSONObject setting,
                                JSONArray authed, final Callback<JSONObject> callback) {
         JSONObject dataObj = new JSONObject();
         try {
-            dataObj.put("us_id", us_id);
+            if (!TextUtils.isEmpty(us_id) && !TextUtils.equals("0", us_id)) {
+                dataObj.put("us_id", us_id);
+            }
             dataObj.put("identify", did);
             dataObj.put("name", name);
             dataObj.put("st_id", 8);
@@ -646,6 +647,33 @@ public abstract class XmPluginHostApi {
         }
 
         callSmartHomeApi(model, "/scene/edit", dataObj, callback, new Parser<JSONObject>() {
+            @Override
+            public JSONObject parse(String result) throws JSONException {
+                return new JSONObject(result);
+            }
+        });
+
+    }
+
+    /**
+     * ApiLevel:78 获取定时场景列表
+     *
+     * @param model    设备model
+     * @param did      设备 did
+     * @param callback
+     */
+    public void loadTimerScenes(String model, String did, final Callback<JSONObject> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("identify", did);
+            dataObj.put("st_id", 8);
+        } catch (JSONException e) {
+            if (callback != null)
+                callback.onFailure(-1, e.toString());
+            return;
+        }
+
+        callSmartHomeApi(model, "/scene/list", dataObj, callback, new Parser<JSONObject>() {
             @Override
             public JSONObject parse(String result) throws JSONException {
                 return new JSONObject(result);
@@ -734,7 +762,9 @@ public abstract class XmPluginHostApi {
         JSONObject dataObj = new JSONObject();
         try {
             dataObj.put("identify", did);
-            dataObj.put("us_id", us_id + "");
+            if (!TextUtils.isEmpty(us_id) && !TextUtils.equals("0", us_id)) {
+                dataObj.put("us_id", us_id);
+            }
         } catch (JSONException e) {
             if (callback != null)
                 callback.onFailure(-1, e.toString());
@@ -760,7 +790,7 @@ public abstract class XmPluginHostApi {
     @Deprecated
     public void delScene(String model, String did, int us_id,
                          final Callback<JSONObject> callback) {
-        if (us_id < 0) {
+        if (us_id <= 0) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -1087,11 +1117,7 @@ public abstract class XmPluginHostApi {
     public abstract boolean isGPSLocationEnable();
 
     /**
-     * ApiLevel:3 获取定位+位置
-     * 位置信息描述可以通过以下方法，优先级依次降低
-     * 1. 如果有的话，Location.getExtras().getParcelable("address")，返回android.location.Address类型
-     * 2. 如果有的话，Location.getExtras().getString("address_str")，返回简单的描述信息
-     * Location.getExtras()可能为null，注意判空
+     * ApiLevel:3 获取位置
      *
      * @param callback
      */
@@ -1146,8 +1172,9 @@ public abstract class XmPluginHostApi {
 
     /**
      * ApiLevel:6 加载native so
-     *
+     * <p>
      * 已经废弃，请使用System.loadLibrary。如果使用的话会抛出异常
+     *
      * @param loadedInfo 插件上下文
      * @param libName    so库名字
      */
@@ -1417,7 +1444,7 @@ public abstract class XmPluginHostApi {
     @Deprecated
     public void delScene(String model, int us_id,
                          final Callback<JSONObject> callback) {
-        if (us_id < 0) {
+        if (us_id <= 0) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -1446,7 +1473,7 @@ public abstract class XmPluginHostApi {
      */
     public void delScene(String model, String us_id,
                          final Callback<JSONObject> callback) {
-        if (TextUtils.isEmpty(us_id)) {
+        if (TextUtils.isEmpty(us_id) || TextUtils.equals("0", us_id)) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -2769,8 +2796,8 @@ public abstract class XmPluginHostApi {
      *
      * @param activity
      * @param requestPermission 是否发起请求权限流程
-     * @param callback 授权结果回调
-     * @param permissions 申请的权限或权限组(常见危险权限已在Permission这个类中定义，可直接作为参数传入该方法使用。)
+     * @param callback          授权结果回调
+     * @param permissions       申请的权限或权限组(常见危险权限已在Permission这个类中定义，可直接作为参数传入该方法使用。)
      * @return 权限都已经授予/功能正常，返回true，否则，返回false
      */
     public abstract boolean checkAndRequestPermisson(Activity activity, boolean requestPermission, Callback<List<String>> callback, String... permissions);
@@ -2881,7 +2908,6 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 76
      * 获取当前用户设备列表所有的蓝牙网关设备
-     *
      */
     public abstract List<DeviceStat> getBleGatewayDeviceList();
 
@@ -2923,5 +2949,5 @@ public abstract class XmPluginHostApi {
      * @param callback
      */
     public abstract void doAction(Context context, ActionParam action, Callback<ActionParam> callback);
-    
+
 }

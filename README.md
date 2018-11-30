@@ -8,17 +8,20 @@
 
 NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序Android开发环境，里面包含米家APP提供给扩展程序的各种功能API，以及常用的UI组件。米家扩展程序也是基于Android环境开发的，开发扩展程序的时候请确保Android配置信息（比如compileSdkVersion、minSdkVersion、targetSdkVersion）与米家最新版本保持一致。
 
-**米家APP最新版本：5.4.26**
+**米家APP最新版本：5.4.34**
 
-**米家APP最新API Level：76**
+**米家APP最新API Level：78**
 
-**米家APP compileSdkVersion：27**
+**米家APP compileSdkVersion：28**
 
 **米家APP minSdkVersion：16**
 
 **米家APP targetSdkVersion：26**
 
-**文档修改日期：2018-11-2**
+**文档修改日期：2018-11-30**
+
+# 米家扩展程序Android开发指南
+[开发指南](https://iot.mi.com/new/guide.html?file=05-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/01-Android%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/01-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E6%95%B4%E4%BD%93%E7%AE%80%E4%BB%8B)
 
 # changelog
 记录关键的sdk修改提交：
@@ -41,9 +44,6 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序
 * plug.gradle
 	* 封装了common\_ui、libs\_ex、pluglib工程的引用，米家扩展程序只需要在自己的build.gradle脚本中添加`apply from: "${project.rootDir.absolutePath}/plug.gradle"`就可以自动依赖了
 	* 米家扩展程序的调试安装也是在该脚本实现
-
-# 米家扩展程序Android开发指南
-[开发指南](https://iot.mi.com/new/guide.html?file=05-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/01-Android%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/01-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E6%95%B4%E4%BD%93%E7%AE%80%E4%BB%8B)
 
 # 米家调试APK下载地址
 

@@ -79,12 +79,20 @@ public class SceneInfo implements Parcelable {
     }
 
     void readFromParcel(Parcel in) {
-        mSceneId = in.readInt();
+        try {
+            mSceneId = in.readInt();
+        } catch (Exception e) {
+            mSceneId = 0;
+        }
         mSceneIdV2 = in.readString();
         mRecommId = in.readInt();
         mName = in.readString();
         mEnable = in.readInt() == 1;
-        mLaunch = (SceneLaunch) in.readValue(SceneLaunch.class.getClassLoader());
+        try {
+            mLaunch = (SceneLaunch) in.readValue(SceneLaunch.class.getClassLoader());
+        } catch (Exception e) {
+            mLaunch = null;
+        }
         mLaunchList = new ArrayList<SceneLaunch>();
         try {
             in.readList(mLaunchList, SceneLaunch.class.getClassLoader());
