@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * 批量请求服务端最新固件更新信息所用结构
+ * Api Level: 85
  */
 public class BleMeshFirmwareUpdateInfoV2 implements Serializable {
 

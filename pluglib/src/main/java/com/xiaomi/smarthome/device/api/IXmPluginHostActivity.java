@@ -790,15 +790,15 @@ public interface IXmPluginHostActivity {
      *                    <p>
      *                    结果返回到调用Activity的onActivityResult中，调用如下
      *                    <pre class="prettyprint">
-     *                                       protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-     *                                       super.onActivityResult(requestCode, resultCode, data);
-     *                                       if(resultCode==RESULT_OK){
-     *                                       if(requestCode==SCAN_BARCODE){
-     *                                       String result = data.getStringExtra("scan_result");
-     *                                       }
-     *                                       }
-     *                                       }
-     *                                       </pre>
+     *                    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+     *                    super.onActivityResult(requestCode, resultCode, data);
+     *                    if(resultCode==RESULT_OK){
+     *                    if(requestCode==SCAN_BARCODE){
+     *                    String result = data.getStringExtra("scan_result");
+     *                    }
+     *                    }
+     *                    }
+     *                    </pre>
      */
     public abstract void openScanBarcodePage(Bundle bundle, int requestCode);
 
@@ -876,6 +876,31 @@ public interface IXmPluginHostActivity {
      */
     public abstract void openMoreMenu2(ArrayList<MenuItemBase> menus,
                                        boolean useDefault, int requestCode, Intent params);
+
+    /**
+     * ApiLevel: 77
+     * 打开添加红外遥控器的页面
+     * 在 onActivityResult 接受添加成功或失败的回调requestCode=10000。
+     * resultCode=RESULT_OK 添加成功 data返回参数{infrared_did,infrared_parentid,infrared_name,infrared_model}
+     * resultCode=RESULT_CANCELED 取消添加
+     *
+     * @param deviceStat 当前设备信息
+     * @param type       0 按照已经收录的品牌信息匹配遥控器 1 自定义红外信号和按键名称
+     * @param model      要创建的红外遥控器类型 电视盒子、电视、空调、机顶盒、电扇、dvd、投影仪、热水器、空气净化器、灯、照相机、音响、自定义
+     *                   miir.tvbox.ir01、miir.tv.ir01、miir.aircondition.ir01、miir.stb.ir01、miir.fan.ir01、miir.dvd.ir01、miir.projector.ir01、miir.waterheater.ir01、miir.airpurifier.ir01、miir.light.ir01、miir.camera.ir01、miir.wifispeaker.ir01、miir.remote.ir01、
+     */
+    public void openAddIRController(DeviceStat deviceStat, int type, String model);
+
+    /**
+     * ApiLevel: 77
+     * 打开添加红外遥控器的页面,添加遥控器，不限制红外遥控器类型。
+     * 在 onActivityResult 接受添加成功或失败的回调requestCode=10000。
+     * resultCode=RESULT_OK 添加成功 data返回参数{infrared_did,infrared_parentid,infrared_name,infrared_model}
+     * resultCode=RESULT_CANCELED 取消添加
+     *
+     * @param deviceStat 当前设备信息
+     */
+    public void openAddIRController(DeviceStat deviceStat);
 
     /**
      * ApiLevel: 29 需要验证pincode，如果设置pincode，则每次打开页面自动跳到验证pincode页面
@@ -1010,7 +1035,7 @@ public interface IXmPluginHostActivity {
                                Intent intent);
 
     /**
-     * Apilevel:68
+     * Apilevel:76
      *
      * @param dialogTitle
      * @param licenseTitle
@@ -1025,7 +1050,7 @@ public interface IXmPluginHostActivity {
                                    View.OnClickListener agreeListener);
 
     /**
-     * Apilevel:68
+     * Apilevel:76
      * 当协议内容过大，不适合使用intent传递时，使用此方法，将协议内容写入存储文件中，将URL传入
      *
      * @param dialogTitle
@@ -1086,23 +1111,11 @@ public interface IXmPluginHostActivity {
                                     String timerTitle, boolean bothTimerMustBeSet, String onTimerTip, String offTimerTip, String timerListTip);
 
     /**
+     *
      * ApiLevel: 69 跳转到添加房间页面
+     *
      */
     public void startAddRoom();
-
-    /**
-     * Apilevel:75
-     *
-     * @param deviceId        device id
-     * @param onMethod        当on timer时间到的时候执行的action，执行原始数据
-     * @param onParams        on action的参数
-     * @param offMethod       当off timer时间到的时候执行的action，执行原始数据
-     * @param offParams       off action参数
-     * @param isDevicePowerOn 设备当前是否开启
-     */
-    public abstract void startSetTimerCountDown(String deviceId,
-                                                String onMethod, String onParams, String offMethod, String offParams, boolean isDevicePowerOn
-    );
 
     /*
      * ApiLevel 66
@@ -1151,7 +1164,7 @@ public interface IXmPluginHostActivity {
     public void openWxBindActivity(int resultCode);
 
     /**
-     * ApiLevel:67
+     * ApiLevel:85
      * 目前供灯组插件使用，以startActivityForResult的方式调起灯组初始化页面
      * 初始化成功返回: RESULT_OK(-1)
      * 初始化失败返回: RESULT_CANCELED(0)

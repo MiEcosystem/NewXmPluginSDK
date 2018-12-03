@@ -8,18 +8,22 @@ import android.widget.Toast;
 
 import com.xiaomi.smarthome.device.api.Callback;
 import com.xiaomi.smarthome.device.api.XmPluginBaseActivity;
-import com.xiaomi.smarthome.device.api.XmPluginHostApi;
+import com.xiaomi.smarthome.device.api.spec.operation.PropertyParam;
+import com.xiaomi.smarthome.device.api.spec.operation.controller.DeviceController;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wangchong3@xiaomi.com on 2018/6/21
  */
 public class BleMeshControlActivity extends XmPluginBaseActivity {
+    private final static int LIGHT_SERVICE_IID = 2;
+    private final static int SWITCH_STATUS_PROPERTY_IID = 1;
+    private final static int BRIGHTNESS_PROPERTY_IID = 2;
     private TextView mTitleView;
-    Device mDevice;
+    private Device mDevice;
+    private DeviceController mDeviceController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class BleMeshControlActivity extends XmPluginBaseActivity {
         mTitleView = ((TextView) findViewById(R.id.title_bar_title));
         // 初始化device
         mDevice = Device.getDevice(mDeviceStat);
+
+        mDeviceController = DeviceController.getDeviceController(mDevice.getDid());
 
         mTitleView.setText("Mesh Light控制");
         // 设置titlebar在顶部透明显示时的顶部padding
@@ -43,7 +49,7 @@ public class BleMeshControlActivity extends XmPluginBaseActivity {
         findViewById(R.id.get_switch_status).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSwithStatus();
+                getSwitchStatus();
             }
         });
 
@@ -91,32 +97,17 @@ public class BleMeshControlActivity extends XmPluginBaseActivity {
         });
     }
 
-    private void getSwithStatus() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("did", mDevice.getDid());
-            jsonObject.put("siid", 2);
-            jsonObject.put("piid", 1);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    private void getSwitchStatus() {
+        PropertyParam switchStatusParam = new PropertyParam(mDevice.getDid(), LIGHT_SERVICE_IID, SWITCH_STATUS_PROPERTY_IID);
+        List<PropertyParam> paramList = new ArrayList<>();
+        paramList.add(switchStatusParam);
 
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.put(jsonObject);
-
-        XmPluginHostApi.instance().getMiotSpecProp(mDevice.getModel(), jsonArray, new Callback<JSONArray>() {
+        mDeviceController.getSpecProperties(activity(), paramList, new Callback<List<PropertyParam>>() {
             @Override
-            public void onSuccess(JSONArray jsonArray) {
-                Integer value = null;
-                if (jsonArray != null && jsonArray.length() > 0) {
-                    JSONObject result = jsonArray.optJSONObject(0);
-                    if (result.has("code") && result.optInt("code") == 0) {
-                        value = result.optInt("value");
-                    }
-                }
-
-                if (value != null) {
-                    if (value == 1) {
+            public void onSuccess(List<PropertyParam> propertyParams) {
+                Object switchStatus  = getValueFromResult(propertyParams, LIGHT_SERVICE_IID, SWITCH_STATUS_PROPERTY_IID);
+                if (switchStatus instanceof Boolean) {
+                    if ((Boolean) switchStatus) {
                         toast("已开灯");
                     } else {
                         toast("已关灯");
@@ -133,32 +124,34 @@ public class BleMeshControlActivity extends XmPluginBaseActivity {
         });
     }
 
-    private void getBrightness() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("did", mDevice.getDid());
-            jsonObject.put("siid", 2);
-            jsonObject.put("piid", 2);
-        } catch (JSONException e) {
-            e.printStackTrace();
+    private Object getValueFromResult(List<PropertyParam> propertyParams, int siid, int piid) {
+        if (propertyParams == null || propertyParams.size() == 0) {
+            return null;
         }
 
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.put(jsonObject);
-
-        XmPluginHostApi.instance().getMiotSpecProp(mDevice.getModel(), jsonArray, new Callback<JSONArray>() {
-            @Override
-            public void onSuccess(JSONArray jsonArray) {
-                Integer value = null;
-                if (jsonArray != null && jsonArray.length() > 0) {
-                    JSONObject result = jsonArray.optJSONObject(0);
-                    if (result.has("code") && result.optInt("code") == 0) {
-                        value = result.optInt("value");
-                    }
+        Object value = null;
+        for (PropertyParam propertyParam : propertyParams) {
+            if (propertyParam.getSiid() == siid && propertyParam.getPiid() == piid) {
+                if (propertyParam.getResultCode() == 0) {
+                    value = propertyParam.getValue();
                 }
+                break;
+            }
+        }
+        return value;
+    }
 
-                if (value != null) {
-                    toast("亮度：" + value);
+    private void getBrightness() {
+        PropertyParam switchStatusParam = new PropertyParam(mDevice.getDid(), LIGHT_SERVICE_IID, BRIGHTNESS_PROPERTY_IID);
+        List<PropertyParam> paramList = new ArrayList<>();
+        paramList.add(switchStatusParam);
+
+        mDeviceController.getSpecProperties(activity(), paramList, new Callback<List<PropertyParam>>() {
+            @Override
+            public void onSuccess(List<PropertyParam> propertyParams) {
+                Object brightness = getValueFromResult(propertyParams, LIGHT_SERVICE_IID, BRIGHTNESS_PROPERTY_IID);
+                if (brightness instanceof Integer) {
+                    toast("亮度：" + brightness);
                 } else {
                     toast("获取亮度失败");
                 }
@@ -172,40 +165,14 @@ public class BleMeshControlActivity extends XmPluginBaseActivity {
     }
 
     private void setSwitchStatus(final boolean on) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("did", mDevice.getDid());
-            jsonObject.put("siid", 2);
-            jsonObject.put("piid", 1);
-            jsonObject.put("value", on);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.put(jsonObject);
-
-        XmPluginHostApi.instance().setMiotSpecProp(mDevice.getModel(), jsonArray, new Callback<JSONArray>() {
+        PropertyParam propertyParam = new PropertyParam(mDevice.getDid(), LIGHT_SERVICE_IID, SWITCH_STATUS_PROPERTY_IID, on);
+        mDeviceController.setSpecProperty(activity(), propertyParam, new Callback<Object>() {
             @Override
-            public void onSuccess(JSONArray jsonArray) {
-                if (jsonArray != null && jsonArray.length() > 0) {
-                    JSONObject result = jsonArray.optJSONObject(0);
-                    // 李森说 0 和 1都可以作为成功条件来判断 2018.9.7
-                    if (result.has("code") && (result.optInt("code") == 0  || result.optInt("code") == 1)) {
-                        if (on) {
-                            toast("开灯成功");
-                        } else {
-                            toast("关灯成功");
-                        }
-
-                        return;
-                    }
-                }
-
+            public void onSuccess(Object result) {
                 if (on) {
-                    toast("开灯失败");
+                    toast("开灯成功");
                 } else {
-                    toast("关灯失败");
+                    toast("关灯成功");
                 }
             }
 
@@ -216,45 +183,21 @@ public class BleMeshControlActivity extends XmPluginBaseActivity {
                 } else {
                     toast("关灯失败, errorCode = " + i + ", errorMsg = " + s);
                 }
-
             }
         });
     }
 
     private void setBrightness(final int brightness) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("did", mDevice.getDid());
-            jsonObject.put("siid", 2);
-            jsonObject.put("piid", 2);
-            jsonObject.put("value", brightness);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.put(jsonObject);
-
-        XmPluginHostApi.instance().setMiotSpecProp(mDevice.getModel(), jsonArray, new Callback<JSONArray>() {
+        PropertyParam propertyParam = new PropertyParam(mDevice.getDid(), LIGHT_SERVICE_IID, BRIGHTNESS_PROPERTY_IID, brightness);
+        mDeviceController.setSpecProperty(activity(), propertyParam, new Callback<Object>() {
             @Override
-            public void onSuccess(JSONArray jsonArray) {
-                if (jsonArray != null && jsonArray.length() > 0) {
-                    JSONObject result = jsonArray.optJSONObject(0);
-                    // 李森说 0 和 1都可以作为成功条件来判断 2018.9.7
-                    if (result.has("code") && (result.optInt("code") == 0  || result.optInt("code") == 1)) {
-                        toast("亮度设置成功：" + brightness);
-
-                        return;
-                    }
-                }
-
-                toast("亮度设置失败");
+            public void onSuccess(Object result) {
+                toast("亮度设置成功：" + brightness);
             }
 
             @Override
             public void onFailure(int i, String s) {
                 toast("亮度设置失败, errorCode = " + i + ", errorMsg = " + s);
-
             }
         });
     }

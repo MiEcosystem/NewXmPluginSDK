@@ -28,8 +28,11 @@ import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
 import com.xiaomi.smarthome.camera.HLSDownloader;
 import com.xiaomi.smarthome.camera.XmMp4Record;
 import com.xiaomi.smarthome.camera.XmVideoViewGl;
-import com.xiaomi.smarthome.device.api.printer.PrinterControl;
 import com.xiaomi.smarthome.camera.exopackage.MJExoPlayer;
+import com.xiaomi.smarthome.device.api.printer.PrinterControl;
+import com.xiaomi.smarthome.device.api.spec.operation.ActionParam;
+import com.xiaomi.smarthome.device.api.spec.operation.PropertyParam;
+import com.xiaomi.smarthome.device.api.spec.operation.controller.DeviceController;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginSubscribeCallback;
 import com.xiaomi.smarthome.plugin.devicesubscribe.PluginUnSubscribeCallback;
 import com.xiaomi.smarthome.plugin.service.HostService;
@@ -616,21 +619,22 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel:68 设置定时场景
      *
-     * @param model
-     * @param did
-     * @param us_id
-     * @param name
-     * @param setting
-     * @param authed
+     * @param model    设备model
+     * @param did      设备 did
+     * @param us_id    定时场景的唯一标识。创建时传"0"
+     * @param name     定时器名称
+     * @param setting  定时器具体内容
+     * @param authed   可以为null
      * @param callback
      */
-    @Deprecated
     public void editTimerScene(String model, String did, String us_id, String name,
                                JSONObject setting,
                                JSONArray authed, final Callback<JSONObject> callback) {
         JSONObject dataObj = new JSONObject();
         try {
-            dataObj.put("us_id", us_id);
+            if (!TextUtils.isEmpty(us_id) && !TextUtils.equals("0", us_id)) {
+                dataObj.put("us_id", us_id);
+            }
             dataObj.put("identify", did);
             dataObj.put("name", name);
             dataObj.put("st_id", 8);
@@ -643,6 +647,33 @@ public abstract class XmPluginHostApi {
         }
 
         callSmartHomeApi(model, "/scene/edit", dataObj, callback, new Parser<JSONObject>() {
+            @Override
+            public JSONObject parse(String result) throws JSONException {
+                return new JSONObject(result);
+            }
+        });
+
+    }
+
+    /**
+     * ApiLevel:78 获取定时场景列表
+     *
+     * @param model    设备model
+     * @param did      设备 did
+     * @param callback
+     */
+    public void loadTimerScenes(String model, String did, final Callback<JSONObject> callback) {
+        JSONObject dataObj = new JSONObject();
+        try {
+            dataObj.put("identify", did);
+            dataObj.put("st_id", 8);
+        } catch (JSONException e) {
+            if (callback != null)
+                callback.onFailure(-1, e.toString());
+            return;
+        }
+
+        callSmartHomeApi(model, "/scene/list", dataObj, callback, new Parser<JSONObject>() {
             @Override
             public JSONObject parse(String result) throws JSONException {
                 return new JSONObject(result);
@@ -731,7 +762,9 @@ public abstract class XmPluginHostApi {
         JSONObject dataObj = new JSONObject();
         try {
             dataObj.put("identify", did);
-            dataObj.put("us_id", us_id + "");
+            if (!TextUtils.isEmpty(us_id) && !TextUtils.equals("0", us_id)) {
+                dataObj.put("us_id", us_id);
+            }
         } catch (JSONException e) {
             if (callback != null)
                 callback.onFailure(-1, e.toString());
@@ -757,7 +790,7 @@ public abstract class XmPluginHostApi {
     @Deprecated
     public void delScene(String model, String did, int us_id,
                          final Callback<JSONObject> callback) {
-        if (us_id < 0) {
+        if (us_id <= 0) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -1139,8 +1172,9 @@ public abstract class XmPluginHostApi {
 
     /**
      * ApiLevel:6 加载native so
-     *
+     * <p>
      * 已经废弃，请使用System.loadLibrary。如果使用的话会抛出异常
+     *
      * @param loadedInfo 插件上下文
      * @param libName    so库名字
      */
@@ -1410,7 +1444,7 @@ public abstract class XmPluginHostApi {
     @Deprecated
     public void delScene(String model, int us_id,
                          final Callback<JSONObject> callback) {
-        if (us_id < 0) {
+        if (us_id <= 0) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -1439,7 +1473,7 @@ public abstract class XmPluginHostApi {
      */
     public void delScene(String model, String us_id,
                          final Callback<JSONObject> callback) {
-        if (TextUtils.isEmpty(us_id)) {
+        if (TextUtils.isEmpty(us_id) || TextUtils.equals("0", us_id)) {
             if (callback != null) {
                 callback.onFailure(-1, "us_id is illegal");
             }
@@ -2762,8 +2796,8 @@ public abstract class XmPluginHostApi {
      *
      * @param activity
      * @param requestPermission 是否发起请求权限流程
-     * @param callback 授权结果回调
-     * @param permissions 申请的权限或权限组(常见危险权限已在Permission这个类中定义，可直接作为参数传入该方法使用。)
+     * @param callback          授权结果回调
+     * @param permissions       申请的权限或权限组(常见危险权限已在Permission这个类中定义，可直接作为参数传入该方法使用。)
      * @return 权限都已经授予/功能正常，返回true，否则，返回false
      */
     public abstract boolean checkAndRequestPermisson(Activity activity, boolean requestPermission, Callback<List<String>> callback, String... permissions);
@@ -2874,53 +2908,57 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 76
      * 获取当前用户设备列表所有的蓝牙网关设备
-     *
      */
     public abstract List<DeviceStat> getBleGatewayDeviceList();
 
     /**
-     * ApiLevel:70 获取蓝牙设备固件升级信息
+     * ApiLevel: 77
+     * 获取Spec实例
+     *
+     * @param did
+     * @return
+     */
+    public abstract DeviceController getSpecDeviceController(String did);
+
+    /**
+     * ApiLevel: 77
+     * 获取property属性值
+     *
+     * @param context
+     * @param properties
+     * @param callback
+     */
+    public abstract void getPropertyValues(Context context, List<PropertyParam> properties, Callback<List<PropertyParam>> callback);
+
+    /**
+     * ApiLevel: 77
+     * 设置属性值
+     *
+     * @param context
+     * @param property
+     * @param callback
+     */
+    public abstract void setPropertyValue(Context context, PropertyParam property, Callback<PropertyParam> callback);
+
+    /**
+     * ApiLevel: 77
+     * 执行action
+     *
+     * @param context
+     * @param action
+     * @param callback
+     */
+    public abstract void doAction(Context context, ActionParam action, Callback<ActionParam> callback);
+
+    /**
+     * ApiLevel:85 获取蓝牙设备固件升级信息
      */
     public abstract void getBleMeshFirmwareUpdateInfo(String model, String did, Callback<BleMeshFirmwareUpdateInfo> callback);
 
     /**
-     * ApiLevel: 70
-     * 根据miotspec协议，读取设备属性
-     *
-     * @param model 当前设备model
-     * @param params 要读取的设备信息，可以一次读取设备的多个属性，格式如下：[{"did": "123", "siid": 1, "piid": 2}, {"did": "124", "siid": 1, "piid": 3}]
-     * @param callback 返回读取的多个设备属性信息，"code"为0表示成功，其他表示失败，格式如下：[{"did": "123", "siid": 1, "piid": 2， "value": 10, "code": 0}, {"did": "124", "siid": 1, "piid": 3, "value": "hello", "code": 0}]
-     */
-    public abstract void getMiotSpecProp(String model, JSONArray params, Callback<JSONArray> callback);
-
-    /**
-     * ApiLevel: 70
-     * 根据miotspec协议，写设备属性
-     *
-     * @param model 当前设备model
-     * @param params 需要设置的设备属性，可以一次设备设备的多个属性，格式如下：[{"did": "1234", "siid": 1, "piid": 1, "value": 10}, {"did": "1234", "siid": 1, "piid": 88, "value": "hello"}]
-     * @param callback 返回写的结果，"code"为0表示成功，其他表示失败，格式如下：[{"did": "1234", "siid": 1, "piid": 1, "code": 0}, {"did": "1234", "siid": 1, "piid": 88, "code": -4003}]
-     */
-    public abstract void setMiotSpecProp(String model, JSONArray params, Callback<JSONArray> callback);
-
-    /**
-     * ApiLevel: 70
-     * 根据miotspec协议，执行设备支持的方法
-     *
-     * @param model 当前设备model
-     * @param did 当前设备did
-     * @param siid 设备的service id
-     * @param aiid 设备的action id
-     * @param in 要执行的action信息，包含property id和要设备的value，格式如下：[{"piid": 1, "vaule": 10}]
-     * @param callback 返回action的执行结果，"code"为0表示成功，其他表示失败，格式如下：["did": "1234", "siid": 1, "aiid": 1, "code": 0, "out": ["piid": 3, "value": 10]]
-     */
-    public abstract void callMiotSpecAction(String model, String did, int siid, int aiid, int piid, JSONArray in, Callback<String> callback);
-
-    /**
-     * ApiLevel: 70
+     * ApiLevel: 85
      * 获取灯组初始化状态
      * @return success = "1" faild = "3" initializing = "0"
      */
     public abstract String getVirtualGroupStatus(String did);
-
 }

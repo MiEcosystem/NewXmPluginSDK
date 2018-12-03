@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by wangchong on 2018/6/26.
- * Api Level: 66
+ * Api Level: 85
  */
 public class BleMeshFirmwareUpdateInfo implements Serializable{
 

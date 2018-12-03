@@ -188,20 +188,22 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_SC_REGISTER_GET_VERSION_FAILED = -36;
         // 安全芯片：绑定时当前app不支持固件的版本，需要提示用户升级app
         public static final int REQUEST_SC_REGISTER_UNSUPPORT_VERSION = -37;
+        // 安全芯片：从服务端同步到加密的LTMK，解密的时候pincode为空
+        public static final int REQUEST_PINCODE_IS_EMPTY = -38;
         // 蓝牙Mesh绑定过程中，服务端校验设备证书失败
-        public static final int REQUEST_MESH_REG_SERVER_VERIFY_CERT_FAILED = -38;
+        public static final int REQUEST_MESH_REG_SERVER_VERIFY_CERT_FAILED = -39;
         // 蓝牙Mesh绑定过程中，服务端校验设备签名失败
-        public static final int REQUEST_MESH_REG_SERVER_VERIFY_SIGN_FAILED = -39;
+        public static final int REQUEST_MESH_REG_SERVER_VERIFY_SIGN_FAILED = -40;
         // 蓝牙Mesh绑定过程中，设备校验服务端证书失败
-        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_CERT_FAILED = -40;
+        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_CERT_FAILED = -41;
         // 蓝牙Mesh绑定过程中，设备校验服务端签名失败
-        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_SIGN_FAILED = -41;
+        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_SIGN_FAILED = -42;
         // 蓝牙Mesh绑定过程中，设备校验服务端公钥失败
-        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_PUB_FAILED = -42;
+        public static final int REQUEST_MESH_REG_DEVICE_VERIFY_PUB_FAILED = -43;
         // 蓝牙Mesh绑定过程中，获取Mesh配置信息失败
-        public static final int REQUEST_MESH_PROVISION_INFO_FAILED = -43;
+        public static final int REQUEST_MESH_PROVISION_INFO_FAILED = -44;
         // 蓝牙Mesh绑定过程中，给服务端发送Mesh配置结果时失败
-        public static final int REQUEST_MESH_SEND_SERVER_RESULT_FAILED = -44;
+        public static final int REQUEST_MESH_SEND_SERVER_RESULT_FAILED = -45;
 
         public static String toString(int code) {
             switch (code) {
@@ -277,6 +279,8 @@ public abstract class XmBluetoothManager {
                     return "REQUEST_SC_REGISTER_GET_VERSION_FAILED";
                 case REQUEST_SC_REGISTER_UNSUPPORT_VERSION:
                     return "REQUEST_SC_REGISTER_UNSUPPORT_VERSION";
+                case REQUEST_PINCODE_IS_EMPTY:
+                    return "REQUEST_PINCODE_IS_EMPTY";
                 case REQUEST_MESH_REG_SERVER_VERIFY_CERT_FAILED:
                     return "REQUEST_MESH_REG_SERVER_VERIFY_CERT_FAILED";
                 case REQUEST_MESH_REG_SERVER_VERIFY_SIGN_FAILED:
@@ -662,7 +666,7 @@ public abstract class XmBluetoothManager {
     public abstract void isBleGatewayExistInDeviceList(Response.BleResponse<Bundle> response);
 
     /**
-     * ApiLevel: 70
+     * ApiLevel: 85
      * 安全连接蓝牙Mesh设备
      *
      * @param mac
@@ -672,7 +676,7 @@ public abstract class XmBluetoothManager {
     public abstract void bleMeshConnect(String mac, String did, BleConnectResponse response);
 
     /**
-     * ApiLevel: 70
+     * ApiLevel: 85
      * 统一的蓝牙Mesh设备固件升级（只有连接设备成功后才能调用升级），非mesh设备不能调用这个升级接口
      * @param mac
      * @param did
@@ -683,14 +687,14 @@ public abstract class XmBluetoothManager {
     public abstract void startBleMeshUpgrade(String mac, String did, String version, String filePath, Response.BleUpgradeResponse response);
 
     /**
-     * ApiLevel: 70
+     * ApiLevel: 85
      * 取消正在执行的蓝牙Mesh固件升级
      * @param mac
      */
     public abstract void cancelBleMeshUpgrade(String mac);
 
     /**
-     * ApiLevel: 70
+     * ApiLevel: 85
      * 获取蓝牙Mesh设备当前固件版本号（只有连接设备成功后才能获取固件版本号）
      *
      * @param mac
