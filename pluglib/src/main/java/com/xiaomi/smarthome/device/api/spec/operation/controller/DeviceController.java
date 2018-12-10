@@ -2,10 +2,12 @@ package com.xiaomi.smarthome.device.api.spec.operation.controller;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Pair;
 
 import com.xiaomi.smarthome.device.api.Callback;
 import com.xiaomi.smarthome.device.api.DeviceStat;
 import com.xiaomi.smarthome.device.api.XmPluginHostApi;
+import com.xiaomi.smarthome.device.api.spec.instance.SpecAction;
 import com.xiaomi.smarthome.device.api.spec.instance.SpecDevice;
 import com.xiaomi.smarthome.device.api.spec.instance.SpecProperty;
 import com.xiaomi.smarthome.device.api.spec.instance.SpecService;
@@ -245,26 +247,26 @@ public class DeviceController extends SpecDevice {
      * ApiLevel 79
      * 订阅属性变化，每次只维持3分钟订阅事件
      */
-    public void subscribeProperty(DeviceStat deviceStat, List<PropertyParam> params) {
+    public void subscribeProperty(DeviceStat deviceStat, List<PropertyParam> params, Callback<Void> callback) {
         ArrayList<String> propList = new ArrayList<String>();
         for (PropertyParam param : params) {
             propList.add("prop." + param.getSiid() + "." + param.getPiid());
         }
         XmPluginHostApi.instance()
-                .subscribeDevice(deviceStat.did, deviceStat.pid, propList, 3, null);
+                .subscribeDevice(deviceStat.did, deviceStat.pid, propList, 3, callback);
     }
 
     /**
      * ApiLevel 79
      * 取消订阅属性，在订阅后，再次订阅前取消，避免重复订阅
      */
-    public void unSubscribeProperty(DeviceStat deviceStat, List<PropertyParam> params) {
+    public void unSubscribeProperty(DeviceStat deviceStat, List<PropertyParam> params, Callback<Void> callback) {
         ArrayList<String> propList = new ArrayList<String>();
         for (PropertyParam param : params) {
             propList.add("prop." + param.getSiid() + "." + param.getPiid());
         }
         XmPluginHostApi.instance()
-                .unsubscribeDevice(deviceStat.did, deviceStat.pid, propList, null);
+                .unsubscribeDevice(deviceStat.did, deviceStat.pid, propList, callback);
     }
 
     /**
@@ -342,6 +344,54 @@ public class DeviceController extends SpecDevice {
             }
         }
 
+    }
+
+    /**
+     * ApiLevel 79
+     * 根据property name获取iid
+     *
+     * @param propertyName
+     * @return
+     */
+    public Pair<Integer, Integer> getPropertyIid(String propertyName) {
+        Pair<Integer, Integer> result = null;
+        for (SpecService service : getServices().values()) {
+            for (SpecProperty property : service.getProperties().values()) {
+                String type = property.getPropertyDefinition().getType();
+                if (!TextUtils.isEmpty(type)) {
+                    String[] items = type.split(":");
+                    if (items.length > 4 && items[3].equals(propertyName)) {
+                        result = new Pair<>(service.getIid(), property.getIid());
+                        return result;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * ApiLevel 79
+     * 根据action name获取iid
+     *
+     * @param actionName
+     * @return
+     */
+    public Pair<Integer, Integer> getActionIid(String actionName) {
+        Pair<Integer, Integer> result = null;
+        for (SpecService service : getServices().values()) {
+            for (SpecAction action : service.getActions().values()) {
+                String type = action.getActionDefinition().getType();
+                if (!TextUtils.isEmpty(type)) {
+                    String[] items = type.split(":");
+                    if (items.length > 4 && items[3].equals(actionName)) {
+                        result = new Pair<>(service.getIid(), action.getIid());
+                        return result;
+                    }
+                }
+            }
+        }
+        return result;
     }
 
 }

@@ -72,7 +72,7 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
                 switch (msg.what) {
                     case MSG_SUB_PROPERTIES:
                         if (activity.mIsResume) {
-                            activity.mDeviceController.subscribeProperty(activity.mDeviceStat, activity.mRequestParams);
+                            activity.mDeviceController.subscribeProperty(activity.mDeviceStat, activity.mRequestParams,null);
                             sendEmptyMessageDelayed(MSG_SUB_PROPERTIES, 3 * 60000);
                         }
                         break;
