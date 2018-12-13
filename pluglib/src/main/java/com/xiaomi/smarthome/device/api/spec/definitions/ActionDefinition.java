@@ -17,7 +17,7 @@ public class ActionDefinition {
         this.description=description;
     }
 
-    public ActionDefinition(String type, String description, List<Object> in, List<Object> out){
+    public ActionDefinition(String type,String description,List<Object> in,List<Object> out){
         this.type=type;
         this.description=description;
         this.in=in;

@@ -1162,4 +1162,14 @@ public interface IXmPluginHostActivity {
      * @param resultCode result值
      */
     public void openWxBindActivity(int resultCode);
+
+    /**
+     * ApiLevel:85
+     * 目前供灯组插件使用，以startActivityForResult的方式调起灯组初始化页面
+     * 初始化成功返回: RESULT_OK(-1)
+     * 初始化失败返回: RESULT_CANCELED(0)
+     * @param did           device id
+     * @param requestCode   请求码
+     */
+    public abstract void openVirtualGroupInitActivity(String did, int requestCode);
 }

@@ -2950,4 +2950,15 @@ public abstract class XmPluginHostApi {
      */
     public abstract void doAction(Context context, ActionParam action, Callback<ActionParam> callback);
 
+    /**
+     * ApiLevel:85 获取蓝牙设备固件升级信息
+     */
+    public abstract void getBleMeshFirmwareUpdateInfo(String model, String did, Callback<BleMeshFirmwareUpdateInfo> callback);
+
+    /**
+     * ApiLevel: 85
+     * 获取灯组初始化状态
+     * @return success = "1" faild = "3" initializing = "0"
+     */
+    public abstract String getVirtualGroupStatus(String did);
 }

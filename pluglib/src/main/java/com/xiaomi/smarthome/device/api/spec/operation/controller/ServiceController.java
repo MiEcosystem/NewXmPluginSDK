@@ -22,7 +22,7 @@ public class ServiceController extends SpecService {
         }
     }
 
-    public void updateValue(PropertyParam operation, boolean notice) {
+    public void updateValue(PropertyParam operation,boolean notice) {
         PropertyController controller = (PropertyController) getProperties().get(operation.getPiid());
         if (controller != null) {
             controller.updateValue(operation,notice);

@@ -14,7 +14,7 @@ public class PropertyDefinition {
     public PropertyDefinition() {
     }
 
-    public PropertyDefinition(String type, String description, DataFormat dataFormat, ConstraintValue constraintValue){
+    public PropertyDefinition(String type,String description,DataFormat dataFormat,ConstraintValue constraintValue){
         this.type=type;
         this.description=description;
         this.format=dataFormat;

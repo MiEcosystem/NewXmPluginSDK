@@ -169,7 +169,7 @@ public enum DataFormat {
         }
     }
 
-    public Object createObjectValue(String string) throws IllegalArgumentException {
+    public Object createObjectValue(String string) throws IllegalArgumentException  {
         Object v = null;
 
         switch (this) {

@@ -136,6 +136,8 @@ public class MainActivity extends XmPluginBaseActivity {
     public void onDestroy() {
         unregisterReceiver();
         super.onDestroy();
+
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     @Override

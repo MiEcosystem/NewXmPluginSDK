@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_bar_transparent_black" />
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/connect_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"/>
+
+    <Button
+        android:id="@+id/click_connect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击连接设备" />
+
+    <Button
+        android:id="@+id/mesh_firmware_upgrade_local"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="蓝牙Mesh设备固件升级(读取本地固件升级)"/>
+
+    <Button
+        android:id="@+id/mesh_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mesh Light控制"/>
+
+</LinearLayout>
