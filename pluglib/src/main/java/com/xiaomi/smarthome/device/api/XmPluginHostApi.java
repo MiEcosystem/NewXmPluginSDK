@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
@@ -2961,4 +2962,62 @@ public abstract class XmPluginHostApi {
      * @return success = "1" faild = "3" initializing = "0"
      */
     public abstract String getVirtualGroupStatus(String did);
+
+    /***
+     *  ApiLevel: 86
+     * @param did 设备id， 用来区分文件夹
+     * @param fileId 文件id，用来区分文件夹
+     * @param m3u8Url 从m3u8Url这个位置下载片文件
+     * @param callback onCloudDataSuccess中第一个参数为List<String>, 存储的是ts列表, 第二个参数是该ts所在的文件夹
+     */
+    public abstract void getCloudVideoFile(String did, String fileId, String m3u8Url, ICloudDataCallback callback);
+
+    /***
+     *  ApiLevel 86
+     * @param model 设备的model
+     * @param cmdLine 和ffmpeg命令行一致，如 ffmpeg -i /绝对路径/input.ts -c copy -f mp4 /绝对路径/output.mp4
+     * @return 返回ffmpeg的执行结果 0=成功 -1或其它值表示失败
+     *
+     * 注意！！！ 1.不要在ui线程操作, 2.cmdline完全没有任何限制，可以执行任何命令，执行结果取决于输入的命令及数据是否正确，每个参数中间的空格不可少
+     */
+    public abstract int videoConverter(String model, String cmdLine);
+
+    /**
+     * ApiLevel:88 开启和关闭微信推送mijia camera报警视频
+     *
+     * @param activity
+     * @param model    设备model
+     * @param did      设备did
+     * @param push     开关设定值
+     * @param bindcode 绑定微信账号启动界面传入的code
+     * @param callback
+     */
+    public abstract void setWxPush(Activity activity, String model, String did, boolean push, int bindcode, Callback<Boolean> callback);
+
+    /**
+     * ApiLevel:88 获取微信推送mijia camera报警开关状态
+     *
+     * @param model    设备model
+     * @param did      设备did
+     * @param callback
+     */
+    public abstract void getWxPushSwitchState(String model, String did, final Callback<Boolean> callback);
+
+    /**
+     * ApiLevel 87
+     * @param areaId 地区码 101010200，与（经度，纬度）必须2选1
+     * @param longitude 经度
+     * @param latitude  纬度
+     * @param cityId
+     */
+    public abstract void getAreaPropInfo(String model, String areaId, String longitude, String latitude, @Nullable String cityId, Callback<String> callback);
+
+    /***
+     * ApiLevel 88 根据url获取文件,请求过程会塞入serviceToken
+     * @param model 设备model
+     * @param requestUrl 获取文件的url
+     * @param localFilePath 获取文件的存储地址，文件下载成功后会存在这里
+     * @param callback 回调，成功返回的参数里包含上面填入的localFilePath, 出错会提示错误码，没有onCloudDataProgress回调
+     */
+    public abstract void getFile(String model, String requestUrl, String localFilePath, ICloudDataCallback callback);
 }

@@ -892,6 +892,21 @@ public interface IXmPluginHostActivity {
     public void openAddIRController(DeviceStat deviceStat, int type, String model);
 
     /**
+     * ApiLevel: 88
+     * 打开添加红外遥控器的页面
+     * 在 onActivityResult 接受添加成功或失败的回调requestCode=10000。
+     * resultCode=RESULT_OK 添加成功 data返回参数{infrared_did,infrared_parentid,infrared_name,infrared_model}
+     * resultCode=RESULT_CANCELED 取消添加
+     *
+     * @param deviceStat 当前设备信息
+     * @param type       0 按照已经收录的品牌信息匹配遥控器 1 自定义红外信号和按键名称
+     * @param models     要创建的红外遥控器类型,传一个直接跳转到选品牌 电视盒子、电视、空调、机顶盒、电扇、dvd、投影仪、热水器、空气净化器、灯、照相机、音响、自定义
+     *                   miir.tvbox.ir01、miir.tv.ir01、miir.aircondition.ir01、miir.stb.ir01、miir.fan.ir01、miir.dvd.ir01、miir.projector.ir01、miir.waterheater.ir01、miir.airpurifier.ir01、miir.light.ir01、miir.camera.ir01、miir.wifispeaker.ir01、miir.remote.ir01、
+     * @param extra      create_device:true 默认创建虚拟设备
+     */
+    public void openAddIRController(DeviceStat deviceStat, int type, String[] models, Bundle extra);
+
+    /**
      * ApiLevel: 77
      * 打开添加红外遥控器的页面,添加遥控器，不限制红外遥控器类型。
      * 在 onActivityResult 接受添加成功或失败的回调requestCode=10000。
@@ -1111,11 +1126,24 @@ public interface IXmPluginHostActivity {
                                     String timerTitle, boolean bothTimerMustBeSet, String onTimerTip, String offTimerTip, String timerListTip);
 
     /**
-     *
      * ApiLevel: 69 跳转到添加房间页面
-     *
      */
     public void startAddRoom();
+
+
+    /*
+     *   Apilevel:76
+     *
+     * @param deviceId        device id
+     * @param onMethod        当on timer时间到的时候执行的action，执行原始数据
+     * @param onParams        on action的参数
+     * @param offMethod       当off timer时间到的时候执行的action，执行原始数据
+     * @param offParams       off action参数
+     * @param isDevicePowerOn 设备当前是否开启
+     */
+    public abstract void startSetTimerCountDown(String deviceId,
+                                                String onMethod, String onParams, String offMethod, String offParams, boolean isDevicePowerOn
+    );
 
     /*
      * ApiLevel 66
@@ -1172,4 +1200,23 @@ public interface IXmPluginHostActivity {
      * @param requestCode   请求码
      */
     public abstract void openVirtualGroupInitActivity(String did, int requestCode);
+
+    /**
+     * ApiLevel:87
+     * 打开蓝牙网关设置页面
+     *
+     * @param did           device id
+     */
+    public abstract void openBtGatewayActivity(String did) ;
+
+    /**
+     * ApiLevel: 89
+     *
+     * 显示通用的一次性密码分享页面
+     *
+     * @param did 当前设备的did
+     * @param interval 密码的有效时间，单位为分钟，必须 >= 1 并且 <= 60，否则会返回错误。必须与固件中的有效时间保持一致。
+     * @param digits 密码的长度，必须 >= 6 并且 <= 8，否则会返回错误。
+     */
+    public abstract void openOneTimePasswordActivity(String did, int interval, int digits);
 }
