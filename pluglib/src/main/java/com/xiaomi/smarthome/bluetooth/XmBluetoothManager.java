@@ -702,4 +702,27 @@ public abstract class XmBluetoothManager {
      */
     public abstract void getBleMeshFirmwareVersion(String mac, Response.BleReadFirmwareVersionResponse response);
 
+    /**
+     * ApiLevel: 90
+     *
+     * 设备集成米家蓝牙sdk，在绑定完成后，app端和设备端都会生成一个相同的token，插件可以利用这个token对传输的蓝牙数据进行加密
+     * 通过write接口发送给设备后，设备端再调用米家蓝牙sdk提供的解密方法解密数据
+     *
+     * @param mac 当前蓝牙设备的mac
+     * @param data 要加密的原始数据
+     * @param response 异步返回加密后的数据
+     */
+    public abstract void miotBleEncrypt(String mac, byte[] data, final BleReadResponse response);
+
+    /**
+     * ApiLevel: 90
+     *
+     * 设备集成米家蓝牙sdk，在绑定完成后，app端和设备端都会生成一个相同的token，设备可以利用这个token对传输的蓝牙数据进行加密
+     * 插件收到设备发送的加密数据后，调用当前接口解密数据
+     *
+     * @param mac 当前蓝牙设备的mac
+     * @param data 要解密的数据
+     * @param response 异步返回解密后的数据
+     */
+    public abstract void miotBleDecrypt(String mac, byte[] data, final BleReadResponse response);
 }
