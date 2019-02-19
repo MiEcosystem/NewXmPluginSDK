@@ -3020,4 +3020,12 @@ public abstract class XmPluginHostApi {
      * @param callback 回调，成功返回的参数里包含上面填入的localFilePath, 出错会提示错误码，没有onCloudDataProgress回调
      */
     public abstract void getFile(String model, String requestUrl, String localFilePath, ICloudDataCallback callback);
+
+    /**
+     * ApiLevel:90
+     *
+     * 获取蓝牙设备固件升级信息，这个接口会上传设备的did，插件版本号，当前app的版本号，用于服务端做更细粒度的固件下发控制逻辑
+     */
+    public abstract void getBluetoothFirmwareUpdateInfoV2(String did, String model, int pluginVersion,
+                                                        final Callback<BtFirmwareUpdateInfoV2> callback);
 }
