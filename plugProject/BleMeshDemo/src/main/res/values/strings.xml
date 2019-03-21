@@ -3,6 +3,8 @@
 
     <string name="app_name">com.xiaomi.demo</string>
     <string name="network_error">网络异常，请检查手机网络连接后重试</string>
+    <string name="connecting">连接中……</string>
+    <string name="connected">已连接</string>
     <string name="connect_error">请保持手机蓝牙开启，并将手机尽量靠近设备后重试</string>
 
 </resources>

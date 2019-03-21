@@ -107,26 +107,13 @@ public class BleMeshLocalUpgradeActivity extends XmPluginBaseActivity {
             updateUI();
             return;
         }
-
-        XmBluetoothManager.getInstance().bleMeshConnect(mac, mDevice.getDid(), new Response.BleConnectResponse() {
+        MeshManager.INSTANCE.getBleMeshFirmwareVersion(this, mDevice.getMac(), mDevice.getDid(), new Response.BleReadFirmwareVersionResponse() {
             @Override
-            public void onResponse(int code, Bundle bundle) {
+            public void onResponse(int code, String version) {
                 if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                    XmBluetoothManager.getInstance().getBleMeshFirmwareVersion(mac, new Response.BleReadFirmwareVersionResponse() {
-                        @Override
-                        public void onResponse(int code, String version) {
-                            if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                                toast("设备固件版本号: " + version);
-                                mProgressView.setText("设备固件版本号: " + version);
-                            } else {
-                                toast("获取设备固件版本号失败");
-                                mProgressView.setText("获取设备固件版本号失败");
-                            }
-                        }
-                    });
+                    mProgressView.setText("设备固件版本号: " + version);
                 } else {
-                    toast("连接设备失败");
-                    mProgressView.setText("连接设备失败");
+                    mProgressView.setText("获取设备固件版本号失败");
                 }
             }
         });
@@ -181,42 +168,27 @@ public class BleMeshLocalUpgradeActivity extends XmPluginBaseActivity {
         }
 
         mProgressView.setText("正在连接设备...(如果一直连不上，30s后会超时失败)");
-        XmBluetoothManager.getInstance().bleMeshConnect(mac, mDevice.getDid(), new Response.BleConnectResponse() {
+        MeshManager.INSTANCE.startBleMeshUpgrade(this, mDevice.getMac(), mDevice.getDid(), filePath, new Response.BleUpgradeResponse() {
             @Override
-            public void onResponse(int code, Bundle data) {
+            public void onProgress(int progress) {
+                if (progress < 100) {
+                    updateProgress(progress);
+                }
+            }
+
+            @Override
+            public void onResponse(int code, String errorMsg) {
                 if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                    mProgressView.setText("设备连接成功");
-                    XmBluetoothManager.getInstance().startBleMeshUpgrade(mac, mDevice.getDid(), "", filePath, new Response.BleUpgradeResponse() {
-                        @Override
-                        public void onProgress(int progress) {
-                            if (progress < 100) {
-                                updateProgress(progress);
-                            }
-                        }
-
-                        @Override
-                        public void onResponse(int code, String errorMsg) {
-                            if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                                // 固件传输完成后，等待升级完成后再提示用户升级完成，避免用户提前断电
-                                mCheckTime = 1;
-                                mIsScanComplete = false;
-                                mHandler.postDelayed(mDelayScanRunnable, 10000);
-                            } else {
-                                toast("固件升级失败, errorCode = " + code + ", errorMsg = " + errorMsg);
-                                isUpgrading = false;
-                                updateUI();
-                            }
-
-                            XmBluetoothManager.getInstance().disconnect(mac);
-
-                        }
-                    });
+                    // 固件传输完成后，等待升级完成后再提示用户升级完成，避免用户提前断电
+                    mCheckTime = 1;
+                    mIsScanComplete = false;
+                    mHandler.postDelayed(mDelayScanRunnable, 10000);
                 } else {
-                    toast("连接设备失败");
-                    mProgressView.setText("连接设备失败");
+                    toast("固件升级失败, errorCode = " + code + ", errorMsg = " + errorMsg);
                     isUpgrading = false;
                     updateUI();
                 }
+
             }
         });
     }

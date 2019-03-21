@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiaomi.smarthome.bluetooth.Response;
-import com.xiaomi.smarthome.bluetooth.XmBluetoothDevice;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothManager;
 import com.xiaomi.smarthome.device.api.BaseDevice;
 import com.xiaomi.smarthome.device.api.BaseDevice.StateChangedListener;
@@ -75,14 +74,24 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
 
         registerBluetoothReceiver();
 
-        mBleMeshFirmwareUpgrader = new BleMeshFirmwareUpgrader(mDevice.getMac(), mDevice.getModel(), mDevice.getDid(), mNewFirmwareCallback, mHandler);
+        mBleMeshFirmwareUpgrader = new BleMeshFirmwareUpgrader(this, mDevice.getMac(), mDevice.getModel(), mDevice.getDid(), mNewFirmwareCallback, mHandler);
 
         if (XmBluetoothManager.getInstance().getConnectStatus(mDevice.getMac()) == BluetoothProfile.STATE_CONNECTED) {
             mConnectStatusView.setText("已连接");
             mBleMeshFirmwareUpgrader.getDeviceFirmwareVersion(null);
         } else {
             mConnectStatusView.setText("未连接");
-            connectDevice();
+            MeshManager.INSTANCE.connectDevice(MainActivity.this, mDevice.getMac(), mDevice.getDid(), new Response.BleConnectResponse() {
+
+                @Override
+                public void onResponse(int code, Bundle bundle) {
+                    if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
+                        mConnectStatusView.setText("已连接");
+                    } else {
+                        mConnectStatusView.setText("未连接");
+                    }
+                }
+            });
         }
 
         showLocationPermissionRequest();
@@ -150,7 +159,17 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
         findViewById(R.id.click_connect).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                connectDevice();
+                MeshManager.INSTANCE.connectDevice(MainActivity.this, mDevice.getMac(), mDevice.getDid(), new Response.BleConnectResponse() {
+
+                    @Override
+                    public void onResponse(int code, Bundle bundle) {
+                        if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
+                            mConnectStatusView.setText("已连接");
+                        } else {
+                            mConnectStatusView.setText("未连接");
+                        }
+                    }
+                });
             }
         });
 
@@ -185,19 +204,6 @@ public class MainActivity extends XmPluginBaseActivity implements StateChangedLi
 
     public void refreshUI() {
         mTitleView.setText(mDevice.getName());
-    }
-
-    private void connectDevice() {
-        XmBluetoothManager.getInstance().bleMeshConnect(mDevice.getMac(), mDevice.getDid(), new Response.BleConnectResponse() {
-            @Override
-            public void onResponse(int code, Bundle bundle) {
-                if (code == XmBluetoothManager.Code.REQUEST_SUCCESS) {
-                    Toast.makeText(activity(), "连接成功", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(activity(), "连接失败", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override
