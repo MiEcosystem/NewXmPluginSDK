@@ -59,7 +59,11 @@ public abstract class XmBluetoothManager {
      */
     public abstract void notify(String mac, UUID serviceId, UUID characterId, final BleNotifyResponse response);
 
-
+    /**
+     * ApiLevel: 91
+     * indication
+     */
+    public abstract void indication(String mac, UUID uUid, UUID uUid1, BleNotifyResponse bleNotifyResponse);
     /**
      * ApiLevel: 15
      * 取消notify
@@ -68,6 +72,15 @@ public abstract class XmBluetoothManager {
      * @param character
      */
     public abstract void unnotify(String mac, UUID service, UUID character);
+
+    /**
+     * ApiLevel: 91
+     * 取消 indication
+     * @param mac
+     * @param service
+     * @param character
+     */
+    public abstract void unindication(String mac, UUID service, UUID character);
 
     /**
      * ApiLevel: 15
@@ -655,6 +668,17 @@ public abstract class XmBluetoothManager {
      * @param response 返回操作成功还是失败，如果操作成功则返回一次性密码
      */
     public abstract void getOneTimePassword(String mac, int interval, int digits, Response.BleResponseV2<int[]> response);
+
+    /**
+     * ApiLevel: 91
+     * 给锁设备提供的获取一次性延时密码
+     * @param mac
+     * @param interval 密码的有效时间，单位为分钟，必须 >= 1 并且 <= 60，否则会返回错误。必须与固件中的有效时间保持一致。
+     * @param digits 密码的长度，必须 >= 6 并且 <= 8，否则会返回错误。
+     * @param delayUtcTime 生效的utc时间
+     * @param response 返回操作成功还是失败，如果操作成功则返回一次性密码
+     */
+    public abstract void getOneTimePasswordWithDelayTime(String mac, int interval, int digits, long delayUtcTime, Response.BleResponseV2<int[]> response);
 
     /**
      * ApiLevel:66
