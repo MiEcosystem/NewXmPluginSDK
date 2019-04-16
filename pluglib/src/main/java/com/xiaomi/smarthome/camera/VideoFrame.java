@@ -15,6 +15,7 @@ public class VideoFrame {
     public int width;
     public int height;
     public long timeStamp;//毫秒
+    public boolean isWartTime;//是否时间水印
     public boolean isIFrame;
     public boolean isReal = false;//是否实时播放
     public int videoType;
@@ -118,6 +119,24 @@ public class VideoFrame {
         }
         this.distrot = distrot;
         this.isReal = isReal;
+    }
+
+    public VideoFrame(byte[] data,
+            long frameNumber, int frameSize,
+            int width, int height,
+            long timestamp, boolean isIFrame,
+            boolean isWartTime, boolean isReal,
+            int videoType) {
+        this.data = data;
+        this.num = frameNumber;
+        this.size = frameSize;
+        this.width = width;
+        this.height = height;
+        this.timeStamp = timestamp;
+        this.isIFrame = isIFrame;
+        this.isReal = isReal;
+        this.isWartTime = isWartTime;
+        this.videoType = videoType;
     }
 
 }

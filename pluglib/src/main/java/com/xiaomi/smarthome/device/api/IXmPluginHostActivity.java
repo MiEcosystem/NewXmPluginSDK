@@ -1215,6 +1215,14 @@ public interface IXmPluginHostActivity {
     public void onDeviceReady(String model, String did);
 
     /*
+     * ApiLevel 90
+     * 跳转多键开关设置页面
+     * @param did 设备id
+     * @param mac 设备的 mac 地址
+     */
+    public void openPowerSwitchNameActivity(String did, String mac);
+
+    /*
      * ApiLevel 69
      *
      * @param did 设备id

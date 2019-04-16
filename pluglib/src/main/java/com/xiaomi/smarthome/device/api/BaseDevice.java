@@ -130,6 +130,7 @@ public class BaseDevice {
      * 
      * @param callback
      */
+    @Deprecated
     public void checkDeviceUpdateInfo(final Callback<DeviceUpdateInfo> callback) {
         XmPluginHostApi.instance().getUpdateInfo(getModel(), getDid(), mDeviceStat.pid, callback);
     }

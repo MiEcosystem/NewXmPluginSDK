@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -27,6 +28,9 @@ import com.xiaomi.plugin.core.XmPluginPackage;
 import com.xiaomi.smarthome.bluetooth.Response;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
 import com.xiaomi.smarthome.camera.HLSDownloader;
+import com.xiaomi.smarthome.camera.XmAAcCodec;
+import com.xiaomi.smarthome.camera.XmP2PInfo;
+import com.xiaomi.smarthome.camera.XmCameraP2p;
 import com.xiaomi.smarthome.camera.XmMp4Record;
 import com.xiaomi.smarthome.camera.XmVideoViewGl;
 import com.xiaomi.smarthome.camera.exopackage.MJExoPlayer;
@@ -1129,6 +1133,7 @@ public abstract class XmPluginHostApi {
      *
      * @param callback
      */
+    @Deprecated
     public void getUpdateInfo(String model, String did, int pid,
                               final Callback<DeviceUpdateInfo> callback) {
         JSONObject dataObj = new JSONObject();
@@ -1753,6 +1758,7 @@ public abstract class XmPluginHostApi {
      *
      * @return "cn":中国大陆 "tw":台湾 "sg":新加坡 "in":印度
      */
+    @Deprecated
     public abstract String getGlobalSettingServer();
 
     /**
@@ -1761,7 +1767,28 @@ public abstract class XmPluginHostApi {
      * @param changeServer true: 获取到的不一定是用户当前选择的服务器（比如香港共用新加坡服务器），false：获取到的是用户当前选择的服务器
      * @return "cn":中国大陆 "tw":台湾 "sg":新加坡 "in":印度
      */
+    @Deprecated
     public abstract String getGlobalSettingServer(boolean changeServer);
+
+
+    /**
+     * ApiLevel: 90 获取当前服务器
+     * <p>
+     * 获取当前服务器
+     *
+     * @return 返回json表示 { "machineCode": "cn", "countryCode": "CN"}
+     */
+    public abstract String getCurrentServer();
+
+    /**
+     * ApiLevel: 90 获取当前服务器
+     * <p>
+     * 获取当前语言下当前服务器的的名称
+     *
+     * @param callback
+     */
+    public abstract void getServerName(Callback<String> callback);
+
 
     /**
      * ApiLevel: 22 给设备发送broadcast，会发送给IXmPluginMessageReceiver.handleMessage
@@ -1812,6 +1839,20 @@ public abstract class XmPluginHostApi {
                     }
                 });
     }
+
+    /**
+     * ApiLevel: 91 设置设备属性和事件历史记录
+     *
+     * @param model
+     * @param did       设备did
+     * @param type      属性为prop,事件为event
+     * @param key       属性名，不需要prop或者event前缀
+     * @param time      起始时间单位为秒
+     * @param value     值
+     * @param callback  回调
+     */
+    public abstract void setUserDeviceData(String model, String did, String type, String key, long time,
+                                           JSONArray value, Callback<JSONArray> callback) ;
 
     /**
      * ApiLevel: 22 创建或修改设置app/插件自由存储空间,最大4k
@@ -2761,6 +2802,36 @@ public abstract class XmPluginHostApi {
     public abstract XmVideoViewGl createVideoView(Context context, FrameLayout original, boolean useHard, int type);
 
     /**
+     * ApiLevel: 88
+     * 创建摄像机的p2p连接
+     * 需要初始化的XmP2PInfo对象，如未初始化，请调用 updateP2pPwd(...)进行初始化会返回一个XmP2PInfo
+     *
+     * @return
+     */
+    public abstract XmCameraP2p createCameraP2p(XmP2PInfo info, int type);
+
+    /**
+     * ApiLevel: 88
+     * 获取XmP2PInfo 对象，里面包含了一些链接需要的参数和信息
+     *
+     * @param deviceStat 设备信息
+     * @param type       P2P 连接类型 P2P_TUTK
+     * @see XmP2PInfo  根据P2P类型来判断更新密码的接口
+     */
+    public abstract void updateP2pPwd(DeviceStat deviceStat, int type, Callback<XmP2PInfo> callback);
+
+    /**
+     * ApiLevel: 88
+     * 创建一个AAC实例用来编解码AAC音频文件
+     *
+     * @param enCode    是否是编码，如果是编码需要传递后面三个参数，如果是解码不需要传递
+     * @param framerate 采样率 8000，16000
+     * @param channel   音频声道 单声道还是双声道
+     * @param bitrate   比特率
+     */
+    public abstract XmAAcCodec createAAcCodec(boolean enCode, int framerate, int channel, int bitrate);
+
+    /**
      * ApiLevel: 64
      * 创建一个用来播放本地Mp4的视图
      *
@@ -2959,6 +3030,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 85
      * 获取灯组初始化状态
+     *
      * @return success = "1" faild = "3" initializing = "0"
      */
     public abstract String getVirtualGroupStatus(String did);
@@ -3005,7 +3077,8 @@ public abstract class XmPluginHostApi {
 
     /**
      * ApiLevel 87
-     * @param areaId 地区码 101010200，与（经度，纬度）必须2选1
+     *
+     * @param areaId    地区码 101010200，与（经度，纬度）必须2选1
      * @param longitude 经度
      * @param latitude  纬度
      * @param cityId
@@ -3023,9 +3096,9 @@ public abstract class XmPluginHostApi {
 
     /**
      * ApiLevel:90
-     *
+     * <p>
      * 获取蓝牙设备固件升级信息，这个接口会上传设备的did，插件版本号，当前app的版本号，用于服务端做更细粒度的固件下发控制逻辑
      */
     public abstract void getBluetoothFirmwareUpdateInfoV2(String did, String model, int pluginVersion,
-                                                        final Callback<BtFirmwareUpdateInfoV2> callback);
+                                                          final Callback<BtFirmwareUpdateInfoV2> callback);
 }
