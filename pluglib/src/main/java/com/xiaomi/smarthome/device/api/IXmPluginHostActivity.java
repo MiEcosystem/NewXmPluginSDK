@@ -1126,6 +1126,43 @@ public interface IXmPluginHostActivity {
                                     String timerTitle, boolean bothTimerMustBeSet, String onTimerTip, String offTimerTip, String timerListTip);
 
     /**
+     * 支持 identify分类显示及displayName显示
+     * ApiLevel: 92
+     * @param deviceId
+     * @param onMethod
+     * @param onParams
+     * @param offMethod
+     * @param offParams
+     * @param identify
+     * @param displayName
+     * @param timerTitle
+     */
+    public void startSetTimerListV3(String deviceId,
+                                    String onMethod, String onParams, String offMethod, String offParams, String identify,
+                                    String displayName, String timerTitle);
+
+    /**
+     * 支持 identify分类显示及displayName显示
+     * ApiLevel: 92
+     * @param deviceId
+     * @param onMethod
+     * @param onParams
+     * @param offMethod
+     * @param offParams
+     * @param identify
+     * @param displayName
+     * @param timerTitle
+     * @param bothTimerMustBeSet
+     * @param onTimerTip
+     * @param offTimerTip
+     * @param timerListTip
+     */
+    public void startSetTimerListV3(String deviceId, String onMethod, String onParams,
+                                    String offMethod, String offParams, String identify, String displayName,
+                                    String timerTitle, boolean bothTimerMustBeSet, String onTimerTip, String offTimerTip,
+                                    String timerListTip);
+
+    /**
      * ApiLevel: 69 跳转到添加房间页面
      */
     public void startAddRoom();
