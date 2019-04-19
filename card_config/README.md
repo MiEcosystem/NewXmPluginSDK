@@ -2,6 +2,7 @@
 
 [Android卡片调试版本下载地址]
 http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_apk_7e6a43aa46a639fbbc2002adb8c3dd84.apk
+
 [IOS卡片调试版本下载地址]
 https://pan.mioffice.cn:443/link/2A6DCEA3431164E89F3223C8C62A01F1
 
