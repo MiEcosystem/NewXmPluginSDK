@@ -1,5 +1,5 @@
 ---
-name: 📝 android 插件 api 的 bug
+name: 📝 android 插件蓝牙相关的 bug
 about: BluetoothManager 及其他蓝牙 api
 ---
 before issue：（不用回答）
