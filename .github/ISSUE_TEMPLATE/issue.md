@@ -1,7 +1,6 @@
 ---
 name: 📝 android 插件 api 的 bug
-about: XmPluginHostApi 或 IXmPluginHostActivity
-other: reactnative插件的问题请提交到 https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose
+about: BluetoothManager 及其他蓝牙 api
 ---
 before issue：（不用回答）
 ### APK 请使用最新版apk验证是否已经修复了此问题？
