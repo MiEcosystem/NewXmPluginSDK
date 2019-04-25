@@ -1,6 +1,6 @@
 ---
 name: 📝 android 插件 api 的 bug
-java: XmPluginHostApi 或 IXmPluginHostActivity
+about: XmPluginHostApi 或 IXmPluginHostActivity
 other: reactnative插件的问题请提交到 https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose
 ---
 before issue：（不用回答）
