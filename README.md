@@ -44,6 +44,8 @@ NewXmPluginSDK是为已接入米家APP的智能设备提供的米家扩展程序
 * plug.gradle
 	* 封装了common\_ui、libs\_ex、pluglib工程的引用，米家扩展程序只需要在自己的build.gradle脚本中添加`apply from: "${project.rootDir.absolutePath}/plug.gradle"`就可以自动依赖了
 	* 米家扩展程序的调试安装也是在该脚本实现
+* card_config
+	* 卡片配置相关说明和常见问题
 
 # 米家调试APK下载地址
 
