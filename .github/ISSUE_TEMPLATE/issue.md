@@ -1,6 +1,7 @@
 ---
-name: 📝 android 插件和快捷卡片的问题
-about: reactnative插件的问题请提交到 https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose
+name: 📝 android 插件 api 的 bug
+java: XmPluginHostApi 或 IXmPluginHostActivity
+other: reactnative插件的问题请提交到 https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose
 ---
 before issue：（不用回答）
 ### APK 请使用最新版apk验证是否已经修复了此问题？
@@ -10,7 +11,9 @@ before issue：（不用回答）
 ---
 
 #### 环境
-插件 model 是什么，请分享设备或绑定设备到 346378191，方便复现问题。
+插件 model 是什么
+使用的哪个方法
+请分享设备或绑定设备到 346378191，方便复现问题。
 
 #### 现象
 
