@@ -20,7 +20,9 @@ https://pan.mioffice.cn:443/link/2A6DCEA3431164E89F3223C8C62A01F1
 
 答：
 1.查看app logcat 中是否调用接口 “/mipush/eventsubbatch” 成功订阅设备属性。
+
 2.确认设备端有无上报对应属性。如果没有上报，请您的固件开发者解决。
+
 3.检查app log，观察设备状态变化时有没有收到订阅消息。关键TAG：PushManager，如果有收到对应设备的上报消息，请找米家app开发进行分析解决。
 
 
@@ -54,4 +56,6 @@ https://pan.mioffice.cn:443/link/2A6DCEA3431164E89F3223C8C62A01F1
 答：spec 卡片展示原理，是根据配置的设备类型，比如:设备philips.light.bceiling2配置的 spec 为 urn:miot-spec-v2:device:light:0000A001:philips-bceiling2:1，从这个描述中看到device:light 设备类型为 light ，现有[spec 卡片支持类型汇总](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_cn%22%2C%22name%22%3A%22card_control_miotspec_config%22%2C%22version%22%3A%221%22%7D) 搜索 "type":"light",找到匹配的类型为：
 {"type":"light","card_items":[{"cardType":1,"prop_key":"p:light:on"},{"cardType":5,"prop_key":"p:light:brightness","small_image":"seekbar_thumb_light","operation":[{"disable_status":[{"key":"p:light:on","value":false}]}]},{"cardType":11,"prop_key":"p:light:color-temperature","operation":[{"disable_status":[{"key":"p:light:on","value":false}]}]}],"card_instance":[{"instance_type":0,"min_support_version":2,"layout_type":0,"card_layout":["p:light:on"]},{"instance_type":1,"min_support_version":3,"layout_type":3,"card_layout":["p:light:on","p:light:brightness","p:light:color-temperature"]},{"instance_type":1,"min_support_version":2,"layout_type":1,"card_layout":["p:light:on","p:light:brightness"]},{"instance_type":5,"min_support_version":4,"layout_type":1,"card_layout":["p:light:on"]}]}，根据card_instance查看现在已经支持的样式。
 
-
+### 其他问题。
+ 答：请到 issue 查看是否已经有其他开发者遇到了同样的问题，如果没有[请创建 issue 记录问题](https://github.com/MiEcosystem/NewXmPluginSDK/issues/new?template=card.md).我们会根据提 issue 的先后顺序及时回复您的问题。
+ 
