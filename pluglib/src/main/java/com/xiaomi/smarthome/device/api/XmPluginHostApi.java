@@ -1789,6 +1789,77 @@ public abstract class XmPluginHostApi {
      */
     public abstract void getServerName(Callback<String> callback);
 
+    /**
+     *  ApiLevel: 93
+     * 当前服务器是否为除了中国大陆外的服务器
+     * @param context
+     * @return
+     */
+    public abstract boolean isInternationalServer(Context context);
+
+    /**
+     * ApiLevel: 93
+     * 当前服务器是否为中国大陆
+     * @param context
+     * @return
+     */
+    public abstract boolean isChinaMainLand(Context context) ;
+
+    /**
+     * ApiLevel: 93
+     * 当前服务器是否为欧洲
+     * @param context
+     * @return
+     */
+    public abstract boolean isEurope(Context context);
+
+    /**
+     * ApiLevel: 93
+     * 当前服务器是否为韩国
+     * @param context
+     * @return
+     */
+    public abstract boolean isKorea(Context context);
+
+    /**
+     * ApiLevel: 93
+     * 当前服务器是否为台湾
+     * @param context
+     * @return
+     */
+    public abstract boolean isTW(Context context);
+
+    /**
+     * ApiLevel: 93
+     * 当前服务器是否为印度
+     * @param context
+     * @return
+     */
+    public abstract boolean isIndia(Context context);
+
+    /**
+     * ApiLevel: 93
+     * 当前服务器是否为美国
+     * @param context
+     * @return
+     */
+    public abstract boolean isAmerica(Context context);
+
+    /**
+     * ApiLevel: 93
+     * 当前服务器是否为俄罗斯
+     * @param context
+     * @return
+     */
+    public abstract boolean isRussia(Context context);
+
+    /**
+     * ApiLevel: 93
+     * 当前服务器是否为新加坡
+     * @param context
+     * @return
+     */
+    public abstract boolean isSingapore(Context context);
 
     /**
      * ApiLevel: 22 给设备发送broadcast，会发送给IXmPluginMessageReceiver.handleMessage
