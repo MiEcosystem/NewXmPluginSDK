@@ -49,3 +49,9 @@ https://pan.mioffice.cn:443/link/2A6DCEA3431164E89F3223C8C62A01F1
 答：在 logcat 中搜索 “D/MIIO” 的 log(进程 com.xiaomi.smarthome:core) 为所有接口请求，card_config配置卡片 会请求接口 “/v2/device/batchgetdatas”，spec 配置卡片 会请求接口 “/miotspec/prop/get” 搜索您设备 did 看对应的 props 值是否符合预期。
 
 
+### 问题6，配置了 spec，但是卡片不显示。
+
+答：spec 卡片展示原理，是根据配置的设备类型，比如:设备philips.light.bceiling2配置的 spec 为 urn:miot-spec-v2:device:light:0000A001:philips-bceiling2:1，从这个描述中看到device:light 设备类型为 light ，现有[spec 卡片支持类型汇总](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_cn%22%2C%22name%22%3A%22card_control_miotspec_config%22%2C%22version%22%3A%221%22%7D) 搜索 "type":"light",找到匹配的类型为：
+{"type":"light","card_items":[{"cardType":1,"prop_key":"p:light:on"},{"cardType":5,"prop_key":"p:light:brightness","small_image":"seekbar_thumb_light","operation":[{"disable_status":[{"key":"p:light:on","value":false}]}]},{"cardType":11,"prop_key":"p:light:color-temperature","operation":[{"disable_status":[{"key":"p:light:on","value":false}]}]}],"card_instance":[{"instance_type":0,"min_support_version":2,"layout_type":0,"card_layout":["p:light:on"]},{"instance_type":1,"min_support_version":3,"layout_type":3,"card_layout":["p:light:on","p:light:brightness","p:light:color-temperature"]},{"instance_type":1,"min_support_version":2,"layout_type":1,"card_layout":["p:light:on","p:light:brightness"]},{"instance_type":5,"min_support_version":4,"layout_type":1,"card_layout":["p:light:on"]}]}，根据card_instance查看现在已经支持的样式。
+
+
