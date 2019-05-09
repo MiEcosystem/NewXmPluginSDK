@@ -26,7 +26,9 @@ D/MIIO: {"code":0,"message":"ok","result":{"subId":"E6dQbagxTcOGU_Id4Tj2w","expi
 ```
 
 2.当 A 手机控制卡片、插件或者直接控制设备时，查看 B 手机是否收到推送，请搜索  E/PushManager: 结果如下，其中 attr 是收到的订阅属性 key 和值 value，did 是您设备的 did，subid和第一步服务器返回的subId对应，如果没收到如下推送，是固件的问题，如果收到如下推送请分享设备到894158105并提 issue。
+```
  E/PushManager: process - {"attrs":[{"key":"prop.power","time":1557384858,"value":["on"]}],"did":"13061632","model":"lumi.gateway.v3","subid":"E6dQbagxTcOGU_Id4Tj2w"}
+```
 
 ### 问题2，从插件里控制后，回到卡片或者首页宫格状态不同步变化。
 
