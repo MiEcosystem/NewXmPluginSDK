@@ -20,10 +20,10 @@ https://pan.mioffice.cn:443/link/2A6DCEA3431164E89F3223C8C62A01F1
 
 答：
 1.米家刚启动的时候，logcat 请搜索 D/MIIO: 结果中找 /mipush/eventsubbatch 订阅接口，请求参数中 didList 是 did 和 card_config声明的 prop的对对应关系，应该包含对应 model 配置中声明的 prop。接口返回 code:0 为订阅成功，code 为其他值请退出米家重试。
-
+```
 D/MIIO: host:api.io.mi.com prefix:nullpath:/mipush/eventsubbatch method:POST params:{"didList":{"yunyi.ba0313c9953448e43fc8":["event.dev_online","event.dev_offline"],"13061632":["prop.power","event.dev_online","event.dev_offline"]},"pushId":"iyxLngoZjY7zYvBKh4WvBflwyFX4Bd1HLg1q0erHOk\/E1WxegrZ4JHGXheuEfzmg","expire":180}
-
 D/MIIO: {"code":0,"message":"ok","result":{"subId":"E6dQbagxTcOGU_Id4Tj2w","expire":180}}。
+```
 
 2.当 A 手机控制卡片、插件或者直接控制设备时，查看 B 手机是否收到推送，请搜索  E/PushManager: 结果如下，其中 attr 是收到的订阅属性 key 和值 value，did 是您设备的 did，subid和第一步服务器返回的subId对应，如果没收到如下推送，是固件的问题，如果收到如下推送请分享设备到894158105并提 issue。
  E/PushManager: process - {"attrs":[{"key":"prop.power","time":1557384858,"value":["on"]}],"did":"13061632","model":"lumi.gateway.v3","subid":"E6dQbagxTcOGU_Id4Tj2w"}
@@ -31,9 +31,10 @@ D/MIIO: {"code":0,"message":"ok","result":{"subId":"E6dQbagxTcOGU_Id4Tj2w","expi
 ### 问题2，从插件里控制后，回到卡片或者首页宫格状态不同步变化。
 
 答：logcat 请搜索 D/MIIO: 结果中找 /v2/device/batchgetdatas 获取设备属性接口，其中 did 是您设备的 did，prop 为 card_config 声明的所有属性，如果参数中缺少prop则配置有问题，返回结果中的prop 的值，和配置中声明的 card_items:operation:[prop_value]或者prop_key:prop_extra:[value]对应，影响展示的 button 状态和展示的文案。
-
+```
 D/MIIO: host:api.io.mi.com prefix:nullpath:/v2/device/batchgetdatas method:POST params:[data:[{"did":"lumi.158d0002401332","props":["prop.leak","event.leak","event.no_leak"]},{"from_flag":"ControlCardInfoManager:updatePropValue"}]]
 D/MIIO: {"code":0,"message":"ok","result":{"lumi.158d0002401332":{"event.leak":null,"event.no_leak":null,"prop.leak":null}}}
+```
 
 ### 问题3，卡片配置不生效
 
