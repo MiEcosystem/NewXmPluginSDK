@@ -1772,7 +1772,7 @@ public abstract class XmPluginHostApi {
 
 
     /**
-     * ApiLevel: 90 获取当前服务器
+     * ApiLevel: 91 获取当前服务器
      * <p>
      * 获取当前服务器
      *
