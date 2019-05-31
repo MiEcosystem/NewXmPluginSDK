@@ -5,6 +5,7 @@ http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_apk_5ac6e5d37cc13085a6
 
 [IOS卡片调试版本下载地址]
 https://fir.im/s8dp
+密码：9999
 
 [所有设备 card_config 旧配置卡片release](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_CN%22%2C%22name%22%3A%22card_control_config%22%2C%22version%22%3A%2211%22%7D) 
 
