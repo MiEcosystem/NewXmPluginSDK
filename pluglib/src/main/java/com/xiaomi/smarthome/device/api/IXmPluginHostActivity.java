@@ -918,6 +918,13 @@ public interface IXmPluginHostActivity {
     public void openAddIRController(DeviceStat deviceStat);
 
     /**
+     * ApiLevel: 94
+     * 网关添加子设备
+     * @param did
+     */
+    public void openGatewaySubDeviceList(String did);
+
+    /**
      * ApiLevel: 29 需要验证pincode，如果设置pincode，则每次打开页面自动跳到验证pincode页面
      * 设置里边需要打开安全设置选项，参考openMoreMenu2接口
      */
@@ -1161,6 +1168,7 @@ public interface IXmPluginHostActivity {
                                     String offMethod, String offParams, String identify, String displayName,
                                     String timerTitle, boolean bothTimerMustBeSet, String onTimerTip, String offTimerTip,
                                     String timerListTip);
+
 
     /**
      * ApiLevel: 69 跳转到添加房间页面

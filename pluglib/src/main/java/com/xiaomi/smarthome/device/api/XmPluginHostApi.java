@@ -1720,6 +1720,105 @@ public abstract class XmPluginHostApi {
     }
 
     /**
+     * 针对RN插件新增
+     *  ApiLevel: 94
+     * rn api level: 10020
+     */
+    public void reportDeviceGPSInfo(final String did, final Callback<JSONObject> callback) {
+        if (TextUtils.isEmpty(did)) {
+            if (callback != null) {
+                callback.onFailure(-1, "");
+            }
+            return;
+        }
+        final DeviceStat deviceStat = getDeviceByDid(did);
+        if (deviceStat == null) {
+            if (callback != null) {
+                callback.onFailure(-1, "");
+            }
+            return;
+        }
+        requestLocation(new Callback<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location == null) {
+                    if (callback != null) {
+                        callback.onFailure(-1, "");
+                    }
+                    return;
+                }
+                Address lastAddress = null;
+                Geocoder geoCoder = new Geocoder(context());
+                try {
+                    List<Address> addressList = geoCoder.getFromLocation(
+                            location.getLatitude(),
+                            location.getLongitude(), 1);
+                    if (addressList != null && addressList.size() > 0) {
+                        lastAddress = addressList.get(0);
+                    }
+                } catch (IOException e) {
+                }
+                if (lastAddress == null) {
+                    if (callback != null) {
+                        callback.onFailure(-1, "");
+                    }
+                    return;
+                }
+
+                String adminArea = "";
+                String countryCode = "";
+                String locality = "";
+                String thoroughfare = "";
+                String subLocality = "";
+
+                adminArea = lastAddress.getAdminArea();
+                countryCode = lastAddress.getCountryCode();
+                locality = lastAddress.getLocality();
+                thoroughfare = lastAddress.getThoroughfare();
+                subLocality = lastAddress.getSubLocality();
+
+                // 封装数据返回给层
+                final JSONObject dataObj = new JSONObject();
+                try {
+                    dataObj.put("longitude", ""+location.getLongitude());
+                    dataObj.put("latitude", ""+location.getLatitude());
+                    dataObj.put("adminArea", ""+adminArea);
+                    dataObj.put("countryCode", ""+countryCode);
+                    dataObj.put("locality", ""+locality);
+                    dataObj.put("thoroughfare", ""+thoroughfare);
+                    dataObj.put("subLocality", ""+subLocality);
+
+                } catch (JSONException e) {
+                    callback.onFailure(-1, e.toString());
+                    return;
+                }
+
+                reportGPSInfo(deviceStat.model, did,
+                        location.getLongitude(), location.getLatitude(),
+                        adminArea, countryCode, locality, thoroughfare,
+                        subLocality, new Callback<Void>() {
+                            @Override
+                            public void onSuccess(Void result) {
+                                callback.onSuccess(dataObj);
+                            }
+
+                            @Override
+                            public void onFailure(int error, String errorInfo) {
+                                callback.onFailure(error, errorInfo);
+                            }
+                        });
+            }
+
+            @Override
+            public void onFailure(int error, String errorInfo) {
+                if (callback != null) {
+                    callback.onFailure(error, errorInfo);
+                }
+            }
+        });
+    }
+
+    /**
      * 在ApiLevel:25后升级了微信sdk，有用到这个接口的必须更新插件sdk适配，发布新版插件并且修改minPluginSdkApiVersion为25 ApiLevel:20
      * 创建米家app注册的微信接口
      */
@@ -1781,7 +1880,7 @@ public abstract class XmPluginHostApi {
     public abstract String getCurrentServer();
 
     /**
-     * ApiLevel: 90 获取当前服务器
+     * ApiLevel: 91 获取当前服务器
      * <p>
      * 获取当前语言下当前服务器的的名称
      *
