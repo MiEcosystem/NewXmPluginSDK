@@ -1,7 +1,8 @@
 # CARD FAQ
 
 [Android卡片调试版本下载地址]
-http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_apk_5ac6e5d37cc13085a6b4b30f66a18113.apk
+https://pan.mioffice.cn:443/link/244D38403ABE942A396BD39EFAB22C52
+访问密码：j347
 
 [IOS卡片调试版本下载地址]
 https://fir.im/s8dp
@@ -14,6 +15,9 @@ https://fir.im/s8dp
 [所有设备 spec 新配置卡片release](http://miot-spec.org/miot-spec-v2/instances?status=released) 
 
 [所有设备 spec 新配置卡片debug](http://miot-spec.org/miot-spec-v2/instances?status=debug)
+
+[卡片图片资源](https://pan.mioffice.cn:443/link/9A2EDA2665A7A07947A4AD66A650AA49)
+访问密码：3McN
 
 ##### 注意：配置了 spec 或配置了 card_config 两种方式任何一种就会显示卡片。推荐配置 spec 卡片 [文档](https://iot.mi.com/new/guide.html?file=05-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/05-%E7%B1%B3%E5%AE%B6%E5%8D%A1%E7%89%87%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/00-%E7%B1%B3%E5%AE%B6%E5%8D%A1%E7%89%87%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)。 
 
