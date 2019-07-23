@@ -1,0 +1,30 @@
+
+<resources>
+
+    <string name="app_name">com.xiaomi.common</string>
+
+    <string name="pull_down_refresh">Yenilemek için aşağı çekin</string>
+    <string name="release_to_refresh">Yenilemek için bırakın</string>
+    <string name="refreshing">Yükleniyor&#8230;</string>
+    <string name="refreshing_no_point">Yükleniyor</string>
+    <string name="refreshing_retry">Yüklenemedi, yeniden dene?</string>
+    <string name="ok_button">Tamam</string>
+    <string name="know_button">Tamam</string>
+    <string name="ignore">Yoksay</string>
+    <string name="cancel">İptal</string>
+    <string name="setting_title">Genel ayarlar</string>
+    <!-- time/date picker -->
+    <string name="picker_hour">sa.</string>
+    <string name="picker_minite">dk.</string>
+    <string name="picker_year">Yıl</string>
+    <string name="picker_month">Ay</string>
+    <string name="picker_day">Gün</string>
+
+    <string name="progress_dialog_already">Tamamlandı</string>
+
+    <string name="action_menu">Operasyon</string>
+    <string name="action_back">Geri</string>
+    <string name="select_all">Tümünü seç</string>
+    <string name="unselect_all">Seçimi kaldır</string>
+
+</resources>

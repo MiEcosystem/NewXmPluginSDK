@@ -1,0 +1,30 @@
+
+<resources>
+
+    <string name="app_name">com.xiaomi.common</string>
+
+    <string name="pull_down_refresh">Deslizar para baixo para atualizar</string>
+    <string name="release_to_refresh">Soltar para atualizar</string>
+    <string name="refreshing">Carregando\u2026</string>
+    <string name="refreshing_no_point">Carregando</string>
+    <string name="refreshing_retry">Não foi possível carregar, tente de novo</string>
+    <string name="ok_button">OK</string>
+    <string name="know_button">OK</string>
+    <string name="ignore">Ignorar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="setting_title">Configurações gerais</string>
+    <!-- time/date picker -->
+    <string name="picker_hour">hora</string>
+    <string name="picker_minite">minuto</string>
+    <string name="picker_year">ano</string>
+    <string name="picker_month">mês</string>
+    <string name="picker_day">dia</string>
+
+    <string name="progress_dialog_already">Concluído</string>
+
+    <string name="action_menu">Operação</string>
+    <string name="action_back">Voltar</string>
+    <string name="select_all">Selecionar tudo</string>
+    <string name="unselect_all">Desmarcar tudo</string>
+
+</resources>

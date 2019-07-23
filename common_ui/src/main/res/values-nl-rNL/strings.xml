@@ -1,0 +1,30 @@
+
+<resources>
+
+    <string name="app_name">com.xiaomi.common</string>
+
+    <string name="pull_down_refresh">Naar beneden slepen om te vernieuwen</string>
+    <string name="release_to_refresh">Loslaten om te vernieuwen</string>
+    <string name="refreshing">Laden…</string>
+    <string name="refreshing_no_point">Laden</string>
+    <string name="refreshing_retry">Kon niet laden, probeer het a.u.b. opnieuw.</string>
+    <string name="ok_button">OK</string>
+    <string name="know_button">OK</string>
+    <string name="ignore">Negeren</string>
+    <string name="cancel">Annuleren</string>
+    <string name="setting_title">Algemene instellingen</string>
+    <!-- time/date picker -->
+    <string name="picker_hour">uur</string>
+    <string name="picker_minite">minuut</string>
+    <string name="picker_year">jaar</string>
+    <string name="picker_month">maand</string>
+    <string name="picker_day">dag</string>
+
+    <string name="progress_dialog_already">Voltooid</string>
+
+    <string name="action_menu">Operaties</string>
+    <string name="action_back">Achterkant</string>
+    <string name="select_all">Alles selecteren</string>
+    <string name="unselect_all">Alles deselecteren</string>
+
+</resources>
