@@ -2,15 +2,13 @@
 
 Android卡片调试版本下载地址
 
-https://pan.mioffice.cn:443/link/244D38403ABE942A396BD39EFAB22C52
+https://pan.mioffice.cn:443/link/56618DA00354FD1DF63F2F4668F0C4E4
 
-访问密码：j347
+访问密码：wT3P
 
 IOS卡片调试版本下载地址
 
-https://fir.im/s8dp
-
-密码：9999
+https://pan.mioffice.cn/#/link/51BB9E73F1BDE103A723FEAB2A6E5E7C
 
 [所有设备 card_config 旧配置卡片release](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_CN%22%2C%22name%22%3A%22card_control_config%22%2C%22version%22%3A%2211%22%7D) 
 
