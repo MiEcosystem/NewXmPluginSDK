@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -28,10 +27,11 @@ import com.xiaomi.plugin.core.XmPluginPackage;
 import com.xiaomi.smarthome.bluetooth.Response;
 import com.xiaomi.smarthome.bluetooth.XmBluetoothRecord;
 import com.xiaomi.smarthome.camera.HLSDownloader;
+import com.xiaomi.smarthome.camera.IXmStreamClient;
 import com.xiaomi.smarthome.camera.XmAAcCodec;
-import com.xiaomi.smarthome.camera.XmP2PInfo;
 import com.xiaomi.smarthome.camera.XmCameraP2p;
 import com.xiaomi.smarthome.camera.XmMp4Record;
+import com.xiaomi.smarthome.camera.XmP2PInfo;
 import com.xiaomi.smarthome.camera.XmVideoViewGl;
 import com.xiaomi.smarthome.camera.exopackage.MJExoPlayer;
 import com.xiaomi.smarthome.device.api.printer.PrinterControl;
@@ -250,6 +250,16 @@ public abstract class XmPluginHostApi {
      * @param callback
      */
     public abstract void renameRoom(final String roomId, final String name, final Callback<Void> callback);
+
+    /**
+     * 对当前家庭增加房间
+     * rn sdk新增
+     * RnApiLevel: 10020
+     *
+     * @param roomStat
+     * @param callback
+     */
+    public abstract void addRoom(RoomStat roomStat, Callback<RoomStat> callback);
 
     /**
      * ApiLevel:1 获取子设备
@@ -1444,6 +1454,11 @@ public abstract class XmPluginHostApi {
         });
     }
 
+    public abstract void editSceneV2(String model, int st_id, String us_id, String did, String identify,
+                            String name,
+                            JSONObject setting,
+                            JSONArray authed, final Callback<JSONObject> callback);
+
     /**
      * ApiLevel:8 删除场景接口
      */
@@ -1495,6 +1510,47 @@ public abstract class XmPluginHostApi {
         }
 
         callSmartHomeApi(model, "/scene/delete", dataObj, callback, new Parser<JSONObject>() {
+            @Override
+            public JSONObject parse(String result) throws JSONException {
+                return new JSONObject(result);
+            }
+        });
+
+    }
+
+    public void delScenes(String model, List<String> us_ids,
+                          final Callback<JSONObject> callback) {
+        if (us_ids == null || us_ids.size() == 0) {
+            if (callback != null) {
+                callback.onFailure(-1, "us_ids is null");
+            }
+            return;
+        }
+        JSONObject cmdObj = new JSONObject();
+        try {
+            JSONArray array = new JSONArray();
+            for (String i : us_ids) {
+                if (TextUtils.isEmpty(i) || TextUtils.equals("0", i)) {
+                    continue;
+                }
+                array.put(i);
+            }
+            if (array == null || array.length() == 0) {
+                if (callback != null) {
+                    callback.onFailure(-1, "has illegal id");
+                }
+                return;
+            }
+            cmdObj.put("us_id", array);
+        } catch (JSONException e) {
+            if (callback != null) {
+                callback.onFailure(-1, "json exception");
+            }
+            return;
+        }
+
+
+        callSmartHomeApi(model, "/scene/delete", cmdObj, callback, new Parser<JSONObject>() {
             @Override
             public JSONObject parse(String result) throws JSONException {
                 return new JSONObject(result);
@@ -1780,13 +1836,13 @@ public abstract class XmPluginHostApi {
                 // 封装数据返回给层
                 final JSONObject dataObj = new JSONObject();
                 try {
-                    dataObj.put("longitude", ""+location.getLongitude());
-                    dataObj.put("latitude", ""+location.getLatitude());
-                    dataObj.put("adminArea", ""+adminArea);
-                    dataObj.put("countryCode", ""+countryCode);
-                    dataObj.put("locality", ""+locality);
-                    dataObj.put("thoroughfare", ""+thoroughfare);
-                    dataObj.put("subLocality", ""+subLocality);
+                    dataObj.put("longitude", "" + location.getLongitude());
+                    dataObj.put("latitude", "" + location.getLatitude());
+                    dataObj.put("adminArea", "" + adminArea);
+                    dataObj.put("countryCode", "" + countryCode);
+                    dataObj.put("locality", "" + locality);
+                    dataObj.put("thoroughfare", "" + thoroughfare);
+                    dataObj.put("subLocality", "" + subLocality);
 
                 } catch (JSONException e) {
                     callback.onFailure(-1, e.toString());
@@ -1889,8 +1945,9 @@ public abstract class XmPluginHostApi {
     public abstract void getServerName(Callback<String> callback);
 
     /**
-     *  ApiLevel: 93
+     * ApiLevel: 93
      * 当前服务器是否为除了中国大陆外的服务器
+     *
      * @param context
      * @return
      */
@@ -1899,14 +1956,16 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 93
      * 当前服务器是否为中国大陆
+     *
      * @param context
      * @return
      */
-    public abstract boolean isChinaMainLand(Context context) ;
+    public abstract boolean isChinaMainLand(Context context);
 
     /**
      * ApiLevel: 93
      * 当前服务器是否为欧洲
+     *
      * @param context
      * @return
      */
@@ -1915,6 +1974,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 93
      * 当前服务器是否为韩国
+     *
      * @param context
      * @return
      */
@@ -1923,6 +1983,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 93
      * 当前服务器是否为台湾
+     *
      * @param context
      * @return
      */
@@ -1931,6 +1992,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 93
      * 当前服务器是否为印度
+     *
      * @param context
      * @return
      */
@@ -1939,6 +2001,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 93
      * 当前服务器是否为美国
+     *
      * @param context
      * @return
      */
@@ -1947,6 +2010,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 93
      * 当前服务器是否为俄罗斯
+     *
      * @param context
      * @return
      */
@@ -1955,6 +2019,7 @@ public abstract class XmPluginHostApi {
     /**
      * ApiLevel: 93
      * 当前服务器是否为新加坡
+     *
      * @param context
      * @return
      */
@@ -2014,15 +2079,15 @@ public abstract class XmPluginHostApi {
      * ApiLevel: 91 设置设备属性和事件历史记录
      *
      * @param model
-     * @param did       设备did
-     * @param type      属性为prop,事件为event
-     * @param key       属性名，不需要prop或者event前缀
-     * @param time      起始时间单位为秒
-     * @param value     值
-     * @param callback  回调
+     * @param did      设备did
+     * @param type     属性为prop,事件为event
+     * @param key      属性名，不需要prop或者event前缀
+     * @param time     起始时间单位为秒
+     * @param value    值
+     * @param callback 回调
      */
     public abstract void setUserDeviceData(String model, String did, String type, String key, long time,
-                                           JSONArray value, Callback<JSONArray> callback) ;
+                                           Object value, Callback<JSONArray> callback);
 
     /**
      * ApiLevel: 22 创建或修改设置app/插件自由存储空间,最大4k
@@ -2485,6 +2550,13 @@ public abstract class XmPluginHostApi {
      * @return
      */
     public abstract DeviceTag getDeviceTagByDid(String did);
+
+    /**
+     * RN-sdk api 10023通过灯的model来获取灯组的model
+     * @param model
+     * @return
+     */
+    public abstract String getLightDeviceGroupModel(String model);
 
     /**
      * ApiLevel:34 添加标签,若did不为空，则同时为此设备设置该标签
@@ -3217,7 +3289,7 @@ public abstract class XmPluginHostApi {
     /***
      *  ApiLevel 86
      * @param model 设备的model
-     * @param cmdLine 和ffmpeg命令行一致，如 ffmpeg -i /绝对路径/input.ts -c copy -f mp4 /绝对路径/output.mp4
+     * @param cmdLine 和ffmpeg命令行一致，如 "ffmpeg -i /绝对路径/input.ts -c copy -f mp4 /绝对路径/output.mp4"
      * @return 返回ffmpeg的执行结果 0=成功 -1或其它值表示失败
      *
      * 注意！！！ 1.不要在ui线程操作, 2.cmdline完全没有任何限制，可以执行任何命令，执行结果取决于输入的命令及数据是否正确，每个参数中间的空格不可少
@@ -3271,4 +3343,104 @@ public abstract class XmPluginHostApi {
      */
     public abstract void getBluetoothFirmwareUpdateInfoV2(String did, String model, int pluginVersion,
                                                           final Callback<BtFirmwareUpdateInfoV2> callback);
+
+    /**
+     * ApiLevel:95
+     * 设备定向推荐：展示推荐入口使用。
+     *
+     * @param model
+     * @param deviceId
+     * @param callback
+     */
+    public abstract void getRecommendScenes(String model, String deviceId, final Callback<JSONObject> callback);
+
+    /**
+     * 获取蓝牙网关子设备，包括mesh和普通蓝牙设备
+     * RnSdkApiLevel: 10020
+     *
+     * @param dids
+     * @param callback
+     */
+    public abstract void getBleGatewaySubDevices(List<String> dids, Callback<List<DeviceStat>> callback);
+
+    /**
+     * ApiLevel ?? 获取miss框架的实例
+     * @param model
+     * @param did
+     * @param deviceStat
+     */
+    public abstract IXmStreamClient createStreamClient(String model, String did, DeviceStat deviceStat);
+
+    /**
+     * RN apiLevel 10021
+     * 初始化手环SDK
+     */
+    public abstract void initBandManager(String model, String did, final Callback<Boolean> callback);
+
+    /**
+     * RN apiLevel 10021
+     * 释放手环SDK
+     */
+    public abstract void deInitBandManager();
+
+    /**
+     * RN apiLevel 10021
+     * 连接手环设备
+     */
+    public abstract void connectBand(String mac, final Callback<Integer> callback);
+
+    /**
+     * RN apiLevel 10021
+     * 获取所有卡片
+     */
+    public abstract void getAllCards(final Callback<String> callback);
+
+    /**
+     * RN apiLevel 10021
+     * 手环开卡
+     */
+    public abstract void issueDoorCard(final Callback<Boolean> callback);
+
+    /**
+     * RN apiLevel 10021
+     * 手环删卡
+     */
+    public abstract void deleteCard(String aid, final Callback<Boolean> callback);
+
+    /**
+     * RN apiLevel 10021
+     * 设置默认卡
+     */
+    public abstract void setDefaultCard(String aid, final Callback<Boolean> callback);
+
+    /**
+     * RN apiLevel 10021
+     * 更新卡信息
+     */
+    public abstract void updateCard(String hashmap, final Callback<Boolean> callback);
+
+    /**
+     * RN apiLevel 10021
+     * 获取默认卡片及激活信息
+     */
+    public abstract void getDefaultCardAndActivateInfo(final Callback<String> callback);
+
+    /*
+     * ApiLevel: unknown 上传图片到服务器, MultipartFile Form-data 方式
+     * @param model 设备model
+     * @param did   设备did
+     * @param hostPrefix    url前缀，可为空
+     * @param relativeUrl   url相对路径
+     * @param params    参数
+     * @param filePaths 文件路径，可多个文件
+     * @param callback  回调函数
+     */
+    public abstract void uploadImageFile(String model, String did, String hostPrefix, String relativeUrl, JSONObject params, List<String> filePaths, ICloudDataCallback<JSONObject> callback);
+
+    /**
+     * RN apiLevel 10024
+     * 获取 设置-->开发者选项  preview appconfig 是否选中的状态
+     * @return  1:表示选中, preview ； 0：表示未选中, release
+     */
+    public abstract int getUsePreviewConfig();
 }

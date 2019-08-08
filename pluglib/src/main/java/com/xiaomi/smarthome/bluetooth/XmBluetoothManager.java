@@ -151,6 +151,7 @@ public abstract class XmBluetoothManager {
         public static final int BLUETOOTH_DISABLED = -5;
         public static final int CONNECTION_NOT_READY = -6;
         public static final int REQUEST_TIMEDOUT = -7;
+        public static final int REQUEST_NOT_CONNECTED = -8;
         public static final int TOKEN_NOT_MATCHED = -10;
         public static final int REQUEST_OVERFLOW = -11;
         public static final int CONFIG_UNREADY = -12;
@@ -217,6 +218,24 @@ public abstract class XmBluetoothManager {
         public static final int REQUEST_MESH_PROVISION_INFO_FAILED = -44;
         // 蓝牙Mesh绑定过程中，给服务端发送Mesh配置结果时失败
         public static final int REQUEST_MESH_SEND_SERVER_RESULT_FAILED = -45;
+        // 蓝牙安全协议绑定过程中，获取bindkey失败
+        public static final int REQUEST_SC_REGISTER_GET_BIND_KEY_FAILED = -46;
+        // 标准认证中，获取设备信息失败
+        public static final int REQUEST_STANDARD_AUTH_GET_DEVICE_INFO_FAILED = -47;
+        // 标准认证：绑定失败，需要App Confirm
+        public static final int REQUEST_STANDARD_AUTH_GET_APP_CONFIRM_FAILED = -48;
+        // 标准认证：OOB验证失败
+        public static final int REQUEST_STANDARD_AUTH_OOB_FAILED = -49;
+        // 标准认证：注册时需要二维码OOB
+        public static final int REQUEST_STANDARD_AUTH_GET_QR_OOB_FAILED = -50;
+        // 标准认证：注册认证失败
+        public static final int REQUEST_STANDARD_AUTH_REGISTER_FAILED = -51;
+        // 标准认证：登录认证失败
+        public static final int REQUEST_STANDARD_AUTH_LOGIN_FAILED = -52;
+        // 标准认证：登录认证失败，重复登录
+        public static final int REQUEST_STANDARD_AUTH_ERR_RELOGIN = -53;
+        // 标准认证：登录的时候token为空
+        public static final int REQUEST_STANDARD_AUTH_TOKEN_IS_EMPTY = -54;
 
         public static String toString(int code) {
             switch (code) {
@@ -236,6 +255,8 @@ public abstract class XmBluetoothManager {
                     return "CONNECTION_NOT_READY";
                 case REQUEST_TIMEDOUT:
                     return "REQUEST_TIMEDOUT";
+                case REQUEST_NOT_CONNECTED:
+                    return "REQUEST_NOT_CONNECTED";
                 case TOKEN_NOT_MATCHED:
                     return "TOKEN_NOT_MATCHED";
                 case REQUEST_OVERFLOW:
@@ -308,6 +329,24 @@ public abstract class XmBluetoothManager {
                     return "REQUEST_MESH_PROVISION_INFO_FAILED";
                 case REQUEST_MESH_SEND_SERVER_RESULT_FAILED:
                     return "REQUEST_MESH_SEND_SERVER_RESULT_FAILED";
+                case REQUEST_SC_REGISTER_GET_BIND_KEY_FAILED:
+                    return "REQUEST_SC_REGISTER_GET_BIND_KEY_FAILED";
+                case REQUEST_STANDARD_AUTH_GET_DEVICE_INFO_FAILED:
+                    return "REQUEST_STANDARD_AUTH_GET_DEVICE_INFO_FAILED";
+                case REQUEST_STANDARD_AUTH_GET_APP_CONFIRM_FAILED:
+                    return "REQUEST_STANDARD_AUTH_GET_APP_CONFIRM_FAILED";
+                case REQUEST_STANDARD_AUTH_OOB_FAILED:
+                    return "REQUEST_STANDARD_AUTH_OOB_FAILED";
+                case REQUEST_STANDARD_AUTH_GET_QR_OOB_FAILED:
+                    return "REQUEST_STANDARD_AUTH_GET_QR_OOB_FAILED";
+                case REQUEST_STANDARD_AUTH_REGISTER_FAILED:
+                    return "REQUEST_STANDARD_AUTH_REGISTER_FAILED";
+                case REQUEST_STANDARD_AUTH_LOGIN_FAILED:
+                    return "REQUEST_STANDARD_AUTH_LOGIN_FAILED";
+                case REQUEST_STANDARD_AUTH_ERR_RELOGIN:
+                    return "REQUEST_STANDARD_AUTH_ERR_RELOGIN";
+                case REQUEST_STANDARD_AUTH_TOKEN_IS_EMPTY:
+                    return "REQUEST_STANDARD_AUTH_TOKEN_IS_EMPTY";
                 default:
                     return "unknown code: " + code;
             }
@@ -543,11 +582,13 @@ public abstract class XmBluetoothManager {
      * ApiLevel: 43
      * 设置指定的设备断开后是否自动重连
      */
+    @Deprecated
     public abstract boolean setAutoReconnect(String mac, boolean enable);
     /**
      * ApiLevel: 43
      * 设备自动重连开关是否打开
      */
+    @Deprecated
     public abstract boolean isAutoReconnect(String mac);
 
     /**
@@ -749,4 +790,75 @@ public abstract class XmBluetoothManager {
      * @param response 异步返回解密后的数据
      */
     public abstract void miotBleDecrypt(String mac, byte[] data, final BleReadResponse response);
+
+    /**
+     * ApiLevel: 96
+     * 蓝牙标准认证登录连接
+     *
+     * @param mac
+     * @param response
+     */
+    public abstract void bleStandardAuthConnect(String mac, BleConnectResponse response);
+
+    /**
+     * ApiLevel: 96
+     * 读蓝牙标准认证登录后的设备固件版本
+     *
+     * @param mac
+     * @param response
+     */
+    public abstract void getBleStandardAuthFirmwareVersion(String mac, Response.BleReadFirmwareVersionResponse response);
+
+    /**
+     * ApiLevel: 96
+     * 使用标准认证登录后，可以调用如下接口对数据进行加密，设备收到加密数据后会调用对应的解密方法
+     *
+     * 注意事项：
+     * 1）只有bleStandardAuthConnect登录返回成功后才能调用
+     * 2）每次登录连接后，加解密参数都不一样，加密后的数据只能本次连接的设备才能解密
+     */
+    public abstract void bleStandardAuthEncrypt(String mac, byte[] data, final BleReadResponse response);
+
+    /**
+     * ApiLevel: 96
+     * 使用标准认证登录后，可以调用如下接口对设备返回的加密数据进行解密
+     *
+     * 注意事项：
+     * 1）只有bleStandardAuthConnect登录返回成功后才能调用
+     * 2）每次登录连接后，加解密参数都不一样，只能解密本次连接设备返回的加密数据
+     */
+    public abstract void bleStandardAuthDecrypt(String mac, byte[] data, final BleReadResponse response);
+
+    /**
+     * ApiLevel: 96
+     *
+     * 判断设备是否存在指定的特征值
+     * 注意：必须得在连接设备成功后才能调用
+     *
+     * @param mac
+     * @param serviceId
+     * @param characterId
+     * @param response code: 0 存在，-1: 不存在，-8: 未连接设备
+     */
+    public abstract void isBleCharacterExist(String mac, UUID serviceId, UUID characterId, Response.BleResponse<Void> response);
+
+    /**
+     * ApiLevel: 97
+     * 对蓝牙数据进行加密，与miotBleEncrypt接口加密的结果一样，只是该接口是同步返回数据，效率更高
+     *
+     * @param mac 当前蓝牙设备的mac
+     * @param data 要加密的原始数据
+     * @return 加密后的数据，如果加密失败返回null
+     */
+    public abstract byte[] miotBleEncryptSync(String mac, byte[] data);
+
+    /**
+     * ApiLevel: 97
+     * 对蓝牙数据进行解密，与miotBleDecrypt接口解密的结果一样，只是该接口是同步返回数据，效率更高
+     *
+     * @param mac 当前蓝牙设备的mac
+     * @param data 要解密的原始数据
+     * @return 解密后的数据，如果解密失败返回null
+     */
+    public abstract byte[] miotBleDecryptSync(String mac, byte[] data);
 }

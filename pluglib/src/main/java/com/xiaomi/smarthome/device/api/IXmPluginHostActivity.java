@@ -4,11 +4,7 @@ package com.xiaomi.smarthome.device.api;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.IBinder;
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.os.*;
 import android.support.v4.app.FragmentActivity;
 import android.text.Spanned;
 import android.view.View;
@@ -1272,4 +1268,49 @@ public interface IXmPluginHostActivity {
      * @param digits 密码的长度，必须 >= 6 并且 <= 8，否则会返回错误。
      */
     public abstract void openOneTimePasswordActivity(String did, int interval, int digits);
+
+    /**
+     * ApiLevel:91
+     * 打开设备网络信息页面
+     *
+     * @param did           device id
+     */
+    public abstract void openNetworkInfoActivity(String did) ;
+
+    /**
+     * ApiLevel: 94
+     * 打开人脸管理页面
+     * @param did 设备id
+     */
+    public abstract void openFaceManagerActivity(String did);
+
+    /**
+     * ApiLevel: 95
+     * 打开人脸管理页面
+     * @param did 设备id
+     */
+    public abstract void openFaceManagerActivity(String did, String face_tips);
+
+    /**
+     * ApiLevel: 94
+     * 标记人脸
+     * 1.获取已标注的人脸，用于弹窗中的宫格显示
+     * 2.根据用户选择的名称，获取figureId
+     * 3.如果figureId获取成功，则说明人物已存在，将faceId绑定到任务
+     * 4.如果figureId获取失败，则说明人物不存在，调用创建人物后再绑定faceId
+     * @param did 设备id
+     * @param faceId 待标记的人脸id
+     * @param callback
+     */
+    public abstract void openMarkFaceDialog(String did, String faceId, FaceManagerCallback callback);
+
+    /**
+     *
+     * @param did 设备id
+     * @param figureId 人物id
+     * @param figureName 人物名称
+     * @param faceId  人脸id
+     * @param callback
+     */
+    public abstract void openReplaceFaceDialog(String did, String figureId, String figureName, String faceId, FaceManagerCallback callback);
 }
