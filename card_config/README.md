@@ -75,7 +75,7 @@ D/MIIO: {"code":0,"message":"ok","result":{"lumi.158d0002401332":{"event.leak":n
 
 ### 问题8，配置了 spec，但是卡片不显示。
 
-答：1.如果设备未上线，需要使用 pv 环境才能更新到 spec instance。请参考视频 [如何使用 pv 配置]（https://github.com/MiEcosystem/NewXmPluginSDK/blob/master/card_config/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20pv%20%E9%85%8D%E7%BD%AE.mp4）。
+答：1.如果设备未上线，需要使用 pv 环境才能更新到 spec instance。请参考视频 [如何使用 pv 配置](https://github.com/MiEcosystem/NewXmPluginSDK/blob/master/card_config/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20pv%20%E9%85%8D%E7%BD%AE.mp4)。
 
 2.spec 卡片展示原理，是根据配置的设备类型，比如:设备philips.light.bceiling2配置的 spec 为 urn:miot-spec-v2:device:light:0000A001:philips-bceiling2:1，从这个描述中看到device:light 设备类型为 light ，现有[spec 卡片支持类型汇总](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_cn%22%2C%22name%22%3A%22card_control_miotspec_config%22%2C%22version%22%3A%221%22%7D) 搜索 "type":"light",找到匹配的类型为：
  ```
