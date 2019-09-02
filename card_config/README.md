@@ -75,9 +75,89 @@ D/MIIO: {"code":0,"message":"ok","result":{"lumi.158d0002401332":{"event.leak":n
 
 ### 问题8，配置了 spec，但是卡片不显示。
 
-答：spec 卡片展示原理，是根据配置的设备类型，比如:设备philips.light.bceiling2配置的 spec 为 urn:miot-spec-v2:device:light:0000A001:philips-bceiling2:1，从这个描述中看到device:light 设备类型为 light ，现有[spec 卡片支持类型汇总](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_cn%22%2C%22name%22%3A%22card_control_miotspec_config%22%2C%22version%22%3A%221%22%7D) 搜索 "type":"light",找到匹配的类型为：
-{"type":"light","card_items":[{"cardType":1,"prop_key":"p:light:on"},{"cardType":5,"prop_key":"p:light:brightness","small_image":"seekbar_thumb_light","operation":[{"disable_status":[{"key":"p:light:on","value":false}]}]},{"cardType":11,"prop_key":"p:light:color-temperature","operation":[{"disable_status":[{"key":"p:light:on","value":false}]}]}],"card_instance":[{"instance_type":0,"min_support_version":2,"layout_type":0,"card_layout":["p:light:on"]},{"instance_type":1,"min_support_version":3,"layout_type":3,"card_layout":["p:light:on","p:light:brightness","p:light:color-temperature"]},{"instance_type":1,"min_support_version":2,"layout_type":1,"card_layout":["p:light:on","p:light:brightness"]},{"instance_type":5,"min_support_version":4,"layout_type":1,"card_layout":["p:light:on"]}]}，根据card_instance查看现在已经支持的样式。
+答：1.如果设备未上线，需要使用 pv 环境才能更新到 spec instance。请参考视频 [如何使用 pv 配置]（https://github.com/MiEcosystem/NewXmPluginSDK/blob/master/card_config/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20pv%20%E9%85%8D%E7%BD%AE.mp4）。
+
+2.spec 卡片展示原理，是根据配置的设备类型，比如:设备philips.light.bceiling2配置的 spec 为 urn:miot-spec-v2:device:light:0000A001:philips-bceiling2:1，从这个描述中看到device:light 设备类型为 light ，现有[spec 卡片支持类型汇总](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_cn%22%2C%22name%22%3A%22card_control_miotspec_config%22%2C%22version%22%3A%221%22%7D) 搜索 "type":"light",找到匹配的类型为：
+ ```
+ {
+    "type":"light",
+    "card_items":[
+        {
+            "cardType":1,
+            "prop_key":"p:light:on"
+        },
+        {
+            "cardType":5,
+            "prop_key":"p:light:brightness",
+            "small_image":"seekbar_thumb_light",
+            "operation":[
+                {
+                    "disable_status":[
+                        {
+                            "key":"p:light:on",
+                            "value":false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "cardType":11,
+            "prop_key":"p:light:color-temperature",
+            "operation":[
+                {
+                    "disable_status":[
+                        {
+                            "key":"p:light:on",
+                            "value":false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "card_instance":[
+        {
+            "instance_type":0,
+            "min_support_version":2,
+            "layout_type":0,
+            "card_layout":[
+                "p:light:on"
+            ]
+        },
+        {
+            "instance_type":1,
+            "min_support_version":3,
+            "layout_type":3,
+            "card_layout":[
+                "p:light:on",
+                "p:light:brightness",
+                "p:light:color-temperature"
+            ]
+        },
+        {
+            "instance_type":1,
+            "min_support_version":2,
+            "layout_type":1,
+            "card_layout":[
+                "p:light:on",
+                "p:light:brightness"
+            ]
+        },
+        {
+            "instance_type":5,
+            "min_support_version":4,
+            "layout_type":1,
+            "card_layout":[
+                "p:light:on"
+            ]
+        }
+    ]
+}
+ ```
+ 其中 card_instance 为支持的样式和需要的属性，p: 开头为 property，a: 开头为 action 两个冒号之间为 service 名称，冒号后面的为prop 名称。
+
 
 ### 其他问题。
- 答：请到 issue 查看是否已经有其他开发者遇到了同样的问题，如果没有[请创建 issue 记录问题](https://github.com/MiEcosystem/NewXmPluginSDK/issues/new?template=card.md).我们会根据提 issue 的先后顺序及时回复您的问题。
+答：logcat 请过滤 mijia-card 其中 Info 级别为调试信息，Error 级别为报错的信息。请您根据 log 的描述试着解决一下，如果仍然无法解决，请到 issue 查看是否已经有其他开发者遇到了同样的问题，如果没有[请附上您的 log 创建 issue 记录问题](https://github.com/MiEcosystem/NewXmPluginSDK/issues/new?template=card.md).我们会根据提 issue 的先后顺序及时回复您的问题。
  
