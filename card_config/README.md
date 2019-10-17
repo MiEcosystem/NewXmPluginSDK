@@ -2,9 +2,7 @@
 
 Android卡片调试版本下载地址
 
-https://pan.mioffice.cn:443/link/56618DA00354FD1DF63F2F4668F0C4E4
-
-访问密码：wT3P
+http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_apk_be5d80edd091ced11d132a483e8d8f09.apk
 
 IOS卡片调试版本下载地址
 
