@@ -1,6 +1,6 @@
 下载地址：
 
-[https://pan.mioffice.cn:443/link/E196712B73B276B2F924AB8F8278FFDC ](https://pan.mioffice.cn:443/link/E196712B73B276B2F924AB8F8278FFDC)
+[http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_apk_be5d80edd091ced11d132a483e8d8f09.apk ](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_apk_be5d80edd091ced11d132a483e8d8f09.apk)
 
 
 
