@@ -71,7 +71,7 @@ D/MIIO: {"code":0,"message":"ok","result":{"lumi.158d0002401332":{"event.leak":n
 答：在 logcat 中搜索 “D/MIIO” 的 log(进程 com.xiaomi.smarthome:core) 为所有接口请求，card_config配置卡片 会请求接口 “/v2/device/batchgetdatas”，spec 配置卡片 会请求接口 “/miotspec/prop/get” 搜索您设备 did 看对应的 props 值是否符合预期。
 
 
-### 问题8，配置了 spec，但是卡片不显示。
+### 问题8，产品支持转义的 spec 或者使用 spec 实现固件，但是卡片不显示。
 
 答：1.如果设备未上线，需要使用 pv 环境才能更新到 spec instance。请参考视频 [如何使用 pv 配置](https://github.com/MiEcosystem/NewXmPluginSDK/blob/master/card_config/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20pv%20%E9%85%8D%E7%BD%AE.mp4)。
 
@@ -154,6 +154,20 @@ D/MIIO: {"code":0,"message":"ok","result":{"lumi.158d0002401332":{"event.leak":n
 }
  ```
  其中 card_instance 为支持的样式和需要的属性，p: 开头为 property，a: 开头为 action 两个冒号之间为 service 名称，冒号后面的为prop 名称。
+
+
+### 问题9，展示的 spec 卡片文案或图片缺失、错误。
+
+答：spec 文案先匹配 [开放平台配置-高阶配置-文案多语言配置](https://iot.mi.com/fe-op/productCenter/config/advance/i18n?model=您真实设备的英文索引值&productId=您真实设备的产品编号值) (连接的中文替换为您对应的值)  如果没有配置到会从 [默认配置列表](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_CN%22%2C%22name%22%3A%22card_language%22%2C%22version%22%3A%221%22%7D) json 的 content字段中 names 的所有数据中匹配对应的文案 匹配规则如下，如果不能展示请您修改spec instance 的 description或添加 文案多语言配置。
+spec 图片配置从 [默认配置列表](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_CN%22%2C%22name%22%3A%22card_language%22%2C%22version%22%3A%221%22%7D) json 的 content 字段中 icon_download_url 任意选一个语言下载压缩包，匹配规则如下：
+
+匹配规则 按优先级排序为，区分大小写：
+```
+ category_serviceName_propertyDescription_ValueDescription 
+ category_propertyDescription_ValueDescription
+ propertyDescription_ValueDescription
+ ValueDescription
+```
 
 
 ### 其他问题。
