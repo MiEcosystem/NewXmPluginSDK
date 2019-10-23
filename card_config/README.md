@@ -171,6 +171,8 @@ spec 图片配置从 [默认配置列表](https://api.io.mi.com/app/service/geta
  propertyDescription_ValueDescription
  ValueDescription
 ```
+####### 当您修改完 “Miot-SPEC 协议的配置” 请重新安装米家 app 生效
+
 
 
 ### 其他问题。
