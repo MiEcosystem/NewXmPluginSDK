@@ -158,7 +158,7 @@ D/MIIO: {"code":0,"message":"ok","result":{"lumi.158d0002401332":{"event.leak":n
 
 ### 问题9，展示的 spec 卡片文案或图片缺失、错误。
 
-答：spec 文案先匹配 [开放平台配置-高阶配置-文案多语言配置](https://iot.mi.com/fe-op/productCenter/config/advance/i18n?model=您真实设备的英文索引值&productId=您真实设备的产品编号值) (连接的中文替换为您对应的值)  如果没有配置到会从 [默认配置列表](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_CN%22%2C%22name%22%3A%22card_language%22%2C%22version%22%3A%221%22%7D) json 的 content字段中 names 的所有数据中匹配对应的文案 匹配规则如下，如果不能展示请您修改spec instance 的 description或添加 文案多语言配置。
+答：spec 文案先匹配 [开放平台配置-高阶配置-文案多语言配置](https://iot.mi.com/fe-op/productCenter/config/advance/i18n?model=您真实设备的英文索引值&productId=您真实设备的产品编号值) (连接的中文替换为您对应的值)  如果没有配置到，会从 [默认配置列表](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_CN%22%2C%22name%22%3A%22card_language%22%2C%22version%22%3A%221%22%7D) json 的 content字段中 names 的所有数据中匹配对应的文案 匹配规则如下，如果不能展示 请您修改spec instance (Miot-SPEC 协议的配置) 的 description或添加 文案多语言配置。
 spec 图片配置从 [默认配置列表](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_CN%22%2C%22name%22%3A%22card_language%22%2C%22version%22%3A%221%22%7D) json 的 content 字段中 icon_download_url 任意选一个语言下载压缩包，匹配规则如下：
 
 匹配规则 按优先级排序为，区分大小写：
