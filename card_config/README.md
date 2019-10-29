@@ -68,7 +68,7 @@ D/MIIO: {"code":0,"message":"ok","result":{"lumi.158d0002401332":{"event.leak":n
 
 ### 问题8，spec卡片：产品支持转义的 spec 或者使用 spec 实现固件，但是卡片不显示。
 
-答：1.如果设备未上线，需要使用 pv 环境才能更新到 spec instance。请参考视频 [如何使用 pv 配置](https://github.com/MiEcosystem/NewXmPluginSDK/blob/master/card_config/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20pv%20%E9%85%8D%E7%BD%AE.mp4)。
+答：1.如果设备未上线，需要使用 pv 环境才能更新到 spec instance。请参考视频 [如何使用 pv 配置](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_549e425be9a15e342f2a1eee3958488b.mp4)。
 
 2.spec 卡片展示原理，是根据配置的设备类型，比如:设备 philips.light.bceiling2 [查询所有的 spec urn 列表](http://miot-spec.org/miot-spec-v2/instances?status=all) 结果为 urn:miot-spec-v2:device:light:0000A001:philips-bceiling2:1，从这个描述中看到 device:light 设备类型为 light，app 可以拉取到的spec协议定义 [http://miot-spec.org/miot-spec-v2/instance?type=](http://miot-spec.org/miot-spec-v2/instance?type=)urn:miot-spec-v2:device:switch:0000A003:090615-xswitch01:1  ,目前 [spec 卡片支持类型](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_cn%22%2C%22name%22%3A%22card_control_miotspec_config%22%2C%22version%22%3A%221%22%7D) 中搜索 "type":"light",找到匹配的类型为：
  ```
