@@ -8,14 +8,15 @@ IOS卡片调试版本下载地址
 
 https://pan.mioffice.cn/#/link/51BB9E73F1BDE103A723FEAB2A6E5E7C
 
-[所有设备 card_config 旧配置卡片release](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_CN%22%2C%22name%22%3A%22card_control_config%22%2C%22version%22%3A%2211%22%7D) 
-
-[所有设备 card_config旧配置卡片debug](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_CN%22%2C%22name%22%3A%22card_control_config_preview%22%2C%22version%22%3A%2211%22%7D)
 
 
 卡片图片资源
 
 https://pan.mioffice.cn:443/link/9A2EDA2665A7A07947A4AD66A650AA49
+
+##### 使用 json 配置每个 model 的卡片样式为 profile 卡片
+##### 使用 spec 协议实现的固件自动生成的卡片样式为 spec 卡片
+
 
 访问密码：3McN
 
@@ -47,10 +48,12 @@ D/MIIO: {"code":0,"message":"ok","result":{"lumi.158d0002401332":{"event.leak":n
 
 答：请根据您配置的类型 spec 或者 card_config，去上面的 所有设备card_config旧配置卡片、所有设备spec新配置卡片 搜索 model 是否已经在，并查看是否和您配置的 json 一致。
 
+
 ### 问题4，profile卡片：配置了 json 卡片样式和预期有差别，或打开卡片只有半透明蒙层 
 
-答：请参考[所有支持样式](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/resource_package/201810171148_card_config_des.zip)，您预期的样式是否和现有样式匹配(卡片上的控件个数不能多或少)。
+答：1.请参考[所有支持样式](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/resource_package/201810171148_card_config_des.zip)，您预期的样式是否和现有样式匹配(卡片上的控件个数不能多或少)。
 
+2.请在 [所有设备卡片配置 profile卡片](https://api.io.mi.com/app/service/getappconfig?data=%7B%22lang%22%3A%22zh_CN%22%2C%22name%22%3A%22card_control_config_preview%22%2C%22version%22%3A%2211%22%7D) 中搜索是否已经配置了您的 model。
 
 
 ### 问题5，按钮或进度条操作后不生效 或者 其他控制问题
@@ -167,6 +170,14 @@ spec 图片配置从 [默认配置列表](https://api.io.mi.com/app/service/geta
  ValueDescription
 ```
 ###### 当您修改完 “Miot-SPEC 协议的配置” 请重新安装米家 app 生效
+
+### 问题10，蓝牙设备展示的 value 特别大，不符合预期。
+
+答：蓝牙设备的 value 是通过插件或者网关上报的服务端的，插件通过米家接口/device/ble_event或/device/event上报（具体请查看[文档](https://github.com/MiEcosystem/miot-plugin-sdk/wiki/20-%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1_%E6%99%BA%E8%83%BD%E5%AE%B6%E5%BA%AD%E6%A8%A1%E5%9D%97)）,经过服务端转发到 app。app 获取到 属性值类似 0f0100 这样的16进制数，小端在前为 00010f，转换为10进制为271，根据卡片配置的 ratio=0.1 换算为最终展示到页面上的27.1。app 拉取属性值接口如下，可以根据关键字 “D/MIIO” 过滤：
+
+profile卡片 device/batchgetdatas 服务器返回{"code":0,"message":"ok","result":{"设备id":{"属性名":属性值}}
+
+spec 卡片 /miotspec/prop/get 服务器返回 {"code":0,"message":"","result":[{"did":"设备id","siid":???,"piid":???,"value"属性值,"code":0}]}
 
 
 
