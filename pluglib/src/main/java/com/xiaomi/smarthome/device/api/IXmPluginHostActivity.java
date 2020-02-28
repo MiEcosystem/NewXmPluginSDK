@@ -447,6 +447,10 @@ public interface IXmPluginHostActivity {
     public static class IntentMenuItem extends MenuItemBase {
         public String name;
         public Intent intent;
+        public boolean goBuyVip;
+
+        public IntentMenuItem() {
+        }
 
         @Override
         public int describeContents() {
@@ -455,28 +459,28 @@ public interface IXmPluginHostActivity {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(name);
-            dest.writeParcelable(intent, flags);
+            dest.writeString(this.name);
+            dest.writeParcelable(this.intent, flags);
+            dest.writeByte(this.goBuyVip ? (byte) 1 : (byte) 0);
+        }
+
+        protected IntentMenuItem(Parcel in) {
+            this.name = in.readString();
+            this.intent = in.readParcelable(Intent.class.getClassLoader());
+            this.goBuyVip = in.readByte() != 0;
         }
 
         public static final Creator<IntentMenuItem> CREATOR = new Creator<IntentMenuItem>() {
-            public IntentMenuItem createFromParcel(Parcel in) {
-                return new IntentMenuItem(in);
+            @Override
+            public IntentMenuItem createFromParcel(Parcel source) {
+                return new IntentMenuItem(source);
             }
 
+            @Override
             public IntentMenuItem[] newArray(int size) {
                 return new IntentMenuItem[size];
             }
-
         };
-
-        public IntentMenuItem(Parcel in) {
-            name = in.readString();
-            intent = in.readParcelable(Intent.class.getClassLoader());
-        }
-
-        public IntentMenuItem() {
-        }
     }
 
     /**
@@ -1084,6 +1088,31 @@ public interface IXmPluginHostActivity {
                                   View.OnClickListener agreeListener);
 
     /**
+     * Apilevel:101
+     * 当协议内容过大，不适合使用intent传递时，使用此方法，将协议内容写入存储文件中，将URL传入
+     *
+     * @param dialogTitle
+     * @param licenseTitle
+     * @param licenseUri    用户协议Html内容地址
+     * @param privacyTitle
+     * @param privacyUri    用户协议Html内容地址
+     * @param agreeListener
+     * @param intent         用户自定义的参数
+     *                       ##############用户体验计划参数start##############
+     *                       enable_privacy_setting:true/false:是否在对话框中显示开启用户体验计划设置项。可不传。不传则为默认不显示勾选项
+     *                       usr_exp_plan_tips:     勾选项的文本提示。可不传。不传的话，如果enable_privacy_setting为true，则显示默认的用户体验计划提示
+     *                       usr_exp_plan_start:    整数，usr_exp_plan_tips可点击文本区域的起始位置。可不传。必须和usr_exp_plan_tips同时配对出现
+     *                       usr_exp_plan_end:      整数，usr_exp_plan_tips可点击文本区域的截止位置。可不传。必须和usr_exp_plan_tips同时配对出现
+     *                       usrExpPlanContent:     用户隐私协议网页内容，需要传Spanned类型的html网页，因为这里的内容会在webview中显示。可不传。不传用米家默认的用户体验计划内容。和usrExpPlanContentUri传一个即可
+     *                       usrExpPlanContentUri:  用户隐私协议uri。插件加载resource里的资源可能有问题，推荐用usrExpPlanContent。可不传。不传用米家默认的用户体验计划内容
+     *                       ##############用户体验计划参数end################
+     */
+    void showUserLicenseUriDialog(String dialogTitle,
+                                  String licenseTitle, String licenseUri,
+                                  String privacyTitle, String privacyUri,
+                                  View.OnClickListener agreeListener, Intent intent);
+
+    /**
      * Apilevel:51
      * <p>
      * 支持DeviceMoreNewActivity控制通用设置项里面的显示内容
@@ -1289,7 +1318,7 @@ public interface IXmPluginHostActivity {
      * 打开人脸管理页面
      * @param did 设备id
      */
-    public abstract void openFaceManagerActivity(String did, String face_tips);
+    public abstract void openFaceManagerActivity(int requestCode, String did, String extra);
 
     /**
      * ApiLevel: 94
@@ -1313,4 +1342,30 @@ public interface IXmPluginHostActivity {
      * @param callback
      */
     public abstract void openReplaceFaceDialog(String did, String figureId, String figureName, String faceId, FaceManagerCallback callback);
+
+    public abstract void openFaceEmptyActivity(String did);
+
+    /**
+     * 进入推荐智能：创建智能页面
+     * @param did
+     * @param srId
+     */
+    public abstract void startRecommendSceneDetailActivityBy(String did,int srId);
+
+    /**
+     * 进入带屏设备联动页面
+     */
+    public abstract void openScreenDeviceLinkageSettingActivity(String did, boolean isMultiChoice);
+
+    /**
+     * api 100
+     * 进入带屏设备联动页面
+     *
+     * @param did           设备id
+     * @param isMultiChoice 是否支持多选
+     * @param maxLength     多选最多支持几个
+     * @param dataList      支持的设备列表数据
+     */
+    public abstract void openScreenDeviceLinkageSettingActivity(String did, boolean isMultiChoice, int maxLength, String dataList);
+
 }
