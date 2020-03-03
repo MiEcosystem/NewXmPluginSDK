@@ -1046,8 +1046,8 @@ public interface IXmPluginHostActivity {
      *                       usr_exp_plan_tips:     勾选项的文本提示。可不传。不传的话，如果enable_privacy_setting为true，则显示默认的用户体验计划提示
      *                       usr_exp_plan_start:    整数，usr_exp_plan_tips可点击文本区域的起始位置。可不传。必须和usr_exp_plan_tips同时配对出现
      *                       usr_exp_plan_end:      整数，usr_exp_plan_tips可点击文本区域的截止位置。可不传。必须和usr_exp_plan_tips同时配对出现
-     *                       usrExpPlanContent:     用户隐私协议网页内容，需要传Spanned类型的html网页，因为这里的内容会在webview中显示。可不传。不传用米家默认的用户体验计划内容。和usrExpPlanContentUri传一个即可
-     *                       usrExpPlanContentUri:  用户隐私协议uri。插件加载resource里的资源可能有问题，推荐用usrExpPlanContent。可不传。不传用米家默认的用户体验计划内容
+     *                       usrExpPlanContent:     用户隐私协议网页内容，需要传Spanned类型的html网页，因为这里的内容会在webview中显示。可不传。不传用米家默认的用户体验计划内容。和 usrExpPlanContentRnUri 传一个即可
+     *                       usrExpPlanContentRnUri:  用户隐私协议uri。插件加载resource里的资源可能有问题，推荐用usrExpPlanContent。可不传。不传用米家默认的用户体验计划内容
      *                       ##############用户体验计划参数end################
      */
     void showUserLicenseDialog(String dialogTitle,
@@ -1103,8 +1103,8 @@ public interface IXmPluginHostActivity {
      *                       usr_exp_plan_tips:     勾选项的文本提示。可不传。不传的话，如果enable_privacy_setting为true，则显示默认的用户体验计划提示
      *                       usr_exp_plan_start:    整数，usr_exp_plan_tips可点击文本区域的起始位置。可不传。必须和usr_exp_plan_tips同时配对出现
      *                       usr_exp_plan_end:      整数，usr_exp_plan_tips可点击文本区域的截止位置。可不传。必须和usr_exp_plan_tips同时配对出现
-     *                       usrExpPlanContent:     用户隐私协议网页内容，需要传Spanned类型的html网页，因为这里的内容会在webview中显示。可不传。不传用米家默认的用户体验计划内容。和usrExpPlanContentUri传一个即可
-     *                       usrExpPlanContentUri:  用户隐私协议uri。插件加载resource里的资源可能有问题，推荐用usrExpPlanContent。可不传。不传用米家默认的用户体验计划内容
+     *                       usrExpPlanContent:     用户隐私协议网页内容，需要传Spanned类型的html网页，因为这里的内容会在webview中显示。可不传。不传用米家默认的用户体验计划内容。和 usrExpPlanContentRnUri 传一个即可
+     *                       usrExpPlanContentRnUri:  用户隐私协议uri。插件加载resource里的资源可能有问题，推荐用usrExpPlanContent。可不传。不传用米家默认的用户体验计划内容
      *                       ##############用户体验计划参数end################
      */
     void showUserLicenseUriDialog(String dialogTitle,
